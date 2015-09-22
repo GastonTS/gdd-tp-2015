@@ -8,3 +8,5 @@ Sitio de la Catedra: https://sites.google.com/site/gestiondedatosutn/
 Grupo de la Catedra: https://groups.google.com/forum/#!forum/gestiondedatos
 
 Pagina para dibujar diagramas: https://www.draw.io/
+
+Resumen Enunciado: https://docs.google.com/document/d/18vuT-yyUQ_-Qk2kmr3ey8KXWaEUCr53redJWqRkO0Lg/edit
