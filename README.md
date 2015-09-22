@@ -10,3 +10,5 @@ Grupo de la Catedra: https://groups.google.com/forum/#!forum/gestiondedatos
 Pagina para dibujar diagramas: https://www.draw.io/
 
 Resumen Enunciado: https://docs.google.com/document/d/18vuT-yyUQ_-Qk2kmr3ey8KXWaEUCr53redJWqRkO0Lg/edit
+
+ideas y bocetos DER: https://drive.google.com/open?id=0B1dWrswhC5VnQ00zSW5RRko1SXM
