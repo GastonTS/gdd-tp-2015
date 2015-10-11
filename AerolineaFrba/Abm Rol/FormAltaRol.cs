@@ -46,5 +46,11 @@ namespace AerolineaFrba.Abm_Rol
                 MessageBox.Show("Error al crear Rol. Ingresar los campos correctamente");
             }
         }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            textBoxNombre.Clear();
+            comboBoxFuncionalidades.ResetText();
+        }
     }
 }
