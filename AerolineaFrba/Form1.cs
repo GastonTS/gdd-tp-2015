@@ -16,5 +16,11 @@ namespace AerolineaFrba
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Abm_Rol.FormAltaRol formularioAltaRol = new Abm_Rol.FormAltaRol();
+            formularioAltaRol.Show();
+        }
     }
 }
