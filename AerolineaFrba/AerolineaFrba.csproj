@@ -68,6 +68,12 @@
     <Compile Include="Abm Ruta\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Ruta\FormAltaRuta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Ruta\FormAltaRuta.Designer.cs">
+      <DependentUpon>FormAltaRuta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Canje Millas\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,9 @@
     </Compile>
     <EmbeddedResource Include="Abm Rol\FormAltaRol.resx">
       <DependentUpon>FormAltaRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Ruta\FormAltaRuta.resx">
+      <DependentUpon>FormAltaRuta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

@@ -22,5 +22,11 @@ namespace AerolineaFrba
             Abm_Rol.FormAltaRol formularioAltaRol = new Abm_Rol.FormAltaRol();
             formularioAltaRol.Show();
         }
+
+        private void btnAltaRuta_Click(object sender, EventArgs e)
+        {
+            Abm_Ruta.FormAltaRuta formularioAltaRuta = new Abm_Ruta.FormAltaRuta();
+            formularioAltaRuta.Show();
+        }
     }
 }
