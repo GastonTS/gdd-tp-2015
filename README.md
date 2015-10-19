@@ -13,4 +13,4 @@ Resumen Enunciado: https://docs.google.com/document/d/18vuT-yyUQ_-Qk2kmr3ey8KXWa
 
 ideas y bocetos DER: https://drive.google.com/open?id=0B1dWrswhC5VnQ00zSW5RRko1SXM
 
-DER v0.1: https://drive.draw.io/#G0B3T6tn_tW1HmclhZYmVLbU1qNEE
+DER v0.93: https://drive.draw.io/#G0B3T6tn_tW1HmclhZYmVLbU1qNEE
