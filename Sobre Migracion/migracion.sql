@@ -72,15 +72,6 @@ CREATE TABLE gd_ñuflo.PasajeEncomienda (
 	cancelado BIT,
 	)
 
-CREATE TABLE gd_ñuflo.PasajeEncomienda (
-	id_pasaje_encomienda INT PRIMARY KEY,
-	codigo_de_compra  INT REFERENCES gd_ñuflo.Compra,
-	id_cliente  INT REFERENCES gd_ñuflo.Cliente,
-	peso_encomienda numeric(18, 0),
-	numero_de_butaca numeric(18, 0),
-	cancelado BIT,
-	)
-
 
 CREATE TABLE gd_ñuflo.PasajeEncomiendaCancelacion (
 	id_pasaje_encomienda INT REFERENCES gd_ñuflo.PasajeEncomienda,
@@ -90,7 +81,7 @@ CREATE TABLE gd_ñuflo.PasajeEncomiendaCancelacion (
 	)
 
 
-CREATE TABLE gd_ñuflo.PasajeEncomiendaCancelacion (
+CREATE TABLE gd_ñuflo.Cancelacion (
 	id_cancelacion INT PRIMARY KEY,
 	codigo_de_compra INT REFERENCES gd_ñuflo.Compra,
 	)
