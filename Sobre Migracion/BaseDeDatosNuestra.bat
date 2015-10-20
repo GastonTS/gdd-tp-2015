@@ -1,1 +1,1 @@
-sqlcmd -S localhost\SQLSERVER2012 -U gd -P gd2015 -i crear_mi_base_de_datos.sql,crea_tabla_Ciudad_y_RutaAerea.sql  -a 32767 -o resultado_Crear_Mi_BaseDeDAtos.txt
+sqlcmd -S localhost\SQLSERVER2012 -U gd -P gd2015 -i create_tables.sql  -a 32767 -o resultado_Crear_Mi_BaseDeDAtos.txt
