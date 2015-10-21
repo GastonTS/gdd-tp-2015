@@ -1,0 +1,1 @@
+sqlcmd -S localhost\SQLSERVER2012 -U gd -P gd2015 -i borrar.sql -a 32767 -o resultado_borrar.txt

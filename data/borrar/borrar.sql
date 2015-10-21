@@ -1,0 +1,59 @@
+USE [GD2C2015]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+DROP TABLE ÑUFLO.PasajeEncomiendaPorCancelacion
+GO
+
+DROP TABLE ÑUFLO.Cancelacion
+GO
+	
+DROP TABLE ÑUFLO.PasajeEncomienda
+GO
+
+DROP TABLE ÑUFLO.Compra
+GO
+
+DROP TABLE ÑUFLO.Canje
+GO
+	
+DROP TABLE ÑUFLO.Producto
+GO
+
+DROP TABLE ÑUFLO.Milla
+GO
+
+DROP TABLE ÑUFLO.Cliente
+GO
+	
+DROP TABLE ÑUFLO.Viaje
+GO
+		
+ALTER TABLE ÑUFLO.Aeronave
+	DROP CONSTRAINT fk_baja_por_fuera_de_servicio
+GO
+
+DROP TABLE ÑUFLO.ServicioTecnico
+GO
+
+DROP TABLE ÑUFLO.ButacaPorAvion
+GO
+
+DROP TABLE ÑUFLO.Tipo_Butaca
+GO
+
+DROP TABLE ÑUFLO.Aeronave
+GO
+
+DROP TABLE ÑUFLO.Ruta_Aerea
+GO
+
+DROP TABLE ÑUFLO.Ciudad
+GO
+	
+DROP SCHEMA [ÑUFLO]
+GO
