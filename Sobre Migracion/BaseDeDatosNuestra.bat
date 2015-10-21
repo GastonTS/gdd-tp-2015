@@ -1,1 +1,0 @@
-sqlcmd -S localhost\SQLSERVER2012 -U gd -P gd2015 -i create_tables.sql  -a 32767 -o resultado_Crear_Mi_BaseDeDAtos.txt

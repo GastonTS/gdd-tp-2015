@@ -1,0 +1,1 @@
+sqlcmd -S localhost\SQLSERVER2012 -U gd -P gd2015 -i create_tables.sql,migrate.sql  -a 32767 -o migrate_result.txt
