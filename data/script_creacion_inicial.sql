@@ -148,7 +148,7 @@ CREATE TABLE ÑUFLO.PasajeEncomiendaPorCancelacion (
 GO
 
 /**** MIGRACION *****/
-
+/*Ciudad*/
 INSERT INTO ÑUFLO.Ciudad (nombre) 
 	select (Ruta_Ciudad_Origen) 
 	from gd_esquema.Maestra
@@ -158,3 +158,9 @@ INSERT INTO ÑUFLO.Ciudad (nombre)
 	from gd_esquema.Maestra
 	group by Ruta_Ciudad_Destino
 GO
+
+/*Aeronave - Sin fechas, en alta pongo today?*/
+INSERT INTO ÑUFLO.Aeronave (matricula, modelo, fabricante, capacidad_peso_encomiendas, tipo_de_servicio, fecha_de_alta)
+	select distinct Aeronave_Matricula, Aeronave_Modelo, Aeronave_Fabricante, Aeronave_KG_Disponibles, Tipo_Servicio, GETDATE()
+	from gd_esquema.Maestra
+	order by Aeronave_Matricula
