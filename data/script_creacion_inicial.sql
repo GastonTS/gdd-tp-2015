@@ -23,6 +23,7 @@ CREATE TABLE NIUFLO.Ruta_Aerea (
 	id_ciudad_destino int REFERENCES NIUFLO.Ciudad,
 	precio_base_por_peso numeric(18,2),
 	precio_base_por_pasaje numeric(18,2)
+	tipo_servicio nvarchar(255)
 	)
 GO
 	
