@@ -40,10 +40,10 @@ GO
 DROP TABLE ÑUFLO.ServicioTecnico
 GO
 
-DROP TABLE ÑUFLO.Butaca
+DROP TABLE ÑUFLO.ButacaPorAvion
 GO
 
-DROP TABLE ÑUFLO.ButacaPorAvion
+DROP TABLE ÑUFLO.Tipo_Butaca
 GO
 
 DROP TABLE ÑUFLO.Aeronave

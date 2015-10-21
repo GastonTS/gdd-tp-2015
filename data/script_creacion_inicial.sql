@@ -39,22 +39,25 @@ CREATE TABLE ÑUFLO.Aeronave (
 	baja_por_fuera_de_servicio int 
 	)
 GO
-	
-CREATE TABLE ÑUFLO.ButacaPorAvion (
-	id_aeronave int REFERENCES ÑUFLO.Aeronave,
-	id_butaca int REFERENCES ÑUFLO.Ruta_Aerea,
-	ocupada bit,
-	PRIMARY KEY(id_aeronave, id_butaca)
-	)
-GO
 
-CREATE TABLE ÑUFLO.Butaca (
-	id_butaca int PRIMARY KEY,
-	numero_de_butaca numeric(18,0),
+CREATE TABLE ÑUFLO.Tipo_Butaca (
+	id_tipo_butaca int IDENTITY(1,1) PRIMARY KEY,
 	tipo_butaca nvarchar(255)
 	)
 GO
+
+INSERT INTO ÑUFLO.Tipo_Butaca(tipo_butaca) values ('Ventanilla')
+INSERT INTO ÑUFLO.Tipo_Butaca(tipo_butaca) values ('Pasillo')
+GO
 	
+CREATE TABLE ÑUFLO.ButacaPorAvion (
+	id_aeronave int REFERENCES ÑUFLO.Aeronave,
+	numero_de_butaca numeric(18,0),
+	id_tipo_butaca int REFERENCES ÑUFLO.Tipo_Butaca,
+	PRIMARY KEY(id_aeronave, numero_de_butaca)
+	)
+GO
+
 CREATE TABLE ÑUFLO.ServicioTecnico (
 	id_servicio int PRIMARY KEY,
 	id_aeronave int REFERENCES ÑUFLO.Aeronave,
@@ -164,3 +167,16 @@ INSERT INTO ÑUFLO.Aeronave (matricula, modelo, fabricante, capacidad_peso_encom
 	select distinct Aeronave_Matricula, Aeronave_Modelo, Aeronave_Fabricante, Aeronave_KG_Disponibles, Tipo_Servicio, GETDATE()
 	from gd_esquema.Maestra
 	order by Aeronave_Matricula
+	
+/*Butacas - Asumo que el maximo de butacas es la butaca mas grande del avion?*/
+INSERT INTO ÑUFLO.ButacaPorAvion (id_aeronave, numero_de_butaca, id_tipo_butaca)
+	select distinct id_aeronave, Butaca_Nro, 
+					case Butaca_Tipo
+						when 'Ventanilla' then 1
+						when 'Pasillo' then 2
+					end id_butaca_tipo
+	from ÑUFLO.Aeronave a
+		JOIN (select distinct Aeronave_Matricula, Butaca_Nro, Butaca_Tipo
+			from gd_esquema.Maestra) b ON matricula = Aeronave_Matricula
+	where Butaca_Tipo <> '0'
+	order by id_aeronave, Butaca_Nro
