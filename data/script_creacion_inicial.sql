@@ -19,6 +19,7 @@ GO
 
 CREATE TABLE ÑUFLO.Ruta_Aerea (
 	id_ruta int IDENTITY(1,1) PRIMARY KEY,
+	codigo_ruta numeric(18,0),
 	id_ciudad_origen int REFERENCES ÑUFLO.Ciudad,
 	id_ciudad_destino int REFERENCES ÑUFLO.Ciudad,
 	precio_base_por_peso numeric(18,2),
@@ -180,3 +181,16 @@ INSERT INTO ÑUFLO.ButacaPorAvion (id_aeronave, numero_de_butaca, id_tipo_butaca
 			from gd_esquema.Maestra) b ON matricula = Aeronave_Matricula
 	where Butaca_Tipo <> '0'
 	order by id_aeronave, Butaca_Nro
+	
+/*Ruta Aerea - Codigos Ruta Repetidos, Escalas?*/
+INSERT INTO ÑUFLO.Ruta_Aerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje, tipo_servicio)
+	select distinct Ruta_Codigo, co.id_ciudad, cd.id_ciudad, SUM(Ruta_Precio_BaseKG), 
+					SUM(Ruta_Precio_BasePasaje), Tipo_Servicio
+	from (select distinct Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, Ruta_Precio_BaseKG, Ruta_Precio_BasePasaje, Tipo_Servicio
+		 from gd_esquema.Maestra) a,
+		 ÑUFLO.Ciudad co,
+		 ÑUFLO.Ciudad cd
+	where co.nombre = Ruta_Ciudad_Origen
+		AND cd.nombre = Ruta_Ciudad_Destino
+	group by Ruta_Codigo, co.id_ciudad, cd.id_ciudad, Tipo_Servicio
+	order by Ruta_Codigo
