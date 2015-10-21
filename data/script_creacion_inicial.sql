@@ -35,7 +35,8 @@ CREATE TABLE ÑUFLO.Aeronave (
 	tipo_de_servicio nvarchar(255),
 	fecha_de_alta datetime,
 	capacidad_peso_encomiendas numeric(18,0),
-	baja_vida_utill datetime
+	baja_vida_utill datetime,
+	baja_por_fuera_de_servicio int 
 	)
 GO
 	
@@ -63,7 +64,7 @@ CREATE TABLE ÑUFLO.ServicioTecnico (
 GO
 
 ALTER TABLE ÑUFLO.Aeronave
-	ADD baja_por_fuera_de_servicio int REFERENCES ÑUFLO.ServicioTecnico
+	ADD CONSTRAINT fk_baja_por_fuera_de_servicio FOREIGN KEY (baja_por_fuera_de_servicio) REFERENCES ÑUFLO.ServicioTecnico
 GO
 	
 CREATE TABLE ÑUFLO.Viaje (
@@ -149,9 +150,11 @@ GO
 /**** MIGRACION *****/
 
 INSERT INTO ÑUFLO.Ciudad (nombre) 
-	SELECT (Ruta_Ciudad_Origen) FROM gd_esquema.Maestra
-	GROUP BY Ruta_Ciudad_Origen
-	UNION
-	SELECT Ruta_Ciudad_Destino FROM gd_esquema.Maestra
-	GROUP BY Ruta_Ciudad_Destino
+	select (Ruta_Ciudad_Origen) 
+	from gd_esquema.Maestra
+	group by Ruta_Ciudad_Origen
+	union
+	select Ruta_Ciudad_Destino 
+	from gd_esquema.Maestra
+	group by Ruta_Ciudad_Destino
 GO
