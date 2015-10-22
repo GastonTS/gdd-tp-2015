@@ -153,6 +153,7 @@
             this.groupBoxCamposAltaRuta.TabIndex = 12;
             this.groupBoxCamposAltaRuta.TabStop = false;
             this.groupBoxCamposAltaRuta.Text = "Campos Alta Ruta Aérea";
+            this.groupBoxCamposAltaRuta.Enter += new System.EventHandler(this.groupBoxCamposAltaRuta_Enter);
             // 
             // FormAltaRuta
             // 

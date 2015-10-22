@@ -56,11 +56,17 @@
     <Compile Include="Abm Aeronave\FormAltaAeronave.Designer.cs">
       <DependentUpon>FormAltaAeronave.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Ciudad\Form1.cs">
+    <Compile Include="Abm Ciudad\FormAltaCiudad.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Ciudad\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Ciudad\FormAltaCiudad.Designer.cs">
+      <DependentUpon>FormAltaCiudad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Ciudad\FormBajaCiudad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Ciudad\FormBajaCiudad.Designer.cs">
+      <DependentUpon>FormBajaCiudad.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Rol\FormAltaRol.cs">
       <SubType>Form</SubType>
@@ -156,6 +162,12 @@
     </Compile>
     <EmbeddedResource Include="Abm Aeronave\FormAltaAeronave.resx">
       <DependentUpon>FormAltaAeronave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Ciudad\FormAltaCiudad.resx">
+      <DependentUpon>FormAltaCiudad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Ciudad\FormBajaCiudad.resx">
+      <DependentUpon>FormBajaCiudad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\FormAltaRol.resx">
       <DependentUpon>FormAltaRol.cs</DependentUpon>

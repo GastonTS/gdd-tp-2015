@@ -46,5 +46,16 @@ namespace AerolineaFrba
             Abm_Aeronave.FormAltaAeronave faa = new Abm_Aeronave.FormAltaAeronave();
             faa.Show();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Abm_Ciudad.FormAltaCiudad formularioAltaCiudad = new Abm_Ciudad.FormAltaCiudad();
+            formularioAltaCiudad.Show();
+        }
     }
 }
