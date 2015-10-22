@@ -40,5 +40,11 @@ namespace AerolineaFrba
             Abm_Rol.FormBajaRol fbr = new Abm_Rol.FormBajaRol();
             fbr.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Abm_Aeronave.FormAltaAeronave faa = new Abm_Aeronave.FormAltaAeronave();
+            faa.Show();
+        }
     }
 }
