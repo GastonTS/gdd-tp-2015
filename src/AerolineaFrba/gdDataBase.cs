@@ -15,7 +15,7 @@ namespace AerolineaFrba
 
         public void conectar()
         {
-            miConexion = new SqlConnection("localhost\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=***********");
+            miConexion = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=gd2015");
             miConexion.Open();
         }
 

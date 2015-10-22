@@ -36,6 +36,7 @@
             this.btnBajaRol = new System.Windows.Forms.Button();
             this.btnAltaNave = new System.Windows.Forms.Button();
             this.btnAltaCiudad = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAltaRol
@@ -116,11 +117,22 @@
             this.btnAltaCiudad.UseVisualStyleBackColor = true;
             this.btnAltaCiudad.Click += new System.EventHandler(this.btnAltaCiudad_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(147, 251);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(123, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Ir seleccion ciudades";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(414, 328);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAltaCiudad);
             this.Controls.Add(this.btnAltaNave);
             this.Controls.Add(this.btnBajaRol);
@@ -147,6 +159,7 @@
         private System.Windows.Forms.Button btnBajaRol;
         private System.Windows.Forms.Button btnAltaNave;
         private System.Windows.Forms.Button btnAltaCiudad;
+        private System.Windows.Forms.Button button1;
     }
 }
 

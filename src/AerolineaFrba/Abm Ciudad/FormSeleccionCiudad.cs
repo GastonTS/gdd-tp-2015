@@ -20,7 +20,7 @@ namespace AerolineaFrba.Abm_Ciudad
         private void FormSeleccionCiudad_Load(object sender, EventArgs e)
         {
             gdDataBase baseDeDatos = new gdDataBase();
-            baseDeDatos.actualizarDataGridView(dataGridView1, "ÑUFLO.ciudad", "SELECT * FROM ciudad");
+            baseDeDatos.actualizarDataGridView(dataGridView1, "Ciudad", "SELECT * FROM [ÑUFLO].Ciudad");
         }
     }
 }

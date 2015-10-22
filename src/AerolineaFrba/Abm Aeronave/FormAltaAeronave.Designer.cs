@@ -241,7 +241,6 @@
             this.Controls.Add(this.groupBox2);
             this.Name = "FormAltaAeronave";
             this.Text = "Alta Aeronave";
-            this.Load += new System.EventHandler(this.FormAltaAeronave_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
