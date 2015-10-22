@@ -1,6 +1,6 @@
-﻿namespace AerolineaFrba.Abm_Rol
+﻿namespace AerolineaFrba.Abm_Ciudad
 {
-    partial class FormBajaRol
+    partial class FormBajaCiudad
     {
         /// <summary>
         /// Required designer variable.
@@ -32,8 +32,6 @@
             this.Inhabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.labelNombre = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
-            this.labelFuncionalidad = new System.Windows.Forms.Label();
-            this.comboBoxFuncionalidad = new System.Windows.Forms.ComboBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
@@ -74,23 +72,7 @@
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(100, 20);
             this.textBoxNombre.TabIndex = 2;
-            // 
-            // labelFuncionalidad
-            // 
-            this.labelFuncionalidad.AutoSize = true;
-            this.labelFuncionalidad.Location = new System.Drawing.Point(3, 73);
-            this.labelFuncionalidad.Name = "labelFuncionalidad";
-            this.labelFuncionalidad.Size = new System.Drawing.Size(76, 13);
-            this.labelFuncionalidad.TabIndex = 3;
-            this.labelFuncionalidad.Text = "Funcionalidad:";
-            // 
-            // comboBoxFuncionalidad
-            // 
-            this.comboBoxFuncionalidad.FormattingEnabled = true;
-            this.comboBoxFuncionalidad.Location = new System.Drawing.Point(85, 70);
-            this.comboBoxFuncionalidad.Name = "comboBoxFuncionalidad";
-            this.comboBoxFuncionalidad.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxFuncionalidad.TabIndex = 4;
+            this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
             // 
             // btnLimpiar
             // 
@@ -115,8 +97,6 @@
             // 
             this.groupBoxFiltros.Controls.Add(this.textBoxNombre);
             this.groupBoxFiltros.Controls.Add(this.labelNombre);
-            this.groupBoxFiltros.Controls.Add(this.comboBoxFuncionalidad);
-            this.groupBoxFiltros.Controls.Add(this.labelFuncionalidad);
             this.groupBoxFiltros.Location = new System.Drawing.Point(12, 12);
             this.groupBoxFiltros.Name = "groupBoxFiltros";
             this.groupBoxFiltros.Size = new System.Drawing.Size(455, 111);
@@ -125,7 +105,7 @@
             this.groupBoxFiltros.Text = "Filtros de Búsqueda";
             this.groupBoxFiltros.Enter += new System.EventHandler(this.groupBoxFiltros_Enter);
             // 
-            // FormBajaRol
+            // FormBajaCiudad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -134,8 +114,9 @@
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.groupBoxFiltros);
-            this.Name = "FormBajaRol";
-            this.Text = "Baja Rol";
+            this.Name = "FormBajaCiudad";
+            this.Text = "Baja Ciudad";
+            this.Load += new System.EventHandler(this.FormBajaRol_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.groupBoxFiltros.ResumeLayout(false);
             this.groupBoxFiltros.PerformLayout();
@@ -149,8 +130,6 @@
         private System.Windows.Forms.DataGridViewButtonColumn Inhabilitar;
         private System.Windows.Forms.Label labelNombre;
         private System.Windows.Forms.TextBox textBoxNombre;
-        private System.Windows.Forms.Label labelFuncionalidad;
-        private System.Windows.Forms.ComboBox comboBoxFuncionalidad;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.GroupBox groupBoxFiltros;

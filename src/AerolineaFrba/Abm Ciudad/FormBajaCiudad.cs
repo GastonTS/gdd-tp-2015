@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Abm_Rol
+namespace AerolineaFrba.Abm_Ciudad
 {
-    public partial class FormBajaRol : Form
+    public partial class FormBajaCiudad : Form
     {
-        public FormBajaRol()
+        public FormBajaCiudad()
         {
             InitializeComponent();
         }
@@ -20,7 +20,16 @@ namespace AerolineaFrba.Abm_Rol
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             textBoxNombre.Clear();
-            comboBoxFuncionalidad.ResetText();
+        }
+
+        private void FormBajaRol_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxNombre_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void groupBoxFiltros_Enter(object sender, EventArgs e)
