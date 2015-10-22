@@ -83,7 +83,7 @@ CREATE TABLE ÑUFLO.Viaje (
 GO
 
 CREATE TABLE ÑUFLO.Cliente (
-	id_cliente int PRIMARY KEY,
+	id_cliente int IDENTITY(1,1) PRIMARY KEY,
 	dni numeric(18, 0),
 	nombre nvarchar(255),
 	apellido nvarchar(255),
