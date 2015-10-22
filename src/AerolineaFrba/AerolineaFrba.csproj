@@ -56,17 +56,11 @@
     <Compile Include="Abm Aeronave\FormAltaAeronave.Designer.cs">
       <DependentUpon>FormAltaAeronave.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Ciudad\FormAltaCiudad.cs">
+    <Compile Include="Abm Ciudad\FormSeleccionCiudad.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Ciudad\FormAltaCiudad.Designer.cs">
-      <DependentUpon>FormAltaCiudad.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Ciudad\FormBajaCiudad.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Ciudad\FormBajaCiudad.Designer.cs">
-      <DependentUpon>FormBajaCiudad.cs</DependentUpon>
+    <Compile Include="Abm Ciudad\FormSeleccionCiudad.Designer.cs">
+      <DependentUpon>FormSeleccionCiudad.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Rol\FormAltaRol.cs">
       <SubType>Form</SubType>
@@ -134,6 +128,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GD2C2015DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GD2C2015DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="gdDataBase.cs" />
     <Compile Include="Generacion Viaje\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,11 +163,8 @@
     <EmbeddedResource Include="Abm Aeronave\FormAltaAeronave.resx">
       <DependentUpon>FormAltaAeronave.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Ciudad\FormAltaCiudad.resx">
-      <DependentUpon>FormAltaCiudad.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Ciudad\FormBajaCiudad.resx">
-      <DependentUpon>FormBajaCiudad.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Ciudad\FormSeleccionCiudad.resx">
+      <DependentUpon>FormSeleccionCiudad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\FormAltaRol.resx">
       <DependentUpon>FormAltaRol.cs</DependentUpon>
@@ -196,6 +193,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="GD2C2015DataSet.xsc">
+      <DependentUpon>GD2C2015DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="GD2C2015DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GD2C2015DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GD2C2015DataSet.xss">
+      <DependentUpon>GD2C2015DataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

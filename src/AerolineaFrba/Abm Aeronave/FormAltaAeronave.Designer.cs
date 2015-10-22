@@ -40,11 +40,11 @@
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.textBoxCapacidadEncomiendas = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnElegirTipoButaca = new System.Windows.Forms.Button();
             this.labelVentanillaPasillo = new System.Windows.Forms.Label();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.textBoxCantidadButacas = new System.Windows.Forms.TextBox();
             this.labelCantidadButacas = new System.Windows.Forms.Label();
-            this.btnElegirTipoButaca = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -165,6 +165,17 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Características de la Aeronave";
             // 
+            // btnElegirTipoButaca
+            // 
+            this.btnElegirTipoButaca.Enabled = false;
+            this.btnElegirTipoButaca.Location = new System.Drawing.Point(16, 177);
+            this.btnElegirTipoButaca.Name = "btnElegirTipoButaca";
+            this.btnElegirTipoButaca.Size = new System.Drawing.Size(189, 23);
+            this.btnElegirTipoButaca.TabIndex = 17;
+            this.btnElegirTipoButaca.Text = "Elegir Ventana/Pasillo";
+            this.btnElegirTipoButaca.UseVisualStyleBackColor = true;
+            this.btnElegirTipoButaca.Click += new System.EventHandler(this.btnElegirTipoButaca_Click);
+            // 
             // labelVentanillaPasillo
             // 
             this.labelVentanillaPasillo.AutoSize = true;
@@ -199,17 +210,6 @@
             this.labelCantidadButacas.Size = new System.Drawing.Size(109, 13);
             this.labelCantidadButacas.TabIndex = 13;
             this.labelCantidadButacas.Text = "Cantidad de Butacas:";
-            // 
-            // btnElegirTipoButaca
-            // 
-            this.btnElegirTipoButaca.Enabled = false;
-            this.btnElegirTipoButaca.Location = new System.Drawing.Point(16, 177);
-            this.btnElegirTipoButaca.Name = "btnElegirTipoButaca";
-            this.btnElegirTipoButaca.Size = new System.Drawing.Size(189, 23);
-            this.btnElegirTipoButaca.TabIndex = 17;
-            this.btnElegirTipoButaca.Text = "Elegir Ventana/Pasillo";
-            this.btnElegirTipoButaca.UseVisualStyleBackColor = true;
-            this.btnElegirTipoButaca.Click += new System.EventHandler(this.btnElegirTipoButaca_Click);
             // 
             // btnLimpiar
             // 

@@ -54,8 +54,14 @@ namespace AerolineaFrba
 
         private void btnAltaCiudad_Click(object sender, EventArgs e)
         {
-            Abm_Ciudad.FormAltaCiudad formularioAltaCiudad = new Abm_Ciudad.FormAltaCiudad();
-            formularioAltaCiudad.Show();
+            //Abm_Ciudad.FormAltaCiudad formularioAltaCiudad = new Abm_Ciudad.FormAltaCiudad();
+            //formularioAltaCiudad.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Abm_Ciudad.FormSeleccionCiudad fsc = new Abm_Ciudad.FormSeleccionCiudad();
+            fsc.Show();
         }
     }
 }
