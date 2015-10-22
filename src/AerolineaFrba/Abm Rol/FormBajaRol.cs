@@ -22,5 +22,10 @@ namespace AerolineaFrba.Abm_Rol
             textBoxNombre.Clear();
             comboBoxFuncionalidad.ResetText();
         }
+
+        private void groupBoxFiltros_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

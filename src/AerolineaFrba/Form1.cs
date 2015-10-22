@@ -17,7 +17,7 @@ namespace AerolineaFrba
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnAltaRol_Click(object sender, EventArgs e)
         {
             Abm_Rol.FormAltaRol formularioAltaRol = new Abm_Rol.FormAltaRol();
             formularioAltaRol.Show();
@@ -29,19 +29,19 @@ namespace AerolineaFrba
             formularioAltaRuta.Show();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void btnModRol_Click_1(object sender, EventArgs e)
         {
             Abm_Rol.FormSeleccionRol fsr = new Abm_Rol.FormSeleccionRol();
             fsr.Show();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnBajaRol_Click(object sender, EventArgs e)
         {
             Abm_Rol.FormBajaRol fbr = new Abm_Rol.FormBajaRol();
             fbr.Show();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnAltaNave_Click(object sender, EventArgs e)
         {
             Abm_Aeronave.FormAltaAeronave faa = new Abm_Aeronave.FormAltaAeronave();
             faa.Show();
@@ -52,7 +52,7 @@ namespace AerolineaFrba
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btnAltaCiudad_Click(object sender, EventArgs e)
         {
             Abm_Ciudad.FormAltaCiudad formularioAltaCiudad = new Abm_Ciudad.FormAltaCiudad();
             formularioAltaCiudad.Show();

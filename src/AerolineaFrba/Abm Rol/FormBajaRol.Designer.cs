@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.Inhabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.labelNombre = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.labelFuncionalidad = new System.Windows.Forms.Label();
@@ -36,7 +37,6 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
-            this.Inhabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBoxFiltros.SuspendLayout();
             this.SuspendLayout();
@@ -52,6 +52,12 @@
             this.dataGridView.ReadOnly = true;
             this.dataGridView.Size = new System.Drawing.Size(455, 167);
             this.dataGridView.TabIndex = 0;
+            // 
+            // Inhabilitar
+            // 
+            this.Inhabilitar.HeaderText = "Inhabilitar";
+            this.Inhabilitar.Name = "Inhabilitar";
+            this.Inhabilitar.ReadOnly = true;
             // 
             // labelNombre
             // 
@@ -117,12 +123,7 @@
             this.groupBoxFiltros.TabIndex = 7;
             this.groupBoxFiltros.TabStop = false;
             this.groupBoxFiltros.Text = "Filtros de Búsqueda";
-            // 
-            // Inhabilitar
-            // 
-            this.Inhabilitar.HeaderText = "Inhabilitar";
-            this.Inhabilitar.Name = "Inhabilitar";
-            this.Inhabilitar.ReadOnly = true;
+            this.groupBoxFiltros.Enter += new System.EventHandler(this.groupBoxFiltros_Enter);
             // 
             // FormBajaRol
             // 
