@@ -195,12 +195,12 @@ INSERT INTO ÑUFLO.Ruta_Aerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino,
 	group by Ruta_Codigo, co.id_ciudad, cd.id_ciudad, Tipo_Servicio
 	order by Ruta_Codigo
 	
-/*8510 Viaje - Falta el peso, ver si convien hacer primero las encomiendas o calcularlo aca 
-Ademas existen registros en los cuales la misma aeronave sale a por distintas rutas en la misma fecha, se debe corregir*/
-INSERT INTO ÑUFLO.Viaje (id_aeronave, id_ruta, fecha_salida, fecha_llegada, fecha_llegada_estimada)
-	select id_aeronave,	id_ruta,/* peso_ocupado,*/ FechaSalida, FechaLLegada, Fecha_LLegada_Estimada
-	from (select distinct Aeronave_Matricula, Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, FechaSalida, FechaLLegada, Fecha_LLegada_Estimada 
-			from gd_esquema.Maestra) m,
+/*8510 Viaje - Ademas existen registros en los cuales la misma aeronave sale a por distintas rutas en la misma fecha, se debe corregir, tendra que ver con escalas?*/
+INSERT INTO ÑUFLO.Viaje (id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada, fecha_llegada_estimada)
+	select id_aeronave,	id_ruta, peso_ocupado, FechaSalida, FechaLLegada, Fecha_LLegada_Estimada
+	from (select distinct Aeronave_Matricula, Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, FechaSalida, FechaLLegada, Fecha_LLegada_Estimada, SUM(Paquete_KG) peso_ocupado
+			from gd_esquema.Maestra
+			group by Aeronave_Matricula, Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, FechaSalida, FechaLLegada, Fecha_LLegada_Estimada ) m,
 		ÑUFLO.Aeronave a,
 		ÑUFLO.Ruta_Aerea r,
 		ÑUFLO.Ciudad co,
