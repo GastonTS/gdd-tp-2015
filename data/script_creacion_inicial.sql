@@ -152,7 +152,7 @@ CREATE TABLE ÑUFLO.PasajeEncomiendaPorCancelacion (
 GO
 
 /**** MIGRACION *****/
-/*Ciudad*/
+/*35 Ciudad*/
 INSERT INTO ÑUFLO.Ciudad (nombre) 
 	select (Ruta_Ciudad_Origen) 
 	from gd_esquema.Maestra
@@ -163,13 +163,13 @@ INSERT INTO ÑUFLO.Ciudad (nombre)
 	group by Ruta_Ciudad_Destino
 GO
 
-/*Aeronave - Sin fechas, en alta pongo today?*/
+/*30 Aeronave - Sin fechas, en alta pongo today?*/
 INSERT INTO ÑUFLO.Aeronave (matricula, modelo, fabricante, capacidad_peso_encomiendas, tipo_de_servicio, fecha_de_alta)
 	select distinct Aeronave_Matricula, Aeronave_Modelo, Aeronave_Fabricante, Aeronave_KG_Disponibles, Tipo_Servicio, GETDATE()
 	from gd_esquema.Maestra
 	order by Aeronave_Matricula
 	
-/*Butacas - Asumo que el maximo de butacas es la butaca mas grande del avion?*/
+/*1337 Butacas - Asumo que el maximo de butacas es la butaca mas grande del avion?*/
 INSERT INTO ÑUFLO.ButacaPorAvion (id_aeronave, numero_de_butaca, id_tipo_butaca)
 	select distinct id_aeronave, Butaca_Nro, 
 					case Butaca_Tipo
@@ -182,7 +182,7 @@ INSERT INTO ÑUFLO.ButacaPorAvion (id_aeronave, numero_de_butaca, id_tipo_butaca
 	where Butaca_Tipo <> '0'
 	order by id_aeronave, Butaca_Nro
 	
-/*Ruta Aerea - Codigos Ruta Repetidos, Escalas?*/
+/*68 Ruta Aerea - Codigos Ruta Repetidos, Escalas?*/
 INSERT INTO ÑUFLO.Ruta_Aerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje, tipo_servicio)
 	select distinct Ruta_Codigo, co.id_ciudad, cd.id_ciudad, SUM(Ruta_Precio_BaseKG), 
 					SUM(Ruta_Precio_BasePasaje), Tipo_Servicio
@@ -194,3 +194,21 @@ INSERT INTO ÑUFLO.Ruta_Aerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino,
 		AND cd.nombre = Ruta_Ciudad_Destino
 	group by Ruta_Codigo, co.id_ciudad, cd.id_ciudad, Tipo_Servicio
 	order by Ruta_Codigo
+	
+/*8510 Viaje - Falta el peso, ver si convien hacer primero las encomiendas o calcularlo aca 
+Ademas existen registros en los cuales la misma aeronave sale a por distintas rutas en la misma fecha, se debe corregir*/
+INSERT INTO ÑUFLO.Viaje (id_aeronave, id_ruta, fecha_salida, fecha_llegada, fecha_llegada_estimada)
+	select id_aeronave,	id_ruta,/* peso_ocupado,*/ FechaSalida, FechaLLegada, Fecha_LLegada_Estimada
+	from (select distinct Aeronave_Matricula, Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, FechaSalida, FechaLLegada, Fecha_LLegada_Estimada 
+			from gd_esquema.Maestra) m,
+		ÑUFLO.Aeronave a,
+		ÑUFLO.Ruta_Aerea r,
+		ÑUFLO.Ciudad co,
+		ÑUFLO.Ciudad cd
+	where a.matricula = Aeronave_Matricula
+		AND r.codigo_ruta = Ruta_Codigo
+		AND co.nombre = Ruta_Ciudad_Origen
+		AND cd.nombre = Ruta_Ciudad_Destino
+		AND r.id_ciudad_origen = co.id_ciudad
+		AND r.id_ciudad_destino = cd.id_ciudad
+	order by FechaSalida
