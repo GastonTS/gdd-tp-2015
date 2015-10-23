@@ -1,6 +1,6 @@
-﻿namespace AerolineaFrba.Abm_Rol
+﻿namespace AerolineaFrba.Abm_Ciudad
 {
-    partial class FormAltaRol
+    partial class FormAltaCiudad
     {
         /// <summary>
         /// Required designer variable.
@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.labelNombre = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
-            this.labelFuncionalidades = new System.Windows.Forms.Label();
-            this.comboBoxFuncionalidades = new System.Windows.Forms.ComboBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -56,24 +54,8 @@
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(100, 20);
             this.textBoxNombre.TabIndex = 1;
+            this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
             this.textBoxNombre.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxNombre_Validating);
-            // 
-            // labelFuncionalidades
-            // 
-            this.labelFuncionalidades.AutoSize = true;
-            this.labelFuncionalidades.Location = new System.Drawing.Point(17, 93);
-            this.labelFuncionalidades.Name = "labelFuncionalidades";
-            this.labelFuncionalidades.Size = new System.Drawing.Size(84, 13);
-            this.labelFuncionalidades.TabIndex = 2;
-            this.labelFuncionalidades.Text = "Funcionalidades";
-            // 
-            // comboBoxFuncionalidades
-            // 
-            this.comboBoxFuncionalidades.FormattingEnabled = true;
-            this.comboBoxFuncionalidades.Location = new System.Drawing.Point(123, 90);
-            this.comboBoxFuncionalidades.Name = "comboBoxFuncionalidades";
-            this.comboBoxFuncionalidades.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxFuncionalidades.TabIndex = 3;
             // 
             // btnLimpiar
             // 
@@ -97,23 +79,21 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.labelFuncionalidades);
             this.groupBox1.Controls.Add(this.labelNombre);
-            this.groupBox1.Controls.Add(this.comboBoxFuncionalidades);
             this.groupBox1.Controls.Add(this.textBoxNombre);
             this.groupBox1.Location = new System.Drawing.Point(32, 21);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(381, 199);
+            this.groupBox1.Size = new System.Drawing.Size(381, 125);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Campos de Rol";
+            this.groupBox1.Text = "Campos de Ciudad";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // FormAltaRol
+            // FormAltaCiudad
             // 
             this.AcceptButton = this.btnGuardar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -123,8 +103,8 @@
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox1);
-            this.Name = "FormAltaRol";
-            this.Text = "Alta Rol";
+            this.Name = "FormAltaCiudad";
+            this.Text = "Alta Ciudad";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
@@ -136,8 +116,6 @@
 
         private System.Windows.Forms.Label labelNombre;
         private System.Windows.Forms.TextBox textBoxNombre;
-        private System.Windows.Forms.Label labelFuncionalidades;
-        private System.Windows.Forms.ComboBox comboBoxFuncionalidades;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.GroupBox groupBox1;

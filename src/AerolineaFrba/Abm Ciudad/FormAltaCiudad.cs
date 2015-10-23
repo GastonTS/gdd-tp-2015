@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Abm_Rol
+namespace AerolineaFrba.Abm_Ciudad
 {
-    public partial class FormAltaRol : Form
+    public partial class FormAltaCiudad : Form
     {
-        public FormAltaRol()
+        public FormAltaCiudad()
         {
             InitializeComponent();
         }
@@ -21,7 +21,7 @@ namespace AerolineaFrba.Abm_Rol
         {
             if (textBoxNombre.Text.Trim() == "")
             {
-                errorProvider.SetError(textBoxNombre, "Debe ingresar un nombre de Rol");
+                errorProvider.SetError(textBoxNombre, "Debe ingresar un nombre de Ciudad");
                 e.Cancel = true;
             }
             else
@@ -35,7 +35,7 @@ namespace AerolineaFrba.Abm_Rol
         {
             if (this.ValidateChildren(ValidationConstraints.TabStop))
             {
-                MessageBox.Show("Crea Rol correctamente");
+                MessageBox.Show("Crea Ciudad correctamente");
             }
             else
             {
@@ -43,14 +43,18 @@ namespace AerolineaFrba.Abm_Rol
                 {
                     unControl.Refresh();
                 }
-                MessageBox.Show("Error al crear Rol. Ingresar los campos correctamente");
+                MessageBox.Show("Error al crear Ciudad. Ingresar los campos correctamente");
             }
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             textBoxNombre.Clear();
-            comboBoxFuncionalidades.ResetText();
+        }
+
+        private void textBoxNombre_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
