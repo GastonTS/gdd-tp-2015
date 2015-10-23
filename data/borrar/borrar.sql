@@ -49,10 +49,27 @@ GO
 DROP TABLE ÑUFLO.Aeronave
 GO
 
+DROP TABLE ÑUFLO.Servicio_Por_Ruta
+GO
+
 DROP TABLE ÑUFLO.Ruta_Aerea
 GO
 
+DROP TABLE ÑUFLO.Tipo_Servicio
+
 DROP TABLE ÑUFLO.Ciudad
+GO
+
+DROP TABLE ÑUFLO.Usuario
+GO
+
+DROP TABLE ÑUFLO.Funcionalidad_Por_Rol
+GO
+
+DROP TABLE ÑUFLO.Funcionalidad
+GO
+
+DROP TABLE ÑUFLO.Rol
 GO
 	
 DROP SCHEMA [ÑUFLO]
