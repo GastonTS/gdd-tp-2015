@@ -49,6 +49,9 @@ GO
 DROP TABLE ÑUFLO.Aeronave
 GO
 
+DROP TABLE ÑUFLO.Servicio_Por_Ruta
+GO
+
 DROP TABLE ÑUFLO.Ruta_Aerea
 GO
 

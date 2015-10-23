@@ -36,10 +36,16 @@ CREATE TABLE ÑUFLO.Ruta_Aerea (
 	id_ciudad_destino int REFERENCES ÑUFLO.Ciudad,
 	precio_base_por_peso numeric(18,2),
 	precio_base_por_pasaje numeric(18,2),
-	id_tipo_servicio int REFERENCES ÑUFLO.Tipo_Servicio
 	)
 GO
-	
+
+CREATE TABLE ÑUFLO.Servicio_Por_Ruta (
+	id_ruta int REFERENCES ÑUFLO.Ruta_Aerea,
+	id_tipo_servicio int REFERENCES ÑUFLO.Tipo_Servicio,
+	PRIMARY KEY(id_ruta, id_tipo_servicio)
+	)
+GO
+
 CREATE TABLE ÑUFLO.Aeronave (
 	id_aeronave int IDENTITY(1,1) PRIMARY KEY,
 	modelo nvarchar(255),
@@ -231,24 +237,39 @@ INSERT INTO ÑUFLO.ButacaPorAvion (id_aeronave, numero_de_butaca, id_tipo_butaca
 GO
 	
 /*68 Ruta Aerea - Codigos Ruta Repetidos, Escalas?*/
-INSERT INTO ÑUFLO.Ruta_Aerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje, id_tipo_servicio)
+INSERT INTO ÑUFLO.Ruta_Aerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje)
 	select distinct Ruta_Codigo, co.id_ciudad, cd.id_ciudad, SUM(Ruta_Precio_BaseKG), 
-					SUM(Ruta_Precio_BasePasaje), id_tipo_servicio
-	from (select distinct Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, Ruta_Precio_BaseKG, Ruta_Precio_BasePasaje,
-			case Tipo_Servicio
-					when 'Primera Clase' then 1
-					when 'Ejecutivo' then 2
-					when 'Turista' then 3
-				end id_tipo_servicio
+					SUM(Ruta_Precio_BasePasaje)
+	from (select distinct Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, Ruta_Precio_BaseKG, Ruta_Precio_BasePasaje, Tipo_Servicio
 		 from gd_esquema.Maestra) a,
 		 ÑUFLO.Ciudad co,
 		 ÑUFLO.Ciudad cd
 	where co.nombre = Ruta_Ciudad_Origen
 		AND cd.nombre = Ruta_Ciudad_Destino
-	group by Ruta_Codigo, co.id_ciudad, cd.id_ciudad, id_tipo_servicio
+	group by Ruta_Codigo, co.id_ciudad, cd.id_ciudad
 	order by Ruta_Codigo
 GO
-	
+
+/*68 Servicio Por Ruta - Pareciera no haber una misma ruta con diferentes servicios, pero si se diferencias en las "escalas"*/
+INSERT INTO ÑUFLO.Servicio_Por_Ruta (id_ruta, id_tipo_servicio)
+	select r.id_ruta, a.id_tipo_servicio
+		from (select distinct Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino,
+				case Tipo_Servicio
+						when 'Primera Clase' then 1
+						when 'Ejecutivo' then 2
+						when 'Turista' then 3
+					end id_tipo_servicio
+			 from gd_esquema.Maestra) a,
+			 ÑUFLO.Ruta_Aerea r,
+			 ÑUFLO.Ciudad co,
+			 ÑUFLO.Ciudad cd
+		where r.codigo_ruta = a.Ruta_Codigo
+			AND r.id_ciudad_origen = co.id_ciudad
+			AND r.id_ciudad_destino = cd.id_ciudad
+			AND a.Ruta_Ciudad_Origen = co.nombre
+			AND a.Ruta_Ciudad_Destino = cd.nombre
+GO
+
 /*8510 Viaje - Ademas existen registros en los cuales la misma aeronave sale a por distintas rutas en la misma fecha, se debe corregir, tendra que ver con escalas?*/
 INSERT INTO ÑUFLO.Viaje (id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada, fecha_llegada_estimada)
 	select id_aeronave,	id_ruta, peso_ocupado, FechaSalida, FechaLLegada, Fecha_LLegada_Estimada
