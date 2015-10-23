@@ -52,6 +52,8 @@ GO
 DROP TABLE ÑUFLO.Ruta_Aerea
 GO
 
+DROP TABLE ÑUFLO.Tipo_Servicio
+
 DROP TABLE ÑUFLO.Ciudad
 GO
 	

@@ -17,6 +17,18 @@ CREATE TABLE ÑUFLO.Ciudad (
 	)
 GO
 
+CREATE TABLE ÑUFLO.Tipo_Servicio (
+	id_tipo_servicio int IDENTITY(1,1) PRIMARY KEY,
+	tipo_servicio nvarchar(255)
+	)
+GO
+
+
+INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio) values ('Primera Clase')
+INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio) values ('Ejecutivo')
+INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio) values ('Turista')
+GO
+
 CREATE TABLE ÑUFLO.Ruta_Aerea (
 	id_ruta int IDENTITY(1,1) PRIMARY KEY,
 	codigo_ruta numeric(18,0),
@@ -24,7 +36,7 @@ CREATE TABLE ÑUFLO.Ruta_Aerea (
 	id_ciudad_destino int REFERENCES ÑUFLO.Ciudad,
 	precio_base_por_peso numeric(18,2),
 	precio_base_por_pasaje numeric(18,2),
-	tipo_servicio nvarchar(255)
+	id_tipo_servicio int REFERENCES ÑUFLO.Tipo_Servicio
 	)
 GO
 	
@@ -33,7 +45,7 @@ CREATE TABLE ÑUFLO.Aeronave (
 	modelo nvarchar(255),
 	matricula nvarchar(255) UNIQUE,
 	fabricante nvarchar(255),
-	tipo_de_servicio nvarchar(255),
+	id_tipo_servicio int REFERENCES ÑUFLO.Tipo_Servicio,
 	fecha_de_alta datetime,
 	capacidad_peso_encomiendas numeric(18,0),
 	baja_vida_utill datetime,
@@ -164,10 +176,16 @@ INSERT INTO ÑUFLO.Ciudad (nombre)
 GO
 
 /*30 Aeronave - Sin fechas, en alta pongo today?*/
-INSERT INTO ÑUFLO.Aeronave (matricula, modelo, fabricante, capacidad_peso_encomiendas, tipo_de_servicio, fecha_de_alta)
-	select distinct Aeronave_Matricula, Aeronave_Modelo, Aeronave_Fabricante, Aeronave_KG_Disponibles, Tipo_Servicio, GETDATE()
+INSERT INTO ÑUFLO.Aeronave (matricula, modelo, fabricante, capacidad_peso_encomiendas, fecha_de_alta, id_tipo_servicio)
+	select distinct Aeronave_Matricula, Aeronave_Modelo, Aeronave_Fabricante, Aeronave_KG_Disponibles, GETDATE(),
+				case Tipo_Servicio
+					when 'Primera Clase' then 1
+					when 'Ejecutivo' then 2
+					when 'Turista' then 3
+				end id_tipo_servicio
 	from gd_esquema.Maestra
 	order by Aeronave_Matricula
+GO
 	
 /*1337 Butacas - Asumo que el maximo de butacas es la butaca mas grande del avion?*/
 INSERT INTO ÑUFLO.ButacaPorAvion (id_aeronave, numero_de_butaca, id_tipo_butaca)
@@ -181,19 +199,26 @@ INSERT INTO ÑUFLO.ButacaPorAvion (id_aeronave, numero_de_butaca, id_tipo_butaca
 			from gd_esquema.Maestra) b ON matricula = Aeronave_Matricula
 	where Butaca_Tipo <> '0'
 	order by id_aeronave, Butaca_Nro
+GO
 	
 /*68 Ruta Aerea - Codigos Ruta Repetidos, Escalas?*/
-INSERT INTO ÑUFLO.Ruta_Aerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje, tipo_servicio)
+INSERT INTO ÑUFLO.Ruta_Aerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje, id_tipo_servicio)
 	select distinct Ruta_Codigo, co.id_ciudad, cd.id_ciudad, SUM(Ruta_Precio_BaseKG), 
-					SUM(Ruta_Precio_BasePasaje), Tipo_Servicio
-	from (select distinct Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, Ruta_Precio_BaseKG, Ruta_Precio_BasePasaje, Tipo_Servicio
+					SUM(Ruta_Precio_BasePasaje), id_tipo_servicio
+	from (select distinct Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, Ruta_Precio_BaseKG, Ruta_Precio_BasePasaje,
+			case Tipo_Servicio
+					when 'Primera Clase' then 1
+					when 'Ejecutivo' then 2
+					when 'Turista' then 3
+				end id_tipo_servicio
 		 from gd_esquema.Maestra) a,
 		 ÑUFLO.Ciudad co,
 		 ÑUFLO.Ciudad cd
 	where co.nombre = Ruta_Ciudad_Origen
 		AND cd.nombre = Ruta_Ciudad_Destino
-	group by Ruta_Codigo, co.id_ciudad, cd.id_ciudad, Tipo_Servicio
+	group by Ruta_Codigo, co.id_ciudad, cd.id_ciudad, id_tipo_servicio
 	order by Ruta_Codigo
+GO
 	
 /*8510 Viaje - Ademas existen registros en los cuales la misma aeronave sale a por distintas rutas en la misma fecha, se debe corregir, tendra que ver con escalas?*/
 INSERT INTO ÑUFLO.Viaje (id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada, fecha_llegada_estimada)
@@ -212,3 +237,4 @@ INSERT INTO ÑUFLO.Viaje (id_aeronave, id_ruta, peso_ocupado, fecha_salida, fech
 		AND r.id_ciudad_origen = co.id_ciudad
 		AND r.id_ciudad_destino = cd.id_ciudad
 	order by FechaSalida
+GO
