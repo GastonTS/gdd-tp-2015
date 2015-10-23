@@ -146,12 +146,13 @@ CREATE TABLE ÑUFLO.Compra (
 GO
 	
 CREATE TABLE ÑUFLO.PasajeEncomienda (
-	id_pasaje_encomienda numeric(18,0) PRIMARY KEY,
+	id_pasaje_encomienda INT IDENTITY(1,1) PRIMARY KEY,
 	codigo_de_compra  int REFERENCES ÑUFLO.Compra,
 	id_cliente  int REFERENCES ÑUFLO.Cliente,
-	peso_encomienda numeric(18, 0),
-	numero_de_butaca numeric(18, 0),
-	cancelado bit
+	peso_encomienda numeric(18, 0) DEFAULT 0,
+	numero_de_butaca numeric(18, 0) DEFAULT 0, 
+	cancelado bit DEFAULT 0,
+	CHECK (peso_encomienda <>0 OR numero_de_butaca<>0)
 	)
 GO
 
@@ -288,3 +289,18 @@ INSERT INTO ÑUFLO.Viaje (id_aeronave, id_ruta, peso_ocupado, fecha_salida, fech
 		AND r.id_ciudad_destino = cd.id_ciudad
 	order by FechaSalida
 GO
+
+--insert Clientes
+INSERT INTO ÑUFLO.Cliente (dni , nombre, apellido, direccion, telefono, mail, fecha_de_nacimiento)
+	SELECT DISTINCT Cli_Dni, Cli_Nombre, Cli_Apellido, Cli_Dir, Cli_Telefono, Cli_Mail, Cli_Fecha_Nac 
+	FROM gd_esquema.Maestra
+GO
+
+--insert pasaje encomienda
+--	id_pasaje_encomienda numeric(18,0) PRIMARY KEY,
+	codigo_de_compra  int REFERENCES ÑUFLO.Compra,
+	id_cliente  int REFERENCES ÑUFLO.Cliente,
+	peso_encomienda numeric(18, 0),
+	numero_de_butaca numeric(18, 0),
+	cancelado bit
+	)
