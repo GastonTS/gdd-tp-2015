@@ -98,6 +98,18 @@
     <Compile Include="Abm Ruta\FormAltaRuta.Designer.cs">
       <DependentUpon>FormAltaRuta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm\Alta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm\Alta.Designer.cs">
+      <DependentUpon>Alta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm\Guardar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Abm\Guardar.Designer.cs">
+      <DependentUpon>Guardar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Canje Millas\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +192,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\FormAltaRuta.resx">
       <DependentUpon>FormAltaRuta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm\Alta.resx">
+      <DependentUpon>Alta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm\Guardar.resx">
+      <DependentUpon>Guardar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

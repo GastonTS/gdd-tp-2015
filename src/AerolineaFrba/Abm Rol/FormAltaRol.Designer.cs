@@ -37,6 +37,7 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -113,6 +114,13 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // guardar
+            // 
+            this.guardar1.Location = new System.Drawing.Point(239, 240);
+            this.guardar1.Name = "guardar";
+            this.guardar1.Size = new System.Drawing.Size(83, 31);
+            this.guardar1.TabIndex = 4;
+            // 
             // FormAltaRol
             // 
             this.AcceptButton = this.btnGuardar;
@@ -120,11 +128,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(445, 317);
+            this.Controls.Add(this.guardar1);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormAltaRol";
             this.Text = "Alta Rol";
+            this.Load += new System.EventHandler(this.FormAltaRol_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
@@ -142,5 +152,6 @@
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private Abm.Guardar guardar1;
     }
 }
