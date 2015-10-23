@@ -56,6 +56,18 @@ DROP TABLE ÑUFLO.Tipo_Servicio
 
 DROP TABLE ÑUFLO.Ciudad
 GO
+
+DROP TABLE ÑUFLO.Usuario
+GO
+
+DROP TABLE ÑUFLO.Funcionalidad_Por_Rol
+GO
+
+DROP TABLE ÑUFLO.Funcionalidad
+GO
+
+DROP TABLE ÑUFLO.Rol
+GO
 	
 DROP SCHEMA [ÑUFLO]
 GO

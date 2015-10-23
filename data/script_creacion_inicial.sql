@@ -163,6 +163,35 @@ CREATE TABLE ÑUFLO.PasajeEncomiendaPorCancelacion (
 	)
 GO
 
+CREATE TABLE ÑUFLO.Funcionalidad (
+	id_funcionalidad int PRIMARY KEY,
+	descripcion nvarchar(255)
+	)
+GO
+
+CREATE TABLE ÑUFLO.Rol (
+	id_rol int PRIMARY KEY,
+	nombre_rol nvarchar(255) UNIQUE,
+	habilitado bit
+	)
+GO
+
+CREATE TABLE ÑUFLO.Funcionalidad_Por_Rol (
+	id_rol int REFERENCES ÑUFLO.Rol,
+	id_funcionalidad int REFERENCES ÑUFLO.Funcionalidad,
+	PRIMARY KEY(id_rol, id_funcionalidad)
+	)
+GO
+
+CREATE TABLE ÑUFLO.Usuario (
+	nombre_usuario nvarchar(255) PRIMARY KEY,
+	password nvarchar(255),
+	id_rol int REFERENCES ÑUFLO.Rol,
+	cantidad_intentos smallint,
+	habilitado bit
+	)
+GO
+
 /**** MIGRACION *****/
 /*35 Ciudad*/
 INSERT INTO ÑUFLO.Ciudad (nombre) 
