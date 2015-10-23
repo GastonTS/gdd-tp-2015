@@ -10,12 +10,16 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Rol
 {
-    public partial class FormAltaRol : Form
+    public partial class FormAltaRol : Abm.Alta
     {
         public FormAltaRol()
         {
             InitializeComponent();
         }
+
+        override public String MsgExito { get{return "Crea Rol correctamente";}}
+
+        override public String MsgError { get{return"Error al crear Rol. Ingresar los campos correctamente";}}
 
         private void textBoxNombre_Validating(object sender, CancelEventArgs e)
         {
@@ -31,22 +35,6 @@ namespace AerolineaFrba.Abm_Rol
             }
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            if (this.ValidateChildren(ValidationConstraints.TabStop))
-            {
-                MessageBox.Show("Crea Rol correctamente");
-            }
-            else
-            {
-                foreach (Control unControl in Controls)
-                {
-                    unControl.Refresh();
-                }
-                MessageBox.Show("Error al crear Rol. Ingresar los campos correctamente");
-            }
-        }
-
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             textBoxNombre.Clear();
@@ -54,6 +42,16 @@ namespace AerolineaFrba.Abm_Rol
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            this.guardar();
+        }
+
+        private void FormAltaRol_Load(object sender, EventArgs e)
         {
 
         }

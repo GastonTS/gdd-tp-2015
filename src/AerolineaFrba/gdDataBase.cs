@@ -11,11 +11,11 @@ namespace AerolineaFrba
 {
     class gdDataBase
     {
-        SqlConnection miConexion;
+        SqlConnection miConexion = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=gd2015");
 
         public void conectar()
         {
-            miConexion = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=gd2015");
+            //miConexion = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=gd2015");
             miConexion.Open();
         }
 
@@ -54,6 +54,30 @@ namespace AerolineaFrba
             dataGrid.DataMember = nombreTabla;
 
             desconectar();
+        }
+
+        public DataSet GetData(String spName)
+        {
+            DataSet ds = null;
+            using (var cmd = new SqlCommand(spName, miConexion))
+            using (var da = new SqlDataAdapter(cmd))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                da.Fill(ds = new DataSet());
+            } return ds;
+        }
+
+        public void Exec(String spName)
+        {
+            using (var cmd = new SqlCommand(spName, miConexion))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                //cmd.Parameters.Add(new SqlParameter(
+                //cmd.Parameters.AddRange(new SqlParameter[]{
+                //    new SqlParameter("@sarasa", 666),
+                //});
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }
