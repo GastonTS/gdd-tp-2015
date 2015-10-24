@@ -40,7 +40,7 @@ namespace AerolineaFrba
             }
         }
 
-        public void actualizarDataGridView(DataGridView dataGrid, String nombreTabla, String query)
+        public void actualizarDataGridView(DataGridView dataGrid, String query)
         {
             conectar();
 
@@ -48,13 +48,39 @@ namespace AerolineaFrba
 
             SqlDataAdapter adaptador = new SqlDataAdapter(query, miConexion);
 
-            adaptador.Fill(dataSet, nombreTabla);
+            adaptador.Fill(dataSet);
 
-            dataGrid.DataSource = dataSet;
-            dataGrid.DataMember = nombreTabla;
+            BindingSource dataBinding = new BindingSource();
+
+            dataBinding.DataSource = dataSet.Tables[0];
+
+            dataGrid.DataSource = dataBinding;
+            //dataGrid.DataMember = nombreTabla;
 
             desconectar();
         }
+        
+        public void actualizarComboBox(ComboBox comboBox, String query)
+        {
+            conectar();
+
+            DataSet dataSet = new DataSet();
+
+            SqlDataAdapter adaptador = new SqlDataAdapter(query, miConexion);
+
+            adaptador.Fill(dataSet);
+
+            BindingSource dataBinding = new BindingSource();
+
+            dataBinding.DataSource = dataSet.Tables[0];
+
+
+            comboBox.DataSource = dataBinding;
+            //dataGrid.DataMember = nombreTabla;
+
+            desconectar();
+        }
+
 
         public DataSet GetDataSP(String spName) {
             return GetData(spName, CommandType.StoredProcedure);

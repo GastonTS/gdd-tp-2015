@@ -30,18 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.fKRutaAereidci3E1D39E1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.nombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ciudadBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
+            this.fKRutaAereidci3E1D39E1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ciudadTableAdapter = new AerolineaFrba.GD2C2015DataSetTableAdapters.CiudadTableAdapter();
             this.ciudadBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.ciudadBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.ruta_AereaTableAdapter = new AerolineaFrba.GD2C2015DataSetTableAdapters.Ruta_AereaTableAdapter();
-            this.nombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fKRutaAereidci3E1D39E1BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fKRutaAereidci3E1D39E1BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource2)).BeginInit();
             this.SuspendLayout();
@@ -58,16 +58,19 @@
             this.nombreDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.ciudadBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(65, 172);
+            this.dataGridView1.MaximumSize = new System.Drawing.Size(500, 500);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(388, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(388, 155);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // fKRutaAereidci3E1D39E1BindingSource
+            // nombreDataGridViewTextBoxColumn
             // 
-            this.fKRutaAereidci3E1D39E1BindingSource.DataMember = "FK__Ruta_Aere__id_ci__3E1D39E1";
-            this.fKRutaAereidci3E1D39E1BindingSource.DataSource = this.ciudadBindingSource;
+            this.nombreDataGridViewTextBoxColumn.DataPropertyName = "nombre";
+            this.nombreDataGridViewTextBoxColumn.HeaderText = "nombre";
+            this.nombreDataGridViewTextBoxColumn.Name = "nombreDataGridViewTextBoxColumn";
+            this.nombreDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // ciudadBindingSource
             // 
@@ -78,6 +81,11 @@
             // 
             this.gD2C2015DataSet.DataSetName = "GD2C2015DataSet";
             this.gD2C2015DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // fKRutaAereidci3E1D39E1BindingSource
+            // 
+            this.fKRutaAereidci3E1D39E1BindingSource.DataMember = "FK__Ruta_Aere__id_ci__3E1D39E1";
+            this.fKRutaAereidci3E1D39E1BindingSource.DataSource = this.ciudadBindingSource;
             // 
             // ciudadTableAdapter
             // 
@@ -97,13 +105,6 @@
             // 
             this.ruta_AereaTableAdapter.ClearBeforeFill = true;
             // 
-            // nombreDataGridViewTextBoxColumn
-            // 
-            this.nombreDataGridViewTextBoxColumn.DataPropertyName = "nombre";
-            this.nombreDataGridViewTextBoxColumn.HeaderText = "nombre";
-            this.nombreDataGridViewTextBoxColumn.Name = "nombreDataGridViewTextBoxColumn";
-            this.nombreDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // FormSeleccionCiudad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -114,9 +115,9 @@
             this.Text = "FormSeleccionCiudad";
             this.Load += new System.EventHandler(this.FormSeleccionCiudad_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fKRutaAereidci3E1D39E1BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fKRutaAereidci3E1D39E1BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource2)).EndInit();
             this.ResumeLayout(false);
