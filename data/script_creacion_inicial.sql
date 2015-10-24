@@ -310,13 +310,18 @@ INSERT INTO ÑUFLO.Compra(codigo_de_compra,id_cliente,fecha_de_compra, id_viaje)
 					and c.nombre = m.Cli_Nombre
 					and c.apellido = c.apellido), Pasaje_FechaCompra,
 			(select v.id_viaje 
-					from  ÑUFLO.Viaje v
-					where v.id_ruta = m.Ruta_Codigo
-						and v.id_aeronave = (select a.id_aeronave
-												from ÑUFLO.Aeronave a
-												where a.matricula = m.Aeronave_Matricula)
-						and v.fecha_llegada = m.FechaSalida
-						and v.fecha_llegada_estimada =m.Fecha_LLegada_Estimada) id_viaje
+				from  ÑUFLO.Viaje v, ÑUFLO.Ruta_Aerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
+				where v.id_ruta = r.id_ruta
+					and r.codigo_ruta = m.Ruta_Codigo
+					and r.id_ciudad_origen = co.id_ciudad
+					and r.id_ciudad_destino = cd.id_ciudad
+					and co.nombre = m.Ruta_Ciudad_Origen
+					and cd.nombre = m.Ruta_Ciudad_Destino
+					and v.id_aeronave = (select a.id_aeronave
+										from ÑUFLO.Aeronave a
+										where a.matricula = m.Aeronave_Matricula)
+					and v.fecha_salida = m.FechaSalida
+					and v.fecha_llegada_estimada = m.Fecha_LLegada_Estimada) id_viaje
 		from gd_esquema.Maestra m
 		where Butaca_Piso = 1
 GO
@@ -344,13 +349,18 @@ INSERT INTO ÑUFLO.Compra(codigo_de_compra, fecha_de_compra, id_cliente, id_viaj
 					and c.nombre = m.Cli_Nombre
 					and c.apellido = c.apellido) cliente,
 			(select v.id_viaje 
-				from  ÑUFLO.Viaje v
-				where v.id_ruta = m.Ruta_Codigo
+				from  ÑUFLO.Viaje v, ÑUFLO.Ruta_Aerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
+				where v.id_ruta = r.id_ruta
+					and r.codigo_ruta = m.Ruta_Codigo
+					and r.id_ciudad_origen = co.id_ciudad
+					and r.id_ciudad_destino = cd.id_ciudad
+					and co.nombre = m.Ruta_Ciudad_Origen
+					and cd.nombre = m.Ruta_Ciudad_Destino
 					and v.id_aeronave = (select a.id_aeronave
 										from ÑUFLO.Aeronave a
 										where a.matricula = m.Aeronave_Matricula)
-					and v.fecha_llegada = m.FechaSalida
-					and v.fecha_llegada_estimada =m.Fecha_LLegada_Estimada) 
+					and v.fecha_salida = m.FechaSalida
+					and v.fecha_llegada_estimada = m.Fecha_LLegada_Estimada) id_viaje
 		from gd_esquema.Maestra m
 		where Butaca_Piso = 0
 GO
