@@ -46,7 +46,7 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void comboBoxOrigen_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //MessageBox.Show(comboBoxOrigen.SelectedValue.ToString());
         }
     }
 }

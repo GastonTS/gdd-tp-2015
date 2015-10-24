@@ -86,11 +86,11 @@
     <Compile Include="Abm Rol\FormSeleccionRol.Designer.cs">
       <DependentUpon>FormSeleccionRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Ruta\Form1.cs">
+    <Compile Include="Abm Ruta\FormModificacionRuta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Ruta\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Ruta\FormModificacionRuta.Designer.cs">
+      <DependentUpon>FormModificacionRuta.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Ruta\FormAltaRuta.cs">
       <SubType>Form</SubType>
@@ -196,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\FormAltaRuta.resx">
       <DependentUpon>FormAltaRuta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Ruta\FormModificacionRuta.resx">
+      <DependentUpon>FormModificacionRuta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>

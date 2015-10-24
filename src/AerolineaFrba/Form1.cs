@@ -63,5 +63,10 @@ namespace AerolineaFrba
             Abm_Ciudad.FormSeleccionCiudad fsc = new Abm_Ciudad.FormSeleccionCiudad();
             fsc.Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new Abm_Ruta.FormModificacionRuta().Show();
+        }
     }
 }
