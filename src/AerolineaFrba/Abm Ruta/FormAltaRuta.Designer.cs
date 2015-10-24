@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelOrigen = new System.Windows.Forms.Label();
             this.labelDestino = new System.Windows.Forms.Label();
             this.labelPrecioBasePorPeso = new System.Windows.Forms.Label();
@@ -41,6 +42,13 @@
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.groupBoxCamposAltaRuta = new System.Windows.Forms.GroupBox();
+            this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
+            this.origenBinding = new System.Windows.Forms.BindingSource(this.components);
+            this.ciudadTableAdapter = new AerolineaFrba.GD2C2015DataSetTableAdapters.CiudadTableAdapter();
+            this.destinoBinding = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.origenBinding)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.destinoBinding)).BeginInit();
             this.SuspendLayout();
             // 
             // labelOrigen
@@ -81,19 +89,28 @@
             // 
             // comboBoxOrigen
             // 
+            this.comboBoxOrigen.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.origenBinding, "id_ciudad", true));
+            this.comboBoxOrigen.DataSource = this.origenBinding;
+            this.comboBoxOrigen.DisplayMember = "nombre";
             this.comboBoxOrigen.FormattingEnabled = true;
             this.comboBoxOrigen.Location = new System.Drawing.Point(137, 51);
             this.comboBoxOrigen.Name = "comboBoxOrigen";
             this.comboBoxOrigen.Size = new System.Drawing.Size(139, 21);
             this.comboBoxOrigen.TabIndex = 1;
+            this.comboBoxOrigen.ValueMember = "id_ciudad";
+            this.comboBoxOrigen.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrigen_SelectedIndexChanged);
             // 
             // comboBoxDestino
             // 
+            this.comboBoxDestino.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.destinoBinding, "id_ciudad", true));
+            this.comboBoxDestino.DataSource = this.destinoBinding;
+            this.comboBoxDestino.DisplayMember = "nombre";
             this.comboBoxDestino.FormattingEnabled = true;
             this.comboBoxDestino.Location = new System.Drawing.Point(137, 90);
             this.comboBoxDestino.Name = "comboBoxDestino";
             this.comboBoxDestino.Size = new System.Drawing.Size(139, 21);
             this.comboBoxDestino.TabIndex = 3;
+            this.comboBoxDestino.ValueMember = "id_ciudad";
             // 
             // textBoxPrecioPeso
             // 
@@ -155,6 +172,26 @@
             this.groupBoxCamposAltaRuta.Text = "Campos Alta Ruta Aérea";
             this.groupBoxCamposAltaRuta.Enter += new System.EventHandler(this.groupBoxCamposAltaRuta_Enter);
             // 
+            // gD2C2015DataSet
+            // 
+            this.gD2C2015DataSet.DataSetName = "GD2C2015DataSet";
+            this.gD2C2015DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // origenBinding
+            // 
+            this.origenBinding.DataMember = "Ciudad";
+            this.origenBinding.DataSource = this.gD2C2015DataSet;
+            // 
+            // ciudadTableAdapter
+            // 
+            this.ciudadTableAdapter.ClearBeforeFill = true;
+            // 
+            // destinoBinding
+            // 
+            this.destinoBinding.DataMember = "Ciudad";
+            this.destinoBinding.DataSource = this.gD2C2015DataSet;
+            this.destinoBinding.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
+            // 
             // FormAltaRuta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -175,6 +212,10 @@
             this.Controls.Add(this.groupBoxCamposAltaRuta);
             this.Name = "FormAltaRuta";
             this.Text = "Alta Ruta Aérea";
+            this.Load += new System.EventHandler(this.FormAltaRuta_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.origenBinding)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.destinoBinding)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,5 +236,9 @@
         private System.Windows.Forms.Label labelTipoServicio;
         private System.Windows.Forms.ComboBox comboBoxTipoServicio;
         private System.Windows.Forms.GroupBox groupBoxCamposAltaRuta;
+        private GD2C2015DataSet gD2C2015DataSet;
+        private System.Windows.Forms.BindingSource origenBinding;
+        private GD2C2015DataSetTableAdapters.CiudadTableAdapter ciudadTableAdapter;
+        private System.Windows.Forms.BindingSource destinoBinding;
     }
 }

@@ -56,15 +56,24 @@ namespace AerolineaFrba
             desconectar();
         }
 
-        public DataSet GetData(String spName)
+        public DataSet GetDataSP(String spName) {
+            return GetData(spName, CommandType.StoredProcedure);
+        }
+
+        public DataSet GetDataQuery(String query){
+            return GetData(query, CommandType.Text);
+        }
+        
+        public DataSet GetData(String command, CommandType commandType)
         {
             DataSet ds = null;
-            using (var cmd = new SqlCommand(spName, miConexion))
+            using (var cmd = new SqlCommand(command, miConexion))
             using (var da = new SqlDataAdapter(cmd))
             {
-                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandType = commandType;
                 da.Fill(ds = new DataSet());
-            } return ds;
+            }
+            return ds;
         }
 
         public void Exec(String spName)
