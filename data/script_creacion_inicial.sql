@@ -19,14 +19,15 @@ GO
 
 CREATE TABLE ÑUFLO.Tipo_Servicio (
 	id_tipo_servicio int IDENTITY(1,1) PRIMARY KEY,
-	tipo_servicio nvarchar(255)
+	tipo_servicio nvarchar(255),
+	porcentaje_recargo numeric(18,2)
 	)
 GO
 
 
-INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio) values ('Primera Clase')
-INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio) values ('Ejecutivo')
-INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio) values ('Turista')
+INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio, porcentaje_recargo) values ('Primera Clase', 2)
+INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio, porcentaje_recargo) values ('Ejecutivo', 1.5)
+INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio, porcentaje_recargo) values ('Turista', 1.2)
 GO
 
 CREATE TABLE ÑUFLO.Ruta_Aerea (
