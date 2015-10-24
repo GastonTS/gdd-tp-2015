@@ -19,14 +19,15 @@ GO
 
 CREATE TABLE ÑUFLO.Tipo_Servicio (
 	id_tipo_servicio int IDENTITY(1,1) PRIMARY KEY,
-	tipo_servicio nvarchar(255)
+	tipo_servicio nvarchar(255),
+	porcentaje_recargo numeric(18,2)
 	)
 GO
 
 
-INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio) values ('Primera Clase')
-INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio) values ('Ejecutivo')
-INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio) values ('Turista')
+INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio, porcentaje_recargo) values ('Primera Clase', 2)
+INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio, porcentaje_recargo) values ('Ejecutivo', 1.5)
+INSERT INTO ÑUFLO.Tipo_Servicio(tipo_servicio, porcentaje_recargo) values ('Turista', 1.2)
 GO
 
 CREATE TABLE ÑUFLO.Ruta_Aerea (
@@ -101,7 +102,7 @@ CREATE TABLE ÑUFLO.Viaje (
 GO
 
 CREATE TABLE ÑUFLO.Cliente (
-	id_cliente int PRIMARY KEY,
+	id_cliente int IDENTITY(1,1) PRIMARY KEY,
 	dni numeric(18, 0),
 	nombre nvarchar(255),
 	apellido nvarchar(255),
@@ -146,12 +147,14 @@ CREATE TABLE ÑUFLO.Compra (
 GO
 	
 CREATE TABLE ÑUFLO.PasajeEncomienda (
-	id_pasaje_encomienda numeric(18,0) PRIMARY KEY,
-	codigo_de_compra  int REFERENCES ÑUFLO.Compra,
-	id_cliente  int REFERENCES ÑUFLO.Cliente,
+	id_pasaje_encomienda int identity(1,1) PRIMARY KEY,
+	codigo_de_compra  int REFERENCES ÑUFLO.Compra NOT NULL,
+	id_cliente  int REFERENCES ÑUFLO.Cliente NOT NULL,
 	peso_encomienda numeric(18, 0),
-	numero_de_butaca numeric(18, 0),
-	cancelado bit
+	numero_de_butaca numeric(18, 0), 
+	cancelado bit DEFAULT 0,
+	precio numeric(18,2),
+	CHECK ((peso_encomienda IS NOT NULL) OR (numero_de_butaca IS NOT NULL))
 	)
 GO
 
@@ -162,7 +165,7 @@ CREATE TABLE ÑUFLO.Cancelacion (
 GO
 
 CREATE TABLE ÑUFLO.PasajeEncomiendaPorCancelacion (
-	id_pasaje_encomienda numeric(18,0) REFERENCES ÑUFLO.PasajeEncomienda,
+	id_pasaje_encomienda INT REFERENCES ÑUFLO.PasajeEncomienda,
 	id_cancelacion int REFERENCES ÑUFLO.Cancelacion,
 	motivo_cancelacion  nvarchar(255),
 	PRIMARY KEY (id_cancelacion, id_pasaje_encomienda)
@@ -230,7 +233,7 @@ INSERT INTO ÑUFLO.ButacaPorAvion (id_aeronave, numero_de_butaca, id_tipo_butaca
 						when 'Pasillo' then 2
 					end id_butaca_tipo
 	from ÑUFLO.Aeronave a
-		JOIN (select distinct Aeronave_Matricula, Butaca_Nro, Butaca_Tipo
+		join (select distinct Aeronave_Matricula, Butaca_Nro, Butaca_Tipo
 			from gd_esquema.Maestra) b ON matricula = Aeronave_Matricula
 	where Butaca_Tipo <> '0'
 	order by id_aeronave, Butaca_Nro
@@ -245,7 +248,7 @@ INSERT INTO ÑUFLO.Ruta_Aerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino,
 		 ÑUFLO.Ciudad co,
 		 ÑUFLO.Ciudad cd
 	where co.nombre = Ruta_Ciudad_Origen
-		AND cd.nombre = Ruta_Ciudad_Destino
+		and cd.nombre = Ruta_Ciudad_Destino
 	group by Ruta_Codigo, co.id_ciudad, cd.id_ciudad
 	order by Ruta_Codigo
 GO
@@ -264,10 +267,10 @@ INSERT INTO ÑUFLO.Servicio_Por_Ruta (id_ruta, id_tipo_servicio)
 			 ÑUFLO.Ciudad co,
 			 ÑUFLO.Ciudad cd
 		where r.codigo_ruta = a.Ruta_Codigo
-			AND r.id_ciudad_origen = co.id_ciudad
-			AND r.id_ciudad_destino = cd.id_ciudad
-			AND a.Ruta_Ciudad_Origen = co.nombre
-			AND a.Ruta_Ciudad_Destino = cd.nombre
+			and r.id_ciudad_origen = co.id_ciudad
+			and r.id_ciudad_destino = cd.id_ciudad
+			and a.Ruta_Ciudad_Origen = co.nombre
+			and a.Ruta_Ciudad_Destino = cd.nombre
 GO
 
 /*8510 Viaje - Ademas existen registros en los cuales la misma aeronave sale a por distintas rutas en la misma fecha, se debe corregir, tendra que ver con escalas?*/
@@ -281,10 +284,95 @@ INSERT INTO ÑUFLO.Viaje (id_aeronave, id_ruta, peso_ocupado, fecha_salida, fech
 		ÑUFLO.Ciudad co,
 		ÑUFLO.Ciudad cd
 	where a.matricula = Aeronave_Matricula
-		AND r.codigo_ruta = Ruta_Codigo
-		AND co.nombre = Ruta_Ciudad_Origen
-		AND cd.nombre = Ruta_Ciudad_Destino
-		AND r.id_ciudad_origen = co.id_ciudad
-		AND r.id_ciudad_destino = cd.id_ciudad
+		and r.codigo_ruta = Ruta_Codigo
+		and co.nombre = Ruta_Ciudad_Origen
+		and cd.nombre = Ruta_Ciudad_Destino
+		and r.id_ciudad_origen = co.id_ciudad
+		and r.id_ciudad_destino = cd.id_ciudad
 	order by FechaSalida
+GO
+
+/*2594 Cliente*/
+INSERT INTO ÑUFLO.Cliente (dni , nombre, apellido, direccion, telefono, mail, fecha_de_nacimiento)
+	select distinct Cli_Dni, Cli_Nombre, Cli_Apellido, Cli_Dir, Cli_Telefono, Cli_Mail, Cli_Fecha_Nac 
+	from gd_esquema.Maestra
+GO
+
+/*#PasajeEncomienda DEBERIA HACER FUNCION PARA BUSCAR UN id_cliente dado dni, nombre y apellido*/
+
+/*265646 Pasajes*/
+/*Compra */
+INSERT INTO ÑUFLO.Compra(codigo_de_compra,id_cliente,fecha_de_compra, id_viaje)
+	select Pasaje_Codigo,
+			(select id_cliente 
+				from ÑUFLO.Cliente c 
+				where c.dni = m.Cli_Dni
+					and c.nombre = m.Cli_Nombre
+					and c.apellido = c.apellido), Pasaje_FechaCompra,
+			(select v.id_viaje 
+				from  ÑUFLO.Viaje v, ÑUFLO.Ruta_Aerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
+				where v.id_ruta = r.id_ruta
+					and r.codigo_ruta = m.Ruta_Codigo
+					and r.id_ciudad_origen = co.id_ciudad
+					and r.id_ciudad_destino = cd.id_ciudad
+					and co.nombre = m.Ruta_Ciudad_Origen
+					and cd.nombre = m.Ruta_Ciudad_Destino
+					and v.id_aeronave = (select a.id_aeronave
+										from ÑUFLO.Aeronave a
+										where a.matricula = m.Aeronave_Matricula)
+					and v.fecha_salida = m.FechaSalida
+					and v.fecha_llegada_estimada = m.Fecha_LLegada_Estimada) id_viaje
+		from gd_esquema.Maestra m
+		where Butaca_Piso = 1
+GO
+
+/*Pasajes propiamente dicho*/
+INSERT INTO ÑUFLO.PasajeEncomienda(codigo_de_compra, numero_de_butaca, precio, id_cliente)
+	select Pasaje_Codigo, Butaca_Nro, Pasaje_Precio,
+			(select id_cliente 
+				from ÑUFLO.Cliente c 
+				where c.dni = m.Cli_Dni
+					and c.nombre = m.Cli_Nombre
+					and c.apellido = c.apellido) cliente
+		from gd_esquema.Maestra m
+		where Butaca_Piso = 1
+GO
+
+
+/*135658 Encomiendas*/
+/*Compra*/
+INSERT INTO ÑUFLO.Compra(codigo_de_compra, fecha_de_compra, id_cliente, id_viaje)
+	select Paquete_Codigo, Paquete_FechaCompra,
+			(select id_cliente 
+				from ÑUFLO.Cliente c 
+				where c.dni = m.Cli_Dni
+					and c.nombre = m.Cli_Nombre
+					and c.apellido = c.apellido) cliente,
+			(select v.id_viaje 
+				from  ÑUFLO.Viaje v, ÑUFLO.Ruta_Aerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
+				where v.id_ruta = r.id_ruta
+					and r.codigo_ruta = m.Ruta_Codigo
+					and r.id_ciudad_origen = co.id_ciudad
+					and r.id_ciudad_destino = cd.id_ciudad
+					and co.nombre = m.Ruta_Ciudad_Origen
+					and cd.nombre = m.Ruta_Ciudad_Destino
+					and v.id_aeronave = (select a.id_aeronave
+										from ÑUFLO.Aeronave a
+										where a.matricula = m.Aeronave_Matricula)
+					and v.fecha_salida = m.FechaSalida
+					and v.fecha_llegada_estimada = m.Fecha_LLegada_Estimada) id_viaje
+		from gd_esquema.Maestra m
+		where Butaca_Piso = 0
+GO
+
+/*Encomienda*/
+INSERT INTO ÑUFLO.PasajeEncomienda(codigo_de_compra, peso_encomienda, precio, id_cliente)
+	select Paquete_Codigo, Paquete_KG, Paquete_Precio,
+			(select id_cliente 
+				from ÑUFLO.Cliente c 
+				where c.dni = m.Cli_Dni
+					and c.nombre = m.Cli_Nombre
+					and c.apellido = c.apellido)
+	from gd_esquema.Maestra m
+	where Butaca_Piso = 0
 GO
