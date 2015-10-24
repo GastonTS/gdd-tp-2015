@@ -13,14 +13,14 @@ GO
 /****CREACION DE TABLAS****/
 CREATE TABLE ÑUFLO.Ciudad (
 	id_ciudad int IDENTITY(1,1) PRIMARY KEY,
-	nombre nvarchar(255)
+	nombre nvarchar(255) NOT NULL
 	)
 GO
 
 CREATE TABLE ÑUFLO.Tipo_Servicio (
 	id_tipo_servicio int IDENTITY(1,1) PRIMARY KEY,
-	tipo_servicio nvarchar(255),
-	porcentaje_recargo numeric(18,2)
+	tipo_servicio nvarchar(255) NOT NULL,
+	porcentaje_recargo numeric(18,2) NOT NULL
 	)
 GO
 
@@ -32,11 +32,11 @@ GO
 
 CREATE TABLE ÑUFLO.Ruta_Aerea (
 	id_ruta int IDENTITY(1,1) PRIMARY KEY,
-	codigo_ruta numeric(18,0),
-	id_ciudad_origen int REFERENCES ÑUFLO.Ciudad,
-	id_ciudad_destino int REFERENCES ÑUFLO.Ciudad,
-	precio_base_por_peso numeric(18,2),
-	precio_base_por_pasaje numeric(18,2),
+	codigo_ruta numeric(18,0) NOT NULL, --XXX
+	id_ciudad_origen int REFERENCES ÑUFLO.Ciudad NOT NULL,
+	id_ciudad_destino int REFERENCES ÑUFLO.Ciudad NOT NULL,
+	precio_base_por_peso numeric(18,2) NOT NULL,
+	precio_base_por_pasaje numeric(18,2) NOT NULL,
 	)
 GO
 
@@ -49,12 +49,12 @@ GO
 
 CREATE TABLE ÑUFLO.Aeronave (
 	id_aeronave int IDENTITY(1,1) PRIMARY KEY,
-	modelo nvarchar(255),
-	matricula nvarchar(255) UNIQUE,
-	fabricante nvarchar(255),
+	modelo nvarchar(255) NOT NULL,
+	matricula nvarchar(255) UNIQUE NOT NULL,
+	fabricante nvarchar(255) NOT NULL,
 	id_tipo_servicio int REFERENCES ÑUFLO.Tipo_Servicio,
-	fecha_de_alta datetime,
-	capacidad_peso_encomiendas numeric(18,0),
+	fecha_de_alta datetime NOT NULL, --XXX
+	capacidad_peso_encomiendas numeric(18,0) NOT NULL,
 	baja_vida_utill datetime,
 	baja_por_fuera_de_servicio int 
 	)
@@ -62,7 +62,7 @@ GO
 
 CREATE TABLE ÑUFLO.Tipo_Butaca (
 	id_tipo_butaca int IDENTITY(1,1) PRIMARY KEY,
-	tipo_butaca nvarchar(255)
+	tipo_butaca nvarchar(255) NOT NULL
 	)
 GO
 
@@ -81,7 +81,7 @@ GO
 CREATE TABLE ÑUFLO.ServicioTecnico (
 	id_servicio int PRIMARY KEY,
 	id_aeronave int REFERENCES ÑUFLO.Aeronave,
-	fecha_fuera_de_servicio datetime,
+	fecha_fuera_de_servicio datetime NOT NULL,
 	fecha_reinicio_de_servicio datetime
 	)
 GO
@@ -94,38 +94,39 @@ CREATE TABLE ÑUFLO.Viaje (
 	id_viaje int IDENTITY(1,1) PRIMARY KEY,
 	id_aeronave int REFERENCES ÑUFLO.Aeronave,
 	id_ruta int REFERENCES ÑUFLO.Ruta_Aerea,
-	peso_ocupado numeric(18,0),
-	fecha_salida datetime,
+	peso_ocupado numeric(18,0) NOT NULL,
+	fecha_salida datetime NOT NULL,
 	fecha_llegada datetime,
-	fecha_llegada_estimada datetime
+	fecha_llegada_estimada datetime NOT NULL
 	)
 GO
 
 CREATE TABLE ÑUFLO.Cliente (
 	id_cliente int IDENTITY(1,1) PRIMARY KEY,
-	dni numeric(18, 0),
-	nombre nvarchar(255),
-	apellido nvarchar(255),
-	direccion nvarchar(255),
-	telefono numeric(18, 0),
+	dni numeric(18, 0) NOT NULL,
+	nombre nvarchar(255) NOT NULL,
+	apellido nvarchar(255) NOT NULL,
+	direccion nvarchar(255) NOT NULL,
+	telefono numeric(18, 0) NOT NULL,
 	mail nvarchar(255),
-	fecha_de_nacimiento datetime
+	fecha_de_nacimiento datetime NOT NULL,
+	CHECK(fecha_de_nacimiento < GETDATE())
 	)
 GO
 
 CREATE TABLE ÑUFLO.Milla (
 	id_milla int PRIMARY KEY,
 	id_cliente int REFERENCES ÑUFLO.Cliente,
-	fecha_de_obtencion datetime,
-	cantidad int
+	fecha_de_obtencion datetime NOT NULL,
+	cantidad int NOT NULL
 	)
 GO
 	
 CREATE TABLE ÑUFLO.Producto (
 	id_producto int PRIMARY KEY,
-	millas_necesarias int,
-	stock int,
-	descripcion nvarchar(510)
+	millas_necesarias int NOT NULL,
+	stock int NOT NULL,
+	descripcion nvarchar(255) NOT NULL
 	)
 GO
 
@@ -133,8 +134,8 @@ CREATE TABLE ÑUFLO.Canje (
 	id_canje int PRIMARY KEY,
 	id_cliente int REFERENCES ÑUFLO.Cliente,
 	id_Producto int REFERENCES ÑUFLO.Producto,
-	cantidad int,
-	fecha_de_canje datetime
+	cantidad int NOT NULL,
+	fecha_de_canje datetime NOT NULL
 	)
 GO
 
@@ -142,19 +143,20 @@ CREATE TABLE ÑUFLO.Compra (
 	codigo_de_compra int PRIMARY KEY,
 	id_viaje int REFERENCES ÑUFLO.Viaje,
 	id_cliente int REFERENCES ÑUFLO.Cliente,
-	fecha_de_compra datetime
+	fecha_de_compra datetime NOT NULL
 	)
 GO
 	
 CREATE TABLE ÑUFLO.PasajeEncomienda (
 	id_pasaje_encomienda int identity(1,1) PRIMARY KEY,
-	codigo_de_compra  int REFERENCES ÑUFLO.Compra NOT NULL,
-	id_cliente  int REFERENCES ÑUFLO.Cliente NOT NULL,
+	codigo_de_compra  int REFERENCES ÑUFLO.Compra,
+	id_cliente  int REFERENCES ÑUFLO.Cliente,
 	peso_encomienda numeric(18, 0),
 	numero_de_butaca numeric(18, 0), 
 	cancelado bit DEFAULT 0,
-	precio numeric(18,2),
-	CHECK ((peso_encomienda IS NOT NULL) OR (numero_de_butaca IS NOT NULL))
+	precio numeric(18,2) NOT NULL,
+	CHECK ((peso_encomienda IS NOT NULL) OR (numero_de_butaca IS NOT NULL)
+			AND NOT (peso_encomienda IS NOT NULL) AND (numero_de_butaca IS NOT NULL))
 	)
 GO
 
@@ -167,21 +169,21 @@ GO
 CREATE TABLE ÑUFLO.PasajeEncomiendaPorCancelacion (
 	id_pasaje_encomienda INT REFERENCES ÑUFLO.PasajeEncomienda,
 	id_cancelacion int REFERENCES ÑUFLO.Cancelacion,
-	motivo_cancelacion  nvarchar(255),
+	motivo_cancelacion  nvarchar(255) NOT NULL,
 	PRIMARY KEY (id_cancelacion, id_pasaje_encomienda)
 	)
 GO
 
 CREATE TABLE ÑUFLO.Funcionalidad (
 	id_funcionalidad int PRIMARY KEY,
-	descripcion nvarchar(255)
+	descripcion nvarchar(255) NOT NULL
 	)
 GO
 
 CREATE TABLE ÑUFLO.Rol (
 	id_rol int PRIMARY KEY,
-	nombre_rol nvarchar(255) UNIQUE,
-	habilitado bit
+	nombre_rol nvarchar(255) UNIQUE NOT NULL,
+	habilitado bit NOT NULL
 	)
 GO
 
@@ -194,10 +196,10 @@ GO
 
 CREATE TABLE ÑUFLO.Usuario (
 	nombre_usuario nvarchar(255) PRIMARY KEY,
-	password nvarchar(255),
+	password nvarchar(255) NOT NULL,
 	id_rol int REFERENCES ÑUFLO.Rol,
-	cantidad_intentos smallint,
-	habilitado bit
+	cantidad_intentos smallint NOT NULL,
+	habilitado bit NOT NULL
 	)
 GO
 
