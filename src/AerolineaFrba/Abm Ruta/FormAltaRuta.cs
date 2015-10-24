@@ -30,5 +30,23 @@ namespace AerolineaFrba.Abm_Ruta
         {
 
         }
+
+        private void FormAltaRuta_Load(object sender, EventArgs e)
+        {
+            // TODO: esta línea de código carga datos en la tabla 'gD2C2015DataSet.Ciudad' Puede moverla o quitarla según sea necesario.
+            this.ciudadTableAdapter.Fill(this.gD2C2015DataSet.Ciudad);
+
+
+        }
+
+        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxOrigen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

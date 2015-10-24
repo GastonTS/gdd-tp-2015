@@ -36,35 +36,13 @@ namespace AerolineaFrba.Abm_Ciudad
 
         }
 
-        private void fooToolStripButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.ciudadTableAdapter.Foo(this.gD2C2015DataSet.Ciudad);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
-
-        }
+       
 
         private void toolStripTextBox1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void fillByToolStripButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.ciudadTableAdapter.FillBy(this.gD2C2015DataSet.Ciudad);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
-
-        }
+       
     }
 }
