@@ -68,5 +68,10 @@ namespace AerolineaFrba
         {
             new Abm_Ruta.FormModificacionRuta().Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new Abm_Aeronave.FormSeleccionAeronave().Show();
+        }
     }
 }
