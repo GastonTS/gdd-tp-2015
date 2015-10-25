@@ -83,5 +83,10 @@ namespace AerolineaFrba
         {
             new Consulta_Millas.FormConsultaMillas().Show();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            new Compra.FormSeleccionViaje().Show();
+        }
     }
 }

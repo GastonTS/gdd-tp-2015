@@ -116,11 +116,11 @@
     <Compile Include="Canje Millas\FormCajeMillasPasajero.Designer.cs">
       <DependentUpon>FormCajeMillasPasajero.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compra\Form1.cs">
+    <Compile Include="Compra\FormSeleccionViaje.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Compra\FormSeleccionViaje.Designer.cs">
+      <DependentUpon>FormSeleccionViaje.cs</DependentUpon>
     </Compile>
     <Compile Include="Consulta Millas\FormConsultaMillas.cs">
       <SubType>Form</SubType>
@@ -211,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Canje Millas\FormCajeMillasPasajero.resx">
       <DependentUpon>FormCajeMillasPasajero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\FormSeleccionViaje.resx">
+      <DependentUpon>FormSeleccionViaje.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Consulta Millas\FormConsultaMillas.resx">
       <DependentUpon>FormConsultaMillas.cs</DependentUpon>
