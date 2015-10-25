@@ -43,19 +43,19 @@ GO
 DROP TABLE ÑUFLO.ButacaPorAvion
 GO
 
-DROP TABLE ÑUFLO.Tipo_Butaca
+DROP TABLE ÑUFLO.TipoButaca
 GO
 
 DROP TABLE ÑUFLO.Aeronave
 GO
 
-DROP TABLE ÑUFLO.Servicio_Por_Ruta
+DROP TABLE ÑUFLO.ServicioPorRuta
 GO
 
-DROP TABLE ÑUFLO.Ruta_Aerea
+DROP TABLE ÑUFLO.RutaAerea
 GO
 
-DROP TABLE ÑUFLO.Tipo_Servicio
+DROP TABLE ÑUFLO.TipoServicio
 
 DROP TABLE ÑUFLO.Ciudad
 GO
@@ -63,7 +63,7 @@ GO
 DROP TABLE ÑUFLO.Usuario
 GO
 
-DROP TABLE ÑUFLO.Funcionalidad_Por_Rol
+DROP TABLE ÑUFLO.FuncionalidadPorRol
 GO
 
 DROP TABLE ÑUFLO.Funcionalidad
