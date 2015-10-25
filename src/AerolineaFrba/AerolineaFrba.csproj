@@ -116,6 +116,18 @@
     <Compile Include="Canje Millas\FormCajeMillasPasajero.Designer.cs">
       <DependentUpon>FormCajeMillasPasajero.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\FormCompraEfectiva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\FormCompraEfectiva.Designer.cs">
+      <DependentUpon>FormCompraEfectiva.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compra\FormDatosPasajeroEncomienda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\FormDatosPasajeroEncomienda.Designer.cs">
+      <DependentUpon>FormDatosPasajeroEncomienda.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\FormSeleccionViaje.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,6 +223,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Canje Millas\FormCajeMillasPasajero.resx">
       <DependentUpon>FormCajeMillasPasajero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\FormCompraEfectiva.resx">
+      <DependentUpon>FormCompraEfectiva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\FormDatosPasajeroEncomienda.resx">
+      <DependentUpon>FormDatosPasajeroEncomienda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\FormSeleccionViaje.resx">
       <DependentUpon>FormSeleccionViaje.cs</DependentUpon>
