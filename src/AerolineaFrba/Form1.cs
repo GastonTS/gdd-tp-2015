@@ -73,5 +73,10 @@ namespace AerolineaFrba
         {
             new Abm_Aeronave.FormSeleccionAeronave().Show();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            new Canje_Millas.FormCajeMillasPasajero().Show();
+        }
     }
 }

@@ -110,11 +110,11 @@
     <Compile Include="Abm\Guardar.Designer.cs">
       <DependentUpon>Guardar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Canje Millas\Form1.cs">
+    <Compile Include="Canje Millas\FormCajeMillasPasajero.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Canje Millas\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Canje Millas\FormCajeMillasPasajero.Designer.cs">
+      <DependentUpon>FormCajeMillasPasajero.cs</DependentUpon>
     </Compile>
     <Compile Include="Compra\Form1.cs">
       <SubType>Form</SubType>
@@ -208,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm\Guardar.resx">
       <DependentUpon>Guardar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Canje Millas\FormCajeMillasPasajero.resx">
+      <DependentUpon>FormCajeMillasPasajero.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
