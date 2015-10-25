@@ -22,13 +22,21 @@ namespace AerolineaFrba.Abm_Rol
         private void FormModificacionRol_Load(object sender, EventArgs e)
         {
             textBoxNombre.Text = registroSeleccionado[0];
-            comboBoxFuncionalidades.Text = registroSeleccionado[1];
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             textBoxNombre.Clear();
-            comboBoxFuncionalidades.ResetText();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

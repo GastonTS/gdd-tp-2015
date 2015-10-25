@@ -31,22 +31,26 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelFuncionalidades = new System.Windows.Forms.Label();
             this.labelNombre = new System.Windows.Forms.Label();
-            this.comboBoxFuncionalidades = new System.Windows.Forms.ComboBox();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.checkBoxHabilitado = new System.Windows.Forms.CheckBox();
+            this.labelHabilitado = new System.Windows.Forms.Label();
+            this.checkedListBoxFuncionalidades = new System.Windows.Forms.CheckedListBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkedListBoxFuncionalidades);
+            this.groupBox1.Controls.Add(this.labelHabilitado);
+            this.groupBox1.Controls.Add(this.checkBoxHabilitado);
             this.groupBox1.Controls.Add(this.labelFuncionalidades);
             this.groupBox1.Controls.Add(this.labelNombre);
-            this.groupBox1.Controls.Add(this.comboBoxFuncionalidades);
             this.groupBox1.Controls.Add(this.textBoxNombre);
             this.groupBox1.Location = new System.Drawing.Point(39, 35);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(381, 144);
+            this.groupBox1.Size = new System.Drawing.Size(381, 293);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Campos de Rol";
@@ -54,7 +58,7 @@
             // labelFuncionalidades
             // 
             this.labelFuncionalidades.AutoSize = true;
-            this.labelFuncionalidades.Location = new System.Drawing.Point(17, 93);
+            this.labelFuncionalidades.Location = new System.Drawing.Point(17, 101);
             this.labelFuncionalidades.Name = "labelFuncionalidades";
             this.labelFuncionalidades.Size = new System.Drawing.Size(84, 13);
             this.labelFuncionalidades.TabIndex = 2;
@@ -69,14 +73,6 @@
             this.labelNombre.TabIndex = 0;
             this.labelNombre.Text = "Nombre";
             // 
-            // comboBoxFuncionalidades
-            // 
-            this.comboBoxFuncionalidades.FormattingEnabled = true;
-            this.comboBoxFuncionalidades.Location = new System.Drawing.Point(123, 90);
-            this.comboBoxFuncionalidades.Name = "comboBoxFuncionalidades";
-            this.comboBoxFuncionalidades.Size = new System.Drawing.Size(140, 21);
-            this.comboBoxFuncionalidades.TabIndex = 3;
-            // 
             // textBoxNombre
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(123, 46);
@@ -86,7 +82,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(345, 210);
+            this.btnGuardar.Location = new System.Drawing.Point(345, 349);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 5;
@@ -95,7 +91,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(39, 210);
+            this.btnLimpiar.Location = new System.Drawing.Point(39, 349);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 4;
@@ -103,11 +99,39 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
+            // checkBoxHabilitado
+            // 
+            this.checkBoxHabilitado.AutoSize = true;
+            this.checkBoxHabilitado.Location = new System.Drawing.Point(123, 230);
+            this.checkBoxHabilitado.Name = "checkBoxHabilitado";
+            this.checkBoxHabilitado.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxHabilitado.TabIndex = 4;
+            this.checkBoxHabilitado.UseVisualStyleBackColor = true;
+            this.checkBoxHabilitado.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // labelHabilitado
+            // 
+            this.labelHabilitado.AutoSize = true;
+            this.labelHabilitado.Location = new System.Drawing.Point(17, 230);
+            this.labelHabilitado.Name = "labelHabilitado";
+            this.labelHabilitado.Size = new System.Drawing.Size(54, 13);
+            this.labelHabilitado.TabIndex = 5;
+            this.labelHabilitado.Text = "Habilitado";
+            this.labelHabilitado.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // checkedListBoxFuncionalidades
+            // 
+            this.checkedListBoxFuncionalidades.FormattingEnabled = true;
+            this.checkedListBoxFuncionalidades.Location = new System.Drawing.Point(123, 101);
+            this.checkedListBoxFuncionalidades.Name = "checkedListBoxFuncionalidades";
+            this.checkedListBoxFuncionalidades.Size = new System.Drawing.Size(120, 94);
+            this.checkedListBoxFuncionalidades.TabIndex = 6;
+            // 
             // FormModificacionRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(471, 296);
+            this.ClientSize = new System.Drawing.Size(603, 425);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnLimpiar);
@@ -125,9 +149,11 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelFuncionalidades;
         private System.Windows.Forms.Label labelNombre;
-        private System.Windows.Forms.ComboBox comboBoxFuncionalidades;
         private System.Windows.Forms.TextBox textBoxNombre;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Label labelHabilitado;
+        private System.Windows.Forms.CheckBox checkBoxHabilitado;
+        private System.Windows.Forms.CheckedListBox checkedListBoxFuncionalidades;
     }
 }
