@@ -35,13 +35,13 @@
             this.labelDestino = new System.Windows.Forms.Label();
             this.labelOrigen = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Seleccionar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxFechaYRuta = new System.Windows.Forms.GroupBox();
             this.labelViajesDisponibles = new System.Windows.Forms.Label();
             this.labelCantidadPasajes = new System.Windows.Forms.Label();
             this.labelCantidadEncomienda = new System.Windows.Forms.Label();
             this.textBoxCantidadPasajes = new System.Windows.Forms.TextBox();
             this.textBoxCantidadEncomienda = new System.Windows.Forms.TextBox();
-            this.Seleccionar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnLimpiar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBoxFechaYRuta.SuspendLayout();
@@ -111,6 +111,11 @@
             this.dataGridView1.Size = new System.Drawing.Size(451, 150);
             this.dataGridView1.TabIndex = 8;
             // 
+            // Seleccionar
+            // 
+            this.Seleccionar.HeaderText = "Seleccionar";
+            this.Seleccionar.Name = "Seleccionar";
+            // 
             // groupBoxFechaYRuta
             // 
             this.groupBoxFechaYRuta.Controls.Add(this.dateTimePicker1);
@@ -166,11 +171,6 @@
             this.textBoxCantidadEncomienda.Name = "textBoxCantidadEncomienda";
             this.textBoxCantidadEncomienda.Size = new System.Drawing.Size(79, 20);
             this.textBoxCantidadEncomienda.TabIndex = 14;
-            // 
-            // Seleccionar
-            // 
-            this.Seleccionar.HeaderText = "Seleccionar";
-            this.Seleccionar.Name = "Seleccionar";
             // 
             // btnLimpiar
             // 
