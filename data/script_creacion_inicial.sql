@@ -410,8 +410,7 @@ GO
 /*********************** Store Procedures ************************/
 /*****************************************************************/
 
-CREATE PROCEDURE 
-ÑUFLO.ButacasDisponibles @id_viaje int
+CREATE PROCEDURE ÑUFLO.ButacasDisponibles @id_viaje int
 AS
 	select numero_de_butaca, tipo_butaca
 	from ÑUFLO.TipoButaca tb,
