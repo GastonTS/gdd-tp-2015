@@ -188,11 +188,17 @@
     <Compile Include="Registro de Usuario\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada Destino\Form1.cs">
+    <Compile Include="Registro Llegada Destino\FormInformeYValidacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada Destino\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Llegada Destino\FormInformeYValidacion.Designer.cs">
+      <DependentUpon>FormInformeYValidacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Llegada Destino\FormRegistrarLlegadas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada Destino\FormRegistrarLlegadas.Designer.cs">
+      <DependentUpon>FormRegistrarLlegadas.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Abm Aeronave\FormAltaAeronave.resx">
       <DependentUpon>FormAltaAeronave.cs</DependentUpon>
@@ -260,6 +266,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Registro Llegada Destino\FormInformeYValidacion.resx">
+      <DependentUpon>FormInformeYValidacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada Destino\FormRegistrarLlegadas.resx">
+      <DependentUpon>FormRegistrarLlegadas.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="GD2C2015DataSet.xsc">
       <DependentUpon>GD2C2015DataSet.xsd</DependentUpon>
     </None>

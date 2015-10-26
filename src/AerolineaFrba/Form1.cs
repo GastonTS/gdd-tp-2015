@@ -98,5 +98,15 @@ namespace AerolineaFrba
         {
             new Compra.FormDatosPasajeroEncomienda().Show();
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            new Registro_Llegada_Destino.FormRegistrarLlegadas().Show();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            new Registro_Llegada_Destino.FormInformeYValidacion().Show();
+        }
     }
 }
