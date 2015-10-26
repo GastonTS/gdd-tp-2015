@@ -52,7 +52,9 @@ namespace AerolineaFrba.Abm_Aeronave
             btnElegirTipoButaca.Enabled = true;
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+
         {
 
         }

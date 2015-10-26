@@ -21,21 +21,16 @@ namespace AerolineaFrba.Abm_Ruta
         {
 
         }
-        private String queryFoo()
+        private String rutasAereasQuery()
         {
             return "SELECT ra.codigo_ruta AS 'Código Ruta', co.nombre AS 'Ciudad Origen', cd.nombre AS 'Ciudad Destino', ra.precio_base_por_peso AS 'Precio base x peso', ra.precio_base_por_pasaje AS 'Precio base x pasaje' FROM [ÑUFLO].RutaAerea ra,[ÑUFLO].Ciudad co,[ÑUFLO].Ciudad cd WHERE ra.id_ciudad_origen=co.id_ciudad AND ra.id_ciudad_destino=cd.id_ciudad";
-        }
-
-        private String queryBar()
-        {
-            return "SELECT * FROM [ÑUFLO].RutaAerea";
         }
 
         private void FormModificacionRuta_Load(object sender, EventArgs e)
         {
             // TODO: esta línea de código carga datos en la tabla 'gD2C2015DataSet.RutaAerea' Puede moverla o quitarla según sea necesario.
             dataGridView1.DataSource = rutaAereaBindingSource;
-            new gdDataBase().actualizarBindingSourceQuery(rutaAereaBindingSource,queryFoo());
+            new gdDataBase().actualizarBindingSourceQuery(rutaAereaBindingSource,rutasAereasQuery());
             new List<String> { "Eliminar", "Modificar" }.ForEach(column =>
             {
                 dataGridView1.Columns[column].DisplayIndex = dataGridView1.Columns.Count - 1;
@@ -58,7 +53,7 @@ namespace AerolineaFrba.Abm_Ruta
         {
             return "SELECT * FROM [ÑUFLO].RutaAerea "+"WHERE id_servicio = "+filtros()[0];
         }
-
+        
         private List<String> filtros()
         {
             return new List<ComboBox>{ comboBoxTipoServicio, comboBoxDestino, comboBoxOrigen }.Select(control => "'"+control.SelectedValue.ToString()+"'").ToList();
@@ -66,7 +61,7 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void comboBoxOrigen_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            new gdDataBase().actualizarBindingSourceQuery(rutaAereaBindingSource, "SELECT ra.codigo_ruta AS 'Código Ruta', co.nombre AS 'Ciudad Origen', cd.nombre AS 'Ciudad Destino', ra.precio_base_por_peso AS 'Precio base x peso', ra.precio_base_por_pasaje AS 'Precio base x pasaje' FROM [ÑUFLO].RutaAerea ra,[ÑUFLO].Ciudad co,[ÑUFLO].Ciudad cd WHERE ra.id_ciudad_origen=co.id_ciudad AND ra.id_ciudad_destino=cd.id_ciudad AND ra.id_ciudad_origen=" + "'" + comboBoxOrigen.SelectedValue.ToString() + "'");
+            new gdDataBase().actualizarBindingSourceQuery(rutaAereaBindingSource, rutasAereasQuery() + " AND ra.id_ciudad_origen=" + "'" + comboBoxOrigen.SelectedValue.ToString() + "'");
         }
 
         
