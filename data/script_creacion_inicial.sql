@@ -117,10 +117,10 @@ CREATE TABLE ÑUFLO.Cliente (
 GO
 
 CREATE TABLE ÑUFLO.Milla (
-	id_milla int PRIMARY KEY,
+	id_milla int IDENTITY(1,1) PRIMARY KEY,
 	id_cliente int REFERENCES ÑUFLO.Cliente,
-	fecha_de_obtencion datetime NOT NULL,
-	cantidad int NOT NULL
+	fecha_de_obtencion datetime DEFAULT GETDATE(),
+	cantidad int DEFAULT 0
 	)
 GO
 	
@@ -454,3 +454,13 @@ GO
 /*****************************************************************/
 /*************************** Triggers ****************************/
 /*****************************************************************/
+
+CREATE TRIGGER InicializacionMilla
+ON ÑUFLO.Cliente FOR INSERT
+AS
+BEGIN
+	INSERT INTO ÑUFLO.Milla
+	FROM (select id_cliente
+			FROM inserted)
+END
+GO
