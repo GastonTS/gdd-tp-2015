@@ -42,11 +42,11 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnElegirTipoButaca = new System.Windows.Forms.Button();
             this.labelVentanillaPasillo = new System.Windows.Forms.Label();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.textBoxCantidadButacas = new System.Windows.Forms.TextBox();
             this.labelCantidadButacas = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -185,6 +185,15 @@
             this.labelVentanillaPasillo.TabIndex = 16;
             this.labelVentanillaPasillo.Text = "Seleccione Butaca con Ventanilla. El resto será Pasillo";
             // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.Enabled = false;
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(253, 111);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(179, 154);
+            this.checkedListBox1.TabIndex = 3;
+            // 
             // textBoxCantidadButacas
             // 
             this.textBoxCantidadButacas.Location = new System.Drawing.Point(127, 151);
@@ -220,15 +229,7 @@
             this.btnGuardar.TabIndex = 1;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
-            // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.Enabled = false;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(253, 111);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(179, 154);
-            this.checkedListBox1.TabIndex = 3;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // FormAltaAeronave
             // 
