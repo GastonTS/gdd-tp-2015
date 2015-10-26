@@ -40,6 +40,23 @@ namespace AerolineaFrba
             }
         }
 
+
+        //Actualizar superador
+
+        public void actualizarBindingSourceSP(BindingSource binding, String spName){
+            actualizarBindingSource(binding, spName, CommandType.StoredProcedure);
+        }
+        public void actualizarBindingSourceQuery(BindingSource binding,String query){
+            actualizarBindingSource(binding, query, CommandType.Text);
+        }
+
+        public void actualizarBindingSource(BindingSource binding, String sqlCommand, CommandType commandType)
+        {
+            DataSet dataSet = GetData(sqlCommand,commandType);
+
+            binding.DataSource = dataSet.Tables[0];
+        }
+
         public void actualizarDataGridView(DataGridView dataGrid, String query)
         {
             conectar();

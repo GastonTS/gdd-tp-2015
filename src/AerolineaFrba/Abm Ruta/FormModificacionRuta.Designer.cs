@@ -34,19 +34,23 @@
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.comboBoxDestino = new System.Windows.Forms.ComboBox();
+            this.ciudadBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.comboBoxOrigen = new System.Windows.Forms.ComboBox();
+            this.ciudadBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelDestino = new System.Windows.Forms.Label();
             this.labelOrigen = new System.Windows.Forms.Label();
             this.ciudadTableAdapter = new AerolineaFrba.GD2C2015DataSetTableAdapters.CiudadTableAdapter();
-            this.ciudadBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.ciudadBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.rutaAereaTableAdapter = new AerolineaFrba.GD2C2015DataSetTableAdapters.RutaAereaTableAdapter();
+            this.rutaAereaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.servicioBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rutaAereaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // servicioBinding
@@ -70,7 +74,6 @@
             this.comboBoxTipoServicio.Size = new System.Drawing.Size(139, 21);
             this.comboBoxTipoServicio.TabIndex = 15;
             this.comboBoxTipoServicio.ValueMember = "tipo_servicio";
-            this.comboBoxTipoServicio.SelectionChangeCommitted += new System.EventHandler(this.comboBoxTipoServicio_SelectionChangeCommitted);
             // 
             // labelTipoServicio
             // 
@@ -93,6 +96,11 @@
             this.comboBoxDestino.TabIndex = 13;
             this.comboBoxDestino.ValueMember = "id_ciudad";
             // 
+            // ciudadBindingSource1
+            // 
+            this.ciudadBindingSource1.DataMember = "Ciudad";
+            this.ciudadBindingSource1.DataSource = this.gD2C2015DataSet;
+            // 
             // comboBoxOrigen
             // 
             this.comboBoxOrigen.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.ciudadBindingSource, "id_ciudad", true));
@@ -104,6 +112,12 @@
             this.comboBoxOrigen.Size = new System.Drawing.Size(139, 21);
             this.comboBoxOrigen.TabIndex = 11;
             this.comboBoxOrigen.ValueMember = "id_ciudad";
+            this.comboBoxOrigen.SelectionChangeCommitted += new System.EventHandler(this.comboBoxOrigen_SelectionChangeCommitted);
+            // 
+            // ciudadBindingSource
+            // 
+            this.ciudadBindingSource.DataMember = "Ciudad";
+            this.ciudadBindingSource.DataSource = this.gD2C2015DataSet;
             // 
             // labelDestino
             // 
@@ -127,25 +141,31 @@
             // 
             this.ciudadTableAdapter.ClearBeforeFill = true;
             // 
-            // ciudadBindingSource
-            // 
-            this.ciudadBindingSource.DataMember = "Ciudad";
-            this.ciudadBindingSource.DataSource = this.gD2C2015DataSet;
-            // 
-            // ciudadBindingSource1
-            // 
-            this.ciudadBindingSource1.DataMember = "Ciudad";
-            this.ciudadBindingSource1.DataSource = this.gD2C2015DataSet;
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Eliminar,
+            this.Modificar});
             this.dataGridView1.Location = new System.Drawing.Point(25, 175);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(572, 165);
             this.dataGridView1.TabIndex = 16;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // Eliminar
+            // 
+            this.Eliminar.HeaderText = "";
+            this.Eliminar.Name = "Eliminar";
+            this.Eliminar.Text = "Eliminar";
+            this.Eliminar.UseColumnTextForButtonValue = true;
+            // 
+            // Modificar
+            // 
+            this.Modificar.HeaderText = "";
+            this.Modificar.Name = "Modificar";
+            this.Modificar.Text = "Modificar";
+            this.Modificar.UseColumnTextForButtonValue = true;
             // 
             // rutaAereaTableAdapter
             // 
@@ -168,9 +188,10 @@
             this.Load += new System.EventHandler(this.FormModificacionRuta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.servicioBinding)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rutaAereaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,5 +212,8 @@
         private System.Windows.Forms.BindingSource ciudadBindingSource;
         private System.Windows.Forms.DataGridView dataGridView1;
         private GD2C2015DataSetTableAdapters.RutaAereaTableAdapter rutaAereaTableAdapter;
+        private System.Windows.Forms.BindingSource rutaAereaBindingSource;
+        private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
+        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
     }
 }
