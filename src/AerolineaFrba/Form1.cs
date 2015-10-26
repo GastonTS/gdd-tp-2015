@@ -108,5 +108,10 @@ namespace AerolineaFrba
         {
             new Registro_Llegada_Destino.FormInformeYValidacion().Show();
         }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            new Generacion_Viaje.FormGenerarViaje().Show();
+        }
     }
 }
