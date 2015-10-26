@@ -24,21 +24,23 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void FormModificacionRuta_Load(object sender, EventArgs e)
         {
+            // TODO: esta línea de código carga datos en la tabla 'gD2C2015DataSet.RutaAerea' Puede moverla o quitarla según sea necesario.
+
+            new gdDataBase().actualizarDataGridView(dataGridView1, "SELECT * FROM [ÑUFLO].RutaAerea");
             
-            new gdDataBase().actualizarComboBox(comboBoxTipoServicio, "SELECT DISTINCT tipo_servicio FROM [ÑUFLO].Ruta_Aerea");
-            // TODO: esta línea de código carga datos en la tabla 'gD2C2015DataSet.Ruta_Aerea' Puede moverla o quitarla según sea necesario.
-            this.ruta_AereaTableAdapter.Fill(this.gD2C2015DataSet.Ruta_Aerea);
+            new gdDataBase().actualizarComboBox(comboBoxTipoServicio, "SELECT tipo_servicio FROM [ÑUFLO].TipoServicio");
+            
             
             // TODO: esta línea de código carga datos en la tabla 'gD2C2015DataSet.Ciudad' Puede moverla o quitarla según sea necesario.
             this.ciudadTableAdapter.Fill(this.gD2C2015DataSet.Ciudad);
 
-            new gdDataBase().actualizarDataGridView(dataGridRuta,this.queryFiltros());
+            
 
         }
 
         private String queryFiltros()
         {
-            return "SELECT * FROM [ÑUFLO].Ruta_Aerea "+"WHERE tipo_servicio = "+filtros()[0];
+            return "SELECT * FROM [ÑUFLO].RutaAerea "+"WHERE id_servicio = "+filtros()[0];
         }
 
         private List<String> filtros()
@@ -48,12 +50,17 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void comboBoxTipoServicio_MouseClick(object sender, MouseEventArgs e)
         {
-            new gdDataBase().actualizarDataGridView(dataGridRuta, this.queryFiltros());
+            
         }
 
         private void comboBoxTipoServicio_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            new gdDataBase().actualizarDataGridView(dataGridRuta, this.queryFiltros());
+            
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
 
