@@ -393,3 +393,21 @@ AS
 	where b.id_tipo_butaca = tb.id_tipo_butaca
 ;
 GO
+
+/*****************************************************************/
+/*************************** Function ****************************/
+/*****************************************************************/
+
+CREATE FUNCTION ÑUFLO.PesoDisponible(@Id_viaje int)
+RETURNS numeric(18,0)
+AS
+BEGIN
+	declare @peso_disponible numeric(18,0)
+	
+	select @peso_disponible = (a.capacidad_peso_encomiendas - v.peso_ocupado)
+		from ÑUFLO.Aeronave a, ÑUFLO.Viaje v
+		where @Id_viaje = v.id_viaje
+			and v.id_aeronave = a.id_aeronave
+	RETURN @peso_disponible
+END
+GO
