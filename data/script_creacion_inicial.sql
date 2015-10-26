@@ -460,7 +460,7 @@ ON ÑUFLO.Cliente FOR INSERT
 AS
 BEGIN
 	INSERT INTO ÑUFLO.Milla
-	FROM (select id_cliente
-			FROM inserted)
+	SELECT id_cliente
+	FROM inserted
 END
 GO
