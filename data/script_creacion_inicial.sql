@@ -411,7 +411,7 @@ GO
 /*****************************************************************/
 
 CREATE PROCEDURE 
-ÑUFLO.bleh @id_viaje int
+ÑUFLO.ButacasDisponibles @id_viaje int
 AS
 	select numero_de_butaca, tipo_butaca
 	from ÑUFLO.TipoButaca tb,
