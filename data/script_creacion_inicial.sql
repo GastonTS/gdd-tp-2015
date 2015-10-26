@@ -9,8 +9,10 @@ GO
 CREATE SCHEMA [ÑUFLO] AUTHORIZATION gd
 GO
 
+/*****************************************************************/
+/***********************CREACION DE TABLAS***********************/
+/*****************************************************************/
 
-/****CREACION DE TABLAS****/
 CREATE TABLE ÑUFLO.Ciudad (
 	id_ciudad int IDENTITY(1,1) PRIMARY KEY,
 	nombre nvarchar(255) NOT NULL
@@ -175,17 +177,34 @@ CREATE TABLE ÑUFLO.PasajeEncomiendaPorCancelacion (
 GO
 
 CREATE TABLE ÑUFLO.Funcionalidad (
-	id_funcionalidad int PRIMARY KEY,
+	id_funcionalidad int IDENTITY(1,1) PRIMARY KEY,
 	descripcion nvarchar(255) NOT NULL
 	)
 GO
 
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('ABM Rol')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('ABM Ciudades')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('ABM Ruta Aerea')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('ABM Aeronave')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Generar Viaje')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Registrar Llegada')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Compra Pasaje/Encomienda')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Cancelacion Pasaje/Encomienda')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Consultar Millas')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Canjear Millas')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Listados Estadisticos')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('ABM Productos')
+GO
+
 CREATE TABLE ÑUFLO.Rol (
-	id_rol int PRIMARY KEY,
+	id_rol int IDENTITY(1,1) PRIMARY KEY,
 	nombre_rol nvarchar(255) UNIQUE NOT NULL,
-	habilitado bit NOT NULL
+	habilitado bit NOT NULL DEFAULT 1
 	)
 GO
+
+INSERT INTO ÑUFLO.Rol (nombre_rol)
+	values ('Administrador')
 
 CREATE TABLE ÑUFLO.FuncionalidadPorRol (
 	id_rol int REFERENCES ÑUFLO.Rol,
@@ -194,16 +213,37 @@ CREATE TABLE ÑUFLO.FuncionalidadPorRol (
 	)
 GO
 
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,1)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,2)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,3)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,4)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,5)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,6)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,7)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,8)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,9)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,10)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,11)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,12)
+GO
+
 CREATE TABLE ÑUFLO.Usuario (
 	nombre_usuario nvarchar(255) PRIMARY KEY,
 	password nvarchar(255) NOT NULL,
 	id_rol int REFERENCES ÑUFLO.Rol,
-	cantidad_intentos smallint NOT NULL,
-	habilitado bit NOT NULL
+	cantidad_intentos smallint DEFAULT 0 NOT NULL,
+	habilitado bit NOT NULL DEFAULT 1
 	)
 GO
 
-/**** MIGRACION *****/
+INSERT INTO ÑUFLO.Usuario (nombre_usuario, password, id_rol)
+	values ('Juan', 'e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', 1)
+GO
+
+/*****************************************************************/
+/************************** MIGRACION ***************************/
+/*****************************************************************/
+
 /*35 Ciudad*/
 INSERT INTO ÑUFLO.Ciudad (nombre) 
 	select (Ruta_Ciudad_Origen) 
@@ -314,6 +354,7 @@ CREATE TABLE #CompraPasajeEncomienda (
 	id_cliente int,
 	id_viaje int
 	)
+GO
 
 INSERT INTO #CompraPasajeEncomienda(numero_butaca, pasaje_precio, paquete_kg, paquete_precio, id_pasaje_encomienda, fecha_compra, id_cliente, id_viaje)
 	select Butaca_Nro, Pasaje_Precio, Paquete_KG, Paquete_Precio,
@@ -344,17 +385,66 @@ INSERT INTO #CompraPasajeEncomienda(numero_butaca, pasaje_precio, paquete_kg, pa
 					and v.fecha_salida = m.FechaSalida
 					and v.fecha_llegada_estimada = m.Fecha_LLegada_Estimada) id_viaje
 		from gd_esquema.Maestra m
+GO
 
 /*401304 Compra - Consideramos como que las compras eran de a uno, no varios pasajes ni encomiendas juntas por no poder diferenciarlas*/
 INSERT INTO ÑUFLO.Compra (id_viaje, id_cliente, fecha_de_compra)
 	select id_viaje, id_cliente, fecha_compra
 		from  #CompraPasajeEncomienda
-
+GO
 /*401304 PasajeEncomienda */
 INSERT INTO ÑUFLO.PasajeEncomienda (id_pasaje_encomienda, codigo_de_compra, id_cliente, peso_encomienda, numero_de_butaca, precio)
-	select id_pasaje_encomienda, codigo_compra, id_cliente, paquete_kg, numero_butaca,
+	select id_pasaje_encomienda, codigo_compra, id_cliente, paquete_kg, 
+			case 
+				when paquete_kg > 0 then NULL
+				else numero_butaca
+			end as numero_de_butaca,
 		case pasaje_precio
 			when 0.00 then paquete_precio
 			else pasaje_precio
 			end precio
 		from #CompraPasajeEncomienda
+GO
+	
+/*****************************************************************/
+/*********************** Store Procedures ************************/
+/*****************************************************************/
+
+CREATE PROCEDURE ÑUFLO.ButacasDisponibles @id_viaje int
+AS
+	select numero_de_butaca, tipo_butaca
+	from ÑUFLO.TipoButaca tb,
+		(select numero_de_butaca, id_tipo_butaca
+			from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b
+			where @id_viaje = v.id_viaje
+				and v.id_aeronave = b.id_aeronave
+		except
+		select distinct p.numero_de_butaca, b.id_tipo_butaca
+			from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b,
+				 ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p
+			where @id_viaje = v.id_viaje
+				and v.id_aeronave = b.id_aeronave
+				and v.id_viaje = c.id_viaje
+				and c.codigo_de_compra = p.codigo_de_compra
+				and p.numero_de_butaca = b.numero_de_butaca) b
+	where b.id_tipo_butaca = tb.id_tipo_butaca
+;
+GO
+
+/*****************************************************************/
+/*************************** Function ****************************/
+/*****************************************************************/
+
+CREATE FUNCTION ÑUFLO.PesoDisponible(@Id_viaje int)
+RETURNS numeric(18,0)
+AS
+BEGIN
+	declare @peso_disponible numeric(18,0)
+	
+	select @peso_disponible = (a.capacidad_peso_encomiendas - v.peso_ocupado)
+		from ÑUFLO.Aeronave a, ÑUFLO.Viaje v
+		where @Id_viaje = v.id_viaje
+			and v.id_aeronave = a.id_aeronave
+	RETURN @peso_disponible
+END
+GO

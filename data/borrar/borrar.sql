@@ -6,6 +6,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+/********************************************/
+/****************** Tablas ******************/
+/********************************************/
 DROP TABLE ÑUFLO.PasajeEncomiendaPorCancelacion
 GO
 
@@ -71,6 +74,21 @@ GO
 
 DROP TABLE ÑUFLO.Rol
 GO
-	
+
+
+/********************************************/
+/************* Store Procedure **************/
+/********************************************/
+
+DROP PROCEDURE ÑUFLO.ButacasDisponibles
+GO
+
+/********************************************/
+/***************** Function *****************/
+/********************************************/
+
+DROP FUNCTION ÑUFLO.PesoDisponible
+GO
+
 DROP SCHEMA [ÑUFLO]
 GO
