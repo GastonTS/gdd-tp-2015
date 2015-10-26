@@ -352,7 +352,11 @@ INSERT INTO ÑUFLO.Compra (id_viaje, id_cliente, fecha_de_compra)
 
 /*401304 PasajeEncomienda */
 INSERT INTO ÑUFLO.PasajeEncomienda (id_pasaje_encomienda, codigo_de_compra, id_cliente, peso_encomienda, numero_de_butaca, precio)
-	select id_pasaje_encomienda, codigo_compra, id_cliente, paquete_kg, numero_butaca,
+	select id_pasaje_encomienda, codigo_compra, id_cliente, paquete_kg, 
+			case 
+				when paquete_kg > 0 then NULL
+				else numero_butaca
+			end as numero_de_butaca,
 		case pasaje_precio
 			when 0.00 then paquete_precio
 			else pasaje_precio
