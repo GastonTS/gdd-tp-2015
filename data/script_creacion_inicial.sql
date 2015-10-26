@@ -458,3 +458,28 @@ BEGIN
 END
 GO
 
+/*IN PROCCESS
+CREATE TRIGGER CargaMilla
+ON ÑUFLO.Viaje FOR UPDATE
+AS
+declare
+	@sarlomps
+BEGIN
+	UPDATE ÑUFLO.Milla m
+	SET cantidad = @sarlomps ,fecha_de_obtencion = i.fecha_llegada
+	FROM inserted i, ÑUFLO.Compra comp
+	WHERE comp.id_viaje = i.id_viaje
+		AND comp.id_cliente = m.id_cliente
+		AND set @sarlomps = 
+END
+GO				
+Viaje
+id_viaje PK
+id_aeronave FK
+id_ruta FK
+peso_ocupado
+fecha_salida
+fecha_llegada
+fecha_llegada_estimada
+*/
+
