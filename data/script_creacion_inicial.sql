@@ -9,8 +9,10 @@ GO
 CREATE SCHEMA [ÑUFLO] AUTHORIZATION gd
 GO
 
+/*****************************************************************/
+/***********************CREACION DE TABLAS***********************/
+/*****************************************************************/
 
-/****CREACION DE TABLAS****/
 CREATE TABLE ÑUFLO.Ciudad (
 	id_ciudad int IDENTITY(1,1) PRIMARY KEY,
 	nombre nvarchar(255) NOT NULL
@@ -203,7 +205,10 @@ CREATE TABLE ÑUFLO.Usuario (
 	)
 GO
 
-/**** MIGRACION *****/
+/*****************************************************************/
+/************************** MIGRACION ***************************/
+/*****************************************************************/
+
 /*35 Ciudad*/
 INSERT INTO ÑUFLO.Ciudad (nombre) 
 	select (Ruta_Ciudad_Origen) 
@@ -362,3 +367,29 @@ INSERT INTO ÑUFLO.PasajeEncomienda (id_pasaje_encomienda, codigo_de_compra, id_
 			else pasaje_precio
 			end precio
 		from #CompraPasajeEncomienda
+		
+/*****************************************************************/
+/*********************** Store Procedures ************************/
+/*****************************************************************/
+
+CREATE PROCEDURE 
+ÑUFLO.bleh @id_viaje int
+AS
+	select numero_de_butaca, tipo_butaca
+	from ÑUFLO.TipoButaca tb,
+		(select numero_de_butaca, id_tipo_butaca
+			from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b
+			where @id_viaje = v.id_viaje
+				and v.id_aeronave = b.id_aeronave
+		except
+		select distinct p.numero_de_butaca, b.id_tipo_butaca
+			from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b,
+				 ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p
+			where @id_viaje = v.id_viaje
+				and v.id_aeronave = b.id_aeronave
+				and v.id_viaje = c.id_viaje
+				and c.codigo_de_compra = p.codigo_de_compra
+				and p.numero_de_butaca = b.numero_de_butaca) b
+	where b.id_tipo_butaca = tb.id_tipo_butaca
+;
+GO
