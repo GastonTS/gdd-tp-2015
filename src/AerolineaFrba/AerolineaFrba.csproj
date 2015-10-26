@@ -140,11 +140,17 @@
     <Compile Include="Consulta Millas\FormConsultaMillas.Designer.cs">
       <DependentUpon>FormConsultaMillas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Devolucion\Form1.cs">
+    <Compile Include="Devolucion\FormBajaPasajeEncomienda.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Devolucion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Devolucion\FormBajaPasajeEncomienda.Designer.cs">
+      <DependentUpon>FormBajaPasajeEncomienda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Devolucion\FormDevolucion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Devolucion\FormDevolucion.Designer.cs">
+      <DependentUpon>FormDevolucion.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -235,6 +241,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Consulta Millas\FormConsultaMillas.resx">
       <DependentUpon>FormConsultaMillas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Devolucion\FormBajaPasajeEncomienda.resx">
+      <DependentUpon>FormBajaPasajeEncomienda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Devolucion\FormDevolucion.resx">
+      <DependentUpon>FormDevolucion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
