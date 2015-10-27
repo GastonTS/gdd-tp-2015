@@ -37,7 +37,7 @@
             this.ciudadTableAdapter = new AerolineaFrba.GD2C2015DataSetTableAdapters.CiudadTableAdapter();
             this.ciudadBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.ciudadBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.ruta_AereaTableAdapter = new AerolineaFrba.GD2C2015DataSetTableAdapters.Ruta_AereaTableAdapter();
+            this.rutaAereaTableAdapter = new AerolineaFrba.GD2C2015DataSetTableAdapters.RutaAereaTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).BeginInit();
@@ -84,7 +84,7 @@
             // 
             // fKRutaAereidci3E1D39E1BindingSource
             // 
-            this.fKRutaAereidci3E1D39E1BindingSource.DataMember = "FK__Ruta_Aere__id_ci__3E1D39E1";
+            this.fKRutaAereidci3E1D39E1BindingSource.DataMember = "FK__RutaAere__id_ci__3E1D39E1";
             this.fKRutaAereidci3E1D39E1BindingSource.DataSource = this.ciudadBindingSource;
             // 
             // ciudadTableAdapter
@@ -101,9 +101,9 @@
             this.ciudadBindingSource2.DataMember = "Ciudad";
             this.ciudadBindingSource2.DataSource = this.gD2C2015DataSet;
             // 
-            // ruta_AereaTableAdapter
+            // rutaAereaTableAdapter
             // 
-            this.ruta_AereaTableAdapter.ClearBeforeFill = true;
+            this.rutaAereaTableAdapter.ClearBeforeFill = true;
             // 
             // FormSeleccionCiudad
             // 
@@ -133,7 +133,7 @@
         private System.Windows.Forms.BindingSource ciudadBindingSource1;
         private System.Windows.Forms.BindingSource ciudadBindingSource2;
         private System.Windows.Forms.BindingSource fKRutaAereidci3E1D39E1BindingSource;
-        private GD2C2015DataSetTableAdapters.Ruta_AereaTableAdapter ruta_AereaTableAdapter;
+        private GD2C2015DataSetTableAdapters.RutaAereaTableAdapter rutaAereaTableAdapter;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombreDataGridViewTextBoxColumn;
     }
 }

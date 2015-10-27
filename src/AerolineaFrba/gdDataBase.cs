@@ -40,6 +40,31 @@ namespace AerolineaFrba
             }
         }
 
+
+        //Actualizar superador
+
+        public void actualizarBindingSourceFiltrosQuery(BindingSource binding, String tableName, Dictionary<String,String> map){
+            
+            var unfilteredQuery = "SELECT * FROM " + "'" + tableName + "'" + "WHERE 3.14=3.14 ";
+
+            map.Where(par => par.Value != "").Aggregate(unfilteredQuery, ((query, par) => query + "AND '" + par.Key + "' = '" + par.Value + "' "));
+
+        }
+
+        public void actualizarBindingSourceSP(BindingSource binding, String spName){
+            actualizarBindingSource(binding, spName, CommandType.StoredProcedure);
+        }
+        public void actualizarBindingSourceQuery(BindingSource binding,String query){
+            actualizarBindingSource(binding, query, CommandType.Text);
+        }
+
+        public void actualizarBindingSource(BindingSource binding, String sqlCommand, CommandType commandType)
+        {
+            DataSet dataSet = GetData(sqlCommand,commandType);
+
+            binding.DataSource = dataSet.Tables[0];
+        }
+
         public void actualizarDataGridView(DataGridView dataGrid, String query)
         {
             conectar();

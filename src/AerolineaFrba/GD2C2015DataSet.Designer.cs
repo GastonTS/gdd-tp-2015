@@ -50,7 +50,7 @@ namespace AerolineaFrba {
         
         private ProductoDataTable tableProducto;
         
-        private Ruta_AereaDataTable tableRuta_Aerea;
+        private RutaAereaDataTable tableRutaAerea;
         
         private ServicioTecnicoDataTable tableServicioTecnico;
         
@@ -159,8 +159,8 @@ namespace AerolineaFrba {
                 if ((ds.Tables["Producto"] != null)) {
                     base.Tables.Add(new ProductoDataTable(ds.Tables["Producto"]));
                 }
-                if ((ds.Tables["Ruta_Aerea"] != null)) {
-                    base.Tables.Add(new Ruta_AereaDataTable(ds.Tables["Ruta_Aerea"]));
+                if ((ds.Tables["RutaAerea"] != null)) {
+                    base.Tables.Add(new RutaAereaDataTable(ds.Tables["RutaAerea"]));
                 }
                 if ((ds.Tables["ServicioTecnico"] != null)) {
                     base.Tables.Add(new ServicioTecnicoDataTable(ds.Tables["ServicioTecnico"]));
@@ -320,9 +320,9 @@ namespace AerolineaFrba {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public Ruta_AereaDataTable Ruta_Aerea {
+        public RutaAereaDataTable RutaAerea {
             get {
-                return this.tableRuta_Aerea;
+                return this.tableRutaAerea;
             }
         }
         
@@ -452,8 +452,8 @@ namespace AerolineaFrba {
                 if ((ds.Tables["Producto"] != null)) {
                     base.Tables.Add(new ProductoDataTable(ds.Tables["Producto"]));
                 }
-                if ((ds.Tables["Ruta_Aerea"] != null)) {
-                    base.Tables.Add(new Ruta_AereaDataTable(ds.Tables["Ruta_Aerea"]));
+                if ((ds.Tables["RutaAerea"] != null)) {
+                    base.Tables.Add(new RutaAereaDataTable(ds.Tables["RutaAerea"]));
                 }
                 if ((ds.Tables["ServicioTecnico"] != null)) {
                     base.Tables.Add(new ServicioTecnicoDataTable(ds.Tables["ServicioTecnico"]));
@@ -572,10 +572,10 @@ namespace AerolineaFrba {
                     this.tableProducto.InitVars();
                 }
             }
-            this.tableRuta_Aerea = ((Ruta_AereaDataTable)(base.Tables["Ruta_Aerea"]));
+            this.tableRutaAerea = ((RutaAereaDataTable)(base.Tables["RutaAerea"]));
             if ((initTable == true)) {
-                if ((this.tableRuta_Aerea != null)) {
-                    this.tableRuta_Aerea.InitVars();
+                if ((this.tableRutaAerea != null)) {
+                    this.tableRutaAerea.InitVars();
                 }
             }
             this.tableServicioTecnico = ((ServicioTecnicoDataTable)(base.Tables["ServicioTecnico"]));
@@ -644,8 +644,8 @@ namespace AerolineaFrba {
             base.Tables.Add(this.tablePasajeEncomiendaPorCancelacion);
             this.tableProducto = new ProductoDataTable();
             base.Tables.Add(this.tableProducto);
-            this.tableRuta_Aerea = new Ruta_AereaDataTable();
-            base.Tables.Add(this.tableRuta_Aerea);
+            this.tableRutaAerea = new RutaAereaDataTable();
+            base.Tables.Add(this.tableRutaAerea);
             this.tableServicioTecnico = new ServicioTecnicoDataTable();
             base.Tables.Add(this.tableServicioTecnico);
             this.tableViaje = new ViajeDataTable();
@@ -659,7 +659,7 @@ namespace AerolineaFrba {
                         this.tableButacaPorAvion.id_aeronaveColumn}, false);
             this.Relations.Add(this.relationFK__ButacaPor__id_ae__44CA3770);
             this.relationFK__ButacaPor__id_bu__45BE5BA9 = new global::System.Data.DataRelation("FK__ButacaPor__id_bu__45BE5BA9", new global::System.Data.DataColumn[] {
-                        this.tableRuta_Aerea.id_rutaColumn}, new global::System.Data.DataColumn[] {
+                        this.tableRutaAerea.id_rutaColumn}, new global::System.Data.DataColumn[] {
                         this.tableButacaPorAvion.id_butacaColumn}, false);
             this.Relations.Add(this.relationFK__ButacaPor__id_bu__45BE5BA9);
             this.relationFK__Cancelaci__codig__6442E2C9 = new global::System.Data.DataRelation("FK__Cancelaci__codig__6442E2C9", new global::System.Data.DataColumn[] {
@@ -704,11 +704,11 @@ namespace AerolineaFrba {
             this.Relations.Add(this.relationFK__PasajeEnc__id_pa__671F4F74);
             this.relationFK__Ruta_Aere__id_ci__3E1D39E1 = new global::System.Data.DataRelation("FK__Ruta_Aere__id_ci__3E1D39E1", new global::System.Data.DataColumn[] {
                         this.tableCiudad.id_ciudadColumn}, new global::System.Data.DataColumn[] {
-                        this.tableRuta_Aerea.id_ciudad_origenColumn}, false);
+                        this.tableRutaAerea.id_ciudad_origenColumn}, false);
             this.Relations.Add(this.relationFK__Ruta_Aere__id_ci__3E1D39E1);
             this.relationFK__Ruta_Aere__id_ci__3F115E1A = new global::System.Data.DataRelation("FK__Ruta_Aere__id_ci__3F115E1A", new global::System.Data.DataColumn[] {
                         this.tableCiudad.id_ciudadColumn}, new global::System.Data.DataColumn[] {
-                        this.tableRuta_Aerea.id_ciudad_destinoColumn}, false);
+                        this.tableRutaAerea.id_ciudad_destinoColumn}, false);
             this.Relations.Add(this.relationFK__Ruta_Aere__id_ci__3F115E1A);
             this.relationFK__ServicioT__id_ae__4A8310C6 = new global::System.Data.DataRelation("FK__ServicioT__id_ae__4A8310C6", new global::System.Data.DataColumn[] {
                         this.tableAeronave.id_aeronaveColumn}, new global::System.Data.DataColumn[] {
@@ -719,7 +719,7 @@ namespace AerolineaFrba {
                         this.tableViaje.id_aeronaveColumn}, false);
             this.Relations.Add(this.relationFK__Viaje__id_aerona__4E53A1AA);
             this.relationFK__Viaje__id_ruta__4F47C5E3 = new global::System.Data.DataRelation("FK__Viaje__id_ruta__4F47C5E3", new global::System.Data.DataColumn[] {
-                        this.tableRuta_Aerea.id_rutaColumn}, new global::System.Data.DataColumn[] {
+                        this.tableRutaAerea.id_rutaColumn}, new global::System.Data.DataColumn[] {
                         this.tableViaje.id_rutaColumn}, false);
             this.Relations.Add(this.relationFK__Viaje__id_ruta__4F47C5E3);
         }
@@ -804,7 +804,7 @@ namespace AerolineaFrba {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeRuta_Aerea() {
+        private bool ShouldSerializeRutaAerea() {
             return false;
         }
         
@@ -915,7 +915,7 @@ namespace AerolineaFrba {
         public delegate void ProductoRowChangeEventHandler(object sender, ProductoRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void Ruta_AereaRowChangeEventHandler(object sender, Ruta_AereaRowChangeEvent e);
+        public delegate void RutaAereaRowChangeEventHandler(object sender, RutaAereaRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void ServicioTecnicoRowChangeEventHandler(object sender, ServicioTecnicoRowChangeEvent e);
@@ -1698,7 +1698,7 @@ namespace AerolineaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ButacaPorAvionRow AddButacaPorAvionRow(AeronaveRow parentAeronaveRowByFK__ButacaPor__id_ae__44CA3770, Ruta_AereaRow parentRuta_AereaRowByFK__ButacaPor__id_bu__45BE5BA9, bool ocupada) {
+            public ButacaPorAvionRow AddButacaPorAvionRow(AeronaveRow parentAeronaveRowByFK__ButacaPor__id_ae__44CA3770, RutaAereaRow parentRutaAereaRowByFK__ButacaPor__id_bu__45BE5BA9, bool ocupada) {
                 ButacaPorAvionRow rowButacaPorAvionRow = ((ButacaPorAvionRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1707,8 +1707,8 @@ namespace AerolineaFrba {
                 if ((parentAeronaveRowByFK__ButacaPor__id_ae__44CA3770 != null)) {
                     columnValuesArray[0] = parentAeronaveRowByFK__ButacaPor__id_ae__44CA3770[0];
                 }
-                if ((parentRuta_AereaRowByFK__ButacaPor__id_bu__45BE5BA9 != null)) {
-                    columnValuesArray[1] = parentRuta_AereaRowByFK__ButacaPor__id_bu__45BE5BA9[0];
+                if ((parentRutaAereaRowByFK__ButacaPor__id_bu__45BE5BA9 != null)) {
+                    columnValuesArray[1] = parentRutaAereaRowByFK__ButacaPor__id_bu__45BE5BA9[0];
                 }
                 rowButacaPorAvionRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowButacaPorAvionRow);
@@ -5355,7 +5355,7 @@ namespace AerolineaFrba {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class Ruta_AereaDataTable : global::System.Data.TypedTableBase<Ruta_AereaRow> {
+        public partial class RutaAereaDataTable : global::System.Data.TypedTableBase<RutaAereaRow> {
             
             private global::System.Data.DataColumn columnid_ruta;
             
@@ -5371,8 +5371,8 @@ namespace AerolineaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Ruta_AereaDataTable() {
-                this.TableName = "Ruta_Aerea";
+            public RutaAereaDataTable() {
+                this.TableName = "RutaAerea";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -5380,7 +5380,7 @@ namespace AerolineaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal Ruta_AereaDataTable(global::System.Data.DataTable table) {
+            internal RutaAereaDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -5397,7 +5397,7 @@ namespace AerolineaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected Ruta_AereaDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected RutaAereaDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -5461,34 +5461,34 @@ namespace AerolineaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Ruta_AereaRow this[int index] {
+            public RutaAereaRow this[int index] {
                 get {
-                    return ((Ruta_AereaRow)(this.Rows[index]));
+                    return ((RutaAereaRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event Ruta_AereaRowChangeEventHandler Ruta_AereaRowChanging;
+            public event RutaAereaRowChangeEventHandler RutaAereaRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event Ruta_AereaRowChangeEventHandler Ruta_AereaRowChanged;
+            public event RutaAereaRowChangeEventHandler RutaAereaRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event Ruta_AereaRowChangeEventHandler Ruta_AereaRowDeleting;
+            public event RutaAereaRowChangeEventHandler RutaAereaRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event Ruta_AereaRowChangeEventHandler Ruta_AereaRowDeleted;
+            public event RutaAereaRowChangeEventHandler RutaAereaRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddRuta_AereaRow(Ruta_AereaRow row) {
+            public void AddRutaAereaRow(RutaAereaRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Ruta_AereaRow AddRuta_AereaRow(CiudadRow parentCiudadRowByFK__Ruta_Aere__id_ci__3E1D39E1, CiudadRow parentCiudadRowByFK__Ruta_Aere__id_ci__3F115E1A, decimal precio_base_por_peso, decimal precio_base_por_pasaje, string tipo_servicio) {
-                Ruta_AereaRow rowRuta_AereaRow = ((Ruta_AereaRow)(this.NewRow()));
+            public RutaAereaRow AddRutaAereaRow(CiudadRow parentCiudadRowByFK__Ruta_Aere__id_ci__3E1D39E1, CiudadRow parentCiudadRowByFK__Ruta_Aere__id_ci__3F115E1A, decimal precio_base_por_peso, decimal precio_base_por_pasaje, string tipo_servicio) {
+                RutaAereaRow rowRutaAereaRow = ((RutaAereaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null,
@@ -5502,22 +5502,22 @@ namespace AerolineaFrba {
                 if ((parentCiudadRowByFK__Ruta_Aere__id_ci__3F115E1A != null)) {
                     columnValuesArray[2] = parentCiudadRowByFK__Ruta_Aere__id_ci__3F115E1A[0];
                 }
-                rowRuta_AereaRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowRuta_AereaRow);
-                return rowRuta_AereaRow;
+                rowRutaAereaRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowRutaAereaRow);
+                return rowRutaAereaRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Ruta_AereaRow FindByid_ruta(int id_ruta) {
-                return ((Ruta_AereaRow)(this.Rows.Find(new object[] {
+            public RutaAereaRow FindByid_ruta(int id_ruta) {
+                return ((RutaAereaRow)(this.Rows.Find(new object[] {
                             id_ruta})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                Ruta_AereaDataTable cln = ((Ruta_AereaDataTable)(base.Clone()));
+                RutaAereaDataTable cln = ((RutaAereaDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -5525,7 +5525,7 @@ namespace AerolineaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new Ruta_AereaDataTable();
+                return new RutaAereaDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5567,28 +5567,28 @@ namespace AerolineaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Ruta_AereaRow NewRuta_AereaRow() {
-                return ((Ruta_AereaRow)(this.NewRow()));
+            public RutaAereaRow NewRutaAereaRow() {
+                return ((RutaAereaRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new Ruta_AereaRow(builder);
+                return new RutaAereaRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(Ruta_AereaRow);
+                return typeof(RutaAereaRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.Ruta_AereaRowChanged != null)) {
-                    this.Ruta_AereaRowChanged(this, new Ruta_AereaRowChangeEvent(((Ruta_AereaRow)(e.Row)), e.Action));
+                if ((this.RutaAereaRowChanged != null)) {
+                    this.RutaAereaRowChanged(this, new RutaAereaRowChangeEvent(((RutaAereaRow)(e.Row)), e.Action));
                 }
             }
             
@@ -5596,8 +5596,8 @@ namespace AerolineaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.Ruta_AereaRowChanging != null)) {
-                    this.Ruta_AereaRowChanging(this, new Ruta_AereaRowChangeEvent(((Ruta_AereaRow)(e.Row)), e.Action));
+                if ((this.RutaAereaRowChanging != null)) {
+                    this.RutaAereaRowChanging(this, new RutaAereaRowChangeEvent(((RutaAereaRow)(e.Row)), e.Action));
                 }
             }
             
@@ -5605,8 +5605,8 @@ namespace AerolineaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.Ruta_AereaRowDeleted != null)) {
-                    this.Ruta_AereaRowDeleted(this, new Ruta_AereaRowChangeEvent(((Ruta_AereaRow)(e.Row)), e.Action));
+                if ((this.RutaAereaRowDeleted != null)) {
+                    this.RutaAereaRowDeleted(this, new RutaAereaRowChangeEvent(((RutaAereaRow)(e.Row)), e.Action));
                 }
             }
             
@@ -5614,14 +5614,14 @@ namespace AerolineaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.Ruta_AereaRowDeleting != null)) {
-                    this.Ruta_AereaRowDeleting(this, new Ruta_AereaRowChangeEvent(((Ruta_AereaRow)(e.Row)), e.Action));
+                if ((this.RutaAereaRowDeleting != null)) {
+                    this.RutaAereaRowDeleting(this, new RutaAereaRowChangeEvent(((RutaAereaRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveRuta_AereaRow(Ruta_AereaRow row) {
+            public void RemoveRutaAereaRow(RutaAereaRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -5648,7 +5648,7 @@ namespace AerolineaFrba {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "Ruta_AereaDataTable";
+                attribute2.FixedValue = "RutaAereaDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -6139,7 +6139,7 @@ namespace AerolineaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ViajeRow AddViajeRow(AeronaveRow parentAeronaveRowByFK__Viaje__id_aerona__4E53A1AA, Ruta_AereaRow parentRuta_AereaRowByFK__Viaje__id_ruta__4F47C5E3, decimal peso_ocupado, System.DateTime fecha_salida, System.DateTime fecha_llegada, System.DateTime fecha_llegada_estimada) {
+            public ViajeRow AddViajeRow(AeronaveRow parentAeronaveRowByFK__Viaje__id_aerona__4E53A1AA, RutaAereaRow parentRutaAereaRowByFK__Viaje__id_ruta__4F47C5E3, decimal peso_ocupado, System.DateTime fecha_salida, System.DateTime fecha_llegada, System.DateTime fecha_llegada_estimada) {
                 ViajeRow rowViajeRow = ((ViajeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -6152,8 +6152,8 @@ namespace AerolineaFrba {
                 if ((parentAeronaveRowByFK__Viaje__id_aerona__4E53A1AA != null)) {
                     columnValuesArray[1] = parentAeronaveRowByFK__Viaje__id_aerona__4E53A1AA[0];
                 }
-                if ((parentRuta_AereaRowByFK__Viaje__id_ruta__4F47C5E3 != null)) {
-                    columnValuesArray[2] = parentRuta_AereaRowByFK__Viaje__id_ruta__4F47C5E3[0];
+                if ((parentRutaAereaRowByFK__Viaje__id_ruta__4F47C5E3 != null)) {
+                    columnValuesArray[2] = parentRutaAereaRowByFK__Viaje__id_ruta__4F47C5E3[0];
                 }
                 rowViajeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowViajeRow);
@@ -6787,9 +6787,9 @@ namespace AerolineaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Ruta_AereaRow Ruta_AereaRow {
+            public RutaAereaRow RutaAereaRow {
                 get {
-                    return ((Ruta_AereaRow)(this.GetParentRow(this.Table.ParentRelations["FK__ButacaPor__id_bu__45BE5BA9"])));
+                    return ((RutaAereaRow)(this.GetParentRow(this.Table.ParentRelations["FK__ButacaPor__id_bu__45BE5BA9"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK__ButacaPor__id_bu__45BE5BA9"]);
@@ -7100,23 +7100,23 @@ namespace AerolineaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Ruta_AereaRow[] GetRuta_AereaRowsByFK__Ruta_Aere__id_ci__3E1D39E1() {
+            public RutaAereaRow[] GetRutaAereaRowsByFK__Ruta_Aere__id_ci__3E1D39E1() {
                 if ((this.Table.ChildRelations["FK__Ruta_Aere__id_ci__3E1D39E1"] == null)) {
-                    return new Ruta_AereaRow[0];
+                    return new RutaAereaRow[0];
                 }
                 else {
-                    return ((Ruta_AereaRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Ruta_Aere__id_ci__3E1D39E1"])));
+                    return ((RutaAereaRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Ruta_Aere__id_ci__3E1D39E1"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Ruta_AereaRow[] GetRuta_AereaRowsByFK__Ruta_Aere__id_ci__3F115E1A() {
+            public RutaAereaRow[] GetRutaAereaRowsByFK__Ruta_Aere__id_ci__3F115E1A() {
                 if ((this.Table.ChildRelations["FK__Ruta_Aere__id_ci__3F115E1A"] == null)) {
-                    return new Ruta_AereaRow[0];
+                    return new RutaAereaRow[0];
                 }
                 else {
-                    return ((Ruta_AereaRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Ruta_Aere__id_ci__3F115E1A"])));
+                    return ((RutaAereaRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Ruta_Aere__id_ci__3F115E1A"])));
                 }
             }
         }
@@ -8932,25 +8932,25 @@ namespace AerolineaFrba {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class Ruta_AereaRow : global::System.Data.DataRow {
+        public partial class RutaAereaRow : global::System.Data.DataRow {
             
-            private Ruta_AereaDataTable tableRuta_Aerea;
+            private RutaAereaDataTable tableRutaAerea;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal Ruta_AereaRow(global::System.Data.DataRowBuilder rb) : 
+            internal RutaAereaRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableRuta_Aerea = ((Ruta_AereaDataTable)(this.Table));
+                this.tableRutaAerea = ((RutaAereaDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int id_ruta {
                 get {
-                    return ((int)(this[this.tableRuta_Aerea.id_rutaColumn]));
+                    return ((int)(this[this.tableRutaAerea.id_rutaColumn]));
                 }
                 set {
-                    this[this.tableRuta_Aerea.id_rutaColumn] = value;
+                    this[this.tableRutaAerea.id_rutaColumn] = value;
                 }
             }
             
@@ -8959,14 +8959,14 @@ namespace AerolineaFrba {
             public int id_ciudad_origen {
                 get {
                     try {
-                        return ((int)(this[this.tableRuta_Aerea.id_ciudad_origenColumn]));
+                        return ((int)(this[this.tableRutaAerea.id_ciudad_origenColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'id_ciudad_origen\' de la tabla \'Ruta_Aerea\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'id_ciudad_origen\' de la tabla \'RutaAerea\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableRuta_Aerea.id_ciudad_origenColumn] = value;
+                    this[this.tableRutaAerea.id_ciudad_origenColumn] = value;
                 }
             }
             
@@ -8975,14 +8975,14 @@ namespace AerolineaFrba {
             public int id_ciudad_destino {
                 get {
                     try {
-                        return ((int)(this[this.tableRuta_Aerea.id_ciudad_destinoColumn]));
+                        return ((int)(this[this.tableRutaAerea.id_ciudad_destinoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'id_ciudad_destino\' de la tabla \'Ruta_Aerea\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'id_ciudad_destino\' de la tabla \'RutaAerea\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableRuta_Aerea.id_ciudad_destinoColumn] = value;
+                    this[this.tableRutaAerea.id_ciudad_destinoColumn] = value;
                 }
             }
             
@@ -8991,15 +8991,14 @@ namespace AerolineaFrba {
             public decimal precio_base_por_peso {
                 get {
                     try {
-                        return ((decimal)(this[this.tableRuta_Aerea.precio_base_por_pesoColumn]));
+                        return ((decimal)(this[this.tableRutaAerea.precio_base_por_pesoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'precio_base_por_peso\' de la tabla \'Ruta_Aerea\' es DBNull." +
-                                "", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'precio_base_por_peso\' de la tabla \'RutaAerea\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableRuta_Aerea.precio_base_por_pesoColumn] = value;
+                    this[this.tableRutaAerea.precio_base_por_pesoColumn] = value;
                 }
             }
             
@@ -9008,15 +9007,15 @@ namespace AerolineaFrba {
             public decimal precio_base_por_pasaje {
                 get {
                     try {
-                        return ((decimal)(this[this.tableRuta_Aerea.precio_base_por_pasajeColumn]));
+                        return ((decimal)(this[this.tableRutaAerea.precio_base_por_pasajeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'precio_base_por_pasaje\' de la tabla \'Ruta_Aerea\' es DBNul" +
-                                "l.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'precio_base_por_pasaje\' de la tabla \'RutaAerea\' es DBNull" +
+                                ".", e);
                     }
                 }
                 set {
-                    this[this.tableRuta_Aerea.precio_base_por_pasajeColumn] = value;
+                    this[this.tableRutaAerea.precio_base_por_pasajeColumn] = value;
                 }
             }
             
@@ -9025,14 +9024,14 @@ namespace AerolineaFrba {
             public string tipo_servicio {
                 get {
                     try {
-                        return ((string)(this[this.tableRuta_Aerea.tipo_servicioColumn]));
+                        return ((string)(this[this.tableRutaAerea.tipo_servicioColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'tipo_servicio\' de la tabla \'Ruta_Aerea\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'tipo_servicio\' de la tabla \'RutaAerea\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableRuta_Aerea.tipo_servicioColumn] = value;
+                    this[this.tableRutaAerea.tipo_servicioColumn] = value;
                 }
             }
             
@@ -9061,61 +9060,61 @@ namespace AerolineaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Isid_ciudad_origenNull() {
-                return this.IsNull(this.tableRuta_Aerea.id_ciudad_origenColumn);
+                return this.IsNull(this.tableRutaAerea.id_ciudad_origenColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Setid_ciudad_origenNull() {
-                this[this.tableRuta_Aerea.id_ciudad_origenColumn] = global::System.Convert.DBNull;
+                this[this.tableRutaAerea.id_ciudad_origenColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Isid_ciudad_destinoNull() {
-                return this.IsNull(this.tableRuta_Aerea.id_ciudad_destinoColumn);
+                return this.IsNull(this.tableRutaAerea.id_ciudad_destinoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Setid_ciudad_destinoNull() {
-                this[this.tableRuta_Aerea.id_ciudad_destinoColumn] = global::System.Convert.DBNull;
+                this[this.tableRutaAerea.id_ciudad_destinoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Isprecio_base_por_pesoNull() {
-                return this.IsNull(this.tableRuta_Aerea.precio_base_por_pesoColumn);
+                return this.IsNull(this.tableRutaAerea.precio_base_por_pesoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Setprecio_base_por_pesoNull() {
-                this[this.tableRuta_Aerea.precio_base_por_pesoColumn] = global::System.Convert.DBNull;
+                this[this.tableRutaAerea.precio_base_por_pesoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Isprecio_base_por_pasajeNull() {
-                return this.IsNull(this.tableRuta_Aerea.precio_base_por_pasajeColumn);
+                return this.IsNull(this.tableRutaAerea.precio_base_por_pasajeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Setprecio_base_por_pasajeNull() {
-                this[this.tableRuta_Aerea.precio_base_por_pasajeColumn] = global::System.Convert.DBNull;
+                this[this.tableRutaAerea.precio_base_por_pasajeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Istipo_servicioNull() {
-                return this.IsNull(this.tableRuta_Aerea.tipo_servicioColumn);
+                return this.IsNull(this.tableRutaAerea.tipo_servicioColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Settipo_servicioNull() {
-                this[this.tableRuta_Aerea.tipo_servicioColumn] = global::System.Convert.DBNull;
+                this[this.tableRutaAerea.tipo_servicioColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9409,9 +9408,9 @@ namespace AerolineaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Ruta_AereaRow Ruta_AereaRow {
+            public RutaAereaRow Ruta_AereaRow {
                 get {
-                    return ((Ruta_AereaRow)(this.GetParentRow(this.Table.ParentRelations["FK__Viaje__id_ruta__4F47C5E3"])));
+                    return ((RutaAereaRow)(this.GetParentRow(this.Table.ParentRelations["FK__Viaje__id_ruta__4F47C5E3"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK__Viaje__id_ruta__4F47C5E3"]);
@@ -9948,22 +9947,22 @@ namespace AerolineaFrba {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class Ruta_AereaRowChangeEvent : global::System.EventArgs {
+        public class RutaAereaRowChangeEvent : global::System.EventArgs {
             
-            private Ruta_AereaRow eventRow;
+            private RutaAereaRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Ruta_AereaRowChangeEvent(Ruta_AereaRow row, global::System.Data.DataRowAction action) {
+            public RutaAereaRowChangeEvent(RutaAereaRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Ruta_AereaRow Row {
+            public RutaAereaRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -15482,7 +15481,7 @@ SELECT id_producto, millas_necesarias, stock, descripcion FROM ÑUFLO.Producto W
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class Ruta_AereaTableAdapter : global::System.ComponentModel.Component {
+    public partial class RutaAereaTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -15496,7 +15495,7 @@ SELECT id_producto, millas_necesarias, stock, descripcion FROM ÑUFLO.Producto W
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public Ruta_AereaTableAdapter() {
+        public RutaAereaTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -15593,7 +15592,7 @@ SELECT id_producto, millas_necesarias, stock, descripcion FROM ÑUFLO.Producto W
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Ruta_Aerea";
+            tableMapping.DataSetTable = "RutaAerea";
             tableMapping.ColumnMappings.Add("id_ruta", "id_ruta");
             tableMapping.ColumnMappings.Add("id_ciudad_origen", "id_ciudad_origen");
             tableMapping.ColumnMappings.Add("id_ciudad_destino", "id_ciudad_destino");
@@ -15672,7 +15671,7 @@ SELECT id_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, preci
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(GD2C2015DataSet.Ruta_AereaDataTable dataTable) {
+        public virtual int Fill(GD2C2015DataSet.RutaAereaDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -15685,9 +15684,9 @@ SELECT id_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, preci
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual GD2C2015DataSet.Ruta_AereaDataTable GetData() {
+        public virtual GD2C2015DataSet.RutaAereaDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            GD2C2015DataSet.Ruta_AereaDataTable dataTable = new GD2C2015DataSet.Ruta_AereaDataTable();
+            GD2C2015DataSet.RutaAereaDataTable dataTable = new GD2C2015DataSet.RutaAereaDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -15695,7 +15694,7 @@ SELECT id_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, preci
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(GD2C2015DataSet.Ruta_AereaDataTable dataTable) {
+        public virtual int Update(GD2C2015DataSet.RutaAereaDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
@@ -15703,7 +15702,7 @@ SELECT id_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, preci
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int Update(GD2C2015DataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Ruta_Aerea");
+            return this.Adapter.Update(dataSet, "RutaAerea");
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -16867,7 +16866,7 @@ SELECT id_viaje, id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada
         
         private ProductoTableAdapter _productoTableAdapter;
         
-        private Ruta_AereaTableAdapter _ruta_AereaTableAdapter;
+        private RutaAereaTableAdapter _rutaAereaTableAdapter;
         
         private ServicioTecnicoTableAdapter _servicioTecnicoTableAdapter;
         
@@ -17075,12 +17074,12 @@ SELECT id_viaje, id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
-        public Ruta_AereaTableAdapter Ruta_AereaTableAdapter {
+        public RutaAereaTableAdapter RutaAereaTableAdapter {
             get {
-                return this._ruta_AereaTableAdapter;
+                return this._rutaAereaTableAdapter;
             }
             set {
-                this._ruta_AereaTableAdapter = value;
+                this._rutaAereaTableAdapter = value;
             }
         }
         
@@ -17183,9 +17182,9 @@ SELECT id_viaje, id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada
                             && (this._productoTableAdapter.Connection != null))) {
                     return this._productoTableAdapter.Connection;
                 }
-                if (((this._ruta_AereaTableAdapter != null) 
-                            && (this._ruta_AereaTableAdapter.Connection != null))) {
-                    return this._ruta_AereaTableAdapter.Connection;
+                if (((this._rutaAereaTableAdapter != null) 
+                            && (this._rutaAereaTableAdapter.Connection != null))) {
+                    return this._rutaAereaTableAdapter.Connection;
                 }
                 if (((this._servicioTecnicoTableAdapter != null) 
                             && (this._servicioTecnicoTableAdapter.Connection != null))) {
@@ -17247,7 +17246,7 @@ SELECT id_viaje, id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada
                 if ((this._productoTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._ruta_AereaTableAdapter != null)) {
+                if ((this._rutaAereaTableAdapter != null)) {
                     count = (count + 1);
                 }
                 if ((this._servicioTecnicoTableAdapter != null)) {
@@ -17294,12 +17293,12 @@ SELECT id_viaje, id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._ruta_AereaTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Ruta_Aerea.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._rutaAereaTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.RutaAerea.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._ruta_AereaTableAdapter.Update(updatedRows));
+                    result = (result + this._rutaAereaTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -17445,11 +17444,11 @@ SELECT id_viaje, id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._ruta_AereaTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Ruta_Aerea.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._rutaAereaTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.RutaAerea.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._ruta_AereaTableAdapter.Update(addedRows));
+                    result = (result + this._rutaAereaTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -17655,11 +17654,11 @@ SELECT id_viaje, id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._ruta_AereaTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Ruta_Aerea.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._rutaAereaTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.RutaAerea.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._ruta_AereaTableAdapter.Update(deletedRows));
+                    result = (result + this._rutaAereaTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -17791,8 +17790,8 @@ SELECT id_viaje, id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada
                 throw new global::System.ArgumentException("Todos los TableAdapters administrados por un TableAdapterManager deben usar la mi" +
                         "sma cadena de conexión.");
             }
-            if (((this._ruta_AereaTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._ruta_AereaTableAdapter.Connection) == false))) {
+            if (((this._rutaAereaTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._rutaAereaTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("Todos los TableAdapters administrados por un TableAdapterManager deben usar la mi" +
                         "sma cadena de conexión.");
             }
@@ -17955,13 +17954,13 @@ SELECT id_viaje, id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada
                         adaptersWithAcceptChangesDuringUpdate.Add(this._productoTableAdapter.Adapter);
                     }
                 }
-                if ((this._ruta_AereaTableAdapter != null)) {
-                    revertConnections.Add(this._ruta_AereaTableAdapter, this._ruta_AereaTableAdapter.Connection);
-                    this._ruta_AereaTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
-                    this._ruta_AereaTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
-                    if (this._ruta_AereaTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._ruta_AereaTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._ruta_AereaTableAdapter.Adapter);
+                if ((this._rutaAereaTableAdapter != null)) {
+                    revertConnections.Add(this._rutaAereaTableAdapter, this._rutaAereaTableAdapter.Connection);
+                    this._rutaAereaTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._rutaAereaTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._rutaAereaTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._rutaAereaTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._rutaAereaTableAdapter.Adapter);
                     }
                 }
                 if ((this._servicioTecnicoTableAdapter != null)) {
@@ -18092,9 +18091,9 @@ SELECT id_viaje, id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada
                     this._productoTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._productoTableAdapter]));
                     this._productoTableAdapter.Transaction = null;
                 }
-                if ((this._ruta_AereaTableAdapter != null)) {
-                    this._ruta_AereaTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._ruta_AereaTableAdapter]));
-                    this._ruta_AereaTableAdapter.Transaction = null;
+                if ((this._rutaAereaTableAdapter != null)) {
+                    this._rutaAereaTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._rutaAereaTableAdapter]));
+                    this._rutaAereaTableAdapter.Transaction = null;
                 }
                 if ((this._servicioTecnicoTableAdapter != null)) {
                     this._servicioTecnicoTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._servicioTecnicoTableAdapter]));
