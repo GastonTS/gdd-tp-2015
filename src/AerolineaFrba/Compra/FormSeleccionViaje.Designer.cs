@@ -191,6 +191,7 @@
             this.groupBoxPasajesEncomiendas.Controls.Add(this.btnAgregarPasaje);
             this.groupBoxPasajesEncomiendas.Controls.Add(this.listBoxPasajesYEncomiendasComprados);
             this.groupBoxPasajesEncomiendas.Controls.Add(this.btnAgregarEncomienda);
+            this.groupBoxPasajesEncomiendas.Enabled = false;
             this.groupBoxPasajesEncomiendas.Location = new System.Drawing.Point(25, 356);
             this.groupBoxPasajesEncomiendas.Name = "groupBoxPasajesEncomiendas";
             this.groupBoxPasajesEncomiendas.Size = new System.Drawing.Size(448, 140);
