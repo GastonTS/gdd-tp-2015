@@ -1,4 +1,4 @@
-﻿USE [GD2C2015]
+USE [GD2C2015]
 GO
 
 SET ANSI_NULLS ON
@@ -156,6 +156,7 @@ CREATE TABLE ÑUFLO.PasajeEncomienda (
 	peso_encomienda numeric(18, 0),
 	numero_de_butaca numeric(18, 0), 
 	cancelado bit DEFAULT 0,
+	precio numeric(18,2) NOT NULL,
 	CHECK ((peso_encomienda IS NOT NULL) OR (numero_de_butaca IS NOT NULL)
 			AND NOT (peso_encomienda IS NOT NULL) AND (numero_de_butaca IS NOT NULL))
 	)
@@ -345,7 +346,9 @@ GO
 CREATE TABLE #CompraPasajeEncomienda (
 	codigo_compra int IDENTITY(1,1),
 	numero_butaca numeric(18,0),
+	pasaje_precio numeric(18,2),
 	paquete_kg numeric(18,0),
+	paquete_precio numeric(18,2),
 	id_pasaje_encomienda numeric(18,0),
 	fecha_compra datetime,
 	id_cliente int,
@@ -353,8 +356,8 @@ CREATE TABLE #CompraPasajeEncomienda (
 	)
 GO
 
-INSERT INTO #CompraPasajeEncomienda(numero_butaca, paquete_kg, id_pasaje_encomienda, fecha_compra, id_cliente, id_viaje)
-	select Butaca_Nro, Paquete_KG,
+INSERT INTO #CompraPasajeEncomienda(numero_butaca, pasaje_precio, paquete_kg, paquete_precio, id_pasaje_encomienda, fecha_compra, id_cliente, id_viaje)
+	select Butaca_Nro, Pasaje_Precio, Paquete_KG, Paquete_Precio,
 			case Butaca_Piso
 				when 0 then Paquete_Codigo
 				when 1 then Pasaje_Codigo
@@ -390,12 +393,16 @@ INSERT INTO ÑUFLO.Compra (id_viaje, id_cliente, fecha_de_compra)
 		from  #CompraPasajeEncomienda
 GO
 /*401304 PasajeEncomienda */
-INSERT INTO ÑUFLO.PasajeEncomienda (id_pasaje_encomienda, codigo_de_compra, id_cliente, peso_encomienda, numero_de_butaca)
+INSERT INTO ÑUFLO.PasajeEncomienda (id_pasaje_encomienda, codigo_de_compra, id_cliente, peso_encomienda, numero_de_butaca, precio)
 	select id_pasaje_encomienda, codigo_compra, id_cliente, paquete_kg, 
 			case 
 				when paquete_kg > 0 then NULL
 				else numero_butaca
-			end as numero_de_butaca
+			end as numero_de_butaca,
+		case pasaje_precio
+			when 0.00 then paquete_precio
+			else pasaje_precio
+			end precio
 		from #CompraPasajeEncomienda
 GO
 	
@@ -443,6 +450,23 @@ END
 GO
 
 
+CREATE FUNCTION ÑUFLO.MillasPorClienteCarga(@Id_viaje int)
+RETURNS @MillasPorCliente TABLE
+   (
+    id_cliente int PRIMARY KEY,
+    cantidadMillas Int NOT NULL
+   )
+AS
+BEGIN
+   INSERT @MillasPorCliente
+        SELECT comp.id_cliente, ROUND(SUM(pe.precio)/10,0,1) as millas-- El tercer parametro asi trunca, con cero redondea
+        FROM ÑUFLO.Compra comp, ÑUFLO.PasajeEncomienda pe
+        WHERE comp.id_viaje = @Id_viaje
+			AND comp.codigo_de_compra = pe.codigo_de_compra
+		GROUP BY comp.id_cliente
+   RETURN
+END
+GO
 
 /*****************************************************************/
 /*************************** Triggers ****************************/
@@ -458,28 +482,26 @@ BEGIN
 END
 GO
 
-/*IN PROCCESS
 CREATE TRIGGER CargaMilla
 ON ÑUFLO.Viaje FOR UPDATE
 AS
-declare
-	@sarlomps
 BEGIN
-	UPDATE ÑUFLO.Milla m
-	SET cantidad = @sarlomps ,fecha_de_obtencion = i.fecha_llegada
-	FROM inserted i, ÑUFLO.Compra comp
-	WHERE comp.id_viaje = i.id_viaje
-		AND comp.id_cliente = m.id_cliente
-		AND set @sarlomps = 
+	UPDATE ÑUFLO.Milla
+	SET cantidad = mc.cantidadMillas ,fecha_de_obtencion = i.fecha_llegada
+	FROM inserted i, (SELECT * FROM ÑUFLO.MillasPorClienteCarga(1)) mc, ÑUFLO.Milla m
+	WHERE mc.id_cliente = m.id_cliente 
 END
-GO				
-Viaje
-id_viaje PK
-id_aeronave FK
-id_ruta FK
-peso_ocupado
-fecha_salida
-fecha_llegada
-fecha_llegada_estimada
-*/
+GO
 
+
+CREATE TRIGGER DisminiurMillaPorCanje
+ON ÑUFLO.Canje FOR INSERT
+AS
+BEGIN
+	UPDATE ÑUFLO.Milla
+	SET cantidad = m.cantidad - p.millas_necesarias ,fecha_de_obtencion = i.fecha_llegada
+	FROM inserted i, ÑUFLO.Producto p, ÑUFLO.Milla m
+	WHERE i.id_cliente = m.id_cliente
+		AND i.id_Producto = p.id_producto
+END
+GO

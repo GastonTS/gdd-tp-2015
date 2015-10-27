@@ -116,6 +116,11 @@ namespace AerolineaFrba
 
         private void button12_Click(object sender, EventArgs e)
         {
+            new Compra.FormDatosPasajeroEncomienda().Show();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
             new Listado_Estadistico.FormListadoEstadistico().Show();
         }
     }
