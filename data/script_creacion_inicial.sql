@@ -492,3 +492,16 @@ BEGIN
 	WHERE mc.id_cliente = m.id_cliente 
 END
 GO
+
+
+CREATE TRIGGER DisminiurMillaPorCanje
+ON ÑUFLO.Canje FOR INSERT
+AS
+BEGIN
+	UPDATE ÑUFLO.Milla
+	SET cantidad = m.cantidad - p.millas_necesarias ,fecha_de_obtencion = i.fecha_llegada
+	FROM inserted i, ÑUFLO.Producto p, ÑUFLO.Milla m
+	WHERE i.id_cliente = m.id_cliente
+		AND i.id_Producto = p.id_producto
+END
+GO
