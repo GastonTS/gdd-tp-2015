@@ -450,6 +450,23 @@ END
 GO
 
 
+CREATE FUNCTION ÑUFLO.MillasPorClienteCarga(@Id_viaje int)
+RETURNS @MillasPorCliente TABLE
+   (
+    id_cliente int PRIMARY KEY,
+    cantidadMillas Int NOT NULL
+   )
+AS
+BEGIN
+   INSERT @MillasPorCliente
+        SELECT comp.id_cliente, ROUND(SUM(pe.precio)/10,0,1) as millas-- El tercer parametro asi trunca, con cero redondea
+        FROM ÑUFLO.Compra comp, ÑUFLO.PasajeEncomienda pe
+        WHERE comp.id_viaje = @Id_viaje
+			AND comp.codigo_de_compra = pe.codigo_de_compra
+		GROUP BY comp.id_cliente
+   RETURN
+END
+GO
 
 /*****************************************************************/
 /*************************** Triggers ****************************/
@@ -465,28 +482,13 @@ BEGIN
 END
 GO
 
-/*IN PROCCESS
 CREATE TRIGGER CargaMilla
 ON ÑUFLO.Viaje FOR UPDATE
 AS
-declare
-	@sarlomps
 BEGIN
-	UPDATE ÑUFLO.Milla m
-	SET cantidad = @sarlomps ,fecha_de_obtencion = i.fecha_llegada
-	FROM inserted i, ÑUFLO.Compra comp
-	WHERE comp.id_viaje = i.id_viaje
-		AND comp.id_cliente = m.id_cliente
-		AND set @sarlomps = 
+	UPDATE ÑUFLO.Milla
+	SET cantidad = mc.cantidadMillas ,fecha_de_obtencion = i.fecha_llegada
+	FROM inserted i, (SELECT * FROM ÑUFLO.MillasPorClienteCarga(1)) mc, ÑUFLO.Milla m
+	WHERE mc.id_cliente = m.id_cliente 
 END
-GO				
-Viaje
-id_viaje PK
-id_aeronave FK
-id_ruta FK
-peso_ocupado
-fecha_salida
-fecha_llegada
-fecha_llegada_estimada
-*/
-
+GO
