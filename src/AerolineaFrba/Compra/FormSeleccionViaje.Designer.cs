@@ -38,13 +38,15 @@
             this.Seleccionar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxFechaYRuta = new System.Windows.Forms.GroupBox();
             this.labelViajesDisponibles = new System.Windows.Forms.Label();
-            this.labelCantidadPasajes = new System.Windows.Forms.Label();
-            this.labelCantidadEncomienda = new System.Windows.Forms.Label();
-            this.textBoxCantidadPasajes = new System.Windows.Forms.TextBox();
-            this.textBoxCantidadEncomienda = new System.Windows.Forms.TextBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnAgregarPasaje = new System.Windows.Forms.Button();
+            this.btnAgregarEncomienda = new System.Windows.Forms.Button();
+            this.listBoxPasajesYEncomiendasComprados = new System.Windows.Forms.ListBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.groupBoxPasajesEncomiendas = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBoxFechaYRuta.SuspendLayout();
+            this.groupBoxPasajesEncomiendas.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelFechaViaje
@@ -108,7 +110,7 @@
             this.Seleccionar});
             this.dataGridView1.Location = new System.Drawing.Point(22, 206);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(451, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(451, 131);
             this.dataGridView1.TabIndex = 8;
             // 
             // Seleccionar
@@ -140,65 +142,79 @@
             this.labelViajesDisponibles.TabIndex = 10;
             this.labelViajesDisponibles.Text = "Viajes disponibles:";
             // 
-            // labelCantidadPasajes
-            // 
-            this.labelCantidadPasajes.AutoSize = true;
-            this.labelCantidadPasajes.Location = new System.Drawing.Point(25, 381);
-            this.labelCantidadPasajes.Name = "labelCantidadPasajes";
-            this.labelCantidadPasajes.Size = new System.Drawing.Size(156, 13);
-            this.labelCantidadPasajes.TabIndex = 11;
-            this.labelCantidadPasajes.Text = "Cantidad de pasajes a comprar:";
-            // 
-            // labelCantidadEncomienda
-            // 
-            this.labelCantidadEncomienda.AutoSize = true;
-            this.labelCantidadEncomienda.Location = new System.Drawing.Point(25, 414);
-            this.labelCantidadEncomienda.Name = "labelCantidadEncomienda";
-            this.labelCantidadEncomienda.Size = new System.Drawing.Size(159, 13);
-            this.labelCantidadEncomienda.TabIndex = 12;
-            this.labelCantidadEncomienda.Text = "Cantidad de encomienda en Kg:";
-            // 
-            // textBoxCantidadPasajes
-            // 
-            this.textBoxCantidadPasajes.Location = new System.Drawing.Point(190, 378);
-            this.textBoxCantidadPasajes.Name = "textBoxCantidadPasajes";
-            this.textBoxCantidadPasajes.Size = new System.Drawing.Size(79, 20);
-            this.textBoxCantidadPasajes.TabIndex = 13;
-            // 
-            // textBoxCantidadEncomienda
-            // 
-            this.textBoxCantidadEncomienda.Location = new System.Drawing.Point(190, 411);
-            this.textBoxCantidadEncomienda.Name = "textBoxCantidadEncomienda";
-            this.textBoxCantidadEncomienda.Size = new System.Drawing.Size(79, 20);
-            this.textBoxCantidadEncomienda.TabIndex = 14;
-            // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(28, 463);
+            this.btnLimpiar.Location = new System.Drawing.Point(25, 510);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 15;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             // 
+            // btnAgregarPasaje
+            // 
+            this.btnAgregarPasaje.Location = new System.Drawing.Point(32, 39);
+            this.btnAgregarPasaje.Name = "btnAgregarPasaje";
+            this.btnAgregarPasaje.Size = new System.Drawing.Size(133, 23);
+            this.btnAgregarPasaje.TabIndex = 16;
+            this.btnAgregarPasaje.Text = "Comprar Pasaje";
+            this.btnAgregarPasaje.UseVisualStyleBackColor = true;
+            // 
+            // btnAgregarEncomienda
+            // 
+            this.btnAgregarEncomienda.Location = new System.Drawing.Point(32, 79);
+            this.btnAgregarEncomienda.Name = "btnAgregarEncomienda";
+            this.btnAgregarEncomienda.Size = new System.Drawing.Size(133, 23);
+            this.btnAgregarEncomienda.TabIndex = 17;
+            this.btnAgregarEncomienda.Text = "Comprar Encomienda";
+            this.btnAgregarEncomienda.UseVisualStyleBackColor = true;
+            // 
+            // listBoxPasajesYEncomiendasComprados
+            // 
+            this.listBoxPasajesYEncomiendasComprados.FormattingEnabled = true;
+            this.listBoxPasajesYEncomiendasComprados.Location = new System.Drawing.Point(243, 19);
+            this.listBoxPasajesYEncomiendasComprados.Name = "listBoxPasajesYEncomiendasComprados";
+            this.listBoxPasajesYEncomiendasComprados.Size = new System.Drawing.Size(199, 108);
+            this.listBoxPasajesYEncomiendasComprados.TabIndex = 18;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(398, 510);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "Aceptar";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxPasajesEncomiendas
+            // 
+            this.groupBoxPasajesEncomiendas.Controls.Add(this.btnAgregarPasaje);
+            this.groupBoxPasajesEncomiendas.Controls.Add(this.listBoxPasajesYEncomiendasComprados);
+            this.groupBoxPasajesEncomiendas.Controls.Add(this.btnAgregarEncomienda);
+            this.groupBoxPasajesEncomiendas.Location = new System.Drawing.Point(25, 356);
+            this.groupBoxPasajesEncomiendas.Name = "groupBoxPasajesEncomiendas";
+            this.groupBoxPasajesEncomiendas.Size = new System.Drawing.Size(448, 140);
+            this.groupBoxPasajesEncomiendas.TabIndex = 20;
+            this.groupBoxPasajesEncomiendas.TabStop = false;
+            this.groupBoxPasajesEncomiendas.Text = "Compra de Pasajes y/o Encomiendas";
+            // 
             // FormSeleccionViaje
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(503, 516);
+            this.ClientSize = new System.Drawing.Size(503, 545);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.textBoxCantidadEncomienda);
-            this.Controls.Add(this.textBoxCantidadPasajes);
-            this.Controls.Add(this.labelCantidadEncomienda);
-            this.Controls.Add(this.labelCantidadPasajes);
             this.Controls.Add(this.labelViajesDisponibles);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBoxFechaYRuta);
+            this.Controls.Add(this.groupBoxPasajesEncomiendas);
             this.Name = "FormSeleccionViaje";
             this.Text = "Selección del Viaje a Comprar";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBoxFechaYRuta.ResumeLayout(false);
             this.groupBoxFechaYRuta.PerformLayout();
+            this.groupBoxPasajesEncomiendas.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,10 +232,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Seleccionar;
         private System.Windows.Forms.GroupBox groupBoxFechaYRuta;
         private System.Windows.Forms.Label labelViajesDisponibles;
-        private System.Windows.Forms.Label labelCantidadPasajes;
-        private System.Windows.Forms.Label labelCantidadEncomienda;
-        private System.Windows.Forms.TextBox textBoxCantidadPasajes;
-        private System.Windows.Forms.TextBox textBoxCantidadEncomienda;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Button btnAgregarPasaje;
+        private System.Windows.Forms.Button btnAgregarEncomienda;
+        private System.Windows.Forms.ListBox listBoxPasajesYEncomiendasComprados;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.GroupBox groupBoxPasajesEncomiendas;
     }
 }
