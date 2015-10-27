@@ -1,4 +1,4 @@
-﻿USE [GD2C2015]
+USE [GD2C2015]
 GO
 
 SET ANSI_NULLS ON
@@ -464,7 +464,6 @@ BEGIN
 	FROM inserted
 END
 GO
-<<<<<<< HEAD
 
 /*IN PROCCESS
 CREATE TRIGGER CargaMilla
@@ -491,5 +490,3 @@ fecha_llegada
 fecha_llegada_estimada
 */
 
-=======
->>>>>>> parent of fefa7ff... saco precio de pasajeEncomienda que estaba mal tenerlo ahi supongo
