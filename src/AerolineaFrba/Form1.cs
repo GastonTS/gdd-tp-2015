@@ -113,5 +113,10 @@ namespace AerolineaFrba
         {
             new Generacion_Viaje.FormGenerarViaje().Show();
         }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            new Listado_Estadistico.FormListadoEstadistico().Show();
+        }
     }
 }
