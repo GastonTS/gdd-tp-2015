@@ -43,6 +43,14 @@ namespace AerolineaFrba
 
         //Actualizar superador
 
+        public void actualizarBindingSourceFiltrosQuery(BindingSource binding, String tableName, Dictionary<String,String> map){
+            
+            var unfilteredQuery = "SELECT * FROM " + "'" + tableName + "'" + "WHERE 3.14=3.14 ";
+
+            map.Where(par => par.Value != "").Aggregate(unfilteredQuery, ((query, par) => query + "AND '" + par.Key + "' = '" + par.Value + "' "));
+
+        }
+
         public void actualizarBindingSourceSP(BindingSource binding, String spName){
             actualizarBindingSource(binding, spName, CommandType.StoredProcedure);
         }
