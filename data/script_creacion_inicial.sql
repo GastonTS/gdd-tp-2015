@@ -156,6 +156,7 @@ CREATE TABLE ÑUFLO.PasajeEncomienda (
 	peso_encomienda numeric(18, 0),
 	numero_de_butaca numeric(18, 0), 
 	cancelado bit DEFAULT 0,
+	precio numeric(18,2) NOT NULL,
 	CHECK ((peso_encomienda IS NOT NULL) OR (numero_de_butaca IS NOT NULL)
 			AND NOT (peso_encomienda IS NOT NULL) AND (numero_de_butaca IS NOT NULL))
 	)
@@ -345,7 +346,9 @@ GO
 CREATE TABLE #CompraPasajeEncomienda (
 	codigo_compra int IDENTITY(1,1),
 	numero_butaca numeric(18,0),
+	pasaje_precio numeric(18,2),
 	paquete_kg numeric(18,0),
+	paquete_precio numeric(18,2),
 	id_pasaje_encomienda numeric(18,0),
 	fecha_compra datetime,
 	id_cliente int,
@@ -353,8 +356,8 @@ CREATE TABLE #CompraPasajeEncomienda (
 	)
 GO
 
-INSERT INTO #CompraPasajeEncomienda(numero_butaca, paquete_kg, id_pasaje_encomienda, fecha_compra, id_cliente, id_viaje)
-	select Butaca_Nro, Paquete_KG,
+INSERT INTO #CompraPasajeEncomienda(numero_butaca, pasaje_precio, paquete_kg, paquete_precio, id_pasaje_encomienda, fecha_compra, id_cliente, id_viaje)
+	select Butaca_Nro, Pasaje_Precio, Paquete_KG, Paquete_Precio,
 			case Butaca_Piso
 				when 0 then Paquete_Codigo
 				when 1 then Pasaje_Codigo
@@ -390,12 +393,16 @@ INSERT INTO ÑUFLO.Compra (id_viaje, id_cliente, fecha_de_compra)
 		from  #CompraPasajeEncomienda
 GO
 /*401304 PasajeEncomienda */
-INSERT INTO ÑUFLO.PasajeEncomienda (id_pasaje_encomienda, codigo_de_compra, id_cliente, peso_encomienda, numero_de_butaca)
+INSERT INTO ÑUFLO.PasajeEncomienda (id_pasaje_encomienda, codigo_de_compra, id_cliente, peso_encomienda, numero_de_butaca, precio)
 	select id_pasaje_encomienda, codigo_compra, id_cliente, paquete_kg, 
 			case 
 				when paquete_kg > 0 then NULL
 				else numero_butaca
-			end as numero_de_butaca
+			end as numero_de_butaca,
+		case pasaje_precio
+			when 0.00 then paquete_precio
+			else pasaje_precio
+			end precio
 		from #CompraPasajeEncomienda
 GO
 	
@@ -457,6 +464,7 @@ BEGIN
 	FROM inserted
 END
 GO
+<<<<<<< HEAD
 
 /*IN PROCCESS
 CREATE TRIGGER CargaMilla
@@ -483,3 +491,5 @@ fecha_llegada
 fecha_llegada_estimada
 */
 
+=======
+>>>>>>> parent of fefa7ff... saco precio de pasajeEncomienda que estaba mal tenerlo ahi supongo
