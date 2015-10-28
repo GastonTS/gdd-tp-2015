@@ -457,7 +457,6 @@ BEGIN
 END
 GO
 
-
 CREATE FUNCTION ÑUFLO.MillasPorClienteCarga(@Id_viaje int)
 RETURNS @MillasPorCliente TABLE
    (
@@ -473,6 +472,74 @@ BEGIN
 			AND comp.codigo_de_compra = pe.codigo_de_compra
 		GROUP BY comp.id_cliente
    RETURN
+END
+GO
+
+CREATE FUNCTION ÑUFLO.PasajeConDestinoEnFechas(@fecha_inicio nvarchar(255), @fecha_fin nvarchar(255))
+RETURNS @Pasajes TABLE
+	(
+	nombre_ciudad nvarchar(255),
+	codigo_compra int,
+	fecha_de_compra datetime,
+	pasaje numeric(18,0),
+	dni nvarchar(255),
+	nombre_cliente nvarchar(255),
+	apellido nvarchar(255),
+	numero_de_butaca numeric(18,0),
+	precio numeric(18,2)
+	)	
+AS
+BEGIN
+	Insert @Pasajes
+	select ci.nombre, co.codigo_de_compra, co.fecha_de_compra, id_pasaje_encomienda, DNI, c.nombre Nombre, apellido Apellido, numero_de_butaca Butaca, precio Precio
+		from ÑUFLO.Cliente c , ÑUFLO.PasajeEncomienda p, ÑUFLO.Compra co, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad ci
+		where  co.fecha_de_compra between @fecha_inicio and @fecha_fin
+			and v.id_viaje = co.id_viaje
+			and v.id_ruta = r.id_ruta
+			and r.id_ciudad_destino = ci.id_ciudad
+			and co.codigo_de_compra = p.codigo_de_compra
+			and c.id_cliente = p.id_cliente
+			and p.numero_de_butaca is not null
+	RETURN
+END
+GO	
+
+CREATE FUNCTION ÑUFLO.TOP5DestinosPasajesComprados(@fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @TOP5DestinosPasajes TABLE
+	(
+	Destino nvarchar(255),
+	Cantidad_de_Pasajes_Comprados int
+	)
+AS
+BEGIN
+	INSERT @TOP5DestinosPasajes
+	select top 5 nombre_ciudad, COUNT(*)
+		from ÑUFLO.PasajeConDestinoEnFechas(@fecha_inicio, @fecha_fin)
+		group by nombre_ciudad
+		order by COUNT(*) desc
+	RETURN
+END
+GO
+
+CREATE FUNCTION ÑUFLO.DetallePasajesPara(@ciudad nvarchar(255), @fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Detalle TABLE
+	(
+	PNR numeric(18,0),
+	Fecha_de_Compra datetime,
+	Codigo_Pasaje int,
+	DNI numeric(18,0),
+	Nombre nvarchar(255),
+	Apellido nvarchar(255),
+	Butaca_Numero numeric(18,0),
+	Precio numeric(18,2)
+	)
+AS
+BEGIN
+	INSERT @Detalle
+		select codigo_compra, fecha_de_compra, pasaje, dni, nombre_cliente, apellido, numero_de_butaca, precio
+			from ÑUFLO.PasajeConDestinoEnFechas(@fecha_inicio, @fecha_fin)
+			where nombre_ciudad = @ciudad
+	RETURN
 END
 GO
 

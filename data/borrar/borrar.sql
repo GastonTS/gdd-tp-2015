@@ -93,6 +93,15 @@ GO
 DROP FUNCTION ÑUFLO.MillasPorClienteCarga
 GO
 
+DROP FUNCTION ÑUFLO.PasajeConDestinoEnFechas
+GO
+
+DROP FUNCTION ÑUFLO.TOP5DestinosPasajesComprados
+GO
+
+DROP FUNCTION ÑUFLO.DetallePasajesPara
+GO
+
 /********************************************/
 /******************* Views ******************/
 /********************************************/
