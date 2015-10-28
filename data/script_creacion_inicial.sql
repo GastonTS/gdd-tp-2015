@@ -505,3 +505,17 @@ BEGIN
 		AND i.id_Producto = p.id_producto
 END
 GO
+
+
+/*****************************************************************/
+/**************************** Views ******************************/
+/*****************************************************************/
+
+CREATE VIEW ÑUFLO.VRutaAerea
+AS
+	select r.codigo_ruta 'Código Ruta', co.nombre 'Ciudad Origen', cd.nombre 'Ciudad Destino', 
+			r.precio_base_por_peso 'Precio base x peso', r.precio_base_por_pasaje 'Precio base x pasaje'
+		from ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
+		where r.id_ciudad_origen = co.id_ciudad
+			and r.id_ciudad_destino = cd.id_ciudad
+GO
