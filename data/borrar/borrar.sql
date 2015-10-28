@@ -90,6 +90,12 @@ GO
 DROP FUNCTION ÑUFLO.PesoDisponible
 GO
 
+DROP FUNCTION ÑUFLO.DetalleMillasDe
+GO
+
+DROP FUNCTION ÑUFLO.MillasTotalesDe
+GO
+
 DROP FUNCTION ÑUFLO.MillasPorClienteCarga
 GO
 

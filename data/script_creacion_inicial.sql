@@ -135,7 +135,7 @@ CREATE TABLE ÑUFLO.Producto (
 GO
 
 CREATE TABLE ÑUFLO.Canje (
-	id_canje int PRIMARY KEY,
+	id_canje int IDENTITY(1,1) PRIMARY KEY,
 	id_cliente int REFERENCES ÑUFLO.Cliente,
 	id_Producto int REFERENCES ÑUFLO.Producto,
 	cantidad int NOT NULL,
@@ -456,6 +456,49 @@ BEGIN
 		where @Id_viaje = v.id_viaje
 			and v.id_aeronave = a.id_aeronave
 	RETURN @peso_disponible
+END
+GO
+
+CREATE FUNCTION ÑUFLO.DetalleMillasDe(@dni int)
+RETURNS @DetalleMillas TABLE
+	(
+	Tipo nvarchar(255),
+	Fecha datetime,
+	Cantidad int,
+	Cantidad_Gastada nvarchar(255),
+	Estado nvarchar(255)
+	)
+AS
+BEGIN
+	INSERT @DetalleMillas
+		select 'Obtencion' Tipo, fecha_de_obtencion, cantidad, CAST(cantidad_gastada AS nvarchar(255)), case expirado
+																											when 0 then 'Vigentes'
+																											else 'Expiradas'
+																										end
+			from ÑUFLO.Milla m, ÑUFLO.Cliente cli
+			where m.id_cliente = cli.id_cliente
+				and cli.dni= @dni
+		UNION
+		select 'Canje' Tipo, fecha_de_canje, -cantidad, '-', '-'
+			from ÑUFLO.Canje c, ÑUFLO.Cliente cli
+			where c.id_cliente = cli.id_cliente
+				and cli.dni= @dni
+		order by fecha_de_obtencion
+	RETURN
+END
+GO
+
+CREATE FUNCTION ÑUFLO.MillasTotalesDe(@dni numeric(18,0))
+RETURNS int
+AS
+BEGIN
+	declare @TotalMillas int
+
+	select @TotalMillas = SUM(Cantidad - Cantidad_Gastada)
+		from ÑUFLO.DetalleMillasDe(@dni)
+		where Estado = 'Vigentes'
+
+	RETURN @TotalMillas
 END
 GO
 
