@@ -472,29 +472,18 @@ GO
 /*************************** Triggers ****************************/
 /*****************************************************************/
 
-CREATE TRIGGER InicializacionMilla
-ON ÑUFLO.Cliente FOR INSERT
-AS
-BEGIN
-	INSERT INTO ÑUFLO.Milla
-	SELECT id_cliente
-	FROM inserted
-END
-GO
-
-CREATE TRIGGER CargaMilla
+CREATE TRIGGER ÑUFLO.CargaMilla
 ON ÑUFLO.Viaje FOR UPDATE
 AS
 BEGIN
 	UPDATE ÑUFLO.Milla
 	SET cantidad = mc.cantidadMillas ,fecha_de_obtencion = i.fecha_llegada
-	FROM inserted i, (SELECT * FROM ÑUFLO.MillasPorClienteCarga(1)) mc, ÑUFLO.Milla m
+	FROM inserted i, (SELECT * FROM ÑUFLO.MillasPorClienteCarga(i.id_viaje)) mc, ÑUFLO.Milla m
 	WHERE mc.id_cliente = m.id_cliente 
 END
 GO
 
-
-CREATE TRIGGER DisminiurMillaPorCanje
+CREATE TRIGGER ÑUFLO.DisminiurMillaPorCanje
 ON ÑUFLO.Canje FOR INSERT
 AS
 BEGIN
@@ -505,7 +494,6 @@ BEGIN
 		AND i.id_Producto = p.id_producto
 END
 GO
-
 
 /*****************************************************************/
 /**************************** Views ******************************/
