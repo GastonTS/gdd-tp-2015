@@ -475,6 +475,36 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION ÑUFLO.PasajesYEncomiendasDe(@codigo_compra int)
+RETURNS @PasajesYEncomiendas TABLE
+	(
+	Codigo int,
+	PoC nvarchar(255),
+	DNI numeric(18,0),
+	Nombre nvarchar(255),
+	Apellido nvarchar(255),
+	Peso_Encomienda nvarchar(255),
+	Butaca_Nro nvarchar(255), 
+	Precio numeric(18,2)
+	)
+AS
+BEGIN
+	INSERT @PasajesYEncomiendas
+		select p.id_pasaje_encomienda, 'Pasaje', c.dni, c.nombre, c.apellido, '-', cast(p.numero_de_butaca AS nvarchar(255)), p.precio
+			from ÑUFLO.PasajeEncomienda p, ÑUFLO.Cliente c
+			where p.numero_de_butaca is not null
+				and p.id_cliente = c.id_cliente
+				and p.codigo_de_compra = @codigo_compra
+		UNION
+		select p.id_pasaje_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
+			from ÑUFLO.PasajeEncomienda p, ÑUFLO.Cliente c
+			where p.numero_de_butaca is null
+				and p.id_cliente = c.id_cliente
+				and p.codigo_de_compra = @codigo_compra
+	RETURN
+END
+GO
+
 CREATE FUNCTION ÑUFLO.PasajeConDestinoEnFechas(@fecha_inicio nvarchar(255), @fecha_fin nvarchar(255))
 RETURNS @Pasajes TABLE
 	(

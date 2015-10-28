@@ -93,6 +93,9 @@ GO
 DROP FUNCTION ÑUFLO.MillasPorClienteCarga
 GO
 
+DROP FUNCTION ÑUFLO.PasajesYEncomiendasDe
+GO
+
 DROP FUNCTION ÑUFLO.PasajeConDestinoEnFechas
 GO
 
