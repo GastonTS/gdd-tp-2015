@@ -120,7 +120,9 @@ CREATE TABLE ÑUFLO.Milla (
 	id_milla int IDENTITY(1,1) PRIMARY KEY,
 	id_cliente int REFERENCES ÑUFLO.Cliente,
 	fecha_de_obtencion datetime DEFAULT GETDATE(),
-	cantidad int DEFAULT 0
+	cantidad int DEFAULT 0,
+	cantidad_gastada int DEFAULT 0,
+	expirado bit DEFAULT 0
 	)
 GO
 	
