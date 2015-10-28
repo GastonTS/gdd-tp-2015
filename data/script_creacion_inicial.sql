@@ -543,6 +543,65 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION ÑUFLO.DestinoAeronavesVaciasPara(@fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Vacias TABLE
+	(
+	id_viaje int, 
+	nombre nvarchar(255), 
+	matricula nvarchar(255), 
+	modelo nvarchar(255), 
+	fabricante nvarchar(255),
+	capacidad_peso_encomiendas numeric(18,0)
+	)
+AS
+BEGIN
+	INSERT @Vacias
+		select v.id_viaje, ci.nombre, a.matricula, a.modelo, a.fabricante, a.capacidad_peso_encomiendas
+			from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p, ÑUFLO.Ciudad ci, ÑUFLO.RutaAerea r, ÑUFLO.Aeronave a
+			where c.fecha_de_compra between @fecha_inicio and @fecha_fin
+				and v.id_ruta = r.id_ruta
+				and r.id_ciudad_destino = ci.id_ciudad
+				and v.id_viaje = c.id_viaje
+				and c.codigo_de_compra = p.codigo_de_compra
+				and v.id_aeronave = a.id_aeronave
+			group by v.id_viaje, ci.nombre, a.matricula, a.modelo, a.fabricante, a.capacidad_peso_encomiendas
+			having COUNT(*) = 0
+	RETURN
+END
+GO
+
+CREATE FUNCTION ÑUFLO.TOP5DestinosAeronavesVaciasPara(@fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Destinos TABLE (Destino nvarchar(255))
+AS
+BEGIN
+	INSERT @Destinos
+		select top 5 nombre 
+			from ÑUFLO.DestinoAeronavesVaciasPara(@fecha_inicio, @fecha_fin)
+			group by nombre
+			order by COUNT(*) desc
+	RETURN
+END
+GO
+
+CREATE FUNCTION ÑUFLO.DetalleAeronavesPara(@ciudad nvarchar(255), @fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Aeronaves TABLE
+	(
+	id_viaje int, 
+	matricula nvarchar(255), 
+	modelo nvarchar(255), 
+	fabricante nvarchar(255),
+	capacidad_peso_encomiendas numeric(18,0)
+	)
+AS
+BEGIN
+	INSERT @Aeronaves
+		select id_viaje, matricula, modelo, fabricante, capacidad_peso_encomiendas
+			from ÑUFLO.DestinoAeronavesVaciasPara(@fecha_inicio, @fecha_fin)
+			where nombre = @ciudad
+	RETURN
+END
+GO
+
 /*****************************************************************/
 /*************************** Triggers ****************************/
 /*****************************************************************/

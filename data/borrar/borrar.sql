@@ -102,6 +102,15 @@ GO
 DROP FUNCTION ÑUFLO.DetallePasajesPara
 GO
 
+DROP FUNCTION ÑUFLO.DestinoAeronavesVaciasPara
+GO
+
+DROP FUNCTION ÑUFLO.TOP5DestinosAeronavesVaciasPara
+GO
+
+DROP FUNCTION ÑUFLO.DetalleAeronavesPara
+GO
+
 /********************************************/
 /******************* Views ******************/
 /********************************************/
