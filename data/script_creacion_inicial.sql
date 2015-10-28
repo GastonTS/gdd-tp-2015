@@ -505,6 +505,31 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION ÑUFLO.ViajesDisponiblesPara(@ciudad_origen nvarchar(255), @ciudad_destino nvarchar(255), @fecha datetime)
+RETURNS @Viajes TABLE
+	(
+	Viaje int,
+	Aeronave nvarchar(255),
+	Peso_Ocupado numeric(18,0),
+	Fecha_Salida datetime,
+	Fecha_Llegada_Estimada datetime
+	)
+AS
+BEGIN
+	INSERT @Viajes
+		select v.id_viaje, a.matricula, v.peso_ocupado, v.fecha_salida, v.fecha_llegada_estimada
+			from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
+			where r.id_ruta = v.id_ruta
+				and r.id_ciudad_origen = co.id_ciudad
+				and r.id_ciudad_destino = cd.id_ciudad
+				and co.nombre = @ciudad_origen
+				and cd.nombre = @ciudad_destino
+				and convert(date, v.fecha_salida) = convert(date, @fecha)
+				and v.id_aeronave = a.id_aeronave
+	RETURN
+END
+GO
+
 CREATE FUNCTION ÑUFLO.PasajeConDestinoEnFechas(@fecha_inicio nvarchar(255), @fecha_fin nvarchar(255))
 RETURNS @Pasajes TABLE
 	(

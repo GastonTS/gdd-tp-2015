@@ -96,6 +96,9 @@ GO
 DROP FUNCTION ÑUFLO.PasajesYEncomiendasDe
 GO
 
+DROP FUNCTION ÑUFLO.ViajesDisponiblesPara
+GO
+
 DROP FUNCTION ÑUFLO.PasajeConDestinoEnFechas
 GO
 
