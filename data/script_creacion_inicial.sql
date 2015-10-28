@@ -1,4 +1,4 @@
-USE [GD2C2015]
+﻿USE [GD2C2015]
 GO
 
 SET ANSI_NULLS ON
@@ -410,30 +410,38 @@ GO
 /*********************** Stored Procedures ***********************/
 /*****************************************************************/
 
-CREATE PROCEDURE ÑUFLO.ButacasDisponibles @id_viaje int
-AS
-	select numero_de_butaca, tipo_butaca
-	from ÑUFLO.TipoButaca tb,
-		(select numero_de_butaca, id_tipo_butaca
-			from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b
-			where @id_viaje = v.id_viaje
-				and v.id_aeronave = b.id_aeronave
-		except
-		select distinct p.numero_de_butaca, b.id_tipo_butaca
-			from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b,
-				 ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p
-			where @id_viaje = v.id_viaje
-				and v.id_aeronave = b.id_aeronave
-				and v.id_viaje = c.id_viaje
-				and c.codigo_de_compra = p.codigo_de_compra
-				and p.numero_de_butaca = b.numero_de_butaca) b
-	where b.id_tipo_butaca = tb.id_tipo_butaca
-;
-GO
-
 /*****************************************************************/
 /*************************** Function ****************************/
 /*****************************************************************/
+
+CREATE FUNCTION ÑUFLO.ButacasDisponibles(@id_viaje int)
+RETURNS @Butacas TABLE
+	(
+	butaca_numero numeric(18,0),
+	tipo nvarchar(255)
+	)
+AS
+BEGIN
+	INSERT @Butacas
+		select numero_de_butaca, tipo_butaca
+			from ÑUFLO.TipoButaca tb,
+				(select numero_de_butaca, id_tipo_butaca
+					from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b
+					where @id_viaje = v.id_viaje
+						and v.id_aeronave = b.id_aeronave
+				except
+				select distinct p.numero_de_butaca, b.id_tipo_butaca
+					from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b,
+						 ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p
+					where @id_viaje = v.id_viaje
+						and v.id_aeronave = b.id_aeronave
+						and v.id_viaje = c.id_viaje
+						and c.codigo_de_compra = p.codigo_de_compra
+						and p.numero_de_butaca = b.numero_de_butaca) b
+			where b.id_tipo_butaca = tb.id_tipo_butaca
+	RETURN
+END
+GO
 
 CREATE FUNCTION ÑUFLO.PesoDisponible(@Id_viaje int)
 RETURNS numeric(18,0)

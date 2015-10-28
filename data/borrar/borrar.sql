@@ -80,16 +80,15 @@ GO
 /************* Stored Procedures ************/
 /********************************************/
 
-DROP PROCEDURE ÑUFLO.ButacasDisponibles
-GO
-
 /********************************************/
 /***************** Functions ****************/
 /********************************************/
 
-DROP FUNCTION ÑUFLO.PesoDisponible
+DROP FUNCTION ÑUFLO.ButacasDisponibles
 GO
 
+DROP FUNCTION ÑUFLO.PesoDisponible
+GO
 
 /********************************************/
 /******************* Views ******************/
