@@ -486,7 +486,7 @@ AS
 BEGIN
 	UPDATE ÑUFLO.Milla
 	SET cantidad = mc.cantidadMillas ,fecha_de_obtencion = i.fecha_llegada
-	FROM inserted i, (SELECT * FROM ÑUFLO.MillasPorClienteCarga(i.id_viaje)) mc, ÑUFLO.Milla m
+	FROM inserted i, (SELECT * FROM ÑUFLO.MillasPorClienteCarga(1/*TODO:USAR UN CURSOR*/)) mc, ÑUFLO.Milla m
 	WHERE mc.id_cliente = m.id_cliente 
 END
 GO
@@ -496,7 +496,7 @@ ON ÑUFLO.Canje FOR INSERT
 AS
 BEGIN
 	UPDATE ÑUFLO.Milla
-	SET cantidad = m.cantidad - p.millas_necesarias ,fecha_de_obtencion = i.fecha_llegada
+	SET cantidad = m.cantidad - p.millas_necesarias ,fecha_de_obtencion = i.fecha_de_canje
 	FROM inserted i, ÑUFLO.Producto p, ÑUFLO.Milla m
 	WHERE i.id_cliente = m.id_cliente
 		AND i.id_Producto = p.id_producto

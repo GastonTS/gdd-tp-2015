@@ -90,6 +90,9 @@ GO
 DROP FUNCTION ÑUFLO.PesoDisponible
 GO
 
+DROP FUNCTION ÑUFLO.MillasPorClienteCarga
+GO
+
 /********************************************/
 /******************* Views ******************/
 /********************************************/
