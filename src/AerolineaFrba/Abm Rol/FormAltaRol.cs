@@ -25,12 +25,12 @@ namespace AerolineaFrba.Abm_Rol
         {
             if (textBoxNombre.Text.Trim() == "")
             {
-                errorProvider.SetError(textBoxNombre, "Debe ingresar un nombre de Rol");
+                
                 e.Cancel = true;
             }
             else
             {
-                errorProvider.Clear();
+                
                 e.Cancel = false;
             }
         }
@@ -57,6 +57,11 @@ namespace AerolineaFrba.Abm_Rol
         }
 
         private void textBoxNombre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxValidado1_Load(object sender, EventArgs e)
         {
 
         }

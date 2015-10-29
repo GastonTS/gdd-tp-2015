@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.labelNombre = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.labelFuncionalidades = new System.Windows.Forms.Label();
@@ -37,10 +36,8 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxValidado1 = new AerolineaFrba.Abm.TextBoxValidado();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // labelNombre
@@ -115,14 +112,12 @@
             // 
             // textBoxValidado1
             // 
+            this.textBoxValidado1.ErrorText = "Este campo no puede estar vacío.";
             this.textBoxValidado1.Location = new System.Drawing.Point(123, 132);
             this.textBoxValidado1.Name = "textBoxValidado1";
             this.textBoxValidado1.Size = new System.Drawing.Size(211, 22);
             this.textBoxValidado1.TabIndex = 4;
-            // 
-            // errorProvider
-            // 
-            this.errorProvider.ContainerControl = this;
+            this.textBoxValidado1.Load += new System.EventHandler(this.textBoxValidado1_Load);
             // 
             // guardar1
             // 
@@ -147,7 +142,6 @@
             this.Load += new System.EventHandler(this.FormAltaRol_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -161,7 +155,6 @@
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ErrorProvider errorProvider;
         private Abm.Guardar guardar1;
         private Abm.TextBoxValidado textBoxValidado1;
     }

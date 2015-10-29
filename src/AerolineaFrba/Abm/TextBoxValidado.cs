@@ -11,7 +11,17 @@ using System.Windows.Forms;
 namespace AerolineaFrba.Abm
 {
     public partial class TextBoxValidado : UserControl
-    {
+    
+{
+        
+        string _ErrorText;
+        [Category("Wololo"), Description("Texto que se muestra en el error."), EditorBrowsable(EditorBrowsableState.Always)]
+        public string ErrorText
+        {
+            get { return _ErrorText; }
+            set { _ErrorText = value; }
+        }
+
         public TextBoxValidado()
         {
             InitializeComponent();
@@ -32,7 +42,7 @@ namespace AerolineaFrba.Abm
 
             if (textBox1.Text.Trim() == "")
             {
-                errorProvider1.SetError(textBox1, "Debe ingresar un nombre de Rol");
+                errorProvider1.SetError(textBox1, ErrorText);
                 e.Cancel = true;
             }
             else
