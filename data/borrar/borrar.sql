@@ -7,7 +7,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /********************************************/
-/****************** Tablas ******************/
+/****************** Tables ******************/
 /********************************************/
 DROP TABLE ÑUFLO.PasajeEncomiendaPorCancelacion
 GO
@@ -77,18 +77,71 @@ GO
 
 
 /********************************************/
-/************* Store Procedure **************/
+/************* Stored Procedures ************/
 /********************************************/
 
-DROP PROCEDURE ÑUFLO.ButacasDisponibles
+/********************************************/
+/***************** Functions ****************/
+/********************************************/
+
+DROP FUNCTION ÑUFLO.ButacasDisponibles
 GO
-
-/********************************************/
-/***************** Function *****************/
-/********************************************/
 
 DROP FUNCTION ÑUFLO.PesoDisponible
 GO
 
+DROP FUNCTION ÑUFLO.DetalleMillasDe
+GO
+
+DROP FUNCTION ÑUFLO.MillasTotalesDe
+GO
+
+DROP FUNCTION ÑUFLO.MillasPorClienteCarga
+GO
+
+DROP FUNCTION ÑUFLO.PasajesYEncomiendasDe
+GO
+
+DROP FUNCTION ÑUFLO.ViajesDisponiblesPara
+GO
+
+DROP FUNCTION ÑUFLO.DetallePasajePara
+GO
+
+DROP FUNCTION ÑUFLO.TOP5DestinoPasajesComprados
+GO
+
+DROP FUNCTION ÑUFLO.DetalleAeronavesVaciasPara
+GO
+
+DROP FUNCTION ÑUFLO.TOP5DestinoAeronavesVacias
+GO
+
+DROP FUNCTION ÑUFLO.DetalleMillasPara
+GO
+
+DROP FUNCTION ÑUFLO.TOP5MillasDeClientes
+GO
+
+DROP FUNCTION ÑUFLO.DetalleCancelacionesPara
+GO
+
+DROP FUNCTION ÑUFLO.TOP5DestinoCancelaciones
+GO
+
+DROP FUNCTION ÑUFLO.DetalleServicioTecnicoPara
+GO
+
+DROP FUNCTION ÑUFLO.TOP5DiasFueraDeServicio
+GO
+
+/********************************************/
+/******************* Views ******************/
+/********************************************/
+
+DROP VIEW ÑUFLO.VRutaAerea
+GO
+
 DROP SCHEMA [ÑUFLO]
 GO
+
