@@ -127,7 +127,7 @@ CREATE TABLE ÑUFLO.Milla (
 GO
 	
 CREATE TABLE ÑUFLO.Producto (
-	id_producto int PRIMARY KEY,
+	id_producto int IDENTITY(1,1) PRIMARY KEY,
 	millas_necesarias int NOT NULL,
 	stock int NOT NULL,
 	descripcion nvarchar(255) NOT NULL
@@ -144,7 +144,7 @@ CREATE TABLE ÑUFLO.Canje (
 GO
 
 CREATE TABLE ÑUFLO.Compra (
-	codigo_de_compra int identity(1,1) PRIMARY KEY,
+	codigo_de_compra int IDENTITY(1,1) PRIMARY KEY,
 	id_viaje int REFERENCES ÑUFLO.Viaje,
 	id_cliente int REFERENCES ÑUFLO.Cliente,
 	fecha_de_compra datetime NOT NULL
