@@ -105,37 +105,28 @@ GO
 DROP FUNCTION ÑUFLO.ViajesDisponiblesPara
 GO
 
-DROP FUNCTION ÑUFLO.PasajeConDestinoEnFechas
+DROP FUNCTION ÑUFLO.DetallePasajePara
 GO
 
-DROP FUNCTION ÑUFLO.TOP5DestinosPasajesComprados
+DROP FUNCTION ÑUFLO.TOP5DestinoPasajesComprados
 GO
 
-DROP FUNCTION ÑUFLO.DetallePasajesPara
+DROP FUNCTION ÑUFLO.DetalleAeronavesVaciasPara
 GO
 
-DROP FUNCTION ÑUFLO.DestinoAeronavesVaciasPara
+DROP FUNCTION ÑUFLO.TOP5DestinoAeronavesVacias
 GO
 
-DROP FUNCTION ÑUFLO.TOP5DestinosAeronavesVaciasPara
-GO
-
-DROP FUNCTION ÑUFLO.DetalleAeronavesPara
-GO
-
-DROP FUNCTION ÑUFLO.DetalleMillasEntre
+DROP FUNCTION ÑUFLO.DetalleMillasPara
 GO
 
 DROP FUNCTION ÑUFLO.TOP5MillasDeClientes
 GO
 
-DROP FUNCTION ÑUFLO.DetalleMillasParaEntre
-GO
-
-DROP FUNCTION ÑUFLO.TOP5DestinosCancelaciones
-GO
-
 DROP FUNCTION ÑUFLO.DetalleCancelacionesPara
+GO
+
+DROP FUNCTION ÑUFLO.TOP5DestinoCancelaciones
 GO
 
 DROP FUNCTION ÑUFLO.DetalleServicioTecnicoPara

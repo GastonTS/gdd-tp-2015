@@ -577,23 +577,23 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION ÑUFLO.PasajeConDestinoEnFechas(@fecha_inicio nvarchar(255), @fecha_fin nvarchar(255))
+CREATE FUNCTION ÑUFLO.DetallePasajePara(@ciudad nvarchar(255) = NULL, @fecha_inicio nvarchar(255), @fecha_fin nvarchar(255))
 RETURNS @Pasajes TABLE
 	(
-	nombre_ciudad nvarchar(255),
-	codigo_compra int,
-	fecha_de_compra datetime,
-	pasaje numeric(18,0),
-	dni nvarchar(255),
-	nombre_cliente nvarchar(255),
-	apellido nvarchar(255),
-	numero_de_butaca numeric(18,0),
-	precio numeric(18,2)
+	Codigo_Compra int,
+	Fecha_de_Compra datetime,
+	Pasaje numeric(18,0),
+	Destino nvarchar(255),
+	DNI nvarchar(255),
+	Nombre nvarchar(255),
+	Apellido nvarchar(255),
+	Butaca_Numero numeric(18,0),
+	Precio numeric(18,2)
 	)	
 AS
 BEGIN
 	Insert @Pasajes
-	select ci.nombre, co.codigo_de_compra, co.fecha_de_compra, id_pasaje_encomienda, DNI, c.nombre Nombre, apellido Apellido, numero_de_butaca Butaca, precio Precio
+	select co.codigo_de_compra, co.fecha_de_compra, id_pasaje_encomienda, ci.nombre,  DNI, c.nombre Nombre, apellido Apellido, numero_de_butaca Butaca, precio Precio
 		from ÑUFLO.Cliente c , ÑUFLO.PasajeEncomienda p, ÑUFLO.Compra co, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad ci
 		where  co.fecha_de_compra between @fecha_inicio and @fecha_fin
 			and v.id_viaje = co.id_viaje
@@ -602,11 +602,13 @@ BEGIN
 			and co.codigo_de_compra = p.codigo_de_compra
 			and c.id_cliente = p.id_cliente
 			and p.numero_de_butaca is not null
+			and (@ciudad is null
+				or @ciudad = ci.nombre)
 	RETURN
 END
 GO	
 
-CREATE FUNCTION ÑUFLO.TOP5DestinosPasajesComprados(@fecha_inicio datetime, @fecha_fin datetime)
+CREATE FUNCTION ÑUFLO.TOP5DestinoPasajesComprados(@fecha_inicio datetime, @fecha_fin datetime)
 RETURNS @TOP5DestinosPasajes TABLE
 	(
 	Destino nvarchar(255),
@@ -615,45 +617,23 @@ RETURNS @TOP5DestinosPasajes TABLE
 AS
 BEGIN
 	INSERT @TOP5DestinosPasajes
-	select top 5 nombre_ciudad, COUNT(*)
-		from ÑUFLO.PasajeConDestinoEnFechas(@fecha_inicio, @fecha_fin)
-		group by nombre_ciudad
+	select top 5 Destino, COUNT(*)
+		from ÑUFLO.PasajeConDestinoEnFechas(DEFAULT, @fecha_inicio, @fecha_fin)
+		group by Destino
 		order by COUNT(*) desc
 	RETURN
 END
 GO
 
-CREATE FUNCTION ÑUFLO.DetallePasajesPara(@ciudad nvarchar(255), @fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Detalle TABLE
-	(
-	PNR numeric(18,0),
-	Fecha_de_Compra datetime,
-	Codigo_Pasaje int,
-	DNI numeric(18,0),
-	Nombre nvarchar(255),
-	Apellido nvarchar(255),
-	Butaca_Numero numeric(18,0),
-	Precio numeric(18,2)
-	)
-AS
-BEGIN
-	INSERT @Detalle
-		select codigo_compra, fecha_de_compra, pasaje, dni, nombre_cliente, apellido, numero_de_butaca, precio
-			from ÑUFLO.PasajeConDestinoEnFechas(@fecha_inicio, @fecha_fin)
-			where nombre_ciudad = @ciudad
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.DestinoAeronavesVaciasPara(@fecha_inicio datetime, @fecha_fin datetime)
+CREATE FUNCTION ÑUFLO.DetalleAeronavesVaciasPara(@ciudad nvarchar(255) = NULL, @fecha_inicio datetime, @fecha_fin datetime)
 RETURNS @Vacias TABLE
 	(
-	id_viaje int, 
-	nombre nvarchar(255), 
-	matricula nvarchar(255), 
-	modelo nvarchar(255), 
-	fabricante nvarchar(255),
-	capacidad_peso_encomiendas numeric(18,0)
+	Viaje int, 
+	Destino nvarchar(255), 
+	Matricula nvarchar(255), 
+	Modelo nvarchar(255), 
+	Fabricante nvarchar(255),
+	Capacidad_Peso_Encomiendas numeric(18,0)
 	)
 AS
 BEGIN
@@ -666,65 +646,61 @@ BEGIN
 				and v.id_viaje = c.id_viaje
 				and c.codigo_de_compra = p.codigo_de_compra
 				and v.id_aeronave = a.id_aeronave
+				and (@ciudad IS NULL
+					or @ciudad = ci.nombre)
 			group by v.id_viaje, ci.nombre, a.matricula, a.modelo, a.fabricante, a.capacidad_peso_encomiendas
 			having COUNT(*) = 0
 	RETURN
 END
 GO
 
-CREATE FUNCTION ÑUFLO.TOP5DestinosAeronavesVaciasPara(@fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Destinos TABLE (Destino nvarchar(255))
+CREATE FUNCTION ÑUFLO.TOP5DestinoAeronavesVacias(@fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Destinos TABLE 
+	(
+	Destino nvarchar(255),
+	Cantidad_Aeronaves_Vacias int
+	)
 AS
 BEGIN
 	INSERT @Destinos
-		select top 5 nombre 
-			from ÑUFLO.DestinoAeronavesVaciasPara(@fecha_inicio, @fecha_fin)
-			group by nombre
+		select top 5 Destino, COUNT(*) 
+			from ÑUFLO.DestinoAeronavesVaciasPara(DEFAULT, @fecha_inicio, @fecha_fin)
+			group by Destino
 			order by COUNT(*) desc
 	RETURN
 END
 GO
 
-CREATE FUNCTION ÑUFLO.DetalleAeronavesPara(@ciudad nvarchar(255), @fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Aeronaves TABLE
-	(
-	id_viaje int, 
-	matricula nvarchar(255), 
-	modelo nvarchar(255), 
-	fabricante nvarchar(255),
-	capacidad_peso_encomiendas numeric(18,0)
-	)
-AS
-BEGIN
-	INSERT @Aeronaves
-		select id_viaje, matricula, modelo, fabricante, capacidad_peso_encomiendas
-			from ÑUFLO.DestinoAeronavesVaciasPara(@fecha_inicio, @fecha_fin)
-			where nombre = @ciudad
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.DetalleMillasEntre(@fecha_inicio datetime, @fecha_fin datetime)
+CREATE FUNCTION ÑUFLO.DetalleMillasPara(@dni numeric(18,0) = NULL, @fecha_inicio datetime, @fecha_fin datetime)
 RETURNS @Detalles TABLE
 	(
+	Tipo nvarchar(255),
 	DNI numeric (18,0),
-	Nombre nvarchar(255),
-	Apellido nvarchar(255),
 	Millas_Acumuladas int,
 	Fecha datetime
 	)
 AS
 BEGIN
 	INSERT @Detalles
-		select c.dni, c.nombre, c.apellido, m.cantidad cant, m.fecha_de_obtencion
-			from ÑUFLO.Cliente c ,  ÑUFLO.Milla m
-			where c.id_cliente = m.id_cliente
-				and m.fecha_de_obtencion between @fecha_inicio and @fecha_fin
-		UNION
-		select c.dni, c.nombre, c.apellido, -ca.cantidad cant, ca.fecha_de_canje
-			from ÑUFLO.Cliente c ,  ÑUFLO.Canje ca
-			where c.id_cliente = ca.id_cliente
-				and ca.fecha_de_canje between @fecha_inicio and @fecha_fin
+		select case 
+				when dm.cant < 0 then 'Canje'
+				else 'Obtencion'
+				end, *
+			from(select c.dni, m.cantidad cant, m.fecha_de_obtencion fecha
+					from ÑUFLO.Cliente c ,  ÑUFLO.Milla m
+					where c.id_cliente = m.id_cliente
+						and m.fecha_de_obtencion between @fecha_inicio and @fecha_fin
+						and (@dni IS NULL
+							or @dni = c.dni)
+				UNION
+				select c.dni, -ca.cantidad cant, ca.fecha_de_canje fecha
+					from ÑUFLO.Cliente c ,  ÑUFLO.Canje ca
+					where c.id_cliente = ca.id_cliente
+						and ca.fecha_de_canje between @fecha_inicio and @fecha_fin
+						and (@dni IS NULL
+							or @dni = c.dni)) dm
+			order by dm.fecha
+		
 	RETURN	
 END
 GO
@@ -740,52 +716,11 @@ RETURNS @Clientes TABLE
 AS
 BEGIN
 	INSERT @Clientes
-		select top 5 dni, nombre, apellido, SUM(Millas_Acumuladas)
-			from ÑUFLO.DetalleMillasEntre(@fecha_inicio, @fecha_fin)
-		group by dni, nombre, apellido
-		order by SUM(Millas_Acumuladas) desc
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.DetalleMillasParaEntre(@dni numeric(18,0), @fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Millas TABLE
-	(
-	Tipo nvarchar(255),
-	Fecha datetime,
-	Millas_Acumuladas int
-	)
-AS
-BEGIN
-	INSERT @Millas
-		select case
-				when Millas_Acumuladas < 0 then 'Canje'
-				else 'Obtencion'
-				end,
-				Fecha, Millas_Acumuladas
-			from ÑUFLO.DetalleMillasEntre(@fecha_inicio, @fecha_fin)
-			where dni = @dni
-			order by Fecha
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.TOP5DestinosCancelaciones(@fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Destinos TABLE
-	(
-	Destino nvarchar(255),
-	Cantidad_de_Cancelaciones int
-	)
-AS
-BEGIN
-	INSERT @Destinos
-		select top 5 p.nombre_ciudad, COUNT(*)
-			from ÑUFLO.PasajeConDestinoEnFechas(@fecha_inicio, @fecha_fin) p,
-				ÑUFLO.Cancelacion c,
-				ÑUFLO.PasajeEncomiendaPorCancelacion pc
-			where p.pasaje = pc.id_pasaje_encomienda
-				and p.codigo_compra = c.codigo_de_compra
-			group by p.nombre_ciudad
+		select top 5 m.dni, c.nombre, c.apellido, SUM(Millas_Acumuladas)
+			from ÑUFLO.DetalleMillasEntre(DEFAULT, @fecha_inicio, @fecha_fin) m, ÑUFLO.Cliente c
+			where m.DNI = c.dni
+			group by m.dni, c.nombre, c.apellido
+			order by SUM(Millas_Acumuladas) desc
 	RETURN
 END
 GO
@@ -805,13 +740,33 @@ AS
 BEGIN
 	INSERT @Cancelaciones
 		select pc.id_pasaje_encomienda, p.dni, p.nombre_cliente, p.apellido, p.numero_de_butaca ,c.fecha_devolucion, pc.motivo_cancelacion
-			from ÑUFLO.PasajeConDestinoEnFechas(@fecha_inicio, @fecha_fin) p,
+			from ÑUFLO.PasajeConDestinoEnFechas(DEFAULT, @fecha_inicio, @fecha_fin) p,
 				ÑUFLO.Cancelacion c,
 				ÑUFLO.PasajeEncomiendaPorCancelacion pc
 			where p.nombre_ciudad = @ciudad
 				and p.pasaje = pc.id_pasaje_encomienda
 				and p.codigo_compra = c.codigo_de_compra
 
+	RETURN
+END
+GO
+
+CREATE FUNCTION ÑUFLO.TOP5DestinoCancelaciones(@fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Destinos TABLE
+	(
+	Destino nvarchar(255),
+	Cantidad_de_Cancelaciones int
+	)
+AS
+BEGIN
+	INSERT @Destinos
+		select top 5 p.nombre_ciudad, COUNT(*)
+			from ÑUFLO.PasajeConDestinoEnFechas(DEFAULT, @fecha_inicio, @fecha_fin) p,
+				ÑUFLO.Cancelacion c,
+				ÑUFLO.PasajeEncomiendaPorCancelacion pc
+			where p.pasaje = pc.id_pasaje_encomienda
+				and p.codigo_compra = c.codigo_de_compra
+			group by p.nombre_ciudad
 	RETURN
 END
 GO
