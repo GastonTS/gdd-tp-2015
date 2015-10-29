@@ -123,6 +123,15 @@ GO
 DROP FUNCTION ÑUFLO.DetalleAeronavesPara
 GO
 
+DROP FUNCTION ÑUFLO.DetalleMillasEntre
+GO
+
+DROP FUNCTION ÑUFLO.TOP5MillasDeClientes
+GO
+
+DROP FUNCTION ÑUFLO.DetalleMillasParaEntre
+GO
+
 /********************************************/
 /******************* Views ******************/
 /********************************************/

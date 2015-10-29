@@ -702,6 +702,72 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION ÑUFLO.DetalleMillasEntre(@fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Detalles TABLE
+	(
+	DNI numeric (18,0),
+	Nombre nvarchar(255),
+	Apellido nvarchar(255),
+	Millas_Acumuladas int,
+	Fecha datetime
+	)
+AS
+BEGIN
+	INSERT @Detalles
+		select c.dni, c.nombre, c.apellido, m.cantidad cant, m.fecha_de_obtencion
+			from ÑUFLO.Cliente c ,  ÑUFLO.Milla m
+			where c.id_cliente = m.id_cliente
+				and m.fecha_de_obtencion between @fecha_inicio and @fecha_fin
+		UNION
+		select c.dni, c.nombre, c.apellido, -ca.cantidad cant, ca.fecha_de_canje
+			from ÑUFLO.Cliente c ,  ÑUFLO.Canje ca
+			where c.id_cliente = ca.id_cliente
+				and ca.fecha_de_canje between @fecha_inicio and @fecha_fin
+	RETURN	
+END
+GO
+
+CREATE FUNCTION ÑUFLO.TOP5MillasDeClientes(@fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Clientes TABLE
+	(
+	DNI numeric (18,0),
+	Nombre nvarchar(255),
+	Apellido nvarchar(255),
+	Millas_Acumuladas int
+	)
+AS
+BEGIN
+	INSERT @Clientes
+		select top 5 dni, nombre, apellido, SUM(Millas_Acumuladas)
+			from ÑUFLO.DetalleMillasEntre(@fecha_inicio, @fecha_fin)
+		group by dni, nombre, apellido
+		order by SUM(Millas_Acumuladas) desc
+	RETURN
+END
+GO
+
+CREATE FUNCTION ÑUFLO.DetalleMillasParaEntre(@dni numeric(18,0), @fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Millas TABLE
+	(
+	Tipo nvarchar(255),
+	Fecha datetime,
+	Millas_Acumuladas int
+	)
+AS
+BEGIN
+	INSERT @Millas
+		select case
+				when Millas_Acumuladas < 0 then 'Canje'
+				else 'Obtencion'
+				end,
+				Fecha, Millas_Acumuladas
+			from ÑUFLO.DetalleMillasEntre(@fecha_inicio, @fecha_fin)
+			where dni = @dni
+			order by Fecha
+	RETURN
+END
+GO
+
 /*****************************************************************/
 /*************************** Triggers ****************************/
 /*****************************************************************/
