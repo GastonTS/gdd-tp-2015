@@ -868,11 +868,43 @@ CREATE TRIGGER ÑUFLO.DisminiurMillaPorCanje
 ON ÑUFLO.Canje FOR INSERT
 AS
 BEGIN
-	UPDATE ÑUFLO.Milla
-	SET cantidad = m.cantidad - p.millas_necesarias ,fecha_de_obtencion = i.fecha_de_canje
-	FROM inserted i, ÑUFLO.Producto p, ÑUFLO.Milla m
-	WHERE i.id_cliente = m.id_cliente
-		AND i.id_Producto = p.id_producto
+	DECLARE @id_milla int, @id_cliente int, @fecha datetime, @cantidad int, @cantidad_gastada int, @gasto int
+
+	SET @gasto = (select (i.cantidad * p.millas_necesarias)
+								from inserted i, ÑUFLO.Producto p)
+	
+	DECLARE CMillas CURSOR 
+		FOR select id_milla, id_cliente , fecha_de_obtencion, cantidad, cantidad_gastada
+				from ÑUFLO.Milla
+				where expirado = 0
+					and (cantidad - cantidad_gastada) > 0
+				order by fecha_de_obtencion
+
+	OPEN CMillas 
+	FETCH CMillas INTO @id_milla, @id_cliente, @fecha, @cantidad, @cantidad_gastada
+
+	WHILE (@@FETCH_STATUS = 0 and @gasto > 0)
+	BEGIN	
+		IF(@gasto > @cantidad - @cantidad_gastada)
+			BEGIN
+			SET @gasto = @gasto - (@cantidad - @cantidad_gastada)
+			UPDATE ÑUFLO.Milla
+				SET cantidad_gastada = @cantidad
+				where id_milla = @id_milla
+			END
+		ELSE
+			BEGIN
+			UPDATE ÑUFLO.Milla
+				SET cantidad_gastada = @cantidad_gastada + @gasto
+				where id_milla = @id_milla
+			SET @gasto = 0
+			END
+
+		FETCH CMillas INTO @id_milla, @id_cliente, @fecha, @cantidad, @cantidad_gastada
+	END
+
+	CLOSE CMillas
+	DEALLOCATE CMillas
 END
 GO
 
