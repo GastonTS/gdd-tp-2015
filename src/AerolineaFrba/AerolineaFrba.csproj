@@ -112,6 +112,12 @@
     <Compile Include="Abm\Guardar.Designer.cs">
       <DependentUpon>Guardar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm\TextBoxValidado.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Abm\TextBoxValidado.Designer.cs">
+      <DependentUpon>TextBoxValidado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Canje Millas\FormCajeMillasPasajero.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +241,9 @@
     <EmbeddedResource Include="Abm\Guardar.resx">
       <DependentUpon>Guardar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm\TextBoxValidado.resx">
+      <DependentUpon>TextBoxValidado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Canje Millas\FormCajeMillasPasajero.resx">
       <DependentUpon>FormCajeMillasPasajero.cs</DependentUpon>
     </EmbeddedResource>
@@ -274,6 +283,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Registro de Usuario\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Registro Llegada Destino\FormInformeYValidacion.resx">
       <DependentUpon>FormInformeYValidacion.cs</DependentUpon>
     </EmbeddedResource>

@@ -55,5 +55,10 @@ namespace AerolineaFrba.Abm_Rol
         {
 
         }
+
+        private void textBoxNombre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
