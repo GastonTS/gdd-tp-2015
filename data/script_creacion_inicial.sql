@@ -413,6 +413,34 @@ GO
 /*********************** Stored Procedures ***********************/
 /*****************************************************************/
 
+CREATE PROCEDURE ÑUFLO.ExpirarMillas
+AS
+
+	DECLARE @id_milla int, @fecha datetime
+	DECLARE CMillas CURSOR 
+		FOR select id_milla, fecha_de_obtencion
+				from ÑUFLO.Milla
+				where expirado = 0
+
+	OPEN CMillas 
+	FETCH CMillas INTO @id_milla, @fecha
+
+	WHILE (@@FETCH_STATUS = 0)
+	BEGIN	
+
+		IF(DATEDIFF(DD, @fecha, GETDATE()) > 365)
+			UPDATE ÑUFLO.Milla
+			 set expirado = 1
+			 where id_milla = @id_milla
+
+		FETCH CMillas INTO @id_milla, @fecha
+	END
+
+	CLOSE CMillas
+	DEALLOCATE CMillas
+;
+GO
+
 /*****************************************************************/
 /*************************** Function ****************************/
 /*****************************************************************/
@@ -472,6 +500,7 @@ RETURNS @DetalleMillas TABLE
 	)
 AS
 BEGIN
+	EXEC ÑUFLO.ExpirarMillas
 	INSERT @DetalleMillas
 		select 'Obtencion' Tipo, fecha_de_obtencion, cantidad, CAST(cantidad_gastada AS nvarchar(255)), case expirado
 																											when 0 then 'Vigentes'
@@ -681,6 +710,7 @@ RETURNS @Detalles TABLE
 	)
 AS
 BEGIN
+	EXEC ÑUFLO.ExpirarMillas
 	INSERT @Detalles
 		select case 
 				when dm.cant < 0 then 'Canje'
@@ -717,7 +747,7 @@ AS
 BEGIN
 	INSERT @Clientes
 		select top 5 m.dni, c.nombre, c.apellido, SUM(Millas_Acumuladas)
-			from ÑUFLO.DetalleMillasEntre(DEFAULT, @fecha_inicio, @fecha_fin) m, ÑUFLO.Cliente c
+			from ÑUFLO.DetalleMillasPara(DEFAULT, @fecha_inicio, @fecha_fin) m, ÑUFLO.Cliente c
 			where m.DNI = c.dni
 			group by m.dni, c.nombre, c.apellido
 			order by SUM(Millas_Acumuladas) desc
