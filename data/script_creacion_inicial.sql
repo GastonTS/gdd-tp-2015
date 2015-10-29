@@ -81,7 +81,7 @@ CREATE TABLE ÑUFLO.ButacaPorAvion (
 GO
 
 CREATE TABLE ÑUFLO.ServicioTecnico (
-	id_servicio int PRIMARY KEY,
+	id_servicio int IDENTITY(1,1) PRIMARY KEY,
 	id_aeronave int REFERENCES ÑUFLO.Aeronave,
 	fecha_fuera_de_servicio datetime NOT NULL,
 	fecha_reinicio_de_servicio datetime
@@ -812,6 +812,54 @@ BEGIN
 				and p.pasaje = pc.id_pasaje_encomienda
 				and p.codigo_compra = c.codigo_de_compra
 
+	RETURN
+END
+GO
+
+CREATE FUNCTION ÑUFLO.DetalleServicioTecnicoPara(@matricula nvarchar(255) = NULL, @fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Detalle TABLE
+	(
+	Matricula nvarchar(255),
+	Modelo nvarchar(255), 
+	Fabricante nvarchar(255), 
+	Capacidad_Peso_Encomiendas numeric(18,0), 
+	Fecha_Fuera_de_Servicio datetime, 
+	Dias_Fuera_Servicio int
+	)
+AS
+BEGIN
+	INSERT INTO @Detalle
+		select a.matricula, a.modelo, a.fabricante, a.capacidad_peso_encomiendas, st.fecha_fuera_de_servicio,
+				case
+					 when @fecha_fin < st.fecha_reinicio_de_servicio then DATEDIFF(DD, st.fecha_fuera_de_servicio, @fecha_fin)
+					 else DATEDIFF(DD, st.fecha_fuera_de_servicio, st.fecha_reinicio_de_servicio) 
+				 end Dias_Fuera_de_Servicio
+			from ÑUFLO.Aeronave a, ÑUFLO.ServicioTecnico st
+			where st.id_aeronave = a.id_aeronave
+				and st.fecha_fuera_de_servicio between @fecha_inicio and @fecha_fin
+				and (@matricula IS NULL
+				or @matricula = a.matricula)
+
+	RETURN
+END
+GO
+
+CREATE FUNCTION ÑUFLO.TOP5DiasFueraDeServicio(@fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Aeronaves TABLE
+	(
+	Matricula nvarchar(255),
+	Modelo nvarchar(255),
+	Fabricante nvarchar(255),
+	Capacidad_Peso_Encomiendas int,
+	Cantidad_Dias_Fuera int
+	)
+AS
+BEGIN
+	INSERT @Aeronaves
+		select matricula, modelo, fabricante, capacidad_peso_encomiendas, SUM(Dias_Fuera_Servicio)
+			from ÑUFLO.DetalleServicioTecnicoPara(DEFAULT, @fecha_inicio, @fecha_fin)
+		group by matricula, modelo, fabricante, capacidad_peso_encomiendas
+		order by SUM(Dias_Fuera_Servicio) desc
 	RETURN
 END
 GO

@@ -138,6 +138,12 @@ GO
 DROP FUNCTION ÑUFLO.DetalleCancelacionesPara
 GO
 
+DROP FUNCTION ÑUFLO.DetalleServicioTecnicoPara
+GO
+
+DROP FUNCTION ÑUFLO.TOP5DiasFueraDeServicio
+GO
+
 /********************************************/
 /******************* Views ******************/
 /********************************************/
