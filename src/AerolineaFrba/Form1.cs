@@ -49,7 +49,7 @@ namespace AerolineaFrba
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnAltaCiudad_Click(object sender, EventArgs e)
@@ -122,6 +122,11 @@ namespace AerolineaFrba
         private void button13_Click(object sender, EventArgs e)
         {
             new Listado_Estadistico.FormListadoEstadistico().Show();
+        }
+
+        private void textBoxValidado1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

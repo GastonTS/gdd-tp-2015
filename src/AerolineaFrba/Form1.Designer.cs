@@ -49,6 +49,7 @@
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
+            this.textBoxValidado1 = new AerolineaFrba.Abm.TextBoxValidado();
             this.SuspendLayout();
             // 
             // btnAltaRol
@@ -259,11 +260,20 @@
             this.button13.UseVisualStyleBackColor = true;
             this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
+            // textBoxValidado1
+            // 
+            this.textBoxValidado1.Location = new System.Drawing.Point(312, 22);
+            this.textBoxValidado1.Name = "textBoxValidado1";
+            this.textBoxValidado1.Size = new System.Drawing.Size(211, 22);
+            this.textBoxValidado1.TabIndex = 21;
+            this.textBoxValidado1.Load += new System.EventHandler(this.textBoxValidado1_Load);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(565, 491);
+            this.Controls.Add(this.textBoxValidado1);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.button11);
@@ -316,6 +326,7 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
+        private Abm.TextBoxValidado textBoxValidado1;
     }
 }
 

@@ -36,6 +36,7 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxValidado1 = new AerolineaFrba.Abm.TextBoxValidado();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.groupBox1.SuspendLayout();
@@ -57,6 +58,7 @@
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(100, 20);
             this.textBoxNombre.TabIndex = 1;
+            this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
             this.textBoxNombre.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxNombre_Validating);
             // 
             // labelFuncionalidades
@@ -98,6 +100,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxValidado1);
             this.groupBox1.Controls.Add(this.labelFuncionalidades);
             this.groupBox1.Controls.Add(this.labelNombre);
             this.groupBox1.Controls.Add(this.comboBoxFuncionalidades);
@@ -110,14 +113,21 @@
             this.groupBox1.Text = "Campos de Rol";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // textBoxValidado1
+            // 
+            this.textBoxValidado1.Location = new System.Drawing.Point(123, 132);
+            this.textBoxValidado1.Name = "textBoxValidado1";
+            this.textBoxValidado1.Size = new System.Drawing.Size(211, 22);
+            this.textBoxValidado1.TabIndex = 4;
+            // 
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // guardar
+            // guardar1
             // 
             this.guardar1.Location = new System.Drawing.Point(239, 240);
-            this.guardar1.Name = "guardar";
+            this.guardar1.Name = "guardar1";
             this.guardar1.Size = new System.Drawing.Size(83, 31);
             this.guardar1.TabIndex = 4;
             // 
@@ -153,5 +163,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private Abm.Guardar guardar1;
+        private Abm.TextBoxValidado textBoxValidado1;
     }
 }
