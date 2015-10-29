@@ -132,6 +132,12 @@ GO
 DROP FUNCTION ÑUFLO.DetalleMillasParaEntre
 GO
 
+DROP FUNCTION ÑUFLO.TOP5DestinosCancelaciones
+GO
+
+DROP FUNCTION ÑUFLO.DetalleCancelacionesPara
+GO
+
 /********************************************/
 /******************* Views ******************/
 /********************************************/

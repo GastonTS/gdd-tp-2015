@@ -770,6 +770,52 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION ÑUFLO.TOP5DestinosCancelaciones(@fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Destinos TABLE
+	(
+	Destino nvarchar(255),
+	Cantidad_de_Cancelaciones int
+	)
+AS
+BEGIN
+	INSERT @Destinos
+		select top 5 p.nombre_ciudad, COUNT(*)
+			from ÑUFLO.PasajeConDestinoEnFechas(@fecha_inicio, @fecha_fin) p,
+				ÑUFLO.Cancelacion c,
+				ÑUFLO.PasajeEncomiendaPorCancelacion pc
+			where p.pasaje = pc.id_pasaje_encomienda
+				and p.codigo_compra = c.codigo_de_compra
+			group by p.nombre_ciudad
+	RETURN
+END
+GO
+
+CREATE FUNCTION ÑUFLO.DetalleCancelacionesPara(@ciudad nvarchar(255), @fecha_inicio datetime, @fecha_fin datetime)
+RETURNS @Cancelaciones TABLE
+	(
+	Pasaje numeric(18,0),
+	DNI numeric(18,0),
+	Nombre nvarchar(255),
+	Apellido nvarchar(255), 
+	Butaca_Numero numeric(18,0),
+	Fecha_Devolucion datetime,
+	Motivo nvarchar(255)
+	)
+AS
+BEGIN
+	INSERT @Cancelaciones
+		select pc.id_pasaje_encomienda, p.dni, p.nombre_cliente, p.apellido, p.numero_de_butaca ,c.fecha_devolucion, pc.motivo_cancelacion
+			from ÑUFLO.PasajeConDestinoEnFechas(@fecha_inicio, @fecha_fin) p,
+				ÑUFLO.Cancelacion c,
+				ÑUFLO.PasajeEncomiendaPorCancelacion pc
+			where p.nombre_ciudad = @ciudad
+				and p.pasaje = pc.id_pasaje_encomienda
+				and p.codigo_compra = c.codigo_de_compra
+
+	RETURN
+END
+GO
+
 /*****************************************************************/
 /*************************** Triggers ****************************/
 /*****************************************************************/
