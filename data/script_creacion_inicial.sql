@@ -165,8 +165,9 @@ CREATE TABLE ÑUFLO.PasajeEncomienda (
 GO
 
 CREATE TABLE ÑUFLO.Cancelacion (
-	id_cancelacion int PRIMARY KEY,
-	codigo_de_compra int REFERENCES ÑUFLO.Compra
+	id_cancelacion int IDENTITY(1,1) PRIMARY KEY,
+	codigo_de_compra int REFERENCES ÑUFLO.Compra,
+	fecha_devolucion datetime
 	)
 GO
 
@@ -439,7 +440,8 @@ BEGIN
 						and v.id_aeronave = b.id_aeronave
 						and v.id_viaje = c.id_viaje
 						and c.codigo_de_compra = p.codigo_de_compra
-						and p.numero_de_butaca = b.numero_de_butaca) b
+						and p.numero_de_butaca = b.numero_de_butaca
+						and p.cancelado = 0) b
 			where b.id_tipo_butaca = tb.id_tipo_butaca
 	RETURN
 END
