@@ -112,6 +112,12 @@
     <Compile Include="Abm\Guardar.Designer.cs">
       <DependentUpon>Guardar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm\TextBoxDNI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Abm\TextBoxDNI.Designer.cs">
+      <DependentUpon>TextBoxDNI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm\TextBoxLetras.cs">
       <SubType>UserControl</SubType>
     </Compile>

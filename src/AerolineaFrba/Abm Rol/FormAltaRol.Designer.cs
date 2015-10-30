@@ -35,11 +35,12 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxMail1 = new AerolineaFrba.Abm.TextBoxMail();
             this.textBoxLetras1 = new AerolineaFrba.Abm.TextBoxLetras();
             this.textBoxNumeroDecimal1 = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
             this.textBoxValidado1 = new AerolineaFrba.Abm.TextBoxValidado();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
-            this.textBoxMail1 = new AerolineaFrba.Abm.TextBoxMail();
+            this.textBoxDNI1 = new AerolineaFrba.Abm.TextBoxDNI();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,6 +101,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxDNI1);
             this.groupBox1.Controls.Add(this.textBoxMail1);
             this.groupBox1.Controls.Add(this.textBoxLetras1);
             this.groupBox1.Controls.Add(this.textBoxNumeroDecimal1);
@@ -115,6 +117,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Campos de Rol";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // textBoxMail1
+            // 
+            this.textBoxMail1.ErrorText = "Ingrese un mail";
+            this.textBoxMail1.Location = new System.Drawing.Point(123, 266);
+            this.textBoxMail1.Name = "textBoxMail1";
+            this.textBoxMail1.Size = new System.Drawing.Size(211, 22);
+            this.textBoxMail1.TabIndex = 7;
             // 
             // textBoxLetras1
             // 
@@ -148,13 +158,13 @@
             this.guardar1.Size = new System.Drawing.Size(83, 31);
             this.guardar1.TabIndex = 4;
             // 
-            // textBoxMail1
+            // textBoxDNI1
             // 
-            this.textBoxMail1.ErrorText = "Ingrese un mail";
-            this.textBoxMail1.Location = new System.Drawing.Point(123, 266);
-            this.textBoxMail1.Name = "textBoxMail1";
-            this.textBoxMail1.Size = new System.Drawing.Size(211, 22);
-            this.textBoxMail1.TabIndex = 7;
+            this.textBoxDNI1.ErrorText = "Ingrese un DNI";
+            this.textBoxDNI1.Location = new System.Drawing.Point(123, 297);
+            this.textBoxDNI1.Name = "textBoxDNI1";
+            this.textBoxDNI1.Size = new System.Drawing.Size(211, 22);
+            this.textBoxDNI1.TabIndex = 8;
             // 
             // FormAltaRol
             // 
@@ -190,5 +200,6 @@
         private Abm.TextBoxNumeroDecimal textBoxNumeroDecimal1;
         private Abm.TextBoxLetras textBoxLetras1;
         private Abm.TextBoxMail textBoxMail1;
+        private Abm.TextBoxDNI textBoxDNI1;
     }
 }

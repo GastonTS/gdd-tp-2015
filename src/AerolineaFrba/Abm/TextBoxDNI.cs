@@ -8,16 +8,16 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm
 {
-    public partial class TextBoxNumeroDecimal : AerolineaFrba.Abm.TextBoxValidado
+    public partial class TextBoxDNI : AerolineaFrba.Abm.TextBoxValidado
     {
-        public TextBoxNumeroDecimal()
+        public TextBoxDNI()
         {
             InitializeComponent();
         }
 
         protected override String validationRegexString()
         {
-            return "[0-9]+[,|.][0-9]+";
+            return "[0-9]{7,8}";
         }
     }
 }
