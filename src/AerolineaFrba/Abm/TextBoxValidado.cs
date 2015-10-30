@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace AerolineaFrba.Abm
 {
@@ -27,6 +28,11 @@ namespace AerolineaFrba.Abm
             InitializeComponent();
         }
 
+        protected virtual String validationRegexString()
+        {
+            return ".+";
+        }
+
         private void textBox1_Validating(object sender, CancelEventArgs e)
         {
          
@@ -40,15 +46,15 @@ namespace AerolineaFrba.Abm
         private void textBox1_Validating_1(object sender, CancelEventArgs e)
         {
 
-            if (textBox1.Text.Trim() == "")
-            {
-                errorProvider1.SetError(textBox1, ErrorText);
-                e.Cancel = true;
-            }
-            else
+            if (new Regex(this.validationRegexString()).IsMatch(textBox1.Text.Trim()))
             {
                 errorProvider1.Clear();
                 e.Cancel = false;
+            }
+            else
+            {
+                errorProvider1.SetError(textBox1, ErrorText);
+                e.Cancel = true;
             }
 
         }

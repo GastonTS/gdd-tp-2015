@@ -39,7 +39,7 @@ namespace AerolineaFrba.Listado_Estadistico
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new gdDataBase().cargarListadoEstadistico(binding);
+           // new gdDataBase().cargarListadoEstadistico(binding);
         }
     }
 }
