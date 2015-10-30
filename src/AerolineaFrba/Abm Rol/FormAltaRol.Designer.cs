@@ -35,6 +35,7 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxNumeroDecimal1 = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
             this.textBoxValidado1 = new AerolineaFrba.Abm.TextBoxValidado();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.groupBox1.SuspendLayout();
@@ -97,6 +98,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxNumeroDecimal1);
             this.groupBox1.Controls.Add(this.textBoxValidado1);
             this.groupBox1.Controls.Add(this.labelFuncionalidades);
             this.groupBox1.Controls.Add(this.labelNombre);
@@ -109,6 +111,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Campos de Rol";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // textBoxNumeroDecimal1
+            // 
+            this.textBoxNumeroDecimal1.ErrorText = "Debe ingresar un numero decimal";
+            this.textBoxNumeroDecimal1.Location = new System.Drawing.Point(123, 171);
+            this.textBoxNumeroDecimal1.Name = "textBoxNumeroDecimal1";
+            this.textBoxNumeroDecimal1.Size = new System.Drawing.Size(211, 22);
+            this.textBoxNumeroDecimal1.TabIndex = 5;
             // 
             // textBoxValidado1
             // 
@@ -157,5 +167,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private Abm.Guardar guardar1;
         private Abm.TextBoxValidado textBoxValidado1;
+        private Abm.TextBoxNumeroDecimal textBoxNumeroDecimal1;
     }
 }

@@ -112,6 +112,12 @@
     <Compile Include="Abm\Guardar.Designer.cs">
       <DependentUpon>Guardar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm\TextBoxNumeroDecimal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Abm\TextBoxNumeroDecimal.Designer.cs">
+      <DependentUpon>TextBoxNumeroDecimal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm\TextBoxValidado.cs">
       <SubType>UserControl</SubType>
     </Compile>
