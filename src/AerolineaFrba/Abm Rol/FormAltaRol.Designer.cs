@@ -35,6 +35,7 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxLetras1 = new AerolineaFrba.Abm.TextBoxLetras();
             this.textBoxNumeroDecimal1 = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
             this.textBoxValidado1 = new AerolineaFrba.Abm.TextBoxValidado();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
@@ -78,7 +79,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(32, 248);
+            this.btnLimpiar.Location = new System.Drawing.Point(32, 360);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 1;
@@ -88,7 +89,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(338, 248);
+            this.btnGuardar.Location = new System.Drawing.Point(338, 360);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 2;
@@ -98,6 +99,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxLetras1);
             this.groupBox1.Controls.Add(this.textBoxNumeroDecimal1);
             this.groupBox1.Controls.Add(this.textBoxValidado1);
             this.groupBox1.Controls.Add(this.labelFuncionalidades);
@@ -106,11 +108,19 @@
             this.groupBox1.Controls.Add(this.textBoxNombre);
             this.groupBox1.Location = new System.Drawing.Point(32, 21);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(381, 199);
+            this.groupBox1.Size = new System.Drawing.Size(472, 325);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Campos de Rol";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // textBoxLetras1
+            // 
+            this.textBoxLetras1.ErrorText = "Debe tener letras";
+            this.textBoxLetras1.Location = new System.Drawing.Point(123, 220);
+            this.textBoxLetras1.Name = "textBoxLetras1";
+            this.textBoxLetras1.Size = new System.Drawing.Size(211, 22);
+            this.textBoxLetras1.TabIndex = 6;
             // 
             // textBoxNumeroDecimal1
             // 
@@ -131,7 +141,7 @@
             // 
             // guardar1
             // 
-            this.guardar1.Location = new System.Drawing.Point(239, 240);
+            this.guardar1.Location = new System.Drawing.Point(239, 352);
             this.guardar1.Name = "guardar1";
             this.guardar1.Size = new System.Drawing.Size(83, 31);
             this.guardar1.TabIndex = 4;
@@ -142,7 +152,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.ClientSize = new System.Drawing.Size(445, 317);
+            this.ClientSize = new System.Drawing.Size(608, 434);
             this.Controls.Add(this.guardar1);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
@@ -168,5 +178,6 @@
         private Abm.Guardar guardar1;
         private Abm.TextBoxValidado textBoxValidado1;
         private Abm.TextBoxNumeroDecimal textBoxNumeroDecimal1;
+        private Abm.TextBoxLetras textBoxLetras1;
     }
 }
