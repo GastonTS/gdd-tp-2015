@@ -127,7 +127,7 @@ CREATE TABLE ÑUFLO.Milla (
 GO
 	
 CREATE TABLE ÑUFLO.Producto (
-	id_producto int PRIMARY KEY,
+	id_producto int IDENTITY(1,1) PRIMARY KEY,
 	millas_necesarias int NOT NULL,
 	stock int NOT NULL,
 	descripcion nvarchar(255) NOT NULL
@@ -144,7 +144,7 @@ CREATE TABLE ÑUFLO.Canje (
 GO
 
 CREATE TABLE ÑUFLO.Compra (
-	codigo_de_compra int identity(1,1) PRIMARY KEY,
+	codigo_de_compra int IDENTITY(1,1) PRIMARY KEY,
 	id_viaje int REFERENCES ÑUFLO.Viaje,
 	id_cliente int REFERENCES ÑUFLO.Cliente,
 	fecha_de_compra datetime NOT NULL
@@ -413,6 +413,34 @@ GO
 /*********************** Stored Procedures ***********************/
 /*****************************************************************/
 
+CREATE PROCEDURE ÑUFLO.ExpirarMillas
+AS
+
+	DECLARE @id_milla int, @fecha datetime
+	DECLARE CMillas CURSOR 
+		FOR select id_milla, fecha_de_obtencion
+				from ÑUFLO.Milla
+				where expirado = 0
+
+	OPEN CMillas 
+	FETCH CMillas INTO @id_milla, @fecha
+
+	WHILE (@@FETCH_STATUS = 0)
+	BEGIN	
+
+		IF(DATEDIFF(DD, @fecha, GETDATE()) > 365)
+			UPDATE ÑUFLO.Milla
+			 set expirado = 1
+			 where id_milla = @id_milla
+
+		FETCH CMillas INTO @id_milla, @fecha
+	END
+
+	CLOSE CMillas
+	DEALLOCATE CMillas
+;
+GO
+
 /*****************************************************************/
 /*************************** Function ****************************/
 /*****************************************************************/
@@ -472,6 +500,7 @@ RETURNS @DetalleMillas TABLE
 	)
 AS
 BEGIN
+	EXEC ÑUFLO.ExpirarMillas
 	INSERT @DetalleMillas
 		select 'Obtencion' Tipo, fecha_de_obtencion, cantidad, CAST(cantidad_gastada AS nvarchar(255)), case expirado
 																											when 0 then 'Vigentes'
@@ -681,6 +710,7 @@ RETURNS @Detalles TABLE
 	)
 AS
 BEGIN
+	EXEC ÑUFLO.ExpirarMillas
 	INSERT @Detalles
 		select case 
 				when dm.cant < 0 then 'Canje'
@@ -717,7 +747,7 @@ AS
 BEGIN
 	INSERT @Clientes
 		select top 5 m.dni, c.nombre, c.apellido, SUM(Millas_Acumuladas)
-			from ÑUFLO.DetalleMillasEntre(DEFAULT, @fecha_inicio, @fecha_fin) m, ÑUFLO.Cliente c
+			from ÑUFLO.DetalleMillasPara(DEFAULT, @fecha_inicio, @fecha_fin) m, ÑUFLO.Cliente c
 			where m.DNI = c.dni
 			group by m.dni, c.nombre, c.apellido
 			order by SUM(Millas_Acumuladas) desc
@@ -838,11 +868,43 @@ CREATE TRIGGER ÑUFLO.DisminiurMillaPorCanje
 ON ÑUFLO.Canje FOR INSERT
 AS
 BEGIN
-	UPDATE ÑUFLO.Milla
-	SET cantidad = m.cantidad - p.millas_necesarias ,fecha_de_obtencion = i.fecha_de_canje
-	FROM inserted i, ÑUFLO.Producto p, ÑUFLO.Milla m
-	WHERE i.id_cliente = m.id_cliente
-		AND i.id_Producto = p.id_producto
+	DECLARE @id_milla int, @id_cliente int, @fecha datetime, @cantidad int, @cantidad_gastada int, @gasto int
+
+	SET @gasto = (select (i.cantidad * p.millas_necesarias)
+								from inserted i, ÑUFLO.Producto p)
+	
+	DECLARE CMillas CURSOR 
+		FOR select id_milla, id_cliente , fecha_de_obtencion, cantidad, cantidad_gastada
+				from ÑUFLO.Milla
+				where expirado = 0
+					and (cantidad - cantidad_gastada) > 0
+				order by fecha_de_obtencion
+
+	OPEN CMillas 
+	FETCH CMillas INTO @id_milla, @id_cliente, @fecha, @cantidad, @cantidad_gastada
+
+	WHILE (@@FETCH_STATUS = 0 and @gasto > 0)
+	BEGIN	
+		IF(@gasto > @cantidad - @cantidad_gastada)
+			BEGIN
+			SET @gasto = @gasto - (@cantidad - @cantidad_gastada)
+			UPDATE ÑUFLO.Milla
+				SET cantidad_gastada = @cantidad
+				where id_milla = @id_milla
+			END
+		ELSE
+			BEGIN
+			UPDATE ÑUFLO.Milla
+				SET cantidad_gastada = @cantidad_gastada + @gasto
+				where id_milla = @id_milla
+			SET @gasto = 0
+			END
+
+		FETCH CMillas INTO @id_milla, @id_cliente, @fecha, @cantidad, @cantidad_gastada
+	END
+
+	CLOSE CMillas
+	DEALLOCATE CMillas
 END
 GO
 
