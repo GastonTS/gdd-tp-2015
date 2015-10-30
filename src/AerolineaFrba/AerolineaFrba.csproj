@@ -118,6 +118,12 @@
     <Compile Include="Abm\TextBoxLetras.Designer.cs">
       <DependentUpon>TextBoxLetras.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm\TextBoxMail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Abm\TextBoxMail.Designer.cs">
+      <DependentUpon>TextBoxMail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm\TextBoxNumeroDecimal.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -252,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm\Guardar.resx">
       <DependentUpon>Guardar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm\TextBoxNumeroDecimal.resx">
+      <DependentUpon>TextBoxNumeroDecimal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm\TextBoxValidado.resx">
       <DependentUpon>TextBoxValidado.cs</DependentUpon>

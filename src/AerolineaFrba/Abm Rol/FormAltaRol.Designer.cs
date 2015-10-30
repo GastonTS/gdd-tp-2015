@@ -39,6 +39,7 @@
             this.textBoxNumeroDecimal1 = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
             this.textBoxValidado1 = new AerolineaFrba.Abm.TextBoxValidado();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
+            this.textBoxMail1 = new AerolineaFrba.Abm.TextBoxMail();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,6 +100,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxMail1);
             this.groupBox1.Controls.Add(this.textBoxLetras1);
             this.groupBox1.Controls.Add(this.textBoxNumeroDecimal1);
             this.groupBox1.Controls.Add(this.textBoxValidado1);
@@ -146,6 +148,14 @@
             this.guardar1.Size = new System.Drawing.Size(83, 31);
             this.guardar1.TabIndex = 4;
             // 
+            // textBoxMail1
+            // 
+            this.textBoxMail1.ErrorText = "Ingrese un mail";
+            this.textBoxMail1.Location = new System.Drawing.Point(123, 266);
+            this.textBoxMail1.Name = "textBoxMail1";
+            this.textBoxMail1.Size = new System.Drawing.Size(211, 22);
+            this.textBoxMail1.TabIndex = 7;
+            // 
             // FormAltaRol
             // 
             this.AcceptButton = this.btnGuardar;
@@ -179,5 +189,6 @@
         private Abm.TextBoxValidado textBoxValidado1;
         private Abm.TextBoxNumeroDecimal textBoxNumeroDecimal1;
         private Abm.TextBoxLetras textBoxLetras1;
+        private Abm.TextBoxMail textBoxMail1;
     }
 }

@@ -8,21 +8,16 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm
 {
-    public partial class TextBoxNumeroDecimal : AerolineaFrba.Abm.TextBoxValidado
+    public partial class TextBoxMail : AerolineaFrba.Abm.TextBoxValidado
     {
-        public TextBoxNumeroDecimal()
+        public TextBoxMail()
         {
             InitializeComponent();
         }
 
         protected override String validationRegexString()
         {
-            return "[0-9]+[,|.][0-9]+";
-        }
-
-        private void TextBoxNumeroDecimal_Load(object sender, EventArgs e)
-        {
-
+            return ".+@.+[.].+";
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace AerolineaFrba.Abm
 {
-    partial class TextBoxNumeroDecimal
+    partial class TextBoxMail
     {
         /// <summary>
         /// Variable del diseñador requerida.
@@ -28,16 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // TextBoxNumeroDecimal
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.Name = "TextBoxNumeroDecimal";
-            this.Load += new System.EventHandler(this.TextBoxNumeroDecimal_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            this.components = new System.ComponentModel.Container();
         }
 
         #endregion

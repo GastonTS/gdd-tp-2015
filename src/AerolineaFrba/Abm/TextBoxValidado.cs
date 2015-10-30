@@ -46,7 +46,7 @@ namespace AerolineaFrba.Abm
         private void textBox1_Validating_1(object sender, CancelEventArgs e)
         {
 
-            if (new Regex(this.validationRegexString()).IsMatch(textBox1.Text.Trim()))
+            if (new Regex("^"+this.validationRegexString()+"$").IsMatch(textBox1.Text.Trim()))
             {
                 errorProvider1.Clear();
                 e.Cancel = false;
