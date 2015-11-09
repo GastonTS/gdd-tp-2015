@@ -31,6 +31,11 @@
             this.components = new System.ComponentModel.Container();
         }
 
+        override protected System.Windows.Forms.TextBox newTextBox()
+        {
+            return new IntegerTextBox();
+        }
+
         #endregion
     }
 }

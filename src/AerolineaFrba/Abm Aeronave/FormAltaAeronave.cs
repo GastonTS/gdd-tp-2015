@@ -49,7 +49,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void textBoxCantidadButacas_TextChanged(object sender, EventArgs e)
         {
-            btnElegirTipoButaca.Enabled = (Convert.ToInt32(textBoxCantidadButacas.Text) > 0 && textBoxCantidadButacas.Text != "");
+            btnElegirTipoButaca.Enabled = (textBoxCantidadButacas.Text != "" &&  Convert.ToInt32(textBoxCantidadButacas.Text) > 0);
             
         }
 

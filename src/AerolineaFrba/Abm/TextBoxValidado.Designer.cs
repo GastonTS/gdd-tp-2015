@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox1 = this.newTextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -59,6 +59,11 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        virtual protected System.Windows.Forms.TextBox newTextBox()
+        {
+            return new System.Windows.Forms.TextBox();
         }
 
         #endregion
