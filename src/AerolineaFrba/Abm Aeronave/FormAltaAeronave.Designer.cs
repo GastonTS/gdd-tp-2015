@@ -29,6 +29,7 @@ namespace AerolineaFrba.Abm_Aeronave
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelModelo = new System.Windows.Forms.Label();
             this.labelMatricula = new System.Windows.Forms.Label();
             this.labelFabricante = new System.Windows.Forms.Label();
@@ -38,6 +39,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxMatricula = new AerolineaFrba.Abm.TextBoxLetras();
             this.textBoxModelo = new AerolineaFrba.Abm.TextBoxLetras();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
+            this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBoxCantidadButacas = new AerolineaFrba.Abm.TextBoxNumeros();
@@ -49,8 +51,11 @@ namespace AerolineaFrba.Abm_Aeronave
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
+            this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // labelModelo
@@ -127,9 +132,11 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxModelo.Name = "textBoxModelo";
             this.textBoxModelo.Size = new System.Drawing.Size(211, 22);
             this.textBoxModelo.TabIndex = 4;
+            this.textBoxModelo.Load += new System.EventHandler(this.textBoxModelo_Load);
             // 
             // comboBoxTipoServicio
             // 
+            this.comboBoxTipoServicio.DataSource = this.bindingSourceTipoServicio;
             this.comboBoxTipoServicio.FormattingEnabled = true;
             this.comboBoxTipoServicio.Location = new System.Drawing.Point(105, 25);
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";
@@ -170,7 +177,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxCantidadButacas.Name = "textBoxCantidadButacas";
             this.textBoxCantidadButacas.Size = new System.Drawing.Size(124, 22);
             this.textBoxCantidadButacas.TabIndex = 20;
-            this.textBoxCantidadButacas.TextboxTextChanged += new EventHandler(this.textBoxCantidadButacas_TextChanged);
+            this.textBoxCantidadButacas.TextboxTextChanged += new System.EventHandler(this.textBoxCantidadButacas_TextChanged);
             // 
             // textBoxCapacidadEncomiendas
             // 
@@ -244,6 +251,11 @@ namespace AerolineaFrba.Abm_Aeronave
             this.guardar1.Size = new System.Drawing.Size(83, 31);
             this.guardar1.TabIndex = 15;
             // 
+            // gD2C2015DataSet
+            // 
+            this.gD2C2015DataSet.DataSetName = "GD2C2015DataSet";
+            this.gD2C2015DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // FormAltaAeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -261,8 +273,10 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Text = "Alta Aeronave";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -289,5 +303,7 @@ namespace AerolineaFrba.Abm_Aeronave
         private Abm.Guardar guardar1;
         private Abm.TextBoxNumeros textBoxCapacidadEncomiendas;
         private Abm.TextBoxNumeros textBoxCantidadButacas;
+        private System.Windows.Forms.BindingSource bindingSourceTipoServicio;
+        private GD2C2015DataSet gD2C2015DataSet;
     }
 }

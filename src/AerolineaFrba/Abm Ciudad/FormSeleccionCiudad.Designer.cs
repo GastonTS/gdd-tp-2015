@@ -117,6 +117,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).EndInit();
+            
             ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource2)).EndInit();
             this.ResumeLayout(false);
