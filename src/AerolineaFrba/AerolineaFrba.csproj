@@ -271,6 +271,9 @@
     <EmbeddedResource Include="Abm\Guardar.resx">
       <DependentUpon>Guardar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm\TextBoxLetras.resx">
+      <DependentUpon>TextBoxLetras.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm\TextBoxNumeroDecimal.resx">
       <DependentUpon>TextBoxNumeroDecimal.cs</DependentUpon>
     </EmbeddedResource>

@@ -28,66 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelNombre = new System.Windows.Forms.Label();
-            this.textBoxNombre = new System.Windows.Forms.TextBox();
-            this.labelFuncionalidades = new System.Windows.Forms.Label();
-            this.comboBoxFuncionalidades = new System.Windows.Forms.ComboBox();
-            this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelFuncionalidades = new System.Windows.Forms.Label();
+            this.labelNombre = new System.Windows.Forms.Label();
+            this.comboBoxFuncionalidades = new System.Windows.Forms.ComboBox();
+            this.textBoxNombre = new System.Windows.Forms.TextBox();
+            this.guardar1 = new AerolineaFrba.Abm.Guardar();
+            this.textBoxDNI1 = new AerolineaFrba.Abm.TextBoxDNI();
             this.textBoxMail1 = new AerolineaFrba.Abm.TextBoxMail();
             this.textBoxLetras1 = new AerolineaFrba.Abm.TextBoxLetras();
             this.textBoxNumeroDecimal1 = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
             this.textBoxValidado1 = new AerolineaFrba.Abm.TextBoxValidado();
-            this.guardar1 = new AerolineaFrba.Abm.Guardar();
-            this.textBoxDNI1 = new AerolineaFrba.Abm.TextBoxDNI();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // labelNombre
-            // 
-            this.labelNombre.AutoSize = true;
-            this.labelNombre.Location = new System.Drawing.Point(17, 49);
-            this.labelNombre.Name = "labelNombre";
-            this.labelNombre.Size = new System.Drawing.Size(44, 13);
-            this.labelNombre.TabIndex = 0;
-            this.labelNombre.Text = "Nombre";
-            // 
-            // textBoxNombre
-            // 
-            this.textBoxNombre.Location = new System.Drawing.Point(123, 46);
-            this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(100, 20);
-            this.textBoxNombre.TabIndex = 1;
-            this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
-            this.textBoxNombre.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxNombre_Validating);
-            // 
-            // labelFuncionalidades
-            // 
-            this.labelFuncionalidades.AutoSize = true;
-            this.labelFuncionalidades.Location = new System.Drawing.Point(17, 93);
-            this.labelFuncionalidades.Name = "labelFuncionalidades";
-            this.labelFuncionalidades.Size = new System.Drawing.Size(84, 13);
-            this.labelFuncionalidades.TabIndex = 2;
-            this.labelFuncionalidades.Text = "Funcionalidades";
-            // 
-            // comboBoxFuncionalidades
-            // 
-            this.comboBoxFuncionalidades.FormattingEnabled = true;
-            this.comboBoxFuncionalidades.Location = new System.Drawing.Point(123, 90);
-            this.comboBoxFuncionalidades.Name = "comboBoxFuncionalidades";
-            this.comboBoxFuncionalidades.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxFuncionalidades.TabIndex = 3;
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Location = new System.Drawing.Point(32, 360);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 1;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnGuardar
             // 
@@ -98,6 +53,16 @@
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(32, 360);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.btnLimpiar.TabIndex = 1;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // groupBox1
             // 
@@ -117,6 +82,56 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Campos de Rol";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // labelFuncionalidades
+            // 
+            this.labelFuncionalidades.AutoSize = true;
+            this.labelFuncionalidades.Location = new System.Drawing.Point(17, 93);
+            this.labelFuncionalidades.Name = "labelFuncionalidades";
+            this.labelFuncionalidades.Size = new System.Drawing.Size(84, 13);
+            this.labelFuncionalidades.TabIndex = 2;
+            this.labelFuncionalidades.Text = "Funcionalidades";
+            // 
+            // labelNombre
+            // 
+            this.labelNombre.AutoSize = true;
+            this.labelNombre.Location = new System.Drawing.Point(17, 49);
+            this.labelNombre.Name = "labelNombre";
+            this.labelNombre.Size = new System.Drawing.Size(44, 13);
+            this.labelNombre.TabIndex = 0;
+            this.labelNombre.Text = "Nombre";
+            // 
+            // comboBoxFuncionalidades
+            // 
+            this.comboBoxFuncionalidades.FormattingEnabled = true;
+            this.comboBoxFuncionalidades.Location = new System.Drawing.Point(123, 90);
+            this.comboBoxFuncionalidades.Name = "comboBoxFuncionalidades";
+            this.comboBoxFuncionalidades.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxFuncionalidades.TabIndex = 3;
+            // 
+            // textBoxNombre
+            // 
+            this.textBoxNombre.Location = new System.Drawing.Point(123, 46);
+            this.textBoxNombre.Name = "textBoxNombre";
+            this.textBoxNombre.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNombre.TabIndex = 1;
+            this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
+            this.textBoxNombre.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxNombre_Validating);
+            // 
+            // guardar1
+            // 
+            this.guardar1.Location = new System.Drawing.Point(239, 352);
+            this.guardar1.Name = "guardar1";
+            this.guardar1.Size = new System.Drawing.Size(83, 31);
+            this.guardar1.TabIndex = 4;
+            // 
+            // textBoxDNI1
+            // 
+            this.textBoxDNI1.ErrorText = "Ingrese un DNI";
+            this.textBoxDNI1.Location = new System.Drawing.Point(123, 297);
+            this.textBoxDNI1.Name = "textBoxDNI1";
+            this.textBoxDNI1.Size = new System.Drawing.Size(211, 22);
+            this.textBoxDNI1.TabIndex = 8;
             // 
             // textBoxMail1
             // 
@@ -151,21 +166,6 @@
             this.textBoxValidado1.TabIndex = 4;
             this.textBoxValidado1.Load += new System.EventHandler(this.textBoxValidado1_Load);
             // 
-            // guardar1
-            // 
-            this.guardar1.Location = new System.Drawing.Point(239, 352);
-            this.guardar1.Name = "guardar1";
-            this.guardar1.Size = new System.Drawing.Size(83, 31);
-            this.guardar1.TabIndex = 4;
-            // 
-            // textBoxDNI1
-            // 
-            this.textBoxDNI1.ErrorText = "Ingrese un DNI";
-            this.textBoxDNI1.Location = new System.Drawing.Point(123, 297);
-            this.textBoxDNI1.Name = "textBoxDNI1";
-            this.textBoxDNI1.Size = new System.Drawing.Size(211, 22);
-            this.textBoxDNI1.TabIndex = 8;
-            // 
             // FormAltaRol
             // 
             this.AcceptButton = this.btnGuardar;
@@ -177,6 +177,8 @@
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox1);
+            this.MsgError = "Error al crear Rol. Ingresar los campos correctamente";
+            this.MsgExito = "Crea Rol correctamente";
             this.Name = "FormAltaRol";
             this.Text = "Alta Rol";
             this.Load += new System.EventHandler(this.FormAltaRol_Load);

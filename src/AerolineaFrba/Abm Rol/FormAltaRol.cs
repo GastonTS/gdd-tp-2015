@@ -17,9 +17,6 @@ namespace AerolineaFrba.Abm_Rol
             InitializeComponent();
         }
 
-        override public String MsgExito { get{return "Crea Rol correctamente";}}
-
-        override public String MsgError { get{return"Error al crear Rol. Ingresar los campos correctamente";}}
 
         private void textBoxNombre_Validating(object sender, CancelEventArgs e)
         {

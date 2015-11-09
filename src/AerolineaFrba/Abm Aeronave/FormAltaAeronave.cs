@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class FormAltaAeronave : Form
+    public partial class FormAltaAeronave : Abm.Alta
     {
         public FormAltaAeronave()
         {
@@ -53,10 +53,6 @@ namespace AerolineaFrba.Abm_Aeronave
         }
 
 
-        private void btnGuardar_Click(object sender, EventArgs e)
 
-        {
-
-        }
     }
 }

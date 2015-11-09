@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.labelModelo = new System.Windows.Forms.Label();
-            this.textBoxModelo = new System.Windows.Forms.TextBox();
             this.labelMatricula = new System.Windows.Forms.Label();
             this.labelFabricante = new System.Windows.Forms.Label();
             this.labelCapacidadEncomiendas = new System.Windows.Forms.Label();
-            this.textBoxFabricante = new System.Windows.Forms.TextBox();
-            this.textBoxMatricula = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxFabricante = new AerolineaFrba.Abm.TextBoxLetras();
+            this.textBoxMatricula = new AerolineaFrba.Abm.TextBoxLetras();
+            this.textBoxModelo = new AerolineaFrba.Abm.TextBoxLetras();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.labelTipoServicio = new System.Windows.Forms.Label();
-            this.textBoxCapacidadEncomiendas = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxCapacidadEncomiendas = new AerolineaFrba.Abm.TextBoxNumeros();
             this.btnElegirTipoButaca = new System.Windows.Forms.Button();
             this.labelVentanillaPasillo = new System.Windows.Forms.Label();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
@@ -47,6 +47,7 @@
             this.labelCantidadButacas = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
+            this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -59,13 +60,6 @@
             this.labelModelo.Size = new System.Drawing.Size(45, 13);
             this.labelModelo.TabIndex = 0;
             this.labelModelo.Text = "Modelo:";
-            // 
-            // textBoxModelo
-            // 
-            this.textBoxModelo.Location = new System.Drawing.Point(105, 28);
-            this.textBoxModelo.Name = "textBoxModelo";
-            this.textBoxModelo.Size = new System.Drawing.Size(100, 20);
-            this.textBoxModelo.TabIndex = 0;
             // 
             // labelMatricula
             // 
@@ -94,26 +88,12 @@
             this.labelCapacidadEncomiendas.TabIndex = 6;
             this.labelCapacidadEncomiendas.Text = "Capacidad de\r\nEncomiendas:";
             // 
-            // textBoxFabricante
-            // 
-            this.textBoxFabricante.Location = new System.Drawing.Point(105, 94);
-            this.textBoxFabricante.Name = "textBoxFabricante";
-            this.textBoxFabricante.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFabricante.TabIndex = 2;
-            // 
-            // textBoxMatricula
-            // 
-            this.textBoxMatricula.Location = new System.Drawing.Point(105, 60);
-            this.textBoxMatricula.Name = "textBoxMatricula";
-            this.textBoxMatricula.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMatricula.TabIndex = 1;
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBoxModelo);
-            this.groupBox1.Controls.Add(this.labelModelo);
             this.groupBox1.Controls.Add(this.textBoxFabricante);
             this.groupBox1.Controls.Add(this.textBoxMatricula);
+            this.groupBox1.Controls.Add(this.textBoxModelo);
+            this.groupBox1.Controls.Add(this.labelModelo);
             this.groupBox1.Controls.Add(this.labelMatricula);
             this.groupBox1.Controls.Add(this.labelFabricante);
             this.groupBox1.Location = new System.Drawing.Point(21, 12);
@@ -122,6 +102,30 @@
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Identificación de Aeronave";
+            // 
+            // textBoxFabricante
+            // 
+            this.textBoxFabricante.ErrorText = "Debe ingresar el fabricante";
+            this.textBoxFabricante.Location = new System.Drawing.Point(105, 94);
+            this.textBoxFabricante.Name = "textBoxFabricante";
+            this.textBoxFabricante.Size = new System.Drawing.Size(211, 22);
+            this.textBoxFabricante.TabIndex = 6;
+            // 
+            // textBoxMatricula
+            // 
+            this.textBoxMatricula.ErrorText = "Debe ingresar la matrícula";
+            this.textBoxMatricula.Location = new System.Drawing.Point(105, 62);
+            this.textBoxMatricula.Name = "textBoxMatricula";
+            this.textBoxMatricula.Size = new System.Drawing.Size(211, 22);
+            this.textBoxMatricula.TabIndex = 5;
+            // 
+            // textBoxModelo
+            // 
+            this.textBoxModelo.ErrorText = "Debe ingresar el modelo";
+            this.textBoxModelo.Location = new System.Drawing.Point(105, 30);
+            this.textBoxModelo.Name = "textBoxModelo";
+            this.textBoxModelo.Size = new System.Drawing.Size(211, 22);
+            this.textBoxModelo.TabIndex = 4;
             // 
             // comboBoxTipoServicio
             // 
@@ -140,22 +144,15 @@
             this.labelTipoServicio.TabIndex = 10;
             this.labelTipoServicio.Text = "Tipo de Servicio:";
             // 
-            // textBoxCapacidadEncomiendas
-            // 
-            this.textBoxCapacidadEncomiendas.Location = new System.Drawing.Point(105, 61);
-            this.textBoxCapacidadEncomiendas.Name = "textBoxCapacidadEncomiendas";
-            this.textBoxCapacidadEncomiendas.Size = new System.Drawing.Size(100, 20);
-            this.textBoxCapacidadEncomiendas.TabIndex = 1;
-            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBoxCapacidadEncomiendas);
             this.groupBox2.Controls.Add(this.btnElegirTipoButaca);
             this.groupBox2.Controls.Add(this.labelVentanillaPasillo);
             this.groupBox2.Controls.Add(this.checkedListBox1);
             this.groupBox2.Controls.Add(this.textBoxCantidadButacas);
             this.groupBox2.Controls.Add(this.labelCantidadButacas);
             this.groupBox2.Controls.Add(this.labelTipoServicio);
-            this.groupBox2.Controls.Add(this.textBoxCapacidadEncomiendas);
             this.groupBox2.Controls.Add(this.comboBoxTipoServicio);
             this.groupBox2.Controls.Add(this.labelCapacidadEncomiendas);
             this.groupBox2.Location = new System.Drawing.Point(21, 165);
@@ -164,6 +161,15 @@
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Características de la Aeronave";
+            // 
+            // textBoxCapacidadEncomiendas
+            // 
+            this.textBoxCapacidadEncomiendas.Enabled = false;
+            this.textBoxCapacidadEncomiendas.ErrorText = "Debe ingresar la cantidad de encomiendas";
+            this.textBoxCapacidadEncomiendas.Location = new System.Drawing.Point(105, 59);
+            this.textBoxCapacidadEncomiendas.Name = "textBoxCapacidadEncomiendas";
+            this.textBoxCapacidadEncomiendas.Size = new System.Drawing.Size(211, 22);
+            this.textBoxCapacidadEncomiendas.TabIndex = 19;
             // 
             // btnElegirTipoButaca
             // 
@@ -229,17 +235,27 @@
             this.btnGuardar.TabIndex = 1;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // guardar1
+            // 
+            this.guardar1.Location = new System.Drawing.Point(306, 468);
+            this.guardar1.Name = "guardar1";
+            this.guardar1.Size = new System.Drawing.Size(83, 31);
+            this.guardar1.TabIndex = 15;
             // 
             // FormAltaAeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(533, 517);
+            this.Controls.Add(this.guardar1);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
+            this.MsgError = "Error al dar de alta aeronave, compruebe los campos ingresados";
+            this.MsgExito = "Aeronave cargada exitosamente";
             this.Name = "FormAltaAeronave";
             this.Text = "Alta Aeronave";
             this.groupBox1.ResumeLayout(false);
@@ -253,16 +269,12 @@
         #endregion
 
         private System.Windows.Forms.Label labelModelo;
-        private System.Windows.Forms.TextBox textBoxModelo;
         private System.Windows.Forms.Label labelMatricula;
         private System.Windows.Forms.Label labelFabricante;
         private System.Windows.Forms.Label labelCapacidadEncomiendas;
-        private System.Windows.Forms.TextBox textBoxFabricante;
-        private System.Windows.Forms.TextBox textBoxMatricula;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox comboBoxTipoServicio;
         private System.Windows.Forms.Label labelTipoServicio;
-        private System.Windows.Forms.TextBox textBoxCapacidadEncomiendas;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBoxCantidadButacas;
         private System.Windows.Forms.Label labelCantidadButacas;
@@ -271,5 +283,10 @@
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private Abm.TextBoxLetras textBoxFabricante;
+        private Abm.TextBoxLetras textBoxMatricula;
+        private Abm.TextBoxLetras textBoxModelo;
+        private Abm.Guardar guardar1;
+        private Abm.TextBoxNumeros textBoxCapacidadEncomiendas;
     }
 }

@@ -11,10 +11,25 @@ using System.Windows.Forms;
 namespace AerolineaFrba.Abm
 {
     public partial class Alta : Form
-    {
-        public virtual String MsgError {get{return "";}}
 
-        public virtual String MsgExito { get { return ""; } }
+    {
+
+        string _MsgError="";
+        [Category("Mensajes"), Description("Texto que se muestra en caso de error."), EditorBrowsable(EditorBrowsableState.Always)]
+        public virtual string MsgError
+        {
+            get { return _MsgError; }
+            set { _MsgError = value; }
+        }
+
+        string _MsgExito="";
+        [Category("Mensajes"), Description("Texto que se muestra en caso de error."), EditorBrowsable(EditorBrowsableState.Always)]
+        public virtual string MsgExito
+        {
+            get { return _MsgExito; }
+            set { _MsgExito = value; }
+        }
+
 
         public Alta()
         {

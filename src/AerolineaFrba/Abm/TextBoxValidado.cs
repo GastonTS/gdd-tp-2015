@@ -12,9 +12,8 @@ using System.Text.RegularExpressions;
 namespace AerolineaFrba.Abm
 {
     public partial class TextBoxValidado : UserControl
-    
-{
-        
+    {
+
         string _ErrorText;
         [Category("Wololo"), Description("Texto que se muestra en el error."), EditorBrowsable(EditorBrowsableState.Always)]
         public string ErrorText
@@ -33,20 +32,11 @@ namespace AerolineaFrba.Abm
             return ".+";
         }
 
-        private void textBox1_Validating(object sender, CancelEventArgs e)
-        {
-         
-        }
-
-        private void UserControl1_Load(object sender, EventArgs e)
-        {
-            
-        }
 
         private void textBox1_Validating_1(object sender, CancelEventArgs e)
         {
 
-            if (new Regex("^"+this.validationRegexString()+"$").IsMatch(textBox1.Text.Trim()))
+            if (new Regex("^" + this.validationRegexString() + "$").IsMatch(textBox1.Text.Trim()))
             {
                 errorProvider1.Clear();
                 e.Cancel = false;
@@ -59,9 +49,14 @@ namespace AerolineaFrba.Abm
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        public void Clear()
         {
+            textBox1.Clear();
+        }
 
+        private void textBox1_EnabledChanged(object sender, EventArgs e)
+        {
+            textBox1.CausesValidation = textBox1.Enabled;
         }
     }
 }

@@ -40,7 +40,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.EnabledChanged += new System.EventHandler(this.textBox1_EnabledChanged);
             this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating_1);
             // 
             // errorProvider1
@@ -54,7 +54,6 @@
             this.Controls.Add(this.textBox1);
             this.Name = "TextBoxValidado";
             this.Size = new System.Drawing.Size(211, 22);
-            this.Load += new System.EventHandler(this.UserControl1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
