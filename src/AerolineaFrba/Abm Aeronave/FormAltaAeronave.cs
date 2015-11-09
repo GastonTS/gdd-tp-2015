@@ -15,6 +15,9 @@ namespace AerolineaFrba.Abm_Aeronave
         public FormAltaAeronave()
         {
             InitializeComponent();
+            new gdDataBase().actualizarBindingSourceQuery(bindingSourceTipoServicio, "select * from [Ñuflo].TipoServicio");
+            comboBoxTipoServicio.DisplayMember = "tipo_servicio";
+            comboBoxTipoServicio.ValueMember = "id_tipo_servicio";
         }
 
         private void btnElegirTipoButaca_Click(object sender, EventArgs e)
