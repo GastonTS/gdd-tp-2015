@@ -56,6 +56,11 @@ namespace AerolineaFrba.Abm_Aeronave
             
         }
 
+        private void textBoxModelo_Load(object sender, EventArgs e)
+        {
+
+        }
+
 
 
     }

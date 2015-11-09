@@ -39,6 +39,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxMatricula = new AerolineaFrba.Abm.TextBoxLetras();
             this.textBoxModelo = new AerolineaFrba.Abm.TextBoxLetras();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
+            this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBoxCantidadButacas = new AerolineaFrba.Abm.TextBoxNumeros();
@@ -50,11 +51,10 @@ namespace AerolineaFrba.Abm_Aeronave
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
-            this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
             this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).BeginInit();
             this.SuspendLayout();
             // 
@@ -132,6 +132,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxModelo.Name = "textBoxModelo";
             this.textBoxModelo.Size = new System.Drawing.Size(211, 22);
             this.textBoxModelo.TabIndex = 4;
+            this.textBoxModelo.Load += new System.EventHandler(this.textBoxModelo_Load);
             // 
             // comboBoxTipoServicio
             // 
@@ -272,9 +273,9 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Text = "Alta Aeronave";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).EndInit();
             this.ResumeLayout(false);
 
