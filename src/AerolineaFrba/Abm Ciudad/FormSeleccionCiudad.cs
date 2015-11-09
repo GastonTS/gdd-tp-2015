@@ -19,8 +19,9 @@ namespace AerolineaFrba.Abm_Ciudad
 
         private void FormSeleccionCiudad_Load(object sender, EventArgs e)
         {
-            DataSet dataSet = new gdDataBase().GetDataQuery("SELECT * FROM [ÑUFLO].Ciudad"); ;
-            ciudadBindingSource.DataSource = dataSet.Tables[0];
+            new gdDataBase().actualizarBindingSourceQuery(ciudadBindingSource, "SELECT * FROM [ÑUFLO].Ciudad");
+            //DataSet dataSet = new gdDataBase().GetDataQuery("SELECT * FROM [ÑUFLO].Ciudad"); ;
+            //ciudadBindingSource.DataSource = dataSet.Tables[0];
             //ciudadBindingSource.DataMember = dataSet.Tables[0].TableName;
             
             // TODO: esta línea de código carga datos en la tabla 'gD2C2015DataSet.Ruta_Aerea' Puede moverla o quitarla según sea necesario.
