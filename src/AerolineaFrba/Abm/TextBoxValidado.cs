@@ -14,6 +14,20 @@ namespace AerolineaFrba.Abm
     public partial class TextBoxValidado : UserControl
     {
 
+
+        public event EventHandler TextboxTextChanged;
+
+
+        protected void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (TextboxTextChanged != null)
+            {
+                TextboxTextChanged(this, e);
+            }
+        }
+
+
+
         string _ErrorText;
         [Category("Wololo"), Description("Texto que se muestra en el error."), EditorBrowsable(EditorBrowsableState.Always)]
         public string ErrorText
@@ -52,6 +66,12 @@ namespace AerolineaFrba.Abm
         public void Clear()
         {
             textBox1.Clear();
+        }
+
+        public string Text
+        {
+            get { return textBox1.Text; }
+            set { textBox1.Text = value; }
         }
 
         private void textBox1_EnabledChanged(object sender, EventArgs e)

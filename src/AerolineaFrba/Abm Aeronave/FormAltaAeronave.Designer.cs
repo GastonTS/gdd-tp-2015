@@ -1,4 +1,5 @@
-﻿namespace AerolineaFrba.Abm_Aeronave
+﻿using System;
+namespace AerolineaFrba.Abm_Aeronave
 {
     partial class FormAltaAeronave
     {
@@ -169,10 +170,10 @@
             this.textBoxCantidadButacas.Name = "textBoxCantidadButacas";
             this.textBoxCantidadButacas.Size = new System.Drawing.Size(124, 22);
             this.textBoxCantidadButacas.TabIndex = 20;
+            this.textBoxCantidadButacas.TextboxTextChanged += new EventHandler(this.textBoxCantidadButacas_TextChanged);
             // 
             // textBoxCapacidadEncomiendas
             // 
-            this.textBoxCapacidadEncomiendas.Enabled = false;
             this.textBoxCapacidadEncomiendas.ErrorText = "Debe ingresar la cantidad de encomiendas";
             this.textBoxCapacidadEncomiendas.Location = new System.Drawing.Point(105, 59);
             this.textBoxCapacidadEncomiendas.Name = "textBoxCapacidadEncomiendas";
