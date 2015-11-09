@@ -28,46 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.upDownAnio = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioBtnSegundoSemestre = new System.Windows.Forms.RadioButton();
+            this.radioBtnPrimerSemestre = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.upDownAnio)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // numericUpDown1
+            // upDownAnio
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(122, 102);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 1;
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this.upDownAnio.Location = new System.Drawing.Point(122, 102);
+            this.upDownAnio.Name = "upDownAnio";
+            this.upDownAnio.Size = new System.Drawing.Size(120, 20);
+            this.upDownAnio.TabIndex = 1;
+            this.upDownAnio.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.radioBtnSegundoSemestre);
+            this.groupBox1.Controls.Add(this.radioBtnPrimerSemestre);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.numericUpDown1);
+            this.groupBox1.Controls.Add(this.upDownAnio);
             this.groupBox1.Location = new System.Drawing.Point(40, 31);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(600, 428);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Top 5 Estadisticos";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // button1
             // 
@@ -87,27 +88,27 @@
             this.dataGridView1.Size = new System.Drawing.Size(527, 172);
             this.dataGridView1.TabIndex = 8;
             // 
-            // radioButton2
+            // radioBtnSegundoSemestre
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(188, 144);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(68, 17);
-            this.radioButton2.TabIndex = 7;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Segundo";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioBtnSegundoSemestre.AutoSize = true;
+            this.radioBtnSegundoSemestre.Location = new System.Drawing.Point(188, 144);
+            this.radioBtnSegundoSemestre.Name = "radioBtnSegundoSemestre";
+            this.radioBtnSegundoSemestre.Size = new System.Drawing.Size(68, 17);
+            this.radioBtnSegundoSemestre.TabIndex = 7;
+            this.radioBtnSegundoSemestre.Text = "Segundo";
+            this.radioBtnSegundoSemestre.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // radioBtnPrimerSemestre
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(122, 144);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(60, 17);
-            this.radioButton1.TabIndex = 6;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Primero";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioBtnPrimerSemestre.AutoSize = true;
+            this.radioBtnPrimerSemestre.Checked = true;
+            this.radioBtnPrimerSemestre.Location = new System.Drawing.Point(122, 144);
+            this.radioBtnPrimerSemestre.Name = "radioBtnPrimerSemestre";
+            this.radioBtnPrimerSemestre.Size = new System.Drawing.Size(60, 17);
+            this.radioBtnPrimerSemestre.TabIndex = 6;
+            this.radioBtnPrimerSemestre.TabStop = true;
+            this.radioBtnPrimerSemestre.Text = "Primero";
+            this.radioBtnPrimerSemestre.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -159,7 +160,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "FormListadoEstadistico";
             this.Text = "Listado Estadistico";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.upDownAnio)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -169,10 +170,10 @@
 
         #endregion
 
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown upDownAnio;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioBtnSegundoSemestre;
+        private System.Windows.Forms.RadioButton radioBtnPrimerSemestre;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox1;
