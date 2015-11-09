@@ -39,11 +39,11 @@
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxCantidadButacas = new AerolineaFrba.Abm.TextBoxNumeros();
             this.textBoxCapacidadEncomiendas = new AerolineaFrba.Abm.TextBoxNumeros();
             this.btnElegirTipoButaca = new System.Windows.Forms.Button();
             this.labelVentanillaPasillo = new System.Windows.Forms.Label();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.textBoxCantidadButacas = new System.Windows.Forms.TextBox();
             this.labelCantidadButacas = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
@@ -146,11 +146,11 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBoxCantidadButacas);
             this.groupBox2.Controls.Add(this.textBoxCapacidadEncomiendas);
             this.groupBox2.Controls.Add(this.btnElegirTipoButaca);
             this.groupBox2.Controls.Add(this.labelVentanillaPasillo);
             this.groupBox2.Controls.Add(this.checkedListBox1);
-            this.groupBox2.Controls.Add(this.textBoxCantidadButacas);
             this.groupBox2.Controls.Add(this.labelCantidadButacas);
             this.groupBox2.Controls.Add(this.labelTipoServicio);
             this.groupBox2.Controls.Add(this.comboBoxTipoServicio);
@@ -161,6 +161,14 @@
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Características de la Aeronave";
+            // 
+            // textBoxCantidadButacas
+            // 
+            this.textBoxCantidadButacas.ErrorText = "Debe ingresar una cantidad de butacas";
+            this.textBoxCantidadButacas.Location = new System.Drawing.Point(120, 149);
+            this.textBoxCantidadButacas.Name = "textBoxCantidadButacas";
+            this.textBoxCantidadButacas.Size = new System.Drawing.Size(124, 22);
+            this.textBoxCantidadButacas.TabIndex = 20;
             // 
             // textBoxCapacidadEncomiendas
             // 
@@ -199,14 +207,6 @@
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(179, 154);
             this.checkedListBox1.TabIndex = 3;
-            // 
-            // textBoxCantidadButacas
-            // 
-            this.textBoxCantidadButacas.Location = new System.Drawing.Point(127, 151);
-            this.textBoxCantidadButacas.Name = "textBoxCantidadButacas";
-            this.textBoxCantidadButacas.Size = new System.Drawing.Size(77, 20);
-            this.textBoxCantidadButacas.TabIndex = 2;
-            this.textBoxCantidadButacas.TextChanged += new System.EventHandler(this.textBoxCantidadButacas_TextChanged);
             // 
             // labelCantidadButacas
             // 
@@ -276,7 +276,6 @@
         private System.Windows.Forms.ComboBox comboBoxTipoServicio;
         private System.Windows.Forms.Label labelTipoServicio;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBoxCantidadButacas;
         private System.Windows.Forms.Label labelCantidadButacas;
         private System.Windows.Forms.Label labelVentanillaPasillo;
         private System.Windows.Forms.Button btnElegirTipoButaca;
@@ -288,5 +287,6 @@
         private Abm.TextBoxLetras textBoxModelo;
         private Abm.Guardar guardar1;
         private Abm.TextBoxNumeros textBoxCapacidadEncomiendas;
+        private Abm.TextBoxNumeros textBoxCantidadButacas;
     }
 }
