@@ -28,19 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.upDownAnio = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewListado = new System.Windows.Forms.DataGridView();
             this.radioBtnSegundoSemestre = new System.Windows.Forms.RadioButton();
             this.radioBtnPrimerSemestre = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.bindingSourceListado = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.upDownAnio)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListado)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceListado)).BeginInit();
             this.SuspendLayout();
             // 
             // upDownAnio
@@ -54,7 +57,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.dataGridView1);
+            this.groupBox1.Controls.Add(this.dataGridViewListado);
             this.groupBox1.Controls.Add(this.radioBtnSegundoSemestre);
             this.groupBox1.Controls.Add(this.radioBtnPrimerSemestre);
             this.groupBox1.Controls.Add(this.label3);
@@ -80,13 +83,15 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // dataGridView1
+            // dataGridViewListado
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(25, 175);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(527, 172);
-            this.dataGridView1.TabIndex = 8;
+            this.dataGridViewListado.AutoGenerateColumns = false;
+            this.dataGridViewListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewListado.DataSource = this.bindingSourceListado;
+            this.dataGridViewListado.Location = new System.Drawing.Point(25, 175);
+            this.dataGridViewListado.Name = "dataGridViewListado";
+            this.dataGridViewListado.Size = new System.Drawing.Size(527, 172);
+            this.dataGridViewListado.TabIndex = 8;
             // 
             // radioBtnSegundoSemestre
             // 
@@ -163,7 +168,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.upDownAnio)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListado)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceListado)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -178,7 +184,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewListado;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.BindingSource bindingSourceListado;
     }
 }

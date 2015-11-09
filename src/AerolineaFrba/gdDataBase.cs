@@ -41,6 +41,21 @@ namespace AerolineaFrba
         }
 
 
+        public void cargarListadoEstadistico(BindingSource binding, String spName)
+        {
+            DataSet ds = null;
+            using (var cmd = new SqlCommand(spName, miConexion))
+            using (var da = new SqlDataAdapter(cmd))
+            {
+                cmd.CommandType = CommandType.Text;
+                
+                da.Fill(ds = new DataSet());
+            }
+            binding.DataSource = ds.Tables[0];
+            
+        }
+
+
         //Actualizar superador
 
         public void actualizarBindingSourceFiltrosQuery(BindingSource binding, String tableName, Dictionary<String,String> map){
