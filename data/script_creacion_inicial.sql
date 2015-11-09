@@ -647,7 +647,7 @@ AS
 BEGIN
 	INSERT @TOP5DestinosPasajes
 	select top 5 Destino, COUNT(*)
-		from ÑUFLO.PasajeConDestinoEnFechas(DEFAULT, @fecha_inicio, @fecha_fin)
+		from ÑUFLO.DetallePasajePara(DEFAULT, @fecha_inicio, @fecha_fin)
 		group by Destino
 		order by COUNT(*) desc
 	RETURN
@@ -770,7 +770,7 @@ AS
 BEGIN
 	INSERT @Cancelaciones
 		select pc.id_pasaje_encomienda, p.dni, p.nombre_cliente, p.apellido, p.numero_de_butaca ,c.fecha_devolucion, pc.motivo_cancelacion
-			from ÑUFLO.PasajeConDestinoEnFechas(DEFAULT, @fecha_inicio, @fecha_fin) p,
+			from ÑUFLO.DetallePasajePara(DEFAULT, @fecha_inicio, @fecha_fin) p,
 				ÑUFLO.Cancelacion c,
 				ÑUFLO.PasajeEncomiendaPorCancelacion pc
 			where p.nombre_ciudad = @ciudad
@@ -791,7 +791,7 @@ AS
 BEGIN
 	INSERT @Destinos
 		select top 5 p.nombre_ciudad, COUNT(*)
-			from ÑUFLO.PasajeConDestinoEnFechas(DEFAULT, @fecha_inicio, @fecha_fin) p,
+			from ÑUFLO.DetallePasajePara(DEFAULT, @fecha_inicio, @fecha_fin) p,
 				ÑUFLO.Cancelacion c,
 				ÑUFLO.PasajeEncomiendaPorCancelacion pc
 			where p.pasaje = pc.id_pasaje_encomienda
