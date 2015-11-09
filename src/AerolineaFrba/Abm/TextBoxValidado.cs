@@ -68,7 +68,7 @@ namespace AerolineaFrba.Abm
             textBox1.Clear();
         }
 
-        public string Text
+        override public string Text
         {
             get { return textBox1.Text; }
             set { textBox1.Text = value; }
