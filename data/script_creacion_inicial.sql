@@ -693,7 +693,7 @@ AS
 BEGIN
 	INSERT @Destinos
 		select top 5 Destino, COUNT(*) 
-			from ÑUFLO.DestinoAeronavesVaciasPara(DEFAULT, @fecha_inicio, @fecha_fin)
+			from ÑUFLO.DetalleAeronavesVaciasPara(DEFAULT, @fecha_inicio, @fecha_fin)
 			group by Destino
 			order by COUNT(*) desc
 	RETURN
@@ -769,11 +769,11 @@ RETURNS @Cancelaciones TABLE
 AS
 BEGIN
 	INSERT @Cancelaciones
-		select pc.id_pasaje_encomienda, p.dni, p.nombre_cliente, p.apellido, p.numero_de_butaca ,c.fecha_devolucion, pc.motivo_cancelacion
+		select pc.id_pasaje_encomienda, p.dni, p.Nombre, p.apellido, p.Butaca_Numero ,c.fecha_devolucion, pc.motivo_cancelacion
 			from ÑUFLO.DetallePasajePara(DEFAULT, @fecha_inicio, @fecha_fin) p,
 				ÑUFLO.Cancelacion c,
 				ÑUFLO.PasajeEncomiendaPorCancelacion pc
-			where p.nombre_ciudad = @ciudad
+			where p.Destino = @ciudad
 				and p.pasaje = pc.id_pasaje_encomienda
 				and p.codigo_compra = c.codigo_de_compra
 
@@ -790,13 +790,13 @@ RETURNS @Destinos TABLE
 AS
 BEGIN
 	INSERT @Destinos
-		select top 5 p.nombre_ciudad, COUNT(*)
+		select top 5 p.Destino, COUNT(*)
 			from ÑUFLO.DetallePasajePara(DEFAULT, @fecha_inicio, @fecha_fin) p,
 				ÑUFLO.Cancelacion c,
 				ÑUFLO.PasajeEncomiendaPorCancelacion pc
 			where p.pasaje = pc.id_pasaje_encomienda
 				and p.codigo_compra = c.codigo_de_compra
-			group by p.nombre_ciudad
+			group by p.Destino
 	RETURN
 END
 GO
