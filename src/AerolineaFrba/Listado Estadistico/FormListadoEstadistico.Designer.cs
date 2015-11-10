@@ -33,13 +33,13 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridViewListado = new System.Windows.Forms.DataGridView();
+            this.bindingSourceListado = new System.Windows.Forms.BindingSource(this.components);
             this.radioBtnSegundoSemestre = new System.Windows.Forms.RadioButton();
             this.radioBtnPrimerSemestre = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxListado = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.bindingSourceListado = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.upDownAnio)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListado)).BeginInit();
@@ -62,7 +62,7 @@
             this.groupBox1.Controls.Add(this.radioBtnPrimerSemestre);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.comboBoxListado);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.upDownAnio);
             this.groupBox1.Location = new System.Drawing.Point(40, 31);
@@ -85,9 +85,7 @@
             // 
             // dataGridViewListado
             // 
-            this.dataGridViewListado.AutoGenerateColumns = false;
             this.dataGridViewListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewListado.DataSource = this.bindingSourceListado;
             this.dataGridViewListado.Location = new System.Drawing.Point(25, 175);
             this.dataGridViewListado.Name = "dataGridViewListado";
             this.dataGridViewListado.Size = new System.Drawing.Size(527, 172);
@@ -133,20 +131,20 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Tipo Listado";
             // 
-            // comboBox1
+            // comboBoxListado
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comboBoxListado.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.comboBoxListado.Items.AddRange(new object[] {
             "Aeronaves con mayor cantidad de días fuera de servicio.",
             "Destinos con más pasajes comprados.",
             "Destinos con más aeronaves vacías.",
             "Destinos con más pasajes cancelados.",
             "Clientes con más puntos acumulados."});
-            this.comboBox1.Location = new System.Drawing.Point(119, 59);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(433, 21);
-            this.comboBox1.TabIndex = 3;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBoxListado.Location = new System.Drawing.Point(119, 59);
+            this.comboBoxListado.Name = "comboBoxListado";
+            this.comboBoxListado.Size = new System.Drawing.Size(433, 21);
+            this.comboBoxListado.TabIndex = 3;
+            this.comboBoxListado.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -182,7 +180,7 @@
         private System.Windows.Forms.RadioButton radioBtnPrimerSemestre;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxListado;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridViewListado;
         private System.Windows.Forms.Button button1;

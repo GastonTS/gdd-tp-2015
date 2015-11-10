@@ -13,6 +13,7 @@ namespace AerolineaFrba.Listado_Estadistico
     public partial class FormListadoEstadistico : Form
     {
 
+        private Dictionary<int, String> mapIndicesNombresTop5 = new Dictionary<int,string>();
 
         public FormListadoEstadistico()
         {
@@ -20,6 +21,12 @@ namespace AerolineaFrba.Listado_Estadistico
             upDownAnio.Minimum = DateTime.Today.Year - 100;
             upDownAnio.Maximum = DateTime.Today.Year + 100;
             upDownAnio.Value = DateTime.Today.Year;
+            dataGridViewListado.DataSource = bindingSourceListado;
+            mapIndicesNombresTop5.Add(0,"[ÑUFLO].TOP5DiasFueraDeServicio");
+            mapIndicesNombresTop5.Add(1,"[Ñuflo].TOP5DestinoPasajesComprados");
+            mapIndicesNombresTop5.Add(2,"[ÑUFLO].TOP5DestinoAeronavesVacias");
+            mapIndicesNombresTop5.Add(3,"[ÑUFLO].TOP5DestinoCancelaciones");
+            mapIndicesNombresTop5.Add(4,"[ÑUFLO].MillasDeClientes");
         }
 
         private void toolStripContainer1_TopToolStripPanel_Click(object sender, EventArgs e)
@@ -62,11 +69,10 @@ namespace AerolineaFrba.Listado_Estadistico
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dataGridViewListado.DataSource = bindingSourceListado;
-            var fecha_inicio = fechaInicial().Date.ToString("yyyy/MM/dd");
-            var fecha_fin = fechaFinal().Date.ToString("yyyy/MM/dd");
-            MessageBox.Show("Select * from [Ñuflo].TOP5DestinoPasajesComprados(" + fecha_inicio + "," + @fecha_fin + ")");
-            new gdDataBase().cargarListadoEstadistico(bindingSourceListado, "Select * from [Ñuflo].TOP5DestinoPasajesComprados("+fecha_inicio+","+ @fecha_fin+")");
+            var fecha_inicio = fechaInicial().Date.ToString("yyyy-MM-dd hh:mm:ss.000");
+            var fecha_fin = fechaFinal().Date.ToString("yyyy-MM-dd hh:mm:ss.000");
+            var nombre_funcion = mapIndicesNombresTop5[comboBoxListado.SelectedIndex];
+            new gdDataBase().cargarListadoEstadistico(bindingSourceListado, "Select * from "+nombre_funcion+"(\'" + fecha_inicio + "\',\'" + fecha_fin + "\')");
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
