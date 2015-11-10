@@ -413,6 +413,84 @@ GO
 /*********************** Stored Procedures ***********************/
 /*****************************************************************/
 
+CREATE PROCEDURE ÑUFLO.PesoDisponible
+@Id_viaje int
+AS
+	select (a.capacidad_peso_encomiendas - v.peso_ocupado) Peso_Disponible
+		from ÑUFLO.Aeronave a, ÑUFLO.Viaje v
+		where @Id_viaje = v.id_viaje
+			and v.id_aeronave = a.id_aeronave
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.MillasTotalesDe
+@dni numeric(18,0)
+AS
+	select SUM(Cantidad - Cantidad_Gastada) Total_Millas
+		from ÑUFLO.DetalleMillas
+		where Estado = 'Vigentes'
+			and DNI = @dni
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.ViajesDisponiblesPara
+@ciudad_origen nvarchar(255),
+@ciudad_destino nvarchar(255),
+@fecha datetime
+AS
+	select v.id_viaje Viaje, a.matricula Matricula, v.peso_ocupado Peso_Ocupado, v.fecha_salida Fecha_Salida, v.fecha_llegada_estimada Fecha_Llegada_Estimada
+		from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
+		where r.id_ruta = v.id_ruta
+			and r.id_ciudad_origen = co.id_ciudad
+			and r.id_ciudad_destino = cd.id_ciudad
+			and co.nombre = @ciudad_origen
+			and cd.nombre = @ciudad_destino
+			and convert(date, v.fecha_salida) = convert(date, @fecha)
+			and v.id_aeronave = a.id_aeronave
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasDe
+@codigo_compra int
+AS
+	select p.id_pasaje_encomienda Codigo, 'Pasaje' Tipo, c.dni DNI, c.nombre Nombre, c.apellido Apellido,
+		 '-' Peso_Encomienda, cast(p.numero_de_butaca AS nvarchar(255)) Butaca_Numero, p.precio Precio
+		from ÑUFLO.PasajeEncomienda p, ÑUFLO.Cliente c
+		where p.numero_de_butaca is not null
+			and p.id_cliente = c.id_cliente
+			and p.codigo_de_compra = @codigo_compra
+	UNION
+	select p.id_pasaje_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
+		from ÑUFLO.PasajeEncomienda p, ÑUFLO.Cliente c
+		where p.numero_de_butaca is null
+			and p.id_cliente = c.id_cliente
+			and p.codigo_de_compra = @codigo_compra
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.ButacasDisponibles
+@id_viaje int
+AS
+	select numero_de_butaca, tipo_butaca
+		from ÑUFLO.TipoButaca tb,
+			(select numero_de_butaca, id_tipo_butaca
+				from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b
+				where @id_viaje = v.id_viaje
+					and v.id_aeronave = b.id_aeronave
+			except
+			select distinct p.numero_de_butaca, b.id_tipo_butaca
+				from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b,
+					 ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p
+				where @id_viaje = v.id_viaje
+					and v.id_aeronave = b.id_aeronave
+					and v.id_viaje = c.id_viaje
+					and c.codigo_de_compra = p.codigo_de_compra
+					and p.numero_de_butaca = b.numero_de_butaca
+					and p.cancelado = 0) b
+		where b.id_tipo_butaca = tb.id_tipo_butaca
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.ExpirarMillas
 AS
 
@@ -441,97 +519,157 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.DetallePasajePara
+@ciudad nvarchar(255),
+@fecha_inicio nvarchar(255),
+@fecha_fin nvarchar(255)
+AS
+	select Codigo_de_Compra, Fecha_De_Compra, Pasaje, Destino, DNI, Nombre, Apellido, Butaca_Numero, Precio
+		from ÑUFLO.DetallePasajes
+		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
+			and Destino = @ciudad
+;
+GO	
+
+CREATE PROCEDURE ÑUFLO.DetalleAeronavesVaciasPara
+@ciudad nvarchar(255),
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	select Viaje, Destino, Matricula, Modelo, Fabricante, Capacidad_Peso, Fecha_De_Compra
+		from ÑUFLO.DetalleAeronavesVacias
+		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
+			and @ciudad = Destino
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.DetalleMillasDe
+@dni int
+AS
+	EXEC ÑUFLO.ExpirarMillas
+	select Tipo, Cantidad, Cantidad_Gastada, Fecha, Estado
+		from ÑUFLO.DetalleMillas 
+		where DNI = @dni
+		order by Fecha
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.DetalleMillasPara
+@dni int,
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	EXEC ÑUFLO.ExpirarMillas
+	select Tipo, Cantidad, Fecha
+		from ÑUFLO.DetalleMillas
+		where Fecha between @fecha_inicio and @fecha_fin
+			and DNI = @dni
+		order by Fecha
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.DetalleCancelacionesPara
+@ciudad nvarchar(255),
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	select Pasaje, DNI, Nombre, Apellido, Butaca_Numero, Fecha_De_Compra, Fecha_Devolucion, Motivo
+		from ÑUFLO.DetalleCancelaciones
+		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
+			and @ciudad = Destino
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.DetalleServicioTecnicoPara
+@matricula nvarchar(255),
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	select Matricula, Modelo, Fabricante, Capacidad_Peso, Fecha_Fuera_de_Servicio,
+			case
+				when @fecha_fin < Fecha_Reinicio_de_Servicio then DATEDIFF(DD, Fecha_Fuera_de_Servicio, @fecha_fin)
+				else DATEDIFF(DD, Fecha_Fuera_de_Servicio, Fecha_Reinicio_de_Servicio) 
+			end Dias_Fuera_de_Servicio
+		from ÑUFLO.DetalleServiciosTecnicos
+		where Fecha_Fuera_de_Servicio between @fecha_inicio and @fecha_fin
+			and @matricula = Matricula
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.TOP5DestinoPasajesComprados
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	select top 5 Destino, COUNT(*) Pasajes
+		from ÑUFLO.DetallePasajes
+		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
+		group by Destino
+		order by COUNT(*) desc
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.TOP5DestinoAeronavesVacias
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	select top 5 Destino, COUNT(*) Aeronaves_Vacias
+		from ÑUFLO.DetalleAeronavesVacias
+		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
+		group by Destino
+		order by COUNT(*) desc
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.TOP5MillasDeClientes
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	select top 5 m.DNI, c.nombre, c.apellido, SUM(m.Cantidad) Cantidad
+		from ÑUFLO.DetalleMillas m, ÑUFLO.Cliente c
+		where Fecha between @fecha_inicio and @fecha_fin
+			and m.DNI = c.dni
+		group by m.DNI, c.nombre, c.apellido
+		order by SUM(m.Cantidad) desc
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.TOP5DestinoCancelaciones
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	select top 5 p.Destino, COUNT(*) Cancelaciones
+		from ÑUFLO.DetallePasajes p,
+			ÑUFLO.Cancelacion c,
+			ÑUFLO.PasajeEncomiendaPorCancelacion pc
+		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
+			and p.pasaje = pc.id_pasaje_encomienda
+			and p.Codigo_de_Compra = c.codigo_de_compra
+		group by p.Destino
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.TOP5DiasFueraDeServicio
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	select Matricula, Modelo, Fabricante, Capacidad_Peso, 
+			SUM(case
+					when @fecha_fin < Fecha_Reinicio_de_Servicio then DATEDIFF(DD, Fecha_Fuera_de_Servicio, @fecha_fin)
+					else DATEDIFF(DD, Fecha_Fuera_de_Servicio, Fecha_Reinicio_de_Servicio) 
+				end)  Dias_Fuera_de_Servicio
+		from ÑUFLO.DetalleServiciosTecnicos
+		where Fecha_Fuera_de_Servicio between @fecha_inicio and @fecha_fin
+		group by Matricula, Modelo, Fabricante, Capacidad_Peso
+		order by SUM(case
+						when @fecha_fin < Fecha_Reinicio_de_Servicio then DATEDIFF(DD, Fecha_Fuera_de_Servicio, @fecha_fin)
+						else DATEDIFF(DD, Fecha_Fuera_de_Servicio, Fecha_Reinicio_de_Servicio) 
+					end) desc
+;
+GO
+
 /*****************************************************************/
 /*************************** Function ****************************/
 /*****************************************************************/
-
-CREATE FUNCTION ÑUFLO.ButacasDisponibles(@id_viaje int)
-RETURNS @Butacas TABLE
-	(
-	butaca_numero numeric(18,0),
-	tipo nvarchar(255)
-	)
-AS
-BEGIN
-	INSERT @Butacas
-		select numero_de_butaca, tipo_butaca
-			from ÑUFLO.TipoButaca tb,
-				(select numero_de_butaca, id_tipo_butaca
-					from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b
-					where @id_viaje = v.id_viaje
-						and v.id_aeronave = b.id_aeronave
-				except
-				select distinct p.numero_de_butaca, b.id_tipo_butaca
-					from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b,
-						 ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p
-					where @id_viaje = v.id_viaje
-						and v.id_aeronave = b.id_aeronave
-						and v.id_viaje = c.id_viaje
-						and c.codigo_de_compra = p.codigo_de_compra
-						and p.numero_de_butaca = b.numero_de_butaca
-						and p.cancelado = 0) b
-			where b.id_tipo_butaca = tb.id_tipo_butaca
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.PesoDisponible(@Id_viaje int)
-RETURNS numeric(18,0)
-AS
-BEGIN
-	declare @peso_disponible numeric(18,0)
-	
-	select @peso_disponible = (a.capacidad_peso_encomiendas - v.peso_ocupado)
-		from ÑUFLO.Aeronave a, ÑUFLO.Viaje v
-		where @Id_viaje = v.id_viaje
-			and v.id_aeronave = a.id_aeronave
-	RETURN @peso_disponible
-END
-GO
-
-CREATE FUNCTION ÑUFLO.DetalleMillasDe(@dni int)
-RETURNS @DetalleMillas TABLE
-	(
-	Tipo nvarchar(255),
-	Fecha datetime,
-	Cantidad int,
-	Cantidad_Gastada nvarchar(255),
-	Estado nvarchar(255)
-	)
-AS
-BEGIN
-	EXEC ÑUFLO.ExpirarMillas
-	INSERT @DetalleMillas
-		select 'Obtencion' Tipo, fecha_de_obtencion, cantidad, CAST(cantidad_gastada AS nvarchar(255)), case expirado
-																											when 0 then 'Vigentes'
-																											else 'Expiradas'
-																										end
-			from ÑUFLO.Milla m, ÑUFLO.Cliente cli
-			where m.id_cliente = cli.id_cliente
-				and cli.dni= @dni
-		UNION
-		select 'Canje' Tipo, fecha_de_canje, -cantidad, '-', '-'
-			from ÑUFLO.Canje c, ÑUFLO.Cliente cli
-			where c.id_cliente = cli.id_cliente
-				and cli.dni= @dni
-		order by fecha_de_obtencion
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.MillasTotalesDe(@dni numeric(18,0))
-RETURNS int
-AS
-BEGIN
-	declare @TotalMillas int
-
-	select @TotalMillas = SUM(Cantidad - Cantidad_Gastada)
-		from ÑUFLO.DetalleMillasDe(@dni)
-		where Estado = 'Vigentes'
-
-	RETURN @TotalMillas
-END
-GO
 
 CREATE FUNCTION ÑUFLO.MillasPorClienteCarga(@Id_viaje int)
 RETURNS @MillasPorCliente TABLE
@@ -548,304 +686,6 @@ BEGIN
 			AND comp.codigo_de_compra = pe.codigo_de_compra
 		GROUP BY comp.id_cliente
    RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.PasajesYEncomiendasDe(@codigo_compra int)
-RETURNS @PasajesYEncomiendas TABLE
-	(
-	Codigo int,
-	PoC nvarchar(255),
-	DNI numeric(18,0),
-	Nombre nvarchar(255),
-	Apellido nvarchar(255),
-	Peso_Encomienda nvarchar(255),
-	Butaca_Nro nvarchar(255), 
-	Precio numeric(18,2)
-	)
-AS
-BEGIN
-	INSERT @PasajesYEncomiendas
-		select p.id_pasaje_encomienda, 'Pasaje', c.dni, c.nombre, c.apellido, '-', cast(p.numero_de_butaca AS nvarchar(255)), p.precio
-			from ÑUFLO.PasajeEncomienda p, ÑUFLO.Cliente c
-			where p.numero_de_butaca is not null
-				and p.id_cliente = c.id_cliente
-				and p.codigo_de_compra = @codigo_compra
-		UNION
-		select p.id_pasaje_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
-			from ÑUFLO.PasajeEncomienda p, ÑUFLO.Cliente c
-			where p.numero_de_butaca is null
-				and p.id_cliente = c.id_cliente
-				and p.codigo_de_compra = @codigo_compra
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.ViajesDisponiblesPara(@ciudad_origen nvarchar(255), @ciudad_destino nvarchar(255), @fecha datetime)
-RETURNS @Viajes TABLE
-	(
-	Viaje int,
-	Aeronave nvarchar(255),
-	Peso_Ocupado numeric(18,0),
-	Fecha_Salida datetime,
-	Fecha_Llegada_Estimada datetime
-	)
-AS
-BEGIN
-	INSERT @Viajes
-		select v.id_viaje, a.matricula, v.peso_ocupado, v.fecha_salida, v.fecha_llegada_estimada
-			from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
-			where r.id_ruta = v.id_ruta
-				and r.id_ciudad_origen = co.id_ciudad
-				and r.id_ciudad_destino = cd.id_ciudad
-				and co.nombre = @ciudad_origen
-				and cd.nombre = @ciudad_destino
-				and convert(date, v.fecha_salida) = convert(date, @fecha)
-				and v.id_aeronave = a.id_aeronave
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.DetallePasajePara(@ciudad nvarchar(255) = NULL, @fecha_inicio nvarchar(255), @fecha_fin nvarchar(255))
-RETURNS @Pasajes TABLE
-	(
-	Codigo_Compra int,
-	Fecha_de_Compra datetime,
-	Pasaje numeric(18,0),
-	Destino nvarchar(255),
-	DNI nvarchar(255),
-	Nombre nvarchar(255),
-	Apellido nvarchar(255),
-	Butaca_Numero numeric(18,0),
-	Precio numeric(18,2)
-	)	
-AS
-BEGIN
-	Insert @Pasajes
-	select co.codigo_de_compra, co.fecha_de_compra, id_pasaje_encomienda, ci.nombre,  DNI, c.nombre Nombre, apellido Apellido, numero_de_butaca Butaca, precio Precio
-		from ÑUFLO.Cliente c , ÑUFLO.PasajeEncomienda p, ÑUFLO.Compra co, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad ci
-		where  co.fecha_de_compra between @fecha_inicio and @fecha_fin
-			and v.id_viaje = co.id_viaje
-			and v.id_ruta = r.id_ruta
-			and r.id_ciudad_destino = ci.id_ciudad
-			and co.codigo_de_compra = p.codigo_de_compra
-			and c.id_cliente = p.id_cliente
-			and p.numero_de_butaca is not null
-			and (@ciudad is null
-				or @ciudad = ci.nombre)
-	RETURN
-END
-GO	
-
-CREATE FUNCTION ÑUFLO.TOP5DestinoPasajesComprados(@fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @TOP5DestinosPasajes TABLE
-	(
-	Destino nvarchar(255),
-	Cantidad_de_Pasajes_Comprados int
-	)
-AS
-BEGIN
-	INSERT @TOP5DestinosPasajes
-	select top 5 Destino, COUNT(*)
-		from ÑUFLO.DetallePasajePara(DEFAULT, @fecha_inicio, @fecha_fin)
-		group by Destino
-		order by COUNT(*) desc
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.DetalleAeronavesVaciasPara(@ciudad nvarchar(255) = NULL, @fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Vacias TABLE
-	(
-	Viaje int, 
-	Destino nvarchar(255), 
-	Matricula nvarchar(255), 
-	Modelo nvarchar(255), 
-	Fabricante nvarchar(255),
-	Capacidad_Peso_Encomiendas numeric(18,0)
-	)
-AS
-BEGIN
-	INSERT @Vacias
-		select v.id_viaje, ci.nombre, a.matricula, a.modelo, a.fabricante, a.capacidad_peso_encomiendas
-			from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p, ÑUFLO.Ciudad ci, ÑUFLO.RutaAerea r, ÑUFLO.Aeronave a
-			where c.fecha_de_compra between @fecha_inicio and @fecha_fin
-				and v.id_ruta = r.id_ruta
-				and r.id_ciudad_destino = ci.id_ciudad
-				and v.id_viaje = c.id_viaje
-				and c.codigo_de_compra = p.codigo_de_compra
-				and v.id_aeronave = a.id_aeronave
-				and (@ciudad IS NULL
-					or @ciudad = ci.nombre)
-			group by v.id_viaje, ci.nombre, a.matricula, a.modelo, a.fabricante, a.capacidad_peso_encomiendas
-			having COUNT(*) = 0
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.TOP5DestinoAeronavesVacias(@fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Destinos TABLE 
-	(
-	Destino nvarchar(255),
-	Cantidad_Aeronaves_Vacias int
-	)
-AS
-BEGIN
-	INSERT @Destinos
-		select top 5 Destino, COUNT(*) 
-			from ÑUFLO.DetalleAeronavesVaciasPara(DEFAULT, @fecha_inicio, @fecha_fin)
-			group by Destino
-			order by COUNT(*) desc
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.DetalleMillasPara(@dni numeric(18,0) = NULL, @fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Detalles TABLE
-	(
-	Tipo nvarchar(255),
-	DNI numeric (18,0),
-	Millas_Acumuladas int,
-	Fecha datetime
-	)
-AS
-BEGIN
-	EXEC ÑUFLO.ExpirarMillas
-	INSERT @Detalles
-		select case 
-				when dm.cant < 0 then 'Canje'
-				else 'Obtencion'
-				end, *
-			from(select c.dni, m.cantidad cant, m.fecha_de_obtencion fecha
-					from ÑUFLO.Cliente c ,  ÑUFLO.Milla m
-					where c.id_cliente = m.id_cliente
-						and m.fecha_de_obtencion between @fecha_inicio and @fecha_fin
-						and (@dni IS NULL
-							or @dni = c.dni)
-				UNION
-				select c.dni, -ca.cantidad cant, ca.fecha_de_canje fecha
-					from ÑUFLO.Cliente c ,  ÑUFLO.Canje ca
-					where c.id_cliente = ca.id_cliente
-						and ca.fecha_de_canje between @fecha_inicio and @fecha_fin
-						and (@dni IS NULL
-							or @dni = c.dni)) dm
-			order by dm.fecha
-		
-	RETURN	
-END
-GO
-
-CREATE FUNCTION ÑUFLO.TOP5MillasDeClientes(@fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Clientes TABLE
-	(
-	DNI numeric (18,0),
-	Nombre nvarchar(255),
-	Apellido nvarchar(255),
-	Millas_Acumuladas int
-	)
-AS
-BEGIN
-	INSERT @Clientes
-		select top 5 m.dni, c.nombre, c.apellido, SUM(Millas_Acumuladas)
-			from ÑUFLO.DetalleMillasPara(DEFAULT, @fecha_inicio, @fecha_fin) m, ÑUFLO.Cliente c
-			where m.DNI = c.dni
-			group by m.dni, c.nombre, c.apellido
-			order by SUM(Millas_Acumuladas) desc
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.DetalleCancelacionesPara(@ciudad nvarchar(255), @fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Cancelaciones TABLE
-	(
-	Pasaje numeric(18,0),
-	DNI numeric(18,0),
-	Nombre nvarchar(255),
-	Apellido nvarchar(255), 
-	Butaca_Numero numeric(18,0),
-	Fecha_Devolucion datetime,
-	Motivo nvarchar(255)
-	)
-AS
-BEGIN
-	INSERT @Cancelaciones
-		select pc.id_pasaje_encomienda, p.dni, p.Nombre, p.apellido, p.Butaca_Numero ,c.fecha_devolucion, pc.motivo_cancelacion
-			from ÑUFLO.DetallePasajePara(DEFAULT, @fecha_inicio, @fecha_fin) p,
-				ÑUFLO.Cancelacion c,
-				ÑUFLO.PasajeEncomiendaPorCancelacion pc
-			where p.Destino = @ciudad
-				and p.pasaje = pc.id_pasaje_encomienda
-				and p.codigo_compra = c.codigo_de_compra
-
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.TOP5DestinoCancelaciones(@fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Destinos TABLE
-	(
-	Destino nvarchar(255),
-	Cantidad_de_Cancelaciones int
-	)
-AS
-BEGIN
-	INSERT @Destinos
-		select top 5 p.Destino, COUNT(*)
-			from ÑUFLO.DetallePasajePara(DEFAULT, @fecha_inicio, @fecha_fin) p,
-				ÑUFLO.Cancelacion c,
-				ÑUFLO.PasajeEncomiendaPorCancelacion pc
-			where p.pasaje = pc.id_pasaje_encomienda
-				and p.codigo_compra = c.codigo_de_compra
-			group by p.Destino
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.DetalleServicioTecnicoPara(@matricula nvarchar(255) = NULL, @fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Detalle TABLE
-	(
-	Matricula nvarchar(255),
-	Modelo nvarchar(255), 
-	Fabricante nvarchar(255), 
-	Capacidad_Peso_Encomiendas numeric(18,0), 
-	Fecha_Fuera_de_Servicio datetime, 
-	Dias_Fuera_Servicio int
-	)
-AS
-BEGIN
-	INSERT INTO @Detalle
-		select a.matricula, a.modelo, a.fabricante, a.capacidad_peso_encomiendas, st.fecha_fuera_de_servicio,
-				case
-					 when @fecha_fin < st.fecha_reinicio_de_servicio then DATEDIFF(DD, st.fecha_fuera_de_servicio, @fecha_fin)
-					 else DATEDIFF(DD, st.fecha_fuera_de_servicio, st.fecha_reinicio_de_servicio) 
-				 end Dias_Fuera_de_Servicio
-			from ÑUFLO.Aeronave a, ÑUFLO.ServicioTecnico st
-			where st.id_aeronave = a.id_aeronave
-				and st.fecha_fuera_de_servicio between @fecha_inicio and @fecha_fin
-				and (@matricula IS NULL
-				or @matricula = a.matricula)
-
-	RETURN
-END
-GO
-
-CREATE FUNCTION ÑUFLO.TOP5DiasFueraDeServicio(@fecha_inicio datetime, @fecha_fin datetime)
-RETURNS @Aeronaves TABLE
-	(
-	Matricula nvarchar(255),
-	Modelo nvarchar(255),
-	Fabricante nvarchar(255),
-	Capacidad_Peso_Encomiendas int,
-	Cantidad_Dias_Fuera int
-	)
-AS
-BEGIN
-	INSERT @Aeronaves
-		select matricula, modelo, fabricante, capacidad_peso_encomiendas, SUM(Dias_Fuera_Servicio)
-			from ÑUFLO.DetalleServicioTecnicoPara(DEFAULT, @fecha_inicio, @fecha_fin)
-		group by matricula, modelo, fabricante, capacidad_peso_encomiendas
-		order by SUM(Dias_Fuera_Servicio) desc
-	RETURN
 END
 GO
 
@@ -919,4 +759,65 @@ AS
 		from ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
 		where r.id_ciudad_origen = co.id_ciudad
 			and r.id_ciudad_destino = cd.id_ciudad
+GO
+
+CREATE VIEW ÑUFLO.DetallePasajes
+AS
+	select co.codigo_de_compra Codigo_de_Compra, co.fecha_de_compra Fecha_De_Compra, id_pasaje_encomienda Pasaje, ci.nombre Destino,
+			DNI, c.nombre Nombre, apellido Apellido, numero_de_butaca Butaca_Numero, precio Precio
+		from ÑUFLO.Cliente c , ÑUFLO.PasajeEncomienda p, ÑUFLO.Compra co, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad ci
+		where  v.id_viaje = co.id_viaje
+			and v.id_ruta = r.id_ruta
+			and r.id_ciudad_destino = ci.id_ciudad
+			and co.codigo_de_compra = p.codigo_de_compra
+			and c.id_cliente = p.id_cliente
+			and p.numero_de_butaca is not null
+GO
+
+CREATE VIEW ÑUFLO.DetalleAeronavesVacias
+AS
+	select v.id_viaje Viaje, ci.nombre Destino, a.matricula Matricula, a.modelo Modelo, a.fabricante Fabricante, a.capacidad_peso_encomiendas Capacidad_Peso,
+			c.fecha_de_compra Fecha_De_Compra
+		from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p, ÑUFLO.Ciudad ci, ÑUFLO.RutaAerea r, ÑUFLO.Aeronave a
+		where v.id_ruta = r.id_ruta
+			and r.id_ciudad_destino = ci.id_ciudad
+			and v.id_viaje = c.id_viaje
+			and c.codigo_de_compra = p.codigo_de_compra
+			and v.id_aeronave = a.id_aeronave
+		group by v.id_viaje, ci.nombre, a.matricula, a.modelo, a.fabricante, a.capacidad_peso_encomiendas, c.fecha_de_compra
+		having COUNT(*) = 0
+GO
+
+CREATE VIEW ÑUFLO.DetalleMillas
+AS
+	select 'Obtencion' Tipo, fecha_de_obtencion Fecha, m.cantidad Cantidad, CAST(cantidad_gastada AS nvarchar(255)) Cantidad_Gastada, cli.dni DNI,
+			case expirado
+				when 0 then 'Vigentes'
+				else 'Expiradas'
+			end Estado
+		from ÑUFLO.Milla m, ÑUFLO.Cliente cli
+		where m.id_cliente = cli.id_cliente
+	UNION
+	select 'Canje' Tipo, fecha_de_canje, -c.cantidad, '-', cli.DNI, '-'
+		from ÑUFLO.Canje c, ÑUFLO.Cliente cli
+		where c.id_cliente = cli.id_cliente
+GO
+
+CREATE VIEW ÑUFLO.DetalleCancelaciones
+AS
+	select pc.id_pasaje_encomienda Pasaje, p.dni DNI, p.Nombre, p.apellido Apellido, p.Butaca_Numero , 
+			c.fecha_devolucion Fecha_Devolucion, pc.motivo_cancelacion Motivo, p.Fecha_De_Compra, p.Destino
+		from ÑUFLO.DetallePasajes p,
+			ÑUFLO.Cancelacion c,
+			ÑUFLO.PasajeEncomiendaPorCancelacion pc
+		where p.pasaje = pc.id_pasaje_encomienda
+			and p.Codigo_de_Compra = c.codigo_de_compra
+GO
+
+CREATE VIEW ÑUFLO.DetalleServiciosTecnicos
+AS
+	select a.matricula Matricula, a.modelo Modelo, a.fabricante Fabricante, a.capacidad_peso_encomiendas Capacidad_Peso,
+			st.fecha_fuera_de_servicio Fecha_Fuera_de_Servicio, st.fecha_reinicio_de_servicio Fecha_Reinicio_De_Servicio
+		from ÑUFLO.Aeronave a, ÑUFLO.ServicioTecnico st
+		where st.id_aeronave = a.id_aeronave			
 GO
