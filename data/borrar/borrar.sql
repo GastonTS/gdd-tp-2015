@@ -80,6 +80,10 @@ GO
 /************* Stored Procedures ************/
 /********************************************/
 
+
+DROP PROCEDURE ÑUFLO.LogearUsuario
+GO
+
 DROP PROCEDURE ÑUFLO.PesoDisponible
 GO
 

@@ -232,7 +232,7 @@ GO
 
 CREATE TABLE ÑUFLO.Usuario (
 	nombre_usuario nvarchar(255) PRIMARY KEY,
-	password nvarchar(255) NOT NULL,
+	password varbinary(255) NOT NULL,
 	id_rol int REFERENCES ÑUFLO.Rol,
 	cantidad_intentos smallint DEFAULT 0 NOT NULL,
 	habilitado bit NOT NULL DEFAULT 1
@@ -240,7 +240,7 @@ CREATE TABLE ÑUFLO.Usuario (
 GO
 
 INSERT INTO ÑUFLO.Usuario (nombre_usuario, password, id_rol)
-	values ('Juan', 'e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', 1)
+	values ('Juan', HASHBYTES('SHA2_256', 'w23e'), 1)
 GO
 
 /*****************************************************************/
@@ -412,6 +412,42 @@ GO
 /*****************************************************************/
 /*********************** Stored Procedures ***********************/
 /*****************************************************************/
+
+CREATE PROCEDURE ÑUFLO.LogearUsuario
+@usuario nvarchar(255),
+@password varchar(255),
+@success bit OUTPUT
+AS
+DECLARE @intentos smallint
+SET @intentos = (select cantidad_intentos from ÑUFLO.Usuario where nombre_usuario = @usuario)
+SET @success = 0
+IF (@intentos < 3)
+BEGIN
+	DECLARE @hash varbinary(255)
+	SET @hash = (select password from ÑUFLO.Usuario where nombre_usuario = @usuario)
+	
+	IF (@hash =  HASHBYTES('SHA2_256', @password))
+		BEGIN
+			UPDATE ÑUFLO.Usuario
+				SET cantidad_intentos = 0
+				WHERE nombre_usuario = @usuario;
+			SET @success = 1
+		END
+	ELSE
+		BEGIN
+			UPDATE ÑUFLO.Usuario
+				SET cantidad_intentos = @intentos + 1
+				WHERE nombre_usuario = @usuario;
+			IF(@intentos = 2)
+				BEGIN
+					UPDATE ÑUFLO.Usuario
+						SET habilitado = 0
+						WHERE nombre_usuario = @usuario;
+				END			
+		END
+END
+;
+GO
 
 CREATE PROCEDURE ÑUFLO.PesoDisponible
 @Id_viaje int
