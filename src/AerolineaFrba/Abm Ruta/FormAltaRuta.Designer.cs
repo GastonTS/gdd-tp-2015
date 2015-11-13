@@ -174,7 +174,7 @@
             this.textBoxPrecioPeso.Name = "textBoxPrecioPeso";
             this.textBoxPrecioPeso.Size = new System.Drawing.Size(211, 22);
             this.textBoxPrecioPeso.TabIndex = 0;
-            this.textBoxPrecioPeso.Leave += new System.EventHandler(this.textBoxPrecioPeso_Leave);
+            
             // 
             // FormAltaRuta
             // 

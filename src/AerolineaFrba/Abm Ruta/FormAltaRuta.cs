@@ -55,7 +55,7 @@ namespace AerolineaFrba.Abm_Ruta
             //MessageBox.Show(comboBoxOrigen.SelectedValue.ToString());
         }
 
-        private void textBoxPrecioPeso_Leave(object sender, EventArgs e)
+        /*private void textBoxPrecioPeso_Leave(object sender, EventArgs e)
         {
             Double value;
             if (Double.TryParse(textBoxPrecioPeso.Text, out value))
@@ -71,6 +71,6 @@ namespace AerolineaFrba.Abm_Ruta
 
             decimal d = decimal.Parse(textBoxPrecioPeso.Text, System.Globalization.NumberStyles.Currency, MyNFI);
             
-        }
+        }*/
     }
 }

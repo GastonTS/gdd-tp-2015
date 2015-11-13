@@ -37,6 +37,10 @@ namespace AerolineaFrba.Abm
             }
         }
 
+        virtual protected void formatear(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
 
         string _ErrorText;
         [Category("Wololo"), Description("Texto que se muestra en el error."), EditorBrowsable(EditorBrowsableState.Always)]

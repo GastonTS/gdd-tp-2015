@@ -19,5 +19,24 @@ namespace AerolineaFrba.Abm
         {
             return "[0-9]+[,|.][0-9]+";
         }
+
+
+        override protected void formatear(object sender, System.EventArgs e)
+        {
+            Double value;
+            if (Double.TryParse(textBox1.Text, out value))
+                textBox1.Text = String.Format(new System.Globalization.CultureInfo("es-AR"), "{0:C2}", value);
+            else
+                textBox1.Text = String.Empty;
+
+            System.Globalization.NumberFormatInfo MyNFI = new System.Globalization.NumberFormatInfo();
+            MyNFI.NegativeSign = "-";
+            MyNFI.CurrencyDecimalSeparator = ",";
+            MyNFI.CurrencyGroupSeparator = ".";
+            MyNFI.CurrencySymbol = "$";
+
+            //decimal d = decimal.Parse(textBox1.Text, System.Globalization.NumberStyles.Currency, MyNFI);
+        }
+
     }
 }
