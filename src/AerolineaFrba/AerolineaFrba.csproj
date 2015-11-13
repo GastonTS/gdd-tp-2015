@@ -113,6 +113,9 @@
     <Compile Include="Abm\Alta.Designer.cs">
       <DependentUpon>Alta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm\CurrencyTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Abm\Guardar.cs">
       <SubType>UserControl</SubType>
     </Compile>

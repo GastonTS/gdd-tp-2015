@@ -26,6 +26,17 @@ namespace AerolineaFrba.Abm
             }
         }
 
+        new public event EventHandler Leave;
+
+
+        protected void textBox1_Leave(object sender, EventArgs e)
+        {
+            MessageBox.Show("SARASA");
+            if (Leave != null)
+            {
+                Leave(this, e);
+            }
+        }
 
 
         string _ErrorText;

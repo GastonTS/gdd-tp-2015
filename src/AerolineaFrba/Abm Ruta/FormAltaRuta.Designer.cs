@@ -37,17 +37,18 @@
             this.origenBinding = new System.Windows.Forms.BindingSource(this.components);
             this.comboBoxDestino = new System.Windows.Forms.ComboBox();
             this.destinoBinding = new System.Windows.Forms.BindingSource(this.components);
-            this.textBoxPrecioPeso = new System.Windows.Forms.TextBox();
             this.textBoxPrecioPasaje = new System.Windows.Forms.TextBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
-            this.groupBoxCamposAltaRuta = new System.Windows.Forms.GroupBox();
             this.tipoServicioBinding = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBoxCamposAltaRuta = new System.Windows.Forms.GroupBox();
+            this.textBoxPrecioPeso = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
             ((System.ComponentModel.ISupportInitialize)(this.origenBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinoBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).BeginInit();
+            this.groupBoxCamposAltaRuta.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelOrigen
@@ -110,14 +111,6 @@
             // 
             this.destinoBinding.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
             // 
-            // textBoxPrecioPeso
-            // 
-            this.textBoxPrecioPeso.Location = new System.Drawing.Point(148, 207);
-            this.textBoxPrecioPeso.Name = "textBoxPrecioPeso";
-            this.textBoxPrecioPeso.Size = new System.Drawing.Size(100, 20);
-            this.textBoxPrecioPeso.TabIndex = 7;
-            this.textBoxPrecioPeso.Leave += new System.EventHandler(this.textBoxPrecioPeso_Leave);
-            // 
             // textBoxPrecioPasaje
             // 
             this.textBoxPrecioPasaje.Location = new System.Drawing.Point(148, 236);
@@ -164,6 +157,7 @@
             // 
             // groupBoxCamposAltaRuta
             // 
+            this.groupBoxCamposAltaRuta.Controls.Add(this.textBoxPrecioPeso);
             this.groupBoxCamposAltaRuta.Location = new System.Drawing.Point(12, 12);
             this.groupBoxCamposAltaRuta.Name = "groupBoxCamposAltaRuta";
             this.groupBoxCamposAltaRuta.Size = new System.Drawing.Size(444, 270);
@@ -171,6 +165,16 @@
             this.groupBoxCamposAltaRuta.TabStop = false;
             this.groupBoxCamposAltaRuta.Text = "Campos Alta Ruta Aérea";
             this.groupBoxCamposAltaRuta.Enter += new System.EventHandler(this.groupBoxCamposAltaRuta_Enter);
+            // 
+            // textBoxPrecioPeso
+            // 
+            this.textBoxPrecioPeso.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxPrecioPeso.ErrorText = null;
+            this.textBoxPrecioPeso.Location = new System.Drawing.Point(136, 196);
+            this.textBoxPrecioPeso.Name = "textBoxPrecioPeso";
+            this.textBoxPrecioPeso.Size = new System.Drawing.Size(211, 22);
+            this.textBoxPrecioPeso.TabIndex = 0;
+            this.textBoxPrecioPeso.Leave += new System.EventHandler(this.textBoxPrecioPeso_Leave);
             // 
             // FormAltaRuta
             // 
@@ -182,7 +186,6 @@
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.textBoxPrecioPasaje);
-            this.Controls.Add(this.textBoxPrecioPeso);
             this.Controls.Add(this.comboBoxDestino);
             this.Controls.Add(this.comboBoxOrigen);
             this.Controls.Add(this.label1);
@@ -196,6 +199,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.origenBinding)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinoBinding)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).EndInit();
+            this.groupBoxCamposAltaRuta.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -209,7 +213,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxOrigen;
         private System.Windows.Forms.ComboBox comboBoxDestino;
-        private System.Windows.Forms.TextBox textBoxPrecioPeso;
         private System.Windows.Forms.TextBox textBoxPrecioPasaje;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnGuardar;
@@ -219,5 +222,6 @@
         private System.Windows.Forms.BindingSource origenBinding;
         private System.Windows.Forms.BindingSource destinoBinding;
         private System.Windows.Forms.BindingSource tipoServicioBinding;
+        private Abm.TextBoxNumeroDecimal textBoxPrecioPeso;
     }
 }

@@ -61,7 +61,7 @@ namespace AerolineaFrba.Abm_Ruta
             if (Double.TryParse(textBoxPrecioPeso.Text, out value))
                 textBoxPrecioPeso.Text = String.Format(new System.Globalization.CultureInfo("es-AR"), "{0:C2}", value);
             else
-                textBoxPrecioPeso.Text = String.Empty;
+                textBoxPrecioPeso.Text= String.Empty;
 
             System.Globalization.NumberFormatInfo MyNFI = new System.Globalization.NumberFormatInfo();
             MyNFI.NegativeSign = "-";
