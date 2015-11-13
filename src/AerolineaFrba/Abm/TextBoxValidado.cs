@@ -31,7 +31,6 @@ namespace AerolineaFrba.Abm
 
         protected void textBox1_Leave(object sender, EventArgs e)
         {
-            MessageBox.Show("SARASA");
             if (Leave != null)
             {
                 Leave(this, e);
@@ -88,6 +87,11 @@ namespace AerolineaFrba.Abm
         private void textBox1_EnabledChanged(object sender, EventArgs e)
         {
             textBox1.CausesValidation = textBox1.Enabled;
+        }
+
+        private void TextBoxValidado_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

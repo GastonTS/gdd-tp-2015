@@ -70,7 +70,7 @@ namespace AerolineaFrba.Abm_Ruta
             MyNFI.CurrencySymbol = "$";
 
             decimal d = decimal.Parse(textBoxPrecioPeso.Text, System.Globalization.NumberStyles.Currency, MyNFI);
-            MessageBox.Show(d.ToString());
+            
         }
     }
 }

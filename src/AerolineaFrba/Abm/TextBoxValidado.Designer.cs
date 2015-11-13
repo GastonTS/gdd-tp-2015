@@ -61,6 +61,7 @@
             this.Controls.Add(this.textBox1);
             this.Name = "TextBoxValidado";
             this.Size = new System.Drawing.Size(211, 22);
+            this.Load += new System.EventHandler(this.TextBoxValidado_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
