@@ -703,7 +703,7 @@ AS
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.GetRutaAerea
+CREATE PROCEDURE ÑUFLO.FormAltaRuta
 AS
 	select id_ruta "Id ruta", codigo_ruta "Codigo ruta", id_ciudad_origen "Id ciudad origen", id_ciudad_destino "Id ciudad destino",
 			 precio_base_por_peso "Precio base por peso", precio_base_por_pasaje "Precio base por pasaje"
@@ -713,7 +713,6 @@ AS
 		from ÑUFLO.Ciudad
 ;
 GO
-
 
 /*****************************************************************/
 /*************************** Function ****************************/
