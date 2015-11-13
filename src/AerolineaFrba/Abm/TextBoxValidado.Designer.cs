@@ -26,9 +26,15 @@
         /// Método necesario para admitir el Diseñador. No se puede modificar 
         /// el contenido del método con el editor de código.
         /// </summary>
+        virtual protected System.Windows.Forms.TextBox newTextBox()
+        {
+            return new System.Windows.Forms.TextBox();
+        }
+        
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox1 = this.newTextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -61,10 +67,7 @@
 
         }
 
-        virtual protected System.Windows.Forms.TextBox newTextBox()
-        {
-            return new System.Windows.Forms.TextBox();
-        }
+        
 
         #endregion
 
