@@ -34,15 +34,19 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void FormAltaRuta_Load(object sender, EventArgs e)
         {
-            // TODO: esta línea de código carga datos en la tabla 'gD2C2015DataSet.Ciudad' Puede moverla o quitarla según sea necesario.
             
-            var db = new gdDataBase();
-            db.actualizarBindingSourceQuery(tipoServicioBinding,"SELECT * FROM [ÑUFLO].TipoServicio");
-            comboBoxTipoServicio.DisplayMember = "tipo_servicio";
-            db.actualizarBindingSourceQuery(origenBinding, "SELECT * FROM [ÑUFLO].Ciudad");
+            var ds = new gdDataBase().GetDataQuery("SELECT id_ciudad, nombre FROM ÑUFLO.Ciudad SELECT id_tipo_servicio, tipo_servicio FROM ÑUFLO.TipoServicio");
+            
+            origenBinding.DataSource = ds.Tables[0];
+            destinoBinding.DataSource = ds.Tables[0];
+            tipoServicioBinding.DataSource = ds.Tables[1];
+
             comboBoxOrigen.DisplayMember = "nombre";
-            db.actualizarBindingSourceQuery(destinoBinding, "SELECT * FROM [ÑUFLO].Ciudad");
+            comboBoxOrigen.ValueMember = "id_ciudad";
             comboBoxDestino.DisplayMember = "nombre";
+            comboBoxDestino.ValueMember = "id_ciudad";
+            comboBoxTipoServicio.DisplayMember = "tipo_servicio";
+            comboBoxTipoServicio.ValueMember = "id_tipo_servicio";
         }
 
         private void bindingSource1_CurrentChanged(object sender, EventArgs e)
@@ -52,7 +56,7 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void comboBoxOrigen_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //MessageBox.Show(comboBoxOrigen.SelectedValue.ToString());
+
         }
 
     }
