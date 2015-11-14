@@ -135,6 +135,12 @@ GO
 DROP PROCEDURE ÑUFLO.TOP5DiasFueraDeServicio
 GO
 
+DROP PROCEDURE ÑUFLO.DestinoOrigen
+GO
+
+DROP PROCEDURE ÑUFLO.CiudadTipoServicio
+GO
+
 /********************************************/
 /***************** Functions ****************/
 /********************************************/

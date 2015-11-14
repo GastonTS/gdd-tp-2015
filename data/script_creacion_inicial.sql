@@ -713,6 +713,17 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.CiudadTipoServicio
+AS
+	select id_ciudad "Id ciudad", nombre "Nombre"
+		from ÑUFLO.Ciudad
+
+	select id_tipo_servicio "Id ciudad origen", tipo_servicio "Id ciudad destino", porcentaje_recargo "Porcentaje de recargo"
+		from ÑUFLO.TipoServicio
+;
+GO
+
+
 /*****************************************************************/
 /*************************** Function ****************************/
 /*****************************************************************/
