@@ -48,7 +48,6 @@
             this.textBox1.EnabledChanged += new System.EventHandler(this.textBox1_EnabledChanged);
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
-            this.textBox1.Leave += new System.EventHandler(this.formatear);
             this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating_1);
             // 
             // errorProvider1

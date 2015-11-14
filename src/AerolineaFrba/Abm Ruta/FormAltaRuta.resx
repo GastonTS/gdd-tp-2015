@@ -121,12 +121,12 @@
     <value>168, 17</value>
   </metadata>
   <metadata name="destinoBinding.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>469, 23</value>
+    <value>417, 17</value>
   </metadata>
   <metadata name="tipoServicioBinding.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>603, 23</value>
+    <value>551, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>131</value>
+    <value>92</value>
   </metadata>
 </root>

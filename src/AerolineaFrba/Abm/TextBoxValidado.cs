@@ -31,6 +31,7 @@ namespace AerolineaFrba.Abm
 
         protected void textBox1_Leave(object sender, EventArgs e)
         {
+            formatear(sender, e);
             if (Leave != null)
             {
                 Leave(this, e);
@@ -39,7 +40,7 @@ namespace AerolineaFrba.Abm
 
         virtual protected void formatear(object sender, System.EventArgs e)
         {
-            throw new System.NotImplementedException();
+
         }
 
         string _ErrorText;

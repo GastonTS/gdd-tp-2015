@@ -35,7 +35,7 @@ namespace AerolineaFrba.Abm_Ruta
         private void FormAltaRuta_Load(object sender, EventArgs e)
         {
             
-            var ds = new gdDataBase().GetDataQuery("SELECT id_ciudad, nombre FROM ÑUFLO.Ciudad SELECT id_tipo_servicio, tipo_servicio FROM ÑUFLO.TipoServicio");
+            var ds = new gdDataBase().GetDataQuery("SELECT id_ciudad, nombre FROM ÑUFLO.Ciudad SELECT id_tipo_servicio, tipo_servicio, porcentaje_recargo FROM ÑUFLO.TipoServicio");
             
             origenBinding.DataSource = ds.Tables[0];
             destinoBinding.DataSource = ds.Tables[0];
@@ -57,6 +57,18 @@ namespace AerolineaFrba.Abm_Ruta
         private void comboBoxOrigen_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private Decimal porcentajeRecargo() { return Decimal.Parse(((DataRowView)this.tipoServicioBinding.Current).Row["porcentaje_recargo"].ToString()); }
+
+        private Decimal precioPesoFinal() { return textBoxPrecioPeso.DecimalValue() * porcentajeRecargo(); }
+
+        private Decimal precioPasajeFinal() { return textBoxPrecioPasaje.DecimalValue() * porcentajeRecargo(); }
+    
+        private void asignarPreciosFinalesALabels(object sender, EventArgs e)
+        {
+            labelValorPrecioFinalPeso.Text = "$"+precioPesoFinal().ToString() ;
+            labelValorPrecioFinalPasaje.Text = "$"+precioPasajeFinal().ToString() ;
         }
 
     }
