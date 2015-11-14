@@ -39,6 +39,11 @@
 
         }
 
+        override protected System.Windows.Forms.TextBox newTextBox()
+        {
+            return new CurrencyTextBox();
+        }
+
         #endregion
     }
 }

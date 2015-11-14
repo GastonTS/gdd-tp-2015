@@ -15,6 +15,7 @@ namespace AerolineaFrba.Abm_Ruta
         public FormAltaRuta()
         {
             InitializeComponent();
+
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -33,10 +34,19 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void FormAltaRuta_Load(object sender, EventArgs e)
         {
-            // TODO: esta línea de código carga datos en la tabla 'gD2C2015DataSet.Ciudad' Puede moverla o quitarla según sea necesario.
-            this.ciudadTableAdapter.Fill(this.gD2C2015DataSet.Ciudad);
 
+            var ds = new gdDataBase().GetDataSP("ÑUFLO.CiudadTipoServicio");
+            
+            origenBinding.DataSource = ds.Tables[0];
+            destinoBinding.DataSource = ds.Tables[0];
+            tipoServicioBinding.DataSource = ds.Tables[1];
 
+            comboBoxOrigen.DisplayMember = "Nombre";
+            comboBoxOrigen.ValueMember = "Id ciudad";
+            comboBoxDestino.DisplayMember = "Nombre";
+            comboBoxDestino.ValueMember = "Id ciudad";
+            comboBoxTipoServicio.DisplayMember = "Tipo Servicio";
+            comboBoxTipoServicio.ValueMember = "Id Tipo Servicio";
         }
 
         private void bindingSource1_CurrentChanged(object sender, EventArgs e)
@@ -46,7 +56,20 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void comboBoxOrigen_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //MessageBox.Show(comboBoxOrigen.SelectedValue.ToString());
+
         }
+
+        private Decimal porcentajeRecargo() { return Decimal.Parse(((DataRowView)this.tipoServicioBinding.Current).Row["Porcentaje de recargo"].ToString()); }
+
+        private Decimal precioPesoFinal() { return textBoxPrecioPeso.DecimalValue() * porcentajeRecargo(); }
+
+        private Decimal precioPasajeFinal() { return textBoxPrecioPasaje.DecimalValue() * porcentajeRecargo(); }
+    
+        private void asignarPreciosFinalesALabels(object sender, EventArgs e)
+        {
+            labelValorPrecioFinalPeso.Text = "$"+precioPesoFinal().ToString() ;
+            labelValorPrecioFinalPasaje.Text = "$"+precioPasajeFinal().ToString() ;
+        }
+
     }
 }

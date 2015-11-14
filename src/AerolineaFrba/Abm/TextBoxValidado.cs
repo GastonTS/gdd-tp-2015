@@ -26,7 +26,22 @@ namespace AerolineaFrba.Abm
             }
         }
 
+        new public event EventHandler Leave;
 
+
+        protected void textBox1_Leave(object sender, EventArgs e)
+        {
+            formatear(sender, e);
+            if (Leave != null)
+            {
+                Leave(this, e);
+            }
+        }
+
+        virtual protected void formatear(object sender, System.EventArgs e)
+        {
+
+        }
 
         string _ErrorText;
         [Category("Wololo"), Description("Texto que se muestra en el error."), EditorBrowsable(EditorBrowsableState.Always)]
@@ -77,6 +92,11 @@ namespace AerolineaFrba.Abm
         private void textBox1_EnabledChanged(object sender, EventArgs e)
         {
             textBox1.CausesValidation = textBox1.Enabled;
+        }
+
+        private void TextBoxValidado_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
