@@ -718,7 +718,7 @@ AS
 	select id_ciudad "Id ciudad", nombre "Nombre"
 		from ÑUFLO.Ciudad
 
-	select id_tipo_servicio "Id ciudad origen", tipo_servicio "Id ciudad destino", porcentaje_recargo "Porcentaje de recargo"
+	select id_tipo_servicio "Id Tipo Servicio", tipo_servicio "Tipo Servicio", porcentaje_recargo "Porcentaje de recargo"
 		from ÑUFLO.TipoServicio
 ;
 GO

@@ -34,19 +34,19 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void FormAltaRuta_Load(object sender, EventArgs e)
         {
-            
-            var ds = new gdDataBase().GetDataQuery("SELECT id_ciudad, nombre FROM ÑUFLO.Ciudad SELECT id_tipo_servicio, tipo_servicio, porcentaje_recargo FROM ÑUFLO.TipoServicio");
+
+            var ds = new gdDataBase().GetDataSP("ÑUFLO.CiudadTipoServicio");
             
             origenBinding.DataSource = ds.Tables[0];
             destinoBinding.DataSource = ds.Tables[0];
             tipoServicioBinding.DataSource = ds.Tables[1];
 
-            comboBoxOrigen.DisplayMember = "nombre";
-            comboBoxOrigen.ValueMember = "id_ciudad";
-            comboBoxDestino.DisplayMember = "nombre";
-            comboBoxDestino.ValueMember = "id_ciudad";
-            comboBoxTipoServicio.DisplayMember = "tipo_servicio";
-            comboBoxTipoServicio.ValueMember = "id_tipo_servicio";
+            comboBoxOrigen.DisplayMember = "Nombre";
+            comboBoxOrigen.ValueMember = "Id ciudad";
+            comboBoxDestino.DisplayMember = "Nombre";
+            comboBoxDestino.ValueMember = "Id ciudad";
+            comboBoxTipoServicio.DisplayMember = "Tipo Servicio";
+            comboBoxTipoServicio.ValueMember = "Id Tipo Servicio";
         }
 
         private void bindingSource1_CurrentChanged(object sender, EventArgs e)
@@ -59,7 +59,7 @@ namespace AerolineaFrba.Abm_Ruta
 
         }
 
-        private Decimal porcentajeRecargo() { return Decimal.Parse(((DataRowView)this.tipoServicioBinding.Current).Row["porcentaje_recargo"].ToString()); }
+        private Decimal porcentajeRecargo() { return Decimal.Parse(((DataRowView)this.tipoServicioBinding.Current).Row["Porcentaje de recargo"].ToString()); }
 
         private Decimal precioPesoFinal() { return textBoxPrecioPeso.DecimalValue() * porcentajeRecargo(); }
 
