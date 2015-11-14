@@ -415,13 +415,12 @@ GO
 
 CREATE PROCEDURE ÑUFLO.LogearUsuario
 @usuario nvarchar(255),
-@password varchar(255),
-@success bit OUTPUT
+@password varchar(255)
 AS
-DECLARE @intentos smallint
+DECLARE @intentos smallint, @habilitado bit
 SET @intentos = (select cantidad_intentos from ÑUFLO.Usuario where nombre_usuario = @usuario)
-SET @success = 0
-IF (@intentos < 3)
+SET @habilitado = (select habilitado from ÑUFLO.Usuario where nombre_usuario = @usuario)
+IF (@habilitado = 1)
 BEGIN
 	DECLARE @hash varbinary(255)
 	SET @hash = (select password from ÑUFLO.Usuario where nombre_usuario = @usuario)
@@ -429,9 +428,8 @@ BEGIN
 	IF (@hash =  HASHBYTES('SHA2_256', @password))
 		BEGIN
 			UPDATE ÑUFLO.Usuario
-				SET cantidad_intentos = 0
+				SET cantidad_intentos = 0, habilitado = 1
 				WHERE nombre_usuario = @usuario;
-			SET @success = 1
 		END
 	ELSE
 		BEGIN
@@ -443,9 +441,21 @@ BEGIN
 					UPDATE ÑUFLO.Usuario
 						SET habilitado = 0
 						WHERE nombre_usuario = @usuario;
-				END			
+				END;			
+		THROW 60000,'Usuario o Contraseña Incorrecta',1
 		END
 END
+ELSE
+	THROW 60001,'Usuario deshabilitado',1
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.HabilitarUsuario 
+@usuario nvarchar(255)
+AS
+	UPDATE ÑUFLO.Usuario
+		SET cantidad_intentos = 0, habilitado = 1
+		WHERE @usuario = nombre_usuario
 ;
 GO
 

@@ -84,6 +84,9 @@ GO
 DROP PROCEDURE ÑUFLO.LogearUsuario
 GO
 
+DROP PROCEDURE ÑUFLO.HabilitarUsuario 
+GO
+
 DROP PROCEDURE ÑUFLO.PesoDisponible
 GO
 
