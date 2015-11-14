@@ -703,6 +703,16 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.DestinoOrigen
+AS
+	select id_ciudad_origen "Id ciudad origen", id_ciudad_destino "Id ciudad destino"
+		from ÑUFLO.RutaAerea
+
+	select id_ciudad "Id ciudad", nombre "Nombre"
+		from ÑUFLO.Ciudad
+;
+GO
+
 /*****************************************************************/
 /*************************** Function ****************************/
 /*****************************************************************/
