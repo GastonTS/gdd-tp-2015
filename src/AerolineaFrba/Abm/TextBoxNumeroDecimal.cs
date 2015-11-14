@@ -18,16 +18,19 @@ namespace AerolineaFrba.Abm
 
         protected override String validationRegexString()
         {
-            return "[0-9]+[,|.][0-9]+";
+            return "[0-9]+[,|.]?[0-9]+";
         }
-
 
         override protected void formatear(object sender, System.EventArgs e)
         {
             Double value;
             if (Double.TryParse(textBox1.Text, out value))
                 textBox1.Text = String.Format(new System.Globalization.CultureInfo("es-AR"), "{0:C2}", value);
-            else if (new Regex("^[$]" + this.validationRegexString()).IsMatch(textBox1.Text))  ;
+            else if (new Regex("^[$]" + this.validationRegexString()).IsMatch(textBox1.Text))
+            {
+                textBox1.Text = textBox1.Text.Remove(0, 1);
+                formatear(sender, e);
+            }
             else
                 textBox1.Text = String.Empty;
 
