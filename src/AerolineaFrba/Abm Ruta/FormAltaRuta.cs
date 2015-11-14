@@ -55,22 +55,5 @@ namespace AerolineaFrba.Abm_Ruta
             //MessageBox.Show(comboBoxOrigen.SelectedValue.ToString());
         }
 
-        /*private void textBoxPrecioPeso_Leave(object sender, EventArgs e)
-        {
-            Double value;
-            if (Double.TryParse(textBoxPrecioPeso.Text, out value))
-                textBoxPrecioPeso.Text = String.Format(new System.Globalization.CultureInfo("es-AR"), "{0:C2}", value);
-            else
-                textBoxPrecioPeso.Text= String.Empty;
-
-            System.Globalization.NumberFormatInfo MyNFI = new System.Globalization.NumberFormatInfo();
-            MyNFI.NegativeSign = "-";
-            MyNFI.CurrencyDecimalSeparator = ",";
-            MyNFI.CurrencyGroupSeparator = ".";
-            MyNFI.CurrencySymbol = "$";
-
-            decimal d = decimal.Parse(textBoxPrecioPeso.Text, System.Globalization.NumberStyles.Currency, MyNFI);
-            
-        }*/
     }
 }

@@ -37,13 +37,13 @@
             this.origenBinding = new System.Windows.Forms.BindingSource(this.components);
             this.comboBoxDestino = new System.Windows.Forms.ComboBox();
             this.destinoBinding = new System.Windows.Forms.BindingSource(this.components);
-            this.textBoxPrecioPasaje = new System.Windows.Forms.TextBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.tipoServicioBinding = new System.Windows.Forms.BindingSource(this.components);
             this.groupBoxCamposAltaRuta = new System.Windows.Forms.GroupBox();
+            this.textBoxPrecioPasaje = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
             this.textBoxPrecioPeso = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
             ((System.ComponentModel.ISupportInitialize)(this.origenBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinoBinding)).BeginInit();
@@ -111,13 +111,6 @@
             // 
             this.destinoBinding.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
             // 
-            // textBoxPrecioPasaje
-            // 
-            this.textBoxPrecioPasaje.Location = new System.Drawing.Point(148, 236);
-            this.textBoxPrecioPasaje.Name = "textBoxPrecioPasaje";
-            this.textBoxPrecioPasaje.Size = new System.Drawing.Size(100, 20);
-            this.textBoxPrecioPasaje.TabIndex = 9;
-            // 
             // btnLimpiar
             // 
             this.btnLimpiar.Location = new System.Drawing.Point(26, 289);
@@ -157,6 +150,7 @@
             // 
             // groupBoxCamposAltaRuta
             // 
+            this.groupBoxCamposAltaRuta.Controls.Add(this.textBoxPrecioPasaje);
             this.groupBoxCamposAltaRuta.Controls.Add(this.textBoxPrecioPeso);
             this.groupBoxCamposAltaRuta.Location = new System.Drawing.Point(12, 12);
             this.groupBoxCamposAltaRuta.Name = "groupBoxCamposAltaRuta";
@@ -166,6 +160,15 @@
             this.groupBoxCamposAltaRuta.Text = "Campos Alta Ruta Aérea";
             this.groupBoxCamposAltaRuta.Enter += new System.EventHandler(this.groupBoxCamposAltaRuta_Enter);
             // 
+            // textBoxPrecioPasaje
+            // 
+            this.textBoxPrecioPasaje.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxPrecioPasaje.ErrorText = null;
+            this.textBoxPrecioPasaje.Location = new System.Drawing.Point(136, 224);
+            this.textBoxPrecioPasaje.Name = "textBoxPrecioPasaje";
+            this.textBoxPrecioPasaje.Size = new System.Drawing.Size(211, 22);
+            this.textBoxPrecioPasaje.TabIndex = 1;
+            // 
             // textBoxPrecioPeso
             // 
             this.textBoxPrecioPeso.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
@@ -174,7 +177,6 @@
             this.textBoxPrecioPeso.Name = "textBoxPrecioPeso";
             this.textBoxPrecioPeso.Size = new System.Drawing.Size(211, 22);
             this.textBoxPrecioPeso.TabIndex = 0;
-            
             // 
             // FormAltaRuta
             // 
@@ -185,7 +187,6 @@
             this.Controls.Add(this.labelTipoServicio);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.textBoxPrecioPasaje);
             this.Controls.Add(this.comboBoxDestino);
             this.Controls.Add(this.comboBoxOrigen);
             this.Controls.Add(this.label1);
@@ -213,7 +214,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxOrigen;
         private System.Windows.Forms.ComboBox comboBoxDestino;
-        private System.Windows.Forms.TextBox textBoxPrecioPasaje;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Label labelTipoServicio;
@@ -223,5 +223,6 @@
         private System.Windows.Forms.BindingSource destinoBinding;
         private System.Windows.Forms.BindingSource tipoServicioBinding;
         private Abm.TextBoxNumeroDecimal textBoxPrecioPeso;
+        private Abm.TextBoxNumeroDecimal textBoxPrecioPasaje;
     }
 }
