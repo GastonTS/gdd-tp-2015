@@ -459,6 +459,32 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.AltaAeronave
+@matrícula nvarchar(255),
+@modelo nvarchar(255), 
+@fabricante nvarchar(255), 
+@tipo_de_servicio int, 
+@capacidad_de_encomiendas numeric(18,0),
+@fecha_hoy nvarchar(255)
+AS
+	INSERT INTO ÑUFLO.Aeronave(modelo, matricula, fabricante, id_tipo_servicio, capacidad_peso_encomiendas, fecha_de_alta)
+		values(@matrícula, @modelo, @fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy ))
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.AgregarButaca
+@matricula nvarchar(255),
+@numeroButaca numeric(18, 0),
+@tipoButaca int
+AS
+	DECLARE @id_aeronave int
+	SET @id_aeronave = (select id_aeronave from ÑUFLO.Aeronave where matricula = @matricula)
+
+	INSERT INTO ÑUFLO.ButacaPorAvion(id_aeronave, numero_de_butaca, id_tipo_butaca)
+		values(@id_aeronave, @numeroButaca, @tipoButaca)
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.PesoDisponible
 @Id_viaje int
 AS
