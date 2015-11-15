@@ -97,6 +97,14 @@ GO
 DROP PROCEDURE ÑUFLO.AgregarButaca
 GO
 
+DROP PROCEDURE ÑUFLO.BajaPorVidaUtil
+GO
+
+DROP PROCEDURE ÑUFLO.BajaFueraDeServicio
+GO
+
+DROP PROCEDURE ÑUFLO.CancelarPasajesDe
+GO
 DROP PROCEDURE ÑUFLO.PesoDisponible
 GO
 
