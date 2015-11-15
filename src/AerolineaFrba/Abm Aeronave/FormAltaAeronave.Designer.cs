@@ -46,7 +46,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxCapacidadEncomiendas = new AerolineaFrba.Abm.TextBoxNumeros();
             this.btnElegirTipoButaca = new System.Windows.Forms.Button();
             this.labelVentanillaPasillo = new System.Windows.Forms.Label();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxButacas = new System.Windows.Forms.CheckedListBox();
             this.labelCantidadButacas = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
@@ -157,7 +157,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.groupBox2.Controls.Add(this.textBoxCapacidadEncomiendas);
             this.groupBox2.Controls.Add(this.btnElegirTipoButaca);
             this.groupBox2.Controls.Add(this.labelVentanillaPasillo);
-            this.groupBox2.Controls.Add(this.checkedListBox1);
+            this.groupBox2.Controls.Add(this.checkedListBoxButacas);
             this.groupBox2.Controls.Add(this.labelCantidadButacas);
             this.groupBox2.Controls.Add(this.labelTipoServicio);
             this.groupBox2.Controls.Add(this.comboBoxTipoServicio);
@@ -206,14 +206,14 @@ namespace AerolineaFrba.Abm_Aeronave
             this.labelVentanillaPasillo.TabIndex = 16;
             this.labelVentanillaPasillo.Text = "Seleccione Butaca con Ventanilla. El resto será Pasillo";
             // 
-            // checkedListBox1
+            // checkedListBoxButacas
             // 
-            this.checkedListBox1.Enabled = false;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(253, 111);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(179, 154);
-            this.checkedListBox1.TabIndex = 3;
+            this.checkedListBoxButacas.Enabled = false;
+            this.checkedListBoxButacas.FormattingEnabled = true;
+            this.checkedListBoxButacas.Location = new System.Drawing.Point(253, 111);
+            this.checkedListBoxButacas.Name = "checkedListBoxButacas";
+            this.checkedListBoxButacas.Size = new System.Drawing.Size(179, 154);
+            this.checkedListBoxButacas.TabIndex = 3;
             // 
             // labelCantidadButacas
             // 
@@ -296,7 +296,7 @@ namespace AerolineaFrba.Abm_Aeronave
         private System.Windows.Forms.Label labelVentanillaPasillo;
         private System.Windows.Forms.Button btnElegirTipoButaca;
         private System.Windows.Forms.Button btnLimpiar;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox checkedListBoxButacas;
         private Abm.TextBoxLetras textBoxFabricante;
         private Abm.TextBoxLetras textBoxMatricula;
         private Abm.TextBoxLetras textBoxModelo;

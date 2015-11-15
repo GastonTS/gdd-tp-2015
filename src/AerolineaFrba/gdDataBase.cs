@@ -182,7 +182,8 @@ namespace AerolineaFrba
                 try
                 {
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show(ejecucionCorrecta);
+                    if (ejecucionCorrecta != null)
+                        MessageBox.Show(ejecucionCorrecta);
                 }
                 catch (SqlException exception)
                 {
