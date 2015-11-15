@@ -460,7 +460,7 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.AltaAeronave
-@matrícula nvarchar(255),
+@matricula nvarchar(255),
 @modelo nvarchar(255), 
 @fabricante nvarchar(255), 
 @tipo_de_servicio int, 
@@ -468,7 +468,7 @@ CREATE PROCEDURE ÑUFLO.AltaAeronave
 @fecha_hoy nvarchar(255)
 AS
 	INSERT INTO ÑUFLO.Aeronave(matricula, modelo, fabricante, id_tipo_servicio, capacidad_peso_encomiendas, fecha_de_alta)
-		values(@matrícula, @modelo, @fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy ))
+		values(@matricula, @modelo, @fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy ))
 ;
 GO
 
@@ -482,6 +482,26 @@ AS
 
 	INSERT INTO ÑUFLO.ButacaPorAvion(id_aeronave, numero_de_butaca, id_tipo_butaca)
 		values(@id_aeronave, @numeroButaca, @tipoButaca)
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.ActualizarAeronave
+@id_aeronave int,
+@matricula nvarchar(255),
+@modelo nvarchar(255), 
+@fabricante nvarchar(255), 
+@tipo_de_servicio int, 
+@capacidad_de_encomiendas numeric(18,0),
+@fecha_hoy nvarchar(255)
+AS
+	UPDATE ÑUFLO.Aeronave
+		SET matricula = @matricula, 
+			modelo = @modelo, 
+			fabricante = @fabricante, 
+			id_tipo_servicio = @tipo_de_servicio, 
+			capacidad_peso_encomiendas = @capacidad_de_encomiendas, 
+			fecha_de_alta = convert(datetime, @fecha_hoy)
+		WHERE id_aeronave = @id_aeronave
 ;
 GO
 

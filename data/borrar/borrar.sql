@@ -91,6 +91,9 @@ GO
 DROP PROCEDURE ÑUFLO.AltaAeronave
 GO
 
+DROP PROCEDURE ÑUFLO.ActualizarAeronave
+GO
+
 DROP PROCEDURE ÑUFLO.AgregarButaca
 GO
 
