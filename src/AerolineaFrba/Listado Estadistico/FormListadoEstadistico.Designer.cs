@@ -33,13 +33,13 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridViewListado = new System.Windows.Forms.DataGridView();
-            this.bindingSourceListado = new System.Windows.Forms.BindingSource(this.components);
             this.radioBtnSegundoSemestre = new System.Windows.Forms.RadioButton();
             this.radioBtnPrimerSemestre = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxListado = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.bindingSourceListado = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.upDownAnio)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListado)).BeginInit();

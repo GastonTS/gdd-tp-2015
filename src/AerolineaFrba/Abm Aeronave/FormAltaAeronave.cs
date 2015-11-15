@@ -56,12 +56,23 @@ namespace AerolineaFrba.Abm_Aeronave
             
         }
 
-        private void textBoxModelo_Load(object sender, EventArgs e)
+        private void guardar1_Click(object sender, EventArgs e)
         {
-
         }
 
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
 
+            camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.VarChar));
+            camposValores.Add("modelo", new gdDataBase.ValorTipo(textBoxModelo.Text, SqlDbType.VarChar));
+            camposValores.Add("fabricante", new gdDataBase.ValorTipo(textBoxFabricante.Text, SqlDbType.VarChar));
+            camposValores.Add("tipo_de_servicio", new gdDataBase.ValorTipo((comboBoxTipoServicio.SelectedIndex + 1).ToString(), SqlDbType.Int));
+            camposValores.Add("capacidad_de_encomiendas", new gdDataBase.ValorTipo(textBoxCapacidadEncomiendas.Text, SqlDbType.Decimal));
+            camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+
+            new gdDataBase().Exec("ÑUFLO.AltaAeronave", camposValores);
+        }
     }
 }

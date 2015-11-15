@@ -49,9 +49,9 @@ namespace AerolineaFrba.Abm_Aeronave
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.labelCantidadButacas = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnGuardar = new System.Windows.Forms.Button();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -132,7 +132,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxModelo.Name = "textBoxModelo";
             this.textBoxModelo.Size = new System.Drawing.Size(211, 22);
             this.textBoxModelo.TabIndex = 4;
-            this.textBoxModelo.Load += new System.EventHandler(this.textBoxModelo_Load);
             // 
             // comboBoxTipoServicio
             // 
@@ -235,26 +234,28 @@ namespace AerolineaFrba.Abm_Aeronave
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Location = new System.Drawing.Point(433, 468);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 1;
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            // 
             // guardar1
             // 
-            this.guardar1.Location = new System.Drawing.Point(306, 468);
+            this.guardar1.Location = new System.Drawing.Point(425, 460);
             this.guardar1.Name = "guardar1";
             this.guardar1.Size = new System.Drawing.Size(83, 31);
             this.guardar1.TabIndex = 15;
+            this.guardar1.Click += new System.EventHandler(this.guardar1_Click);
             // 
             // gD2C2015DataSet
             // 
             this.gD2C2015DataSet.DataSetName = "GD2C2015DataSet";
             this.gD2C2015DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(301, 451);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FormAltaAeronave
             // 
@@ -262,8 +263,8 @@ namespace AerolineaFrba.Abm_Aeronave
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(533, 517);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.guardar1);
-            this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
@@ -295,7 +296,6 @@ namespace AerolineaFrba.Abm_Aeronave
         private System.Windows.Forms.Label labelVentanillaPasillo;
         private System.Windows.Forms.Button btnElegirTipoButaca;
         private System.Windows.Forms.Button btnLimpiar;
-        private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private Abm.TextBoxLetras textBoxFabricante;
         private Abm.TextBoxLetras textBoxMatricula;
@@ -305,5 +305,6 @@ namespace AerolineaFrba.Abm_Aeronave
         private Abm.TextBoxNumeros textBoxCantidadButacas;
         private System.Windows.Forms.BindingSource bindingSourceTipoServicio;
         private GD2C2015DataSet gD2C2015DataSet;
+        private System.Windows.Forms.Button button1;
     }
 }
