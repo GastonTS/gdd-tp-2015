@@ -22,14 +22,14 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void btnElegirTipoButaca_Click(object sender, EventArgs e)
         {
-            checkedListBox1.Enabled = true;
-            checkedListBox1.Items.Clear();
+            checkedListBoxButacas.Enabled = true;
+            checkedListBoxButacas.Items.Clear();
 
             if (textBoxCantidadButacas.Text != "")
             {
                 for (int i = 0; i < Convert.ToInt32(textBoxCantidadButacas.Text); i++)
                 {
-                    checkedListBox1.Items.Add("Butaca N°: " + (i + 1));
+                    checkedListBoxButacas.Items.Add("Butaca N°: " + (i + 1));
                 }
             }
         }
@@ -44,8 +44,8 @@ namespace AerolineaFrba.Abm_Aeronave
             textBoxMatricula.Clear();
             textBoxModelo.Clear();
 
-            checkedListBox1.Items.Clear();
-            checkedListBox1.Enabled = false;
+            checkedListBoxButacas.Items.Clear();
+            checkedListBoxButacas.Enabled = false;
 
             comboBoxTipoServicio.ResetText();
         }
@@ -63,7 +63,15 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void button1_Click(object sender, EventArgs e)
         {
+            darDeAltaAeronave();
+
+            agregarButacas();
+        }
+
+        private void darDeAltaAeronave()
+        {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
             camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.VarChar));
             camposValores.Add("modelo", new gdDataBase.ValorTipo(textBoxModelo.Text, SqlDbType.VarChar));
@@ -72,7 +80,32 @@ namespace AerolineaFrba.Abm_Aeronave
             camposValores.Add("capacidad_de_encomiendas", new gdDataBase.ValorTipo(textBoxCapacidadEncomiendas.Text, SqlDbType.Decimal));
             camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
 
-            new gdDataBase().Exec("ÑUFLO.AltaAeronave", camposValores);
+            errorMensaje.Add(2627, "Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...");
+
+            new gdDataBase().Exec("ÑUFLO.AltaAeronave", camposValores, errorMensaje, "Aeronave registrada correctamente");
         }
+
+        private void agregarButacas()
+        {
+            int ventanilla = 2; //pasillo
+
+            for (int i = 0; i < checkedListBoxButacas.Items.Count; i++)
+            {
+                Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+                Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
+                if (checkedListBoxButacas.GetItemChecked(i) == true)
+                    ventanilla = 1;
+                else
+                    ventanilla = 2;
+
+                camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.VarChar));
+                camposValores.Add("numeroButaca", new gdDataBase.ValorTipo((i).ToString(), SqlDbType.Decimal));
+                camposValores.Add("tipoButaca", new gdDataBase.ValorTipo(ventanilla.ToString(), SqlDbType.Int));
+
+                new gdDataBase().Exec("ÑUFLO.AgregarButaca", camposValores, errorMensaje, null);
+            }
+        }
+
     }
 }

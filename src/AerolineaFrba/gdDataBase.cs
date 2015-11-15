@@ -163,7 +163,7 @@ namespace AerolineaFrba
             return ds;
         }
 
-        public void Exec(String spName, Dictionary<String, ValorTipo> campoValor)
+        public void Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta)
         {
             conectar();
 
@@ -182,17 +182,21 @@ namespace AerolineaFrba
                 try
                 {
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Aeronave registrada correctamente");
+                    if (ejecucionCorrecta != null)
+                        MessageBox.Show(ejecucionCorrecta);
                 }
                 catch (SqlException exception)
                 {
-                    if (exception.Number == 2627)
+                    for (int i = 0; i < errorMensaje.Count; i++)
                     {
-                        MessageBox.Show("Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        MessageBox.Show(exception.Message);
+                        if (exception.Number == errorMensaje.ElementAt(i).Key)
+                        {
+                            MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            MessageBox.Show(exception.Message);
+                        }
                     }
                 }
             }
