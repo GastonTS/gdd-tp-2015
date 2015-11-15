@@ -13,6 +13,27 @@ namespace AerolineaFrba
     {
         SqlConnection miConexion = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=gd2015");
 
+        public struct ValorTipo
+        {
+            String valor;
+            SqlDbType tipo;
+
+            public ValorTipo(String valor, SqlDbType tipo)
+            {
+                this.valor = valor;
+                this.tipo = tipo;
+            }
+
+            public String getValor()
+            {
+                return valor;
+            }
+            public SqlDbType getTipo()
+            {
+                return tipo;
+            }
+        }
+
         public void conectar()
         {
             //miConexion = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=gd2015");
@@ -142,17 +163,41 @@ namespace AerolineaFrba
             return ds;
         }
 
-        public void Exec(String spName)
+        public void Exec(String spName, Dictionary<String, ValorTipo> campoValor)
         {
+            conectar();
+
             using (var cmd = new SqlCommand(spName, miConexion))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                //cmd.Parameters.Add(new SqlParameter(
-                //cmd.Parameters.AddRange(new SqlParameter[]{
-                //    new SqlParameter("@sarasa", 666),
-                //});
-                cmd.ExecuteNonQuery();
+
+                for (int i = 0; i < campoValor.Count; i++)
+                {
+                    cmd.Parameters.Add("@" + campoValor.ElementAt(i).Key, 
+                        campoValor.ElementAt(i).Value.getTipo()).Value = campoValor.ElementAt(i).Value.getValor();
+                }
+
+                //para ejecutar sp que devuelven algo, creo que hay que poner ExecuteReader or algún otro tipo
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Aeronave registrada correctamente");
+                }
+                catch (SqlException exception)
+                {
+                    if (exception.Number == 2627)
+                    {
+                        MessageBox.Show("Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show(exception.Message);
+                    }
+                }
             }
+
+            desconectar();
         }
     }
 }

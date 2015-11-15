@@ -415,13 +415,12 @@ GO
 
 CREATE PROCEDURE ÑUFLO.LogearUsuario
 @usuario nvarchar(255),
-@password varchar(255),
-@success bit OUTPUT
+@password varchar(255)
 AS
-DECLARE @intentos smallint
+DECLARE @intentos smallint, @habilitado bit
 SET @intentos = (select cantidad_intentos from ÑUFLO.Usuario where nombre_usuario = @usuario)
-SET @success = 0
-IF (@intentos < 3)
+SET @habilitado = (select habilitado from ÑUFLO.Usuario where nombre_usuario = @usuario)
+IF (@habilitado = 1)
 BEGIN
 	DECLARE @hash varbinary(255)
 	SET @hash = (select password from ÑUFLO.Usuario where nombre_usuario = @usuario)
@@ -429,9 +428,8 @@ BEGIN
 	IF (@hash =  HASHBYTES('SHA2_256', @password))
 		BEGIN
 			UPDATE ÑUFLO.Usuario
-				SET cantidad_intentos = 0
+				SET cantidad_intentos = 0, habilitado = 1
 				WHERE nombre_usuario = @usuario;
-			SET @success = 1
 		END
 	ELSE
 		BEGIN
@@ -443,9 +441,163 @@ BEGIN
 					UPDATE ÑUFLO.Usuario
 						SET habilitado = 0
 						WHERE nombre_usuario = @usuario;
-				END			
+				END;			
+		THROW 60000,'Usuario o Contraseña Incorrecta',1
 		END
 END
+ELSE
+	THROW 60001,'Usuario deshabilitado',1
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.HabilitarUsuario 
+@usuario nvarchar(255)
+AS
+	UPDATE ÑUFLO.Usuario
+		SET cantidad_intentos = 0, habilitado = 1
+		WHERE @usuario = nombre_usuario
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.AltaAeronave
+@matricula nvarchar(255),
+@modelo nvarchar(255), 
+@fabricante nvarchar(255), 
+@tipo_de_servicio int, 
+@capacidad_de_encomiendas numeric(18,0),
+@fecha_hoy nvarchar(255)
+AS
+	INSERT INTO ÑUFLO.Aeronave(matricula, modelo, fabricante, id_tipo_servicio, capacidad_peso_encomiendas, fecha_de_alta)
+		values(@matricula, @modelo, @fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy ))
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.AgregarButaca
+@matricula nvarchar(255),
+@numeroButaca numeric(18, 0),
+@tipoButaca int
+AS
+	DECLARE @id_aeronave int
+	SET @id_aeronave = (select id_aeronave from ÑUFLO.Aeronave where matricula = @matricula)
+
+	INSERT INTO ÑUFLO.ButacaPorAvion(id_aeronave, numero_de_butaca, id_tipo_butaca)
+		values(@id_aeronave, @numeroButaca, @tipoButaca)
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.ActualizarAeronave
+@id_aeronave int,
+@matricula nvarchar(255),
+@modelo nvarchar(255), 
+@fabricante nvarchar(255), 
+@tipo_de_servicio int, 
+@capacidad_de_encomiendas numeric(18,0),
+@fecha_hoy nvarchar(255)
+AS
+	UPDATE ÑUFLO.Aeronave
+		SET matricula = @matricula, 
+			modelo = @modelo, 
+			fabricante = @fabricante, 
+			id_tipo_servicio = @tipo_de_servicio, 
+			capacidad_peso_encomiendas = @capacidad_de_encomiendas, 
+			fecha_de_alta = convert(datetime, @fecha_hoy)
+		WHERE id_aeronave = @id_aeronave
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.BajaPorVidaUtil
+@id_aeronave int,
+@fecha nvarchar(255)
+AS
+	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave=@id_aeronave) = 1)
+		THROW 60004, 'La nave ya se fuera de su vida util', 1
+	
+	DECLARE @fecha_baja datetime
+	SET @fecha_baja = convert(datetime, @fecha)
+
+	UPDATE ÑUFLO.Aeronave
+		SET baja_vida_utill = @fecha_baja
+		WHERE id_aeronave = @id_aeronave
+
+	select COUNT(id_viaje)
+		from ÑUFLO.Viaje
+		where id_aeronave = @id_aeronave
+			and fecha_salida > @fecha_baja
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.BajaFueraDeServicio
+@id_aeronave int,
+@fecha_fuera nvarchar(255),
+@fecha_rein nvarchar(255)
+AS
+	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave=@id_aeronave) = 1)
+		THROW 60003, 'La nave ya se encuentra en mantenimiento', 1
+
+	DECLARE @fecha_baja datetime, @fecha_reinicio datetime
+	SET @fecha_baja = convert(datetime, @fecha_fuera)
+	SET @fecha_reinicio = convert(datetime, @fecha_rein)
+
+	UPDATE ÑUFLO.Aeronave
+		SET baja_por_fuera_de_servicio = 1
+		WHERE id_aeronave = @id_aeronave
+	
+	INSERT INTO ÑUFLO.ServicioTecnico(fecha_fuera_de_servicio, fecha_reinicio_de_servicio, id_aeronave)
+		values(@fecha_baja, @fecha_reinicio, @id_aeronave)			
+	
+	select COUNT(id_viaje)
+		from ÑUFLO.Viaje
+		where id_aeronave = @id_aeronave
+			and fecha_salida between @fecha_baja and @fecha_reinicio
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.CancelarPasajesDe
+@id_aeronave int,
+@fecha_hoy nvarchar(255),
+@fecha_inicio nvarchar(255),
+@fecha_fin nvarchar(255) = null
+AS
+	DECLARE @fecha_i datetime, @fecha_f datetime, @hoy datetime
+	SET @hoy = convert(datetime, @fecha_hoy)
+	SET @fecha_i = convert(datetime, @fecha_inicio)
+	SET @fecha_f = convert(datetime, @fecha_fin)
+
+	DECLARE CPasajes CURSOR 
+		FOR select c.codigo_de_compra, p.id_pasaje_encomienda
+				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p
+				where @id_aeronave = v.id_aeronave
+					and ((@fecha_f is null and v.fecha_salida > @fecha_i)
+					or v.fecha_salida between @fecha_i and @fecha_f)
+					and v.id_viaje = c.id_viaje
+					and c.codigo_de_compra = p.codigo_de_compra
+
+	DECLARE @pnr int, @pasaje int, @cod_anterior int
+	SET @cod_anterior = -1
+	OPEN CPasajes
+	FETCH CPasajes INTO @pnr, @pasaje
+
+	WHILE (@@FETCH_STATUS = 0)
+	BEGIN	
+		if(@pnr <> @cod_anterior)
+		BEGIN
+			INSERT INTO ÑUFLO.Cancelacion(codigo_de_compra, fecha_devolucion)
+				values(@pnr, @hoy)
+			SET @cod_anterior = @pnr
+		END
+
+		INSERT INTO ÑUFLO.PasajeEncomiendaPorCancelacion(id_cancelacion, id_pasaje_encomienda, motivo_cancelacion)
+			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @pasaje, 'Baja de Aeronave')
+
+		UPDATE ÑUFLO.PasajeEncomienda
+			SET cancelado = 1
+			WHERE @pasaje = id_pasaje_encomienda
+
+		FETCH CPasajes INTO @pnr, @pasaje
+	END
+
+	CLOSE CPasajes
+	DEALLOCATE CPasajes
 ;
 GO
 
