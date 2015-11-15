@@ -29,51 +29,35 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.servicioBinding = new System.Windows.Forms.BindingSource(this.components);
-            this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.comboBoxDestino = new System.Windows.Forms.ComboBox();
-            this.ciudadBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.comboBoxOrigen = new System.Windows.Forms.ComboBox();
-            this.ciudadBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelDestino = new System.Windows.Forms.Label();
             this.labelOrigen = new System.Windows.Forms.Label();
-            this.ciudadTableAdapter = new AerolineaFrba.GD2C2015DataSetTableAdapters.CiudadTableAdapter();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.rutaAereaTableAdapter = new AerolineaFrba.GD2C2015DataSetTableAdapters.RutaAereaTableAdapter();
             this.rutaAereaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.servicioBinding)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource)).BeginInit();
+            this.destinoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.origenBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tipoServicioBinding = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rutaAereaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.origenBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).BeginInit();
             this.SuspendLayout();
-            // 
-            // servicioBinding
-            // 
-            this.servicioBinding.DataMember = "RutaAerea";
-            this.servicioBinding.DataSource = this.gD2C2015DataSet;
-            // 
-            // gD2C2015DataSet
-            // 
-            this.gD2C2015DataSet.DataSetName = "GD2C2015DataSet";
-            this.gD2C2015DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // comboBoxTipoServicio
             // 
-            this.comboBoxTipoServicio.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.servicioBinding, "tipo_servicio", true));
-            this.comboBoxTipoServicio.DataSource = this.servicioBinding;
-            this.comboBoxTipoServicio.DisplayMember = "tipo_servicio";
+            this.comboBoxTipoServicio.DataSource = this.tipoServicioBinding;
             this.comboBoxTipoServicio.FormattingEnabled = true;
             this.comboBoxTipoServicio.Location = new System.Drawing.Point(136, 109);
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";
             this.comboBoxTipoServicio.Size = new System.Drawing.Size(139, 21);
             this.comboBoxTipoServicio.TabIndex = 15;
-            this.comboBoxTipoServicio.ValueMember = "tipo_servicio";
+            this.comboBoxTipoServicio.SelectionChangeCommitted += new System.EventHandler(this.comboBoxTipoServicio_SelectionChangeCommitted);
             // 
             // labelTipoServicio
             // 
@@ -86,38 +70,23 @@
             // 
             // comboBoxDestino
             // 
-            this.comboBoxDestino.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.ciudadBindingSource1, "id_ciudad", true));
-            this.comboBoxDestino.DataSource = this.ciudadBindingSource1;
-            this.comboBoxDestino.DisplayMember = "nombre";
+            this.comboBoxDestino.DataSource = this.destinoBindingSource;
             this.comboBoxDestino.FormattingEnabled = true;
             this.comboBoxDestino.Location = new System.Drawing.Point(136, 68);
             this.comboBoxDestino.Name = "comboBoxDestino";
             this.comboBoxDestino.Size = new System.Drawing.Size(139, 21);
             this.comboBoxDestino.TabIndex = 13;
-            this.comboBoxDestino.ValueMember = "id_ciudad";
-            // 
-            // ciudadBindingSource1
-            // 
-            this.ciudadBindingSource1.DataMember = "Ciudad";
-            this.ciudadBindingSource1.DataSource = this.gD2C2015DataSet;
+            this.comboBoxDestino.SelectionChangeCommitted += new System.EventHandler(this.comboBoxDestino_SelectionChangeCommitted);
             // 
             // comboBoxOrigen
             // 
-            this.comboBoxOrigen.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.ciudadBindingSource, "id_ciudad", true));
-            this.comboBoxOrigen.DataSource = this.ciudadBindingSource;
-            this.comboBoxOrigen.DisplayMember = "nombre";
+            this.comboBoxOrigen.DataSource = this.origenBindingSource;
             this.comboBoxOrigen.FormattingEnabled = true;
             this.comboBoxOrigen.Location = new System.Drawing.Point(136, 29);
             this.comboBoxOrigen.Name = "comboBoxOrigen";
             this.comboBoxOrigen.Size = new System.Drawing.Size(139, 21);
             this.comboBoxOrigen.TabIndex = 11;
-            this.comboBoxOrigen.ValueMember = "id_ciudad";
             this.comboBoxOrigen.SelectionChangeCommitted += new System.EventHandler(this.comboBoxOrigen_SelectionChangeCommitted);
-            // 
-            // ciudadBindingSource
-            // 
-            this.ciudadBindingSource.DataMember = "Ciudad";
-            this.ciudadBindingSource.DataSource = this.gD2C2015DataSet;
             // 
             // labelDestino
             // 
@@ -137,17 +106,15 @@
             this.labelOrigen.TabIndex = 10;
             this.labelOrigen.Text = "Seleccione origen:";
             // 
-            // ciudadTableAdapter
-            // 
-            this.ciudadTableAdapter.ClearBeforeFill = true;
-            // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Eliminar,
             this.Modificar});
+            this.dataGridView1.DataSource = this.rutaAereaBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(25, 175);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(572, 165);
@@ -167,10 +134,6 @@
             this.Modificar.Text = "Modificar";
             this.Modificar.UseColumnTextForButtonValue = true;
             // 
-            // rutaAereaTableAdapter
-            // 
-            this.rutaAereaTableAdapter.ClearBeforeFill = true;
-            // 
             // FormModificacionRuta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -186,12 +149,11 @@
             this.Name = "FormModificacionRuta";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.FormModificacionRuta_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.servicioBinding)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ciudadBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rutaAereaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.origenBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,15 +167,12 @@
         private System.Windows.Forms.ComboBox comboBoxOrigen;
         private System.Windows.Forms.Label labelDestino;
         private System.Windows.Forms.Label labelOrigen;
-        private GD2C2015DataSet gD2C2015DataSet;
-        private GD2C2015DataSetTableAdapters.CiudadTableAdapter ciudadTableAdapter;
-        private System.Windows.Forms.BindingSource servicioBinding;
-        private System.Windows.Forms.BindingSource ciudadBindingSource1;
-        private System.Windows.Forms.BindingSource ciudadBindingSource;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private GD2C2015DataSetTableAdapters.RutaAereaTableAdapter rutaAereaTableAdapter;
         private System.Windows.Forms.BindingSource rutaAereaBindingSource;
         private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
         private System.Windows.Forms.DataGridViewButtonColumn Modificar;
+        private System.Windows.Forms.BindingSource tipoServicioBinding;
+        private System.Windows.Forms.BindingSource destinoBindingSource;
+        private System.Windows.Forms.BindingSource origenBindingSource;
     }
 }
