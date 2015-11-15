@@ -105,6 +105,10 @@ GO
 
 DROP PROCEDURE ÑUFLO.CancelarPasajesDe
 GO
+
+DROP PROCEDURE ÑUFLO.ReemplazarAeronavePara
+GO
+
 DROP PROCEDURE ÑUFLO.PesoDisponible
 GO
 

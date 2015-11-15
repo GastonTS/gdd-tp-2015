@@ -601,6 +601,72 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.ReemplazarAeronavePara
+@id_aeronave int,
+@fecha_inicio nvarchar(255),
+@fecha_fin nvarchar(255) = null
+AS
+	DECLARE @fecha_i datetime, @fecha_f datetime, @modelo nvarchar(255), @fabricante nvarchar(255), @tipo_servicio int
+
+	SET @fecha_i = convert(datetime, @fecha_inicio)
+	SET @fecha_f = convert(datetime, @fecha_fin)
+	SET @modelo = (select modelo from ÑUFLO.Aeronave where id_aeronave = @id_aeronave)
+	SET @fabricante = (select fabricante from ÑUFLO.Aeronave where id_aeronave = @id_aeronave)
+	SET @tipo_servicio = (select id_tipo_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave)
+	
+	DECLARE CViajes CURSOR FOR
+		select id_viaje, fecha_salida, fecha_llegada_estimada
+			from ÑUFLO.Viaje
+			where id_aeronave = @id_aeronave
+				and ((@fecha_f is null and fecha_salida > @fecha_i)
+				or fecha_salida between @fecha_i and @fecha_f)
+
+	BEGIN TRANSACTION
+	
+	DECLARE @id_viaje int, @salida datetime, @llegada datetime
+	DECLARE @reemplazos TABLE (id_aeronave int)
+	OPEN CViajes
+	FETCH Cviajes into @id_viaje, @salida, @llegada
+	
+	WHILE(@@FETCH_STATUS = 0)
+	BEGIN
+		INSERT INTO @reemplazos
+			select case
+						when (select COUNT(id_viaje) viajes
+								from ÑUFLO.Viaje v
+								where a.id_aeronave = v.id_aeronave
+									and (v.fecha_salida between @salida and @llegada
+									or v.fecha_llegada_estimada between @salida and @llegada)) = 0 then a.id_aeronave
+						else null
+					end
+				from ÑUFLO.Aeronave a
+				where @modelo = a.modelo
+					and @fabricante = a.fabricante
+					and @tipo_servicio = a.id_tipo_servicio
+					and baja_por_fuera_de_servicio is null
+					and baja_vida_utill is null
+		 
+		IF ((select COUNT(*) from @reemplazos where id_aeronave is not null) = 0)
+		BEGIN
+			CLOSE CViajes
+			DEALLOCATE CViajes;
+			ROLLBACK;
+			THROW 60005, 'No se pudo reemplazar todos los viajes', 1
+		END
+
+		UPDATE ÑUFLO.Viaje
+			SET id_aeronave = (select top 1 id_aeronave from @reemplazos where id_aeronave is not null)
+			where id_viaje = @id_viaje
+
+		DELETE @reemplazos
+		FETCH Cviajes into @id_viaje, @salida, @llegada
+	END
+	COMMIT
+	CLOSE CViajes
+	DEALLOCATE CViajes
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.PesoDisponible
 @Id_viaje int
 AS
