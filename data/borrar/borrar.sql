@@ -97,6 +97,9 @@ GO
 DROP PROCEDURE ÑUFLO.AgregarButaca
 GO
 
+DROP PROCEDURE ÑUFLO.FiltroAeronave
+GO
+
 DROP PROCEDURE ÑUFLO.BajaPorVidaUtil
 GO
 

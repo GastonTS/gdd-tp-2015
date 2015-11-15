@@ -459,6 +459,32 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.FiltroAeronave
+@modelo nvarchar(255) = null,
+@matricula nvarchar(255) = null,
+@fabricante nvarchar(255) = null,
+@baja_fuera_servicio bit = null,
+@baja_vida_util bit = null,
+@tipo_servicio int = null,
+@capacidad_encomiendas numeric(18,0) = null,
+@cantidad_butacas int = null
+AS
+select id_aeronave, modelo, matricula, fabricante, id_tipo_servicio, fecha_de_alta, capacidad_peso_encomiendas, baja_vida_utill, baja_por_fuera_de_servicio
+	from ÑUFLO.Aeronave
+	where (@modelo is null or @modelo = modelo)
+		and (@matricula is null or @matricula = matricula)
+		and (@fabricante is null or @fabricante = fabricante)
+		and (@baja_fuera_servicio is null or @baja_fuera_servicio = baja_por_fuera_de_servicio)
+		and (@baja_vida_util is null or (@baja_vida_util = 1 and baja_vida_utill is not null))
+		and (@tipo_servicio is null or @tipo_servicio = id_tipo_servicio)
+		and (@capacidad_encomiendas is null or @capacidad_encomiendas < capacidad_peso_encomiendas)
+		and (@cantidad_butacas is null or @cantidad_butacas < (select COUNT(id_tipo_butaca) 
+																	from ÑUFLO.ButacaPorAvion b
+																	where id_aeronave = b.id_aeronave))
+
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.AltaAeronave
 @matricula nvarchar(255),
 @modelo nvarchar(255), 
