@@ -103,6 +103,8 @@ GO
 DROP PROCEDURE ÑUFLO.BajaFueraDeServicio
 GO
 
+DROP PROCEDURE ÑUFLO.CancelarPasajesDe
+GO
 DROP PROCEDURE ÑUFLO.PesoDisponible
 GO
 
