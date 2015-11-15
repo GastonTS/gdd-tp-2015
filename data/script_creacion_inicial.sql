@@ -467,7 +467,7 @@ CREATE PROCEDURE ÑUFLO.AltaAeronave
 @capacidad_de_encomiendas numeric(18,0),
 @fecha_hoy nvarchar(255)
 AS
-	INSERT INTO ÑUFLO.Aeronave(modelo, matricula, fabricante, id_tipo_servicio, capacidad_peso_encomiendas, fecha_de_alta)
+	INSERT INTO ÑUFLO.Aeronave(matricula, modelo, fabricante, id_tipo_servicio, capacidad_peso_encomiendas, fecha_de_alta)
 		values(@matrícula, @modelo, @fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy ))
 ;
 GO
