@@ -178,14 +178,22 @@ namespace AerolineaFrba
                 }
 
                 //para ejecutar sp que devuelven algo, creo que hay que poner ExecuteReader or algún otro tipo
-                //esto es para debugueo. La idea es atrapar las excepciones...
-                if (cmd.ExecuteNonQuery() <= 0)
+
+                try
                 {
-                    MessageBox.Show("error al intentar guardar");
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Aeronave registrada correctamente");
                 }
-                else
+                catch (SqlException exception)
                 {
-                    MessageBox.Show("exitoo");
+                    if (exception.Number == 2627)
+                    {
+                        MessageBox.Show("Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show(exception.Message);
+                    }
                 }
             }
 
