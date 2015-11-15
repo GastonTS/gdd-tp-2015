@@ -505,6 +505,53 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.BajaPorVidaUtil
+@id_aeronave int,
+@fecha nvarchar(255)
+AS
+	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave=@id_aeronave) = 1)
+		THROW 60004, 'La nave ya se fuera de su vida util', 1
+	
+	DECLARE @fecha_baja datetime
+	SET @fecha_baja = convert(datetime, @fecha)
+
+	UPDATE ÑUFLO.Aeronave
+		SET baja_vida_utill = @fecha_baja
+		WHERE id_aeronave = @id_aeronave
+
+	select COUNT(id_viaje)
+		from ÑUFLO.Viaje
+		where id_aeronave = @id_aeronave
+			and fecha_salida > @fecha_baja
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.BajaFueraDeServicio
+@id_aeronave int,
+@fecha_fuera nvarchar(255),
+@fecha_rein nvarchar(255)
+AS
+	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave=@id_aeronave) = 1)
+		THROW 60003, 'La nave ya se encuentra en mantenimiento', 1
+
+	DECLARE @fecha_baja datetime, @fecha_reinicio datetime
+	SET @fecha_baja = convert(datetime, @fecha_fuera)
+	SET @fecha_reinicio = convert(datetime, @fecha_rein)
+
+	UPDATE ÑUFLO.Aeronave
+		SET baja_por_fuera_de_servicio = 1
+		WHERE id_aeronave = @id_aeronave
+	
+	INSERT INTO ÑUFLO.ServicioTecnico(fecha_fuera_de_servicio, fecha_reinicio_de_servicio, id_aeronave)
+		values(@fecha_baja, @fecha_reinicio, @id_aeronave)			
+	
+	select COUNT(id_viaje)
+		from ÑUFLO.Viaje
+		where id_aeronave = @id_aeronave
+			and fecha_salida between @fecha_baja and @fecha_reinicio
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.PesoDisponible
 @Id_viaje int
 AS
