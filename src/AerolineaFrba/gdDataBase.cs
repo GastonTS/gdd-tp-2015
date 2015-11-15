@@ -163,7 +163,7 @@ namespace AerolineaFrba
             return ds;
         }
 
-        public void Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje)
+        public void Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta)
         {
             conectar();
 
@@ -182,7 +182,7 @@ namespace AerolineaFrba
                 try
                 {
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Aeronave registrada correctamente");
+                    MessageBox.Show(ejecucionCorrecta);
                 }
                 catch (SqlException exception)
                 {

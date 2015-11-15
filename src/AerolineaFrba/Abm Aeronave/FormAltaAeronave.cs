@@ -75,7 +75,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
             errorMensaje.Add(2627, "Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...");
 
-            new gdDataBase().Exec("ÑUFLO.AltaAeronave", camposValores, errorMensaje);
+            new gdDataBase().Exec("ÑUFLO.AltaAeronave", camposValores, errorMensaje, "Aeronave registrada correctamente");
         }
     }
 }
