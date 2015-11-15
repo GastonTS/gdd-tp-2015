@@ -82,6 +82,29 @@ namespace AerolineaFrba.Abm_Ruta
             queryFoo();
         }
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+            var index = e.ColumnIndex;
+
+
+            if (senderGrid.Columns[index] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                if (index == senderGrid.Columns["Eliminar"].Index)
+                {
+                    MessageBox.Show("Eliminar columna" + senderGrid.CurrentRow.Cells["Ciudad Origen"].Value.ToString());
+                }
+
+                else if (index == senderGrid.Columns["Modificar"].Index)
+                {
+                    MessageBox.Show("Modificar columna" + senderGrid.CurrentRow.Cells["Ciudad Origen"].Value.ToString());
+                    new FormAltaRuta().Show();
+                }
+                else ;
+            }
+        }
+
 
     }
 }

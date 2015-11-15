@@ -34,7 +34,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox1 = newTextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -47,6 +47,7 @@
             this.textBox1.TabIndex = 0;
             this.textBox1.EnabledChanged += new System.EventHandler(this.textBox1_EnabledChanged);
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
             this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating_1);
             // 
@@ -74,7 +75,7 @@
 
         #endregion
 
-        protected System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        protected System.Windows.Forms.TextBox textBox1;
     }
 }

@@ -30,28 +30,29 @@
         {
             this.components = new System.ComponentModel.Container();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
+            this.tipoServicioBinding = new System.Windows.Forms.BindingSource(this.components);
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.comboBoxDestino = new System.Windows.Forms.ComboBox();
+            this.destinoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.comboBoxOrigen = new System.Windows.Forms.ComboBox();
+            this.origenBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelDestino = new System.Windows.Forms.Label();
             this.labelOrigen = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.rutaAereaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.destinoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.origenBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tipoServicioBinding = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rutaAereaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.origenBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rutaAereaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBoxTipoServicio
             // 
             this.comboBoxTipoServicio.DataSource = this.tipoServicioBinding;
+            this.comboBoxTipoServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipoServicio.FormattingEnabled = true;
             this.comboBoxTipoServicio.Location = new System.Drawing.Point(136, 109);
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";
@@ -71,6 +72,7 @@
             // comboBoxDestino
             // 
             this.comboBoxDestino.DataSource = this.destinoBindingSource;
+            this.comboBoxDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDestino.FormattingEnabled = true;
             this.comboBoxDestino.Location = new System.Drawing.Point(136, 68);
             this.comboBoxDestino.Name = "comboBoxDestino";
@@ -81,6 +83,7 @@
             // comboBoxOrigen
             // 
             this.comboBoxOrigen.DataSource = this.origenBindingSource;
+            this.comboBoxOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxOrigen.FormattingEnabled = true;
             this.comboBoxOrigen.Location = new System.Drawing.Point(136, 29);
             this.comboBoxOrigen.Name = "comboBoxOrigen";
@@ -119,6 +122,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(572, 165);
             this.dataGridView1.TabIndex = 16;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Eliminar
             // 
@@ -149,11 +153,11 @@
             this.Name = "FormModificacionRuta";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.FormModificacionRuta_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rutaAereaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.origenBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rutaAereaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

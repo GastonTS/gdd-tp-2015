@@ -28,7 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // TextBoxNumeros
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Name = "TextBoxNumeros";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         override protected System.Windows.Forms.TextBox newTextBox()
@@ -37,5 +45,6 @@
         }
 
         #endregion
+
     }
 }

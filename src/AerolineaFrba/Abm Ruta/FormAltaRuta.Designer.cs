@@ -43,6 +43,8 @@
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.tipoServicioBinding = new System.Windows.Forms.BindingSource(this.components);
             this.groupBoxCamposAltaRuta = new System.Windows.Forms.GroupBox();
+            this.textBoxNumeros1 = new AerolineaFrba.Abm.TextBoxNumeros();
+            this.label2 = new System.Windows.Forms.Label();
             this.labelValorPrecioFinalPasaje = new System.Windows.Forms.Label();
             this.labelValorPrecioFinalPeso = new System.Windows.Forms.Label();
             this.labelPrecioFinalPeso = new System.Windows.Forms.Label();
@@ -58,7 +60,7 @@
             // labelOrigen
             // 
             this.labelOrigen.AutoSize = true;
-            this.labelOrigen.Location = new System.Drawing.Point(23, 54);
+            this.labelOrigen.Location = new System.Drawing.Point(11, 68);
             this.labelOrigen.Name = "labelOrigen";
             this.labelOrigen.Size = new System.Drawing.Size(95, 13);
             this.labelOrigen.TabIndex = 0;
@@ -67,7 +69,7 @@
             // labelDestino
             // 
             this.labelDestino.AutoSize = true;
-            this.labelDestino.Location = new System.Drawing.Point(23, 93);
+            this.labelDestino.Location = new System.Drawing.Point(11, 107);
             this.labelDestino.Name = "labelDestino";
             this.labelDestino.Size = new System.Drawing.Size(100, 13);
             this.labelDestino.TabIndex = 2;
@@ -95,9 +97,9 @@
             // 
             this.comboBoxOrigen.DataSource = this.origenBinding;
             this.comboBoxOrigen.FormattingEnabled = true;
-            this.comboBoxOrigen.Location = new System.Drawing.Point(137, 51);
+            this.comboBoxOrigen.Location = new System.Drawing.Point(125, 65);
             this.comboBoxOrigen.Name = "comboBoxOrigen";
-            this.comboBoxOrigen.Size = new System.Drawing.Size(139, 21);
+            this.comboBoxOrigen.Size = new System.Drawing.Size(103, 21);
             this.comboBoxOrigen.TabIndex = 1;
             this.comboBoxOrigen.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrigen_SelectedIndexChanged);
             // 
@@ -106,9 +108,9 @@
             this.comboBoxDestino.DataSource = this.destinoBinding;
             this.comboBoxDestino.DisplayMember = "N";
             this.comboBoxDestino.FormattingEnabled = true;
-            this.comboBoxDestino.Location = new System.Drawing.Point(137, 90);
+            this.comboBoxDestino.Location = new System.Drawing.Point(125, 104);
             this.comboBoxDestino.Name = "comboBoxDestino";
-            this.comboBoxDestino.Size = new System.Drawing.Size(139, 21);
+            this.comboBoxDestino.Size = new System.Drawing.Size(103, 21);
             this.comboBoxDestino.TabIndex = 3;
             // 
             // destinoBinding
@@ -137,7 +139,7 @@
             // labelTipoServicio
             // 
             this.labelTipoServicio.AutoSize = true;
-            this.labelTipoServicio.Location = new System.Drawing.Point(23, 134);
+            this.labelTipoServicio.Location = new System.Drawing.Point(11, 148);
             this.labelTipoServicio.Name = "labelTipoServicio";
             this.labelTipoServicio.Size = new System.Drawing.Size(87, 13);
             this.labelTipoServicio.TabIndex = 4;
@@ -147,9 +149,9 @@
             // 
             this.comboBoxTipoServicio.DataSource = this.tipoServicioBinding;
             this.comboBoxTipoServicio.FormattingEnabled = true;
-            this.comboBoxTipoServicio.Location = new System.Drawing.Point(137, 131);
+            this.comboBoxTipoServicio.Location = new System.Drawing.Point(125, 145);
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";
-            this.comboBoxTipoServicio.Size = new System.Drawing.Size(139, 21);
+            this.comboBoxTipoServicio.Size = new System.Drawing.Size(103, 21);
             this.comboBoxTipoServicio.TabIndex = 5;
             // 
             // tipoServicioBinding
@@ -158,12 +160,20 @@
             // 
             // groupBoxCamposAltaRuta
             // 
+            this.groupBoxCamposAltaRuta.Controls.Add(this.textBoxNumeros1);
+            this.groupBoxCamposAltaRuta.Controls.Add(this.label2);
+            this.groupBoxCamposAltaRuta.Controls.Add(this.comboBoxTipoServicio);
             this.groupBoxCamposAltaRuta.Controls.Add(this.labelValorPrecioFinalPasaje);
+            this.groupBoxCamposAltaRuta.Controls.Add(this.labelTipoServicio);
             this.groupBoxCamposAltaRuta.Controls.Add(this.labelValorPrecioFinalPeso);
             this.groupBoxCamposAltaRuta.Controls.Add(this.labelPrecioFinalPeso);
             this.groupBoxCamposAltaRuta.Controls.Add(this.textBoxPrecioPasaje);
+            this.groupBoxCamposAltaRuta.Controls.Add(this.comboBoxDestino);
             this.groupBoxCamposAltaRuta.Controls.Add(this.labelPrecioFinalPasaje);
+            this.groupBoxCamposAltaRuta.Controls.Add(this.comboBoxOrigen);
             this.groupBoxCamposAltaRuta.Controls.Add(this.textBoxPrecioPeso);
+            this.groupBoxCamposAltaRuta.Controls.Add(this.labelOrigen);
+            this.groupBoxCamposAltaRuta.Controls.Add(this.labelDestino);
             this.groupBoxCamposAltaRuta.Location = new System.Drawing.Point(12, 12);
             this.groupBoxCamposAltaRuta.Name = "groupBoxCamposAltaRuta";
             this.groupBoxCamposAltaRuta.Size = new System.Drawing.Size(615, 270);
@@ -171,6 +181,24 @@
             this.groupBoxCamposAltaRuta.TabStop = false;
             this.groupBoxCamposAltaRuta.Text = "Campos Alta Ruta Aérea";
             this.groupBoxCamposAltaRuta.Enter += new System.EventHandler(this.groupBoxCamposAltaRuta_Enter);
+            // 
+            // textBoxNumeros1
+            // 
+            this.textBoxNumeros1.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxNumeros1.ErrorText = null;
+            this.textBoxNumeros1.Location = new System.Drawing.Point(125, 32);
+            this.textBoxNumeros1.Name = "textBoxNumeros1";
+            this.textBoxNumeros1.Size = new System.Drawing.Size(139, 22);
+            this.textBoxNumeros1.TabIndex = 20;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(11, 32);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(79, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Código de ruta:";
             // 
             // labelValorPrecioFinalPasaje
             // 
@@ -231,16 +259,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 329);
-            this.Controls.Add(this.comboBoxTipoServicio);
-            this.Controls.Add(this.labelTipoServicio);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.comboBoxDestino);
-            this.Controls.Add(this.comboBoxOrigen);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelPrecioBasePorPeso);
-            this.Controls.Add(this.labelDestino);
-            this.Controls.Add(this.labelOrigen);
             this.Controls.Add(this.groupBoxCamposAltaRuta);
             this.Name = "FormAltaRuta";
             this.Text = "Alta Ruta Aérea";
@@ -277,5 +299,7 @@
         private System.Windows.Forms.Label labelValorPrecioFinalPeso;
         private System.Windows.Forms.Label labelPrecioFinalPeso;
         private System.Windows.Forms.Label labelPrecioFinalPasaje;
+        private System.Windows.Forms.Label label2;
+        private Abm.TextBoxNumeros textBoxNumeros1;
     }
 }

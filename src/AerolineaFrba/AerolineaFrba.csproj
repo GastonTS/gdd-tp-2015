@@ -290,6 +290,9 @@
     <EmbeddedResource Include="Abm\TextBoxNumeroDecimal.resx">
       <DependentUpon>TextBoxNumeroDecimal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm\TextBoxNumeros.resx">
+      <DependentUpon>TextBoxNumeros.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm\TextBoxValidado.resx">
       <DependentUpon>TextBoxValidado.cs</DependentUpon>
     </EmbeddedResource>

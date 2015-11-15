@@ -98,5 +98,10 @@ namespace AerolineaFrba.Abm
         {
 
         }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }
     }
 }
