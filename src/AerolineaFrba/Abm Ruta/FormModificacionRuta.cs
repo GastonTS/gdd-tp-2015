@@ -99,7 +99,7 @@ namespace AerolineaFrba.Abm_Ruta
                 else if (index == senderGrid.Columns["Modificar"].Index)
                 {
                     MessageBox.Show("Modificar columna" + senderGrid.CurrentRow.Cells["Ciudad Origen"].Value.ToString());
-                    new FormAltaRuta().Show();
+                    new FormAltaRuta(((DataRowView)rutaAereaBindingSource.Current)).Show();
                 }
                 else ;
             }

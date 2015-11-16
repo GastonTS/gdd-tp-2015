@@ -15,11 +15,49 @@ namespace AerolineaFrba.Abm_Ruta
         public FormAltaRuta()
         {
             InitializeComponent();
+            var ds = new gdDataBase().GetDataSP("ÑUFLO.CiudadTipoServicio");
 
+            origenBinding.DataSource = ds.Tables[0];
+            destinoBinding.DataSource = ds.Tables[0];
+            tipoServicioBinding.DataSource = ds.Tables[1];
+
+            comboBoxOrigen.DisplayMember = "Nombre";
+            comboBoxOrigen.ValueMember = "Id ciudad";
+            comboBoxDestino.DisplayMember = "Nombre";
+            comboBoxDestino.ValueMember = "Id ciudad";
+            comboBoxTipoServicio.DisplayMember = "Tipo Servicio";
+            comboBoxTipoServicio.ValueMember = "Id Tipo Servicio";
+            
         }
+
+        public FormAltaRuta(DataRowView datosAModificar) 
+        {
+            InitializeComponent();
+            
+            var ds = new gdDataBase().GetDataSP("ÑUFLO.CiudadTipoServicio");
+
+            origenBinding.DataSource = ds.Tables[0];
+            destinoBinding.DataSource = ds.Tables[0];
+            tipoServicioBinding.DataSource = ds.Tables[1];
+
+            comboBoxOrigen.DisplayMember = "Nombre";
+            comboBoxOrigen.ValueMember = "Id ciudad";
+            comboBoxDestino.DisplayMember = "Nombre";
+            comboBoxDestino.ValueMember = "Id ciudad";
+            comboBoxTipoServicio.DisplayMember = "Tipo Servicio";
+            comboBoxTipoServicio.ValueMember = "Id Tipo Servicio";
+            
+            textBoxCodRuta.Text = datosAModificar["Código Ruta"].ToString();
+            DataSet dss = new gdDataBase().GetDataQuery("Select id_ciudad FROM ÑUFLO.Ciudad where nombre= " + "'" + datosAModificar["Ciudad Origen"].ToString() + "'");
+            comboBoxOrigen.SelectedIndex = dss.Tables[0].Rows[0].Field<int>(0)-1;
+            dss = new gdDataBase().GetDataQuery("Select id_ciudad FROM ÑUFLO.Ciudad where nombre= " + "'" + datosAModificar["Ciudad Destino"].ToString() + "'");
+            comboBoxDestino.SelectedIndex = dss.Tables[0].Rows[0].Field<int>(0) - 1;
+        }
+        
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            textBoxCodRuta.ResetText();
             comboBoxOrigen.ResetText();
             comboBoxDestino.ResetText();
             comboBoxTipoServicio.ResetText();
@@ -35,18 +73,9 @@ namespace AerolineaFrba.Abm_Ruta
         private void FormAltaRuta_Load(object sender, EventArgs e)
         {
 
-            var ds = new gdDataBase().GetDataSP("ÑUFLO.CiudadTipoServicio");
             
-            origenBinding.DataSource = ds.Tables[0];
-            destinoBinding.DataSource = ds.Tables[0];
-            tipoServicioBinding.DataSource = ds.Tables[1];
-
-            comboBoxOrigen.DisplayMember = "Nombre";
-            comboBoxOrigen.ValueMember = "Id ciudad";
-            comboBoxDestino.DisplayMember = "Nombre";
-            comboBoxDestino.ValueMember = "Id ciudad";
-            comboBoxTipoServicio.DisplayMember = "Tipo Servicio";
-            comboBoxTipoServicio.ValueMember = "Id Tipo Servicio";
+            
+            
         }
 
         private void bindingSource1_CurrentChanged(object sender, EventArgs e)

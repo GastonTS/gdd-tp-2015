@@ -43,7 +43,7 @@
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.tipoServicioBinding = new System.Windows.Forms.BindingSource(this.components);
             this.groupBoxCamposAltaRuta = new System.Windows.Forms.GroupBox();
-            this.textBoxNumeros1 = new AerolineaFrba.Abm.TextBoxNumeros();
+            this.textBoxCodRuta = new AerolineaFrba.Abm.TextBoxNumeros();
             this.label2 = new System.Windows.Forms.Label();
             this.labelValorPrecioFinalPasaje = new System.Windows.Forms.Label();
             this.labelValorPrecioFinalPeso = new System.Windows.Forms.Label();
@@ -51,10 +51,12 @@
             this.textBoxPrecioPasaje = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
             this.labelPrecioFinalPasaje = new System.Windows.Forms.Label();
             this.textBoxPrecioPeso = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
+            this.codRutaBinding = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.origenBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinoBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).BeginInit();
             this.groupBoxCamposAltaRuta.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.codRutaBinding)).BeginInit();
             this.SuspendLayout();
             // 
             // labelOrigen
@@ -160,7 +162,7 @@
             // 
             // groupBoxCamposAltaRuta
             // 
-            this.groupBoxCamposAltaRuta.Controls.Add(this.textBoxNumeros1);
+            this.groupBoxCamposAltaRuta.Controls.Add(this.textBoxCodRuta);
             this.groupBoxCamposAltaRuta.Controls.Add(this.label2);
             this.groupBoxCamposAltaRuta.Controls.Add(this.comboBoxTipoServicio);
             this.groupBoxCamposAltaRuta.Controls.Add(this.labelValorPrecioFinalPasaje);
@@ -182,14 +184,14 @@
             this.groupBoxCamposAltaRuta.Text = "Campos Alta Ruta Aérea";
             this.groupBoxCamposAltaRuta.Enter += new System.EventHandler(this.groupBoxCamposAltaRuta_Enter);
             // 
-            // textBoxNumeros1
+            // textBoxCodRuta
             // 
-            this.textBoxNumeros1.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxNumeros1.ErrorText = null;
-            this.textBoxNumeros1.Location = new System.Drawing.Point(125, 32);
-            this.textBoxNumeros1.Name = "textBoxNumeros1";
-            this.textBoxNumeros1.Size = new System.Drawing.Size(139, 22);
-            this.textBoxNumeros1.TabIndex = 20;
+            this.textBoxCodRuta.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCodRuta.ErrorText = null;
+            this.textBoxCodRuta.Location = new System.Drawing.Point(125, 32);
+            this.textBoxCodRuta.Name = "textBoxCodRuta";
+            this.textBoxCodRuta.Size = new System.Drawing.Size(139, 22);
+            this.textBoxCodRuta.TabIndex = 20;
             // 
             // label2
             // 
@@ -272,6 +274,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).EndInit();
             this.groupBoxCamposAltaRuta.ResumeLayout(false);
             this.groupBoxCamposAltaRuta.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.codRutaBinding)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -300,6 +303,7 @@
         private System.Windows.Forms.Label labelPrecioFinalPeso;
         private System.Windows.Forms.Label labelPrecioFinalPasaje;
         private System.Windows.Forms.Label label2;
-        private Abm.TextBoxNumeros textBoxNumeros1;
+        private Abm.TextBoxNumeros textBoxCodRuta;
+        private System.Windows.Forms.BindingSource codRutaBinding;
     }
 }
