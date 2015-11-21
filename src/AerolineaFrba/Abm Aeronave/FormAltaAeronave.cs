@@ -94,7 +94,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
                 Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
-                if (checkedListBoxButacas.GetItemChecked(i) == true)
+                if (checkedListBoxButacas.GetItemChecked(i))
                     ventanilla = 1;
                 else
                     ventanilla = 2;

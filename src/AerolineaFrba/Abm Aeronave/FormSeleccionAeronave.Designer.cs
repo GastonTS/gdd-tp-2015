@@ -30,7 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxModelo = new System.Windows.Forms.TextBox();
             this.labelModelo = new System.Windows.Forms.Label();
+            this.textBoxFabricante = new System.Windows.Forms.TextBox();
+            this.textBoxMatricula = new System.Windows.Forms.TextBox();
             this.labelMatricula = new System.Windows.Forms.Label();
             this.labelFabricante = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -39,22 +42,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxCapacidadEncomiendas = new System.Windows.Forms.TextBox();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
+            this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
             this.labelCapacidadEncomiendas = new System.Windows.Forms.Label();
             this.groupBoxEstadoAeronave = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxPorVidaUtil = new System.Windows.Forms.CheckBox();
             this.checkBoxBajaPorServicio = new System.Windows.Forms.CheckBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnSeleccionar = new System.Windows.Forms.Button();
             this.dataGridViewAeronave = new System.Windows.Forms.DataGridView();
-            this.textBoxFabricante = new System.Windows.Forms.TextBox();
-            this.textBoxMatricula = new System.Windows.Forms.TextBox();
-            this.textBoxModelo = new System.Windows.Forms.TextBox();
-            this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingAeronaves = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
             this.groupBoxEstadoAeronave.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAeronave)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingAeronaves)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -72,6 +74,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Identificación de Aeronave";
             // 
+            // textBoxModelo
+            // 
+            this.textBoxModelo.Location = new System.Drawing.Point(105, 28);
+            this.textBoxModelo.Name = "textBoxModelo";
+            this.textBoxModelo.Size = new System.Drawing.Size(100, 20);
+            this.textBoxModelo.TabIndex = 0;
+            // 
             // labelModelo
             // 
             this.labelModelo.AutoSize = true;
@@ -80,6 +89,20 @@
             this.labelModelo.Size = new System.Drawing.Size(45, 13);
             this.labelModelo.TabIndex = 0;
             this.labelModelo.Text = "Modelo:";
+            // 
+            // textBoxFabricante
+            // 
+            this.textBoxFabricante.Location = new System.Drawing.Point(105, 94);
+            this.textBoxFabricante.Name = "textBoxFabricante";
+            this.textBoxFabricante.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFabricante.TabIndex = 2;
+            // 
+            // textBoxMatricula
+            // 
+            this.textBoxMatricula.Location = new System.Drawing.Point(105, 60);
+            this.textBoxMatricula.Name = "textBoxMatricula";
+            this.textBoxMatricula.Size = new System.Drawing.Size(100, 20);
+            this.textBoxMatricula.TabIndex = 1;
             // 
             // labelMatricula
             // 
@@ -166,7 +189,7 @@
             // 
             // groupBoxEstadoAeronave
             // 
-            this.groupBoxEstadoAeronave.Controls.Add(this.checkBox1);
+            this.groupBoxEstadoAeronave.Controls.Add(this.checkBoxPorVidaUtil);
             this.groupBoxEstadoAeronave.Controls.Add(this.checkBoxBajaPorServicio);
             this.groupBoxEstadoAeronave.Location = new System.Drawing.Point(315, 25);
             this.groupBoxEstadoAeronave.Name = "groupBoxEstadoAeronave";
@@ -175,15 +198,15 @@
             this.groupBoxEstadoAeronave.TabStop = false;
             this.groupBoxEstadoAeronave.Text = "Estado actual de la Aeronave";
             // 
-            // checkBox1
+            // checkBoxPorVidaUtil
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(19, 75);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(122, 17);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "de Baja por Vida Útil";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxPorVidaUtil.AutoSize = true;
+            this.checkBoxPorVidaUtil.Location = new System.Drawing.Point(19, 75);
+            this.checkBoxPorVidaUtil.Name = "checkBoxPorVidaUtil";
+            this.checkBoxPorVidaUtil.Size = new System.Drawing.Size(122, 17);
+            this.checkBoxPorVidaUtil.TabIndex = 1;
+            this.checkBoxPorVidaUtil.Text = "de Baja por Vida Útil";
+            this.checkBoxPorVidaUtil.UseVisualStyleBackColor = true;
             // 
             // checkBoxBajaPorServicio
             // 
@@ -212,6 +235,7 @@
             this.btnSeleccionar.TabIndex = 17;
             this.btnSeleccionar.Text = "Seleccionar";
             this.btnSeleccionar.UseVisualStyleBackColor = true;
+            this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
             // 
             // dataGridViewAeronave
             // 
@@ -220,27 +244,6 @@
             this.dataGridViewAeronave.Name = "dataGridViewAeronave";
             this.dataGridViewAeronave.Size = new System.Drawing.Size(552, 150);
             this.dataGridViewAeronave.TabIndex = 18;
-            // 
-            // textBoxFabricante
-            // 
-            this.textBoxFabricante.Location = new System.Drawing.Point(105, 94);
-            this.textBoxFabricante.Name = "textBoxFabricante";
-            this.textBoxFabricante.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFabricante.TabIndex = 2;
-            // 
-            // textBoxMatricula
-            // 
-            this.textBoxMatricula.Location = new System.Drawing.Point(105, 60);
-            this.textBoxMatricula.Name = "textBoxMatricula";
-            this.textBoxMatricula.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMatricula.TabIndex = 1;
-            // 
-            // textBoxModelo
-            // 
-            this.textBoxModelo.Location = new System.Drawing.Point(105, 28);
-            this.textBoxModelo.Name = "textBoxModelo";
-            this.textBoxModelo.Size = new System.Drawing.Size(100, 20);
-            this.textBoxModelo.TabIndex = 0;
             // 
             // FormSeleccionAeronave
             // 
@@ -259,10 +262,11 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).EndInit();
             this.groupBoxEstadoAeronave.ResumeLayout(false);
             this.groupBoxEstadoAeronave.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAeronave)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingAeronaves)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -282,7 +286,7 @@
         private System.Windows.Forms.Label labelCapacidadEncomiendas;
         private System.Windows.Forms.GroupBox groupBoxEstadoAeronave;
         private System.Windows.Forms.CheckBox checkBoxBajaPorServicio;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxPorVidaUtil;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnSeleccionar;
         private System.Windows.Forms.DataGridView dataGridViewAeronave;
@@ -290,5 +294,6 @@
         private System.Windows.Forms.TextBox textBoxFabricante;
         private System.Windows.Forms.TextBox textBoxMatricula;
         private System.Windows.Forms.BindingSource bindingSourceTipoServicio;
+        private System.Windows.Forms.BindingSource bindingAeronaves;
     }
 }

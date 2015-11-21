@@ -163,6 +163,32 @@ namespace AerolineaFrba
             return ds;
         }
 
+        public DataTable GetDataWithParameters(String spName, Dictionary<String, ValorTipo> campoValor)
+        {
+            conectar();
+
+            DataTable ds = new DataTable();
+
+            using (var cmd = new SqlCommand(spName, miConexion))
+            using (var da = new SqlDataAdapter(cmd))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                for (int i = 0; i < campoValor.Count; i++)
+                {
+                    cmd.Parameters.Add("@" + campoValor.ElementAt(i).Key,
+                        campoValor.ElementAt(i).Value.getTipo()).Value = campoValor.ElementAt(i).Value.getValor();
+                }
+
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+            }
+
+            desconectar();
+
+            return ds;
+        }
+
         public void Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta)
         {
             conectar();

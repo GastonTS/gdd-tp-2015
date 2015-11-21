@@ -19,5 +19,39 @@ namespace AerolineaFrba.Abm_Aeronave
             comboBoxTipoServicio.DisplayMember = "tipo_servicio";
             comboBoxTipoServicio.ValueMember = "id_tipo_servicio";
         }
+
+        private void btnSeleccionar_Click(object sender, EventArgs e)
+        {
+            Boolean bajaVidaUtil = false, bajaFueraServicio = false;
+
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+
+            if (checkBoxPorVidaUtil.Checked)
+                bajaVidaUtil = true;
+            if (checkBoxBajaPorServicio.Checked)
+                bajaFueraServicio = true;
+
+            if (textBoxMatricula.Text.Trim() != "")
+                camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.VarChar));
+            if (textBoxModelo.Text.Trim() != "")
+            camposValores.Add("modelo", new gdDataBase.ValorTipo(textBoxModelo.Text, SqlDbType.VarChar));
+            if (textBoxFabricante.Text.Trim() != "")
+            camposValores.Add("fabricante", new gdDataBase.ValorTipo(textBoxFabricante.Text, SqlDbType.VarChar));
+            camposValores.Add("tipo_servicio", new gdDataBase.ValorTipo((comboBoxTipoServicio.SelectedIndex + 1).ToString(), SqlDbType.Int));
+            if (textBoxCapacidadEncomiendas.Text.Trim() != "")
+            camposValores.Add("capacidad_encomiendas", new gdDataBase.ValorTipo(textBoxCapacidadEncomiendas.Text, SqlDbType.Decimal));
+            if (bajaFueraServicio)
+            camposValores.Add("baja_fuera_servicio", new gdDataBase.ValorTipo(Convert.ToString(bajaFueraServicio), SqlDbType.Bit));
+            if (bajaVidaUtil)
+            camposValores.Add("baja_vida_util", new gdDataBase.ValorTipo(Convert.ToString(bajaVidaUtil), SqlDbType.Bit));
+            if (textBoxCantidadButacas.Text.Trim() != "")
+            camposValores.Add("cantidad_butacas", new gdDataBase.ValorTipo(textBoxCantidadButacas.Text, SqlDbType.Int));
+
+            var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.FiltroAeronave", camposValores);
+
+            //dataGridViewAeronave.DataSource = ds;
+            bindingAeronaves.DataSource = ds;
+            dataGridViewAeronave.DataSource = bindingAeronaves;
+        }
     }
 }
