@@ -89,8 +89,9 @@ namespace AerolineaFrba.Abm_Aeronave
             //abrir el formulario de alta con todos los datos de la aeronave seleccionada actualmente
             DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
 
-            FormAltaAeronave faa = new FormAltaAeronave(filaSeleccionada);
+            FormAltaAeronave faa = new FormAltaAeronave();
             faa.Show();
+            faa.setFilaDeAeronaveSeleccionada(filaSeleccionada);
         }
 
         private void btnBajaVidaUtil_Click(object sender, EventArgs e)

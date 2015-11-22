@@ -10,53 +10,51 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class FormAltaAeronave : Abm.Alta
+    public partial class FormAltaAeronave : Abm.Alta, IFormulariosAeronave
     {
         Boolean esModificacion = false;
         String idAeronaveModificada = "";
+        DataGridViewRow filaAeronave = null;
 
-        public FormAltaAeronave(DataGridViewRow filaSeleccionada = null)
+        public FormAltaAeronave()
         {
             InitializeComponent();
             new gdDataBase().actualizarBindingSourceQuery(bindingSourceTipoServicio, "select * from [Ñuflo].TipoServicio");
             comboBoxTipoServicio.DisplayMember = "tipo_servicio";
             comboBoxTipoServicio.ValueMember = "id_tipo_servicio";
-            esModificacion = false;
-            idAeronaveModificada = "";
+        }
 
-            if (filaSeleccionada != null)
+
+        public void setFilaDeAeronaveSeleccionada(DataGridViewRow filaAeronave)
+        {
+            this.filaAeronave = filaAeronave;
+
+            esModificacion = true;
+            this.Text = "Modificación de Aeronave";
+
+            idAeronaveModificada = filaAeronave.Cells[0].FormattedValue.ToString();
+            textBoxModelo.Text = filaAeronave.Cells[1].FormattedValue.ToString();
+            textBoxMatricula.Text = filaAeronave.Cells[2].FormattedValue.ToString();
+            textBoxFabricante.Text = filaAeronave.Cells[3].FormattedValue.ToString();
+            switch (filaAeronave.Cells[4].FormattedValue.ToString())
             {
-                esModificacion = true;
-                this.Text = "Modificación de Aeronave";
-
-                idAeronaveModificada = filaSeleccionada.Cells[0].FormattedValue.ToString();
-                textBoxModelo.Text = filaSeleccionada.Cells[1].FormattedValue.ToString();
-                textBoxMatricula.Text = filaSeleccionada.Cells[2].FormattedValue.ToString();
-                textBoxFabricante.Text = filaSeleccionada.Cells[3].FormattedValue.ToString();
-                switch (filaSeleccionada.Cells[4].FormattedValue.ToString())
-                {
-                    case "1":
-                        comboBoxTipoServicio.Text = "Primera Clase";
-                        break;
-                    case "2":
-                        comboBoxTipoServicio.Text = "Ejecutivo";
-                        break;
-                    case "3":
-                        comboBoxTipoServicio.Text = "Turista";
-                        break;
-                }
-                
-                textBoxCapacidadEncomiendas.Text = filaSeleccionada.Cells[6].FormattedValue.ToString();
-                
-                //HACER
-                //Con un Stored Procedure, traerse la cantidad de bucatas y la lista de butacas ventanilla o pasillo
-                //para así meterla en la modificación de la aeronave. Esta info no la puedo traer del form de selección
-                //ya que no la tengo
-
-
+                case "1":
+                    comboBoxTipoServicio.Text = "Primera Clase";
+                    break;
+                case "2":
+                    comboBoxTipoServicio.Text = "Ejecutivo";
+                    break;
+                case "3":
+                    comboBoxTipoServicio.Text = "Turista";
+                    break;
             }
 
+            textBoxCapacidadEncomiendas.Text = filaAeronave.Cells[6].FormattedValue.ToString();
 
+            //HACER
+            //Con un Stored Procedure, traerse la cantidad de bucatas y la lista de butacas ventanilla o pasillo
+            //para así meterla en la modificación de la aeronave. Esta info no la puedo traer del form de selección
+            //ya que no la tengo
         }
 
         private void btnElegirTipoButaca_Click(object sender, EventArgs e)

@@ -65,6 +65,7 @@
     <Compile Include="Abm Aeronave\FormAltaAeronave.Designer.cs">
       <DependentUpon>FormAltaAeronave.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Aeronave\IFormulariosAeronave.cs" />
     <Compile Include="Abm Ciudad\FormSeleccionCiudad.cs">
       <SubType>Form</SubType>
     </Compile>
