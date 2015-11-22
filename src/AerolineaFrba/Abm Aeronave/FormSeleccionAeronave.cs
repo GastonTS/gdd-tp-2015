@@ -73,12 +73,14 @@ namespace AerolineaFrba.Abm_Aeronave
                 btnModificarAeronave.Enabled = true;
                 btnBajaFueraServicio.Enabled = true;
                 btnBajaVidaUtil.Enabled = true;
+                dateTimePicker1.Enabled = true;
             }
             else
             {
                 btnModificarAeronave.Enabled = false;
                 btnBajaVidaUtil.Enabled = false;
                 btnBajaFueraServicio.Enabled = false;
+                dateTimePicker1.Enabled = false;
             }
         }
 
@@ -109,7 +111,20 @@ namespace AerolineaFrba.Abm_Aeronave
             if(dt.Rows.Count > 0)
                 cantidadViajesPendientes = Convert.ToInt32(dt.Rows[0].ItemArray[0]);
 
-
+            if (cantidadViajesPendientes > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Desea Reprogramar los " + cantidadViajesPendientes
+                    + " pasajes/encomiendas asociados a la Aeronave dada en baja? (De elejir no, simplemente se cancelarán esos viajes", 
+                    "Baja por vida útil de Aeronave con viajes asignados", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    //do something
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else
+                }
+            }
         }
     }
 }
