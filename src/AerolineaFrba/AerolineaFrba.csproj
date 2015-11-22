@@ -225,6 +225,18 @@
     <Compile Include="Generacion Viaje\FormGenerarViaje.Designer.cs">
       <DependentUpon>FormGenerarViaje.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generacion Viaje\FormSeleccionarAeronave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generacion Viaje\FormSeleccionarAeronave.Designer.cs">
+      <DependentUpon>FormSeleccionarAeronave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generacion Viaje\FormSeleccionarRutaAerea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generacion Viaje\FormSeleccionarRutaAerea.Designer.cs">
+      <DependentUpon>FormSeleccionarRutaAerea.cs</DependentUpon>
+    </Compile>
     <Compile Include="Listado Estadistico\FormListadoEstadistico.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -322,6 +334,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generacion Viaje\FormGenerarViaje.resx">
       <DependentUpon>FormGenerarViaje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generacion Viaje\FormSeleccionarAeronave.resx">
+      <DependentUpon>FormSeleccionarAeronave.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Listado Estadistico\FormListadoEstadistico.resx">
       <DependentUpon>FormListadoEstadistico.cs</DependentUpon>

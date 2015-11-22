@@ -36,17 +36,17 @@
             this.dateTimePickerEstimada = new System.Windows.Forms.DateTimePicker();
             this.groupBoxFechasYHorarios = new System.Windows.Forms.GroupBox();
             this.groupBoxAeronave = new System.Windows.Forms.GroupBox();
-            this.labelMatricula = new System.Windows.Forms.Label();
-            this.textBoxMatricula = new System.Windows.Forms.TextBox();
             this.btnSeleccionAeronave = new System.Windows.Forms.Button();
+            this.textBoxMatricula = new System.Windows.Forms.TextBox();
+            this.labelMatricula = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.labelOrigen = new System.Windows.Forms.Label();
-            this.labelDestino = new System.Windows.Forms.Label();
-            this.labelTipoServicio = new System.Windows.Forms.Label();
-            this.textBoxOrigen = new System.Windows.Forms.TextBox();
-            this.textBoxDestino = new System.Windows.Forms.TextBox();
-            this.textBoxTipoServicio = new System.Windows.Forms.TextBox();
             this.btnSeleccionRuta = new System.Windows.Forms.Button();
+            this.textBoxTipoServicio = new System.Windows.Forms.TextBox();
+            this.textBoxDestino = new System.Windows.Forms.TextBox();
+            this.textBoxOrigen = new System.Windows.Forms.TextBox();
+            this.labelTipoServicio = new System.Windows.Forms.Label();
+            this.labelDestino = new System.Windows.Forms.Label();
+            this.labelOrigen = new System.Windows.Forms.Label();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBoxFechasYHorarios.SuspendLayout();
@@ -132,14 +132,15 @@
             this.groupBoxAeronave.TabStop = false;
             this.groupBoxAeronave.Text = "Selección de Aeronave";
             // 
-            // labelMatricula
+            // btnSeleccionAeronave
             // 
-            this.labelMatricula.AutoSize = true;
-            this.labelMatricula.Location = new System.Drawing.Point(29, 33);
-            this.labelMatricula.Name = "labelMatricula";
-            this.labelMatricula.Size = new System.Drawing.Size(55, 13);
-            this.labelMatricula.TabIndex = 0;
-            this.labelMatricula.Text = "Matrícula:";
+            this.btnSeleccionAeronave.Location = new System.Drawing.Point(214, 28);
+            this.btnSeleccionAeronave.Name = "btnSeleccionAeronave";
+            this.btnSeleccionAeronave.Size = new System.Drawing.Size(75, 23);
+            this.btnSeleccionAeronave.TabIndex = 2;
+            this.btnSeleccionAeronave.Text = "Seleccionar";
+            this.btnSeleccionAeronave.UseVisualStyleBackColor = true;
+            this.btnSeleccionAeronave.Click += new System.EventHandler(this.btnSeleccionAeronave_Click);
             // 
             // textBoxMatricula
             // 
@@ -149,14 +150,14 @@
             this.textBoxMatricula.Size = new System.Drawing.Size(100, 20);
             this.textBoxMatricula.TabIndex = 1;
             // 
-            // btnSeleccionAeronave
+            // labelMatricula
             // 
-            this.btnSeleccionAeronave.Location = new System.Drawing.Point(214, 28);
-            this.btnSeleccionAeronave.Name = "btnSeleccionAeronave";
-            this.btnSeleccionAeronave.Size = new System.Drawing.Size(75, 23);
-            this.btnSeleccionAeronave.TabIndex = 2;
-            this.btnSeleccionAeronave.Text = "Seleccionar";
-            this.btnSeleccionAeronave.UseVisualStyleBackColor = true;
+            this.labelMatricula.AutoSize = true;
+            this.labelMatricula.Location = new System.Drawing.Point(29, 33);
+            this.labelMatricula.Name = "labelMatricula";
+            this.labelMatricula.Size = new System.Drawing.Size(55, 13);
+            this.labelMatricula.TabIndex = 0;
+            this.labelMatricula.Text = "Matrícula:";
             // 
             // groupBox1
             // 
@@ -174,23 +175,38 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Selección de Ruta Aérea";
             // 
-            // labelOrigen
+            // btnSeleccionRuta
             // 
-            this.labelOrigen.AutoSize = true;
-            this.labelOrigen.Location = new System.Drawing.Point(29, 40);
-            this.labelOrigen.Name = "labelOrigen";
-            this.labelOrigen.Size = new System.Drawing.Size(77, 13);
-            this.labelOrigen.TabIndex = 0;
-            this.labelOrigen.Text = "Ciudad Origen:";
+            this.btnSeleccionRuta.Location = new System.Drawing.Point(264, 93);
+            this.btnSeleccionRuta.Name = "btnSeleccionRuta";
+            this.btnSeleccionRuta.Size = new System.Drawing.Size(75, 23);
+            this.btnSeleccionRuta.TabIndex = 3;
+            this.btnSeleccionRuta.Text = "Seleccionar";
+            this.btnSeleccionRuta.UseVisualStyleBackColor = true;
             // 
-            // labelDestino
+            // textBoxTipoServicio
             // 
-            this.labelDestino.AutoSize = true;
-            this.labelDestino.Location = new System.Drawing.Point(29, 69);
-            this.labelDestino.Name = "labelDestino";
-            this.labelDestino.Size = new System.Drawing.Size(82, 13);
-            this.labelDestino.TabIndex = 1;
-            this.labelDestino.Text = "Ciudad Destino:";
+            this.textBoxTipoServicio.Enabled = false;
+            this.textBoxTipoServicio.Location = new System.Drawing.Point(125, 95);
+            this.textBoxTipoServicio.Name = "textBoxTipoServicio";
+            this.textBoxTipoServicio.Size = new System.Drawing.Size(100, 20);
+            this.textBoxTipoServicio.TabIndex = 5;
+            // 
+            // textBoxDestino
+            // 
+            this.textBoxDestino.Enabled = false;
+            this.textBoxDestino.Location = new System.Drawing.Point(125, 66);
+            this.textBoxDestino.Name = "textBoxDestino";
+            this.textBoxDestino.Size = new System.Drawing.Size(100, 20);
+            this.textBoxDestino.TabIndex = 4;
+            // 
+            // textBoxOrigen
+            // 
+            this.textBoxOrigen.Enabled = false;
+            this.textBoxOrigen.Location = new System.Drawing.Point(125, 37);
+            this.textBoxOrigen.Name = "textBoxOrigen";
+            this.textBoxOrigen.Size = new System.Drawing.Size(100, 20);
+            this.textBoxOrigen.TabIndex = 3;
             // 
             // labelTipoServicio
             // 
@@ -201,38 +217,23 @@
             this.labelTipoServicio.TabIndex = 2;
             this.labelTipoServicio.Text = "Tipo de Servicio:";
             // 
-            // textBoxOrigen
+            // labelDestino
             // 
-            this.textBoxOrigen.Enabled = false;
-            this.textBoxOrigen.Location = new System.Drawing.Point(125, 37);
-            this.textBoxOrigen.Name = "textBoxOrigen";
-            this.textBoxOrigen.Size = new System.Drawing.Size(100, 20);
-            this.textBoxOrigen.TabIndex = 3;
+            this.labelDestino.AutoSize = true;
+            this.labelDestino.Location = new System.Drawing.Point(29, 69);
+            this.labelDestino.Name = "labelDestino";
+            this.labelDestino.Size = new System.Drawing.Size(82, 13);
+            this.labelDestino.TabIndex = 1;
+            this.labelDestino.Text = "Ciudad Destino:";
             // 
-            // textBoxDestino
+            // labelOrigen
             // 
-            this.textBoxDestino.Enabled = false;
-            this.textBoxDestino.Location = new System.Drawing.Point(125, 66);
-            this.textBoxDestino.Name = "textBoxDestino";
-            this.textBoxDestino.Size = new System.Drawing.Size(100, 20);
-            this.textBoxDestino.TabIndex = 4;
-            // 
-            // textBoxTipoServicio
-            // 
-            this.textBoxTipoServicio.Enabled = false;
-            this.textBoxTipoServicio.Location = new System.Drawing.Point(125, 95);
-            this.textBoxTipoServicio.Name = "textBoxTipoServicio";
-            this.textBoxTipoServicio.Size = new System.Drawing.Size(100, 20);
-            this.textBoxTipoServicio.TabIndex = 5;
-            // 
-            // btnSeleccionRuta
-            // 
-            this.btnSeleccionRuta.Location = new System.Drawing.Point(264, 93);
-            this.btnSeleccionRuta.Name = "btnSeleccionRuta";
-            this.btnSeleccionRuta.Size = new System.Drawing.Size(75, 23);
-            this.btnSeleccionRuta.TabIndex = 3;
-            this.btnSeleccionRuta.Text = "Seleccionar";
-            this.btnSeleccionRuta.UseVisualStyleBackColor = true;
+            this.labelOrigen.AutoSize = true;
+            this.labelOrigen.Location = new System.Drawing.Point(29, 40);
+            this.labelOrigen.Name = "labelOrigen";
+            this.labelOrigen.Size = new System.Drawing.Size(77, 13);
+            this.labelOrigen.TabIndex = 0;
+            this.labelOrigen.Text = "Ciudad Origen:";
             // 
             // btnGuardar
             // 
