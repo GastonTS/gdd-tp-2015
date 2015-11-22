@@ -19,22 +19,23 @@ namespace AerolineaFrba.Abm_Ciudad
 
         private void FormSeleccionCiudad_Load(object sender, EventArgs e)
         {
-            new gdDataBase().actualizarBindingSourceQuery(ciudadBindingSource, "SELECT * FROM [ÑUFLO].Ciudad");
-            //DataSet dataSet = new gdDataBase().GetDataQuery("SELECT * FROM [ÑUFLO].Ciudad"); ;
-            //ciudadBindingSource.DataSource = dataSet.Tables[0];
-            //ciudadBindingSource.DataMember = dataSet.Tables[0].TableName;
-            
-            // TODO: esta línea de código carga datos en la tabla 'gD2C2015DataSet.Ruta_Aerea' Puede moverla o quitarla según sea necesario.
-            //this.ruta_AereaTableAdapter.Fill(this.gD2C2015DataSet.Ruta_Aerea);
-                                
-            // TODO: esta línea de código carga datos en la tabla 'gD2C2015DataSet.Ciudad' Puede moverla o quitarla según sea necesario.
-            //this.ciudadTableAdapter.Fill(this.gD2C2015DataSet.Ciudad);
-            //new gdDataBase().actualizarDataGridView(dataGridView1, "Ciudad", "SELECT * FROM [ÑUFLO].Ciudad");
+            var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasCiudades", null);
+
+            ciudadBindingSource.DataSource = ds;
+            dataGridViewCiudades.DataSource = ciudadBindingSource;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.ColumnIndex == 0)
+            {
+                DataGridViewRow filaSeleccionada = dataGridViewCiudades.Rows[dataGridViewCiudades.SelectedCells[0].RowIndex];
 
+                FormAltaCiudad fac = new FormAltaCiudad();
+
+                fac.setNombreCiudad(filaSeleccionada.Cells[1].FormattedValue.ToString());
+                fac.Show();
+            }
         }
 
        

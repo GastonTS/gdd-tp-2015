@@ -860,6 +860,13 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.TodasLasCiudades
+AS
+	SELECT nombre FROM ÑUFLO.Ciudad
+;
+GO
+
+
 CREATE PROCEDURE ÑUFLO.DetalleServicioTecnicoPara
 @matricula nvarchar(255),
 @fecha_inicio datetime,

@@ -174,10 +174,13 @@ namespace AerolineaFrba
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                for (int i = 0; i < campoValor.Count; i++)
+                if (campoValor != null)
                 {
-                    cmd.Parameters.Add("@" + campoValor.ElementAt(i).Key,
-                        campoValor.ElementAt(i).Value.getTipo()).Value = campoValor.ElementAt(i).Value.getValor();
+                    for (int i = 0; i < campoValor.Count; i++)
+                    {
+                        cmd.Parameters.Add("@" + campoValor.ElementAt(i).Key,
+                            campoValor.ElementAt(i).Value.getTipo()).Value = campoValor.ElementAt(i).Value.getValor();
+                    }
                 }
 
                 da.SelectCommand = cmd;

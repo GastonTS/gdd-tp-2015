@@ -28,97 +28,83 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.labelNombre = new System.Windows.Forms.Label();
-            this.textBoxNombre = new System.Windows.Forms.TextBox();
+            this.textBoxNombreCiudad = new System.Windows.Forms.TextBox();
+            this.labelNombreCiudad = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            this.groupBoxCiudad = new System.Windows.Forms.GroupBox();
+            this.groupBoxCiudad.SuspendLayout();
             this.SuspendLayout();
             // 
-            // labelNombre
+            // textBoxNombreCiudad
             // 
-            this.labelNombre.AutoSize = true;
-            this.labelNombre.Location = new System.Drawing.Point(17, 49);
-            this.labelNombre.Name = "labelNombre";
-            this.labelNombre.Size = new System.Drawing.Size(44, 13);
-            this.labelNombre.TabIndex = 0;
-            this.labelNombre.Text = "Nombre";
+            this.textBoxNombreCiudad.Location = new System.Drawing.Point(121, 34);
+            this.textBoxNombreCiudad.Name = "textBoxNombreCiudad";
+            this.textBoxNombreCiudad.Size = new System.Drawing.Size(133, 20);
+            this.textBoxNombreCiudad.TabIndex = 0;
             // 
-            // textBoxNombre
+            // labelNombreCiudad
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(123, 46);
-            this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(100, 20);
-            this.textBoxNombre.TabIndex = 1;
-            this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
-            this.textBoxNombre.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxNombre_Validating);
+            this.labelNombreCiudad.AutoSize = true;
+            this.labelNombreCiudad.Location = new System.Drawing.Point(18, 37);
+            this.labelNombreCiudad.Name = "labelNombreCiudad";
+            this.labelNombreCiudad.Size = new System.Drawing.Size(97, 13);
+            this.labelNombreCiudad.TabIndex = 1;
+            this.labelNombreCiudad.Text = "Nombre de ciudad:";
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(32, 248);
+            this.btnLimpiar.Location = new System.Drawing.Point(27, 149);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 1;
+            this.btnLimpiar.TabIndex = 2;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(338, 248);
+            this.btnGuardar.Location = new System.Drawing.Point(277, 149);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 2;
+            this.btnGuardar.TabIndex = 3;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
-            // groupBox1
+            // groupBoxCiudad
             // 
-            this.groupBox1.Controls.Add(this.labelNombre);
-            this.groupBox1.Controls.Add(this.textBoxNombre);
-            this.groupBox1.Location = new System.Drawing.Point(32, 21);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(381, 125);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Campos de Ciudad";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
-            // 
-            // errorProvider
-            // 
-            this.errorProvider.ContainerControl = this;
+            this.groupBoxCiudad.Controls.Add(this.labelNombreCiudad);
+            this.groupBoxCiudad.Controls.Add(this.textBoxNombreCiudad);
+            this.groupBoxCiudad.Location = new System.Drawing.Point(27, 25);
+            this.groupBoxCiudad.Name = "groupBoxCiudad";
+            this.groupBoxCiudad.Size = new System.Drawing.Size(325, 80);
+            this.groupBoxCiudad.TabIndex = 4;
+            this.groupBoxCiudad.TabStop = false;
+            this.groupBoxCiudad.Text = "Datos de ciudad a incorporar";
             // 
             // FormAltaCiudad
             // 
-            this.AcceptButton = this.btnGuardar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.ClientSize = new System.Drawing.Size(445, 317);
+            this.ClientSize = new System.Drawing.Size(387, 209);
+            this.Controls.Add(this.groupBoxCiudad);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.groupBox1);
             this.Name = "FormAltaCiudad";
-            this.Text = "Alta Ciudad";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            this.Text = "Alta de Ciudad";
+            this.groupBoxCiudad.ResumeLayout(false);
+            this.groupBoxCiudad.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label labelNombre;
-        private System.Windows.Forms.TextBox textBoxNombre;
+        private System.Windows.Forms.TextBox textBoxNombreCiudad;
+        private System.Windows.Forms.Label labelNombreCiudad;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.GroupBox groupBoxCiudad;
     }
 }

@@ -17,49 +17,19 @@ namespace AerolineaFrba.Abm_Ciudad
             InitializeComponent();
         }
 
-        private void textBoxNombre_Validating(object sender, CancelEventArgs e)
+        private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            if (textBoxNombre.Text.Trim() == "")
-            {
-                errorProvider.SetError(textBoxNombre, "Debe ingresar un nombre de Ciudad");
-                e.Cancel = true;
-            }
-            else
-            {
-                errorProvider.Clear();
-                e.Cancel = false;
-            }
+            textBoxNombreCiudad.Text = "";
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (this.ValidateChildren(ValidationConstraints.TabStop))
-            {
-                MessageBox.Show("Crea Ciudad correctamente");
-            }
-            else
-            {
-                foreach (Control unControl in Controls)
-                {
-                    unControl.Refresh();
-                }
-                MessageBox.Show("Error al crear Ciudad. Ingresar los campos correctamente");
-            }
-        }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            textBoxNombre.Clear();
-        }
-
-        private void textBoxNombre_TextChanged(object sender, EventArgs e)
-        {
 
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        public void setNombreCiudad(String nombreCiudad)
         {
-
+            textBoxNombreCiudad.Text = nombreCiudad;
         }
     }
 }
