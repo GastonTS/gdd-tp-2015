@@ -30,6 +30,8 @@ namespace AerolineaFrba.Abm_Ciudad
         public void setNombreCiudad(String nombreCiudad)
         {
             textBoxNombreCiudad.Text = nombreCiudad;
+
+            this.Text = "Modificación de la ciudad";
         }
     }
 }

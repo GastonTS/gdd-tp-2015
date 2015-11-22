@@ -78,7 +78,6 @@
     <Compile Include="Abm Ciudad\FormSeleccionCiudad.Designer.cs">
       <DependentUpon>FormSeleccionCiudad.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Ciudad\IFormulariosCiudad.cs" />
     <Compile Include="Abm Rol\FormAltaRol.cs">
       <SubType>Form</SubType>
     </Compile>
