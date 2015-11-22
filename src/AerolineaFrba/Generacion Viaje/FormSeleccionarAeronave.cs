@@ -69,10 +69,12 @@ namespace AerolineaFrba.Generacion_Viaje
         {
             DataGridViewRow filaAeronave = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
 
-            FormGenerarViaje fgv = new FormGenerarViaje(filaAeronave);
+            IFormulariosViaje formInterface = this.Owner as IFormulariosViaje;
+
+            if (formInterface != null)
+                formInterface.setMatricula(filaAeronave.Cells[2].FormattedValue.ToString());
 
             this.Close();
-            fgv.Show();
         }
     }
 }

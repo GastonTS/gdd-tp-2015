@@ -183,6 +183,7 @@
             this.btnSeleccionRuta.TabIndex = 3;
             this.btnSeleccionRuta.Text = "Seleccionar";
             this.btnSeleccionRuta.UseVisualStyleBackColor = true;
+            this.btnSeleccionRuta.Click += new System.EventHandler(this.btnSeleccionRuta_Click);
             // 
             // textBoxTipoServicio
             // 

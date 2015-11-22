@@ -10,23 +10,28 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Generacion_Viaje
 {
-    public partial class FormGenerarViaje : Form
+    public partial class FormGenerarViaje : Form, IFormulariosViaje
     {
-        public FormGenerarViaje(DataGridViewRow filaAeronave = null, DataGridViewRow filaRuta = null)
+        public FormGenerarViaje()
         {
             InitializeComponent();
-
-            if (filaAeronave != null)
-            {
-                textBoxMatricula.Text = filaAeronave.Cells[2].FormattedValue.ToString();
-            }
-
         }
 
         private void btnSeleccionAeronave_Click(object sender, EventArgs e)
         {
             FormSeleccionarAeronave fsa = new FormSeleccionarAeronave();
-            fsa.Show();
+            fsa.Show(this);
+        }
+
+        private void btnSeleccionRuta_Click(object sender, EventArgs e)
+        {
+            FormSeleccionarRutaAerea fra = new FormSeleccionarRutaAerea();
+            fra.Show();
+        }
+
+        public void setMatricula(String matricula)
+        {
+            textBoxMatricula.Text = matricula;
         }
     }
 }

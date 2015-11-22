@@ -16,5 +16,10 @@ namespace AerolineaFrba.Generacion_Viaje
         {
             InitializeComponent();
         }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
