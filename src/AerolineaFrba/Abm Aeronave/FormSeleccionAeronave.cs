@@ -53,5 +53,42 @@ namespace AerolineaFrba.Abm_Aeronave
             bindingAeronaves.DataSource = ds;
             dataGridViewAeronave.DataSource = bindingAeronaves;
         }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            textBoxCantidadButacas.Clear();
+            textBoxCapacidadEncomiendas.Clear();
+            textBoxFabricante.Clear();
+            textBoxMatricula.Clear();
+            textBoxModelo.Clear();
+            comboBoxTipoServicio.Text = "";
+            checkBoxBajaPorServicio.Checked = false;
+            checkBoxPorVidaUtil.Checked = false;
+        }
+
+        private void dataGridViewAeronave_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridViewAeronave.SelectedRows.Count == 1)
+            {
+                btnModificarAeronave.Enabled = true;
+                btnBajaFueraServicio.Enabled = true;
+                btnBajaVidaUtil.Enabled = true;
+            }
+            else
+            {
+                btnModificarAeronave.Enabled = false;
+                btnBajaVidaUtil.Enabled = false;
+                btnBajaFueraServicio.Enabled = false;
+            }
+        }
+
+        private void btnModificarAeronave_Click(object sender, EventArgs e)
+        {
+            //abrir el formulario de alta con todos los datos de la aeronave seleccionada actualmente
+            DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+
+            FormAltaAeronave faa = new FormAltaAeronave(filaSeleccionada);
+            faa.Show();
+        }
     }
 }

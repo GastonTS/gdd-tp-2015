@@ -51,6 +51,9 @@
             this.btnSeleccionar = new System.Windows.Forms.Button();
             this.dataGridViewAeronave = new System.Windows.Forms.DataGridView();
             this.bindingAeronaves = new System.Windows.Forms.BindingSource(this.components);
+            this.btnModificarAeronave = new System.Windows.Forms.Button();
+            this.btnBajaFueraServicio = new System.Windows.Forms.Button();
+            this.btnBajaVidaUtil = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
@@ -69,7 +72,7 @@
             this.groupBox1.Controls.Add(this.labelFabricante);
             this.groupBox1.Location = new System.Drawing.Point(27, 25);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(263, 138);
+            this.groupBox1.Size = new System.Drawing.Size(345, 138);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Identificación de Aeronave";
@@ -132,7 +135,7 @@
             this.groupBox2.Controls.Add(this.labelCapacidadEncomiendas);
             this.groupBox2.Location = new System.Drawing.Point(27, 184);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(552, 93);
+            this.groupBox2.Size = new System.Drawing.Size(675, 93);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Características de la Aeronave";
@@ -191,9 +194,9 @@
             // 
             this.groupBoxEstadoAeronave.Controls.Add(this.checkBoxPorVidaUtil);
             this.groupBoxEstadoAeronave.Controls.Add(this.checkBoxBajaPorServicio);
-            this.groupBoxEstadoAeronave.Location = new System.Drawing.Point(315, 25);
+            this.groupBoxEstadoAeronave.Location = new System.Drawing.Point(407, 25);
             this.groupBoxEstadoAeronave.Name = "groupBoxEstadoAeronave";
-            this.groupBoxEstadoAeronave.Size = new System.Drawing.Size(264, 138);
+            this.groupBoxEstadoAeronave.Size = new System.Drawing.Size(295, 138);
             this.groupBoxEstadoAeronave.TabIndex = 15;
             this.groupBoxEstadoAeronave.TabStop = false;
             this.groupBoxEstadoAeronave.Text = "Estado actual de la Aeronave";
@@ -220,16 +223,17 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(42, 307);
+            this.btnLimpiar.Location = new System.Drawing.Point(42, 292);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(84, 23);
             this.btnLimpiar.TabIndex = 16;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(470, 307);
+            this.btnSeleccionar.Location = new System.Drawing.Point(618, 292);
             this.btnSeleccionar.Name = "btnSeleccionar";
             this.btnSeleccionar.Size = new System.Drawing.Size(84, 23);
             this.btnSeleccionar.TabIndex = 17;
@@ -239,17 +243,53 @@
             // 
             // dataGridViewAeronave
             // 
+            this.dataGridViewAeronave.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewAeronave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAeronave.Location = new System.Drawing.Point(27, 367);
+            this.dataGridViewAeronave.Location = new System.Drawing.Point(27, 332);
             this.dataGridViewAeronave.Name = "dataGridViewAeronave";
-            this.dataGridViewAeronave.Size = new System.Drawing.Size(552, 150);
+            this.dataGridViewAeronave.Size = new System.Drawing.Size(675, 179);
             this.dataGridViewAeronave.TabIndex = 18;
+            this.dataGridViewAeronave.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAeronave_RowEnter);
+            // 
+            // btnModificarAeronave
+            // 
+            this.btnModificarAeronave.Enabled = false;
+            this.btnModificarAeronave.Location = new System.Drawing.Point(42, 542);
+            this.btnModificarAeronave.Name = "btnModificarAeronave";
+            this.btnModificarAeronave.Size = new System.Drawing.Size(112, 40);
+            this.btnModificarAeronave.TabIndex = 19;
+            this.btnModificarAeronave.Text = "Modificar Aeronave";
+            this.btnModificarAeronave.UseVisualStyleBackColor = true;
+            this.btnModificarAeronave.Click += new System.EventHandler(this.btnModificarAeronave_Click);
+            // 
+            // btnBajaFueraServicio
+            // 
+            this.btnBajaFueraServicio.Enabled = false;
+            this.btnBajaFueraServicio.Location = new System.Drawing.Point(426, 542);
+            this.btnBajaFueraServicio.Name = "btnBajaFueraServicio";
+            this.btnBajaFueraServicio.Size = new System.Drawing.Size(118, 40);
+            this.btnBajaFueraServicio.TabIndex = 20;
+            this.btnBajaFueraServicio.Text = "Dar de Baja Por Fuera de Servicio";
+            this.btnBajaFueraServicio.UseVisualStyleBackColor = true;
+            // 
+            // btnBajaVidaUtil
+            // 
+            this.btnBajaVidaUtil.Enabled = false;
+            this.btnBajaVidaUtil.Location = new System.Drawing.Point(588, 542);
+            this.btnBajaVidaUtil.Name = "btnBajaVidaUtil";
+            this.btnBajaVidaUtil.Size = new System.Drawing.Size(114, 40);
+            this.btnBajaVidaUtil.TabIndex = 21;
+            this.btnBajaVidaUtil.Text = "Dar de Baja por Vida Útil";
+            this.btnBajaVidaUtil.UseVisualStyleBackColor = true;
             // 
             // FormSeleccionAeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(611, 529);
+            this.ClientSize = new System.Drawing.Size(734, 594);
+            this.Controls.Add(this.btnBajaVidaUtil);
+            this.Controls.Add(this.btnBajaFueraServicio);
+            this.Controls.Add(this.btnModificarAeronave);
             this.Controls.Add(this.dataGridViewAeronave);
             this.Controls.Add(this.btnSeleccionar);
             this.Controls.Add(this.btnLimpiar);
@@ -295,5 +335,8 @@
         private System.Windows.Forms.TextBox textBoxMatricula;
         private System.Windows.Forms.BindingSource bindingSourceTipoServicio;
         private System.Windows.Forms.BindingSource bindingAeronaves;
+        private System.Windows.Forms.Button btnModificarAeronave;
+        private System.Windows.Forms.Button btnBajaFueraServicio;
+        private System.Windows.Forms.Button btnBajaVidaUtil;
     }
 }

@@ -12,12 +12,43 @@ namespace AerolineaFrba.Abm_Aeronave
 {
     public partial class FormAltaAeronave : Abm.Alta
     {
-        public FormAltaAeronave()
+        public FormAltaAeronave(DataGridViewRow filaSeleccionada = null)
         {
             InitializeComponent();
             new gdDataBase().actualizarBindingSourceQuery(bindingSourceTipoServicio, "select * from [Ñuflo].TipoServicio");
             comboBoxTipoServicio.DisplayMember = "tipo_servicio";
             comboBoxTipoServicio.ValueMember = "id_tipo_servicio";
+
+            if (filaSeleccionada != null)
+            {
+                this.Text = "Modificación de Aeronave";
+                textBoxModelo.Text = filaSeleccionada.Cells[1].FormattedValue.ToString();
+                textBoxMatricula.Text = filaSeleccionada.Cells[2].FormattedValue.ToString();
+                textBoxFabricante.Text = filaSeleccionada.Cells[3].FormattedValue.ToString();
+                switch (filaSeleccionada.Cells[4].FormattedValue.ToString())
+                {
+                    case "1":
+                        comboBoxTipoServicio.Text = "Primera Clase";
+                        break;
+                    case "2":
+                        comboBoxTipoServicio.Text = "Ejecutivo";
+                        break;
+                    case "3":
+                        comboBoxTipoServicio.Text = "Turista";
+                        break;
+                }
+                
+                textBoxCapacidadEncomiendas.Text = filaSeleccionada.Cells[6].FormattedValue.ToString();
+                
+                //HACER
+                //Con un Stored Procedure, traerse la cantidad de bucatas y la lista de butacas ventanilla o pasillo
+                //para así meterla en la modificación de la aeronave. Esta info no la puedo traer del form de selección
+                //ya que no la tengo
+
+
+            }
+
+
         }
 
         private void btnElegirTipoButaca_Click(object sender, EventArgs e)
