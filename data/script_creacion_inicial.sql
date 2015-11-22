@@ -535,7 +535,7 @@ CREATE PROCEDURE ÑUFLO.BajaPorVidaUtil
 @id_aeronave int,
 @fecha nvarchar(255)
 AS
-	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave=@id_aeronave) = 1)
+	if((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave=@id_aeronave) is not null)
 		THROW 60004, 'La nave ya se fuera de su vida util', 1
 	
 	DECLARE @fecha_baja datetime

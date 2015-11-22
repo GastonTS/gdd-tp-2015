@@ -229,5 +229,57 @@ namespace AerolineaFrba
 
             desconectar();
         }
+
+        //lo que hago acá es feo. Repito lógica con respecto a métodos anteriores. Pero lo hago para separar
+        //los distintos casos de Stored Procedures que pueden haber y así saber que estoy haciendo en cada caso
+        //al ejecutarlos y esas cosas.
+        public DataTable ExecAndGetData(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta)
+        {
+            conectar();
+
+            DataTable ds = new DataTable();
+
+            using (var cmd = new SqlCommand(spName, miConexion))
+            using (var da = new SqlDataAdapter(cmd))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                for (int i = 0; i < campoValor.Count; i++)
+                {
+                    cmd.Parameters.Add("@" + campoValor.ElementAt(i).Key,
+                        campoValor.ElementAt(i).Value.getTipo()).Value = campoValor.ElementAt(i).Value.getValor();
+                }
+
+                try
+                {
+
+                    da.SelectCommand = cmd;
+                    da.Fill(ds);
+                    if (ejecucionCorrecta != null)
+                        MessageBox.Show(ejecucionCorrecta);
+                }
+                catch (SqlException exception)
+                {
+                    for (int i = 0; i < errorMensaje.Count; i++)
+                    {
+                        if (exception.Number == errorMensaje.ElementAt(i).Key)
+                        {
+                            MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            MessageBox.Show(exception.Message);
+                        }
+                    }
+                }
+            }
+
+            desconectar();
+
+            return ds;
+        }
+        
+
+
     }
 }

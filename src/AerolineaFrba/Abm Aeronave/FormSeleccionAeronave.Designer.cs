@@ -281,6 +281,7 @@
             this.btnBajaVidaUtil.TabIndex = 21;
             this.btnBajaVidaUtil.Text = "Dar de Baja por Vida Útil";
             this.btnBajaVidaUtil.UseVisualStyleBackColor = true;
+            this.btnBajaVidaUtil.Click += new System.EventHandler(this.btnBajaVidaUtil_Click);
             // 
             // FormSeleccionAeronave
             // 

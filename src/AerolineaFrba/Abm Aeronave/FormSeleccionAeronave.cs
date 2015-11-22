@@ -90,5 +90,26 @@ namespace AerolineaFrba.Abm_Aeronave
             FormAltaAeronave faa = new FormAltaAeronave(filaSeleccionada);
             faa.Show();
         }
+
+        private void btnBajaVidaUtil_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
+            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
+            camposValores.Add("fecha", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+
+            errorMensaje.Add(60004, "La Aeronave ya está fuera por vida útil");
+
+            var dt = new gdDataBase().ExecAndGetData("ÑUFLO.BajaPorVidaUtil", camposValores, errorMensaje, "Baja por vida útil de Aeronave exitosa");
+
+            int cantidadViajesPendientes = -1;
+            if(dt.Rows.Count > 0)
+                cantidadViajesPendientes = Convert.ToInt32(dt.Rows[0].ItemArray[0]);
+
+
+        }
     }
 }
