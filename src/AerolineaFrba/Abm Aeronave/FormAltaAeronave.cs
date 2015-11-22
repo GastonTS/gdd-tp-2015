@@ -12,16 +12,24 @@ namespace AerolineaFrba.Abm_Aeronave
 {
     public partial class FormAltaAeronave : Abm.Alta
     {
+        Boolean esModificacion = false;
+        String idAeronaveModificada = "";
+
         public FormAltaAeronave(DataGridViewRow filaSeleccionada = null)
         {
             InitializeComponent();
             new gdDataBase().actualizarBindingSourceQuery(bindingSourceTipoServicio, "select * from [Ñuflo].TipoServicio");
             comboBoxTipoServicio.DisplayMember = "tipo_servicio";
             comboBoxTipoServicio.ValueMember = "id_tipo_servicio";
+            esModificacion = false;
+            idAeronaveModificada = "";
 
             if (filaSeleccionada != null)
             {
+                esModificacion = true;
                 this.Text = "Modificación de Aeronave";
+
+                idAeronaveModificada = filaSeleccionada.Cells[0].FormattedValue.ToString();
                 textBoxModelo.Text = filaSeleccionada.Cells[1].FormattedValue.ToString();
                 textBoxMatricula.Text = filaSeleccionada.Cells[2].FormattedValue.ToString();
                 textBoxFabricante.Text = filaSeleccionada.Cells[3].FormattedValue.ToString();
@@ -94,9 +102,13 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void button1_Click(object sender, EventArgs e)
         {
-            darDeAltaAeronave();
-
-            agregarButacas();
+            if (!esModificacion)
+            {
+                darDeAltaAeronave();
+                agregarButacas();
+            }
+            else
+                actualizarAeronave();
         }
 
         private void darDeAltaAeronave()
@@ -114,6 +126,24 @@ namespace AerolineaFrba.Abm_Aeronave
             errorMensaje.Add(2627, "Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...");
 
             new gdDataBase().Exec("ÑUFLO.AltaAeronave", camposValores, errorMensaje, "Aeronave registrada correctamente");
+        }
+
+        private void actualizarAeronave()
+        {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
+            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(idAeronaveModificada, SqlDbType.Int));
+            camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.VarChar));
+            camposValores.Add("modelo", new gdDataBase.ValorTipo(textBoxModelo.Text, SqlDbType.VarChar));
+            camposValores.Add("fabricante", new gdDataBase.ValorTipo(textBoxFabricante.Text, SqlDbType.VarChar));
+            camposValores.Add("tipo_de_servicio", new gdDataBase.ValorTipo((comboBoxTipoServicio.SelectedIndex + 1).ToString(), SqlDbType.Int));
+            camposValores.Add("capacidad_de_encomiendas", new gdDataBase.ValorTipo(textBoxCapacidadEncomiendas.Text, SqlDbType.Decimal));
+            camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+
+            errorMensaje.Add(2627, "Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...");
+
+            new gdDataBase().Exec("ÑUFLO.ActualizarAeronave", camposValores, errorMensaje, "Aeronave modificada correctamente");
         }
 
         private void agregarButacas()
