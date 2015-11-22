@@ -33,5 +33,22 @@ namespace AerolineaFrba.Generacion_Viaje
         {
             textBoxMatricula.Text = matricula;
         }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dateTimePickerSalida_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormGenerarViaje_Load(object sender, EventArgs e)
+        {
+            dateTimePickerSalida.MinDate = DateTime.Now.Date;
+            dateTimePickerLlegada.MinDate = DateTime.Now.Date;
+            dateTimePickerEstimada.MinDate = DateTime.Now.Date;
+        }
     }
 }

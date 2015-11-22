@@ -37,7 +37,6 @@
             this.ClientSize = new System.Drawing.Size(518, 352);
             this.Name = "Alta";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Alta_Load);
             this.ResumeLayout(false);
 
         }

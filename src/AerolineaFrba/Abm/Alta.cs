@@ -52,11 +52,6 @@ namespace AerolineaFrba.Abm
             }
         }
 
-        private void Alta_Load(object sender, EventArgs e)
-        {
-
-        }
-
        
     }
 }

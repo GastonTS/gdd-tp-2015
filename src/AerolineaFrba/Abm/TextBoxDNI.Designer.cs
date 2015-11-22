@@ -28,7 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // textBox1
+            // 
+            // 
+            // TextBoxDNI
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Name = "TextBoxDNI";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

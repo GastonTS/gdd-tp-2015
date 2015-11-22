@@ -70,6 +70,7 @@
             this.dateTimePickerSalida.Name = "dateTimePickerSalida";
             this.dateTimePickerSalida.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerSalida.TabIndex = 1;
+            this.dateTimePickerSalida.ValueChanged += new System.EventHandler(this.dateTimePickerSalida_ValueChanged);
             // 
             // labelFechaLlegada
             // 
@@ -244,6 +245,7 @@
             this.btnGuardar.TabIndex = 12;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnLimpiar
             // 
@@ -266,6 +268,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "FormGenerarViaje";
             this.Text = "Creación de un Nuevo Viaje";
+            this.Load += new System.EventHandler(this.FormGenerarViaje_Load);
             this.groupBoxFechasYHorarios.ResumeLayout(false);
             this.groupBoxFechasYHorarios.PerformLayout();
             this.groupBoxAeronave.ResumeLayout(false);

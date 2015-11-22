@@ -16,5 +16,13 @@ namespace AerolineaFrba.Canje_Millas
         {
             InitializeComponent();
         }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            textBoxDni.Text = "";
+            textBoxCantidadProducto.Text = "";
+            comboBoxProducto.Text = "";
+            dateTimePicker1.Text = "";
+        }
     }
 }
