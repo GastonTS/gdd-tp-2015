@@ -1172,11 +1172,12 @@ CREATE VIEW ÑUFLO.DetalleAeronavesVacias
 AS
 	select v.id_viaje Viaje, ci.nombre Destino, a.matricula Matricula, a.modelo Modelo, a.fabricante Fabricante, a.capacidad_peso_encomiendas Capacidad_Peso,
 			c.fecha_de_compra Fecha_De_Compra
-		from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p, ÑUFLO.Ciudad ci, ÑUFLO.RutaAerea r, ÑUFLO.Aeronave a
+		from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje pa, ÑUFLO.Encomienda en, ÑUFLO.Ciudad ci, ÑUFLO.RutaAerea r, ÑUFLO.Aeronave a
 		where v.id_ruta = r.id_ruta
 			and r.id_ciudad_destino = ci.id_ciudad
 			and v.id_viaje = c.id_viaje
-			and c.codigo_de_compra = p.codigo_de_compra
+			and (c.codigo_de_compra = pa.codigo_de_compra OR
+				c.codigo_de_compra = en.codigo_de_compra)
 			and v.id_aeronave = a.id_aeronave
 		group by v.id_viaje, ci.nombre, a.matricula, a.modelo, a.fabricante, a.capacidad_peso_encomiendas, c.fecha_de_compra
 		having COUNT(*) = 0
