@@ -50,5 +50,16 @@ namespace AerolineaFrba.Generacion_Viaje
             dateTimePickerLlegada.MinDate = DateTime.Now.Date;
             dateTimePickerEstimada.MinDate = DateTime.Now.Date;
         }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            textBoxDestino.Text = "";
+            textBoxMatricula.Text = "";
+            textBoxOrigen.Text = "";
+            textBoxTipoServicio.Text = "";
+            dateTimePickerEstimada.ResetText();
+            dateTimePickerLlegada.ResetText();
+            dateTimePickerSalida.ResetText();
+        }
     }
 }
