@@ -20,7 +20,6 @@ namespace AerolineaFrba.Abm_Rol
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             textBoxNombre.Clear();
-            comboBoxFuncionalidad.ResetText();
         }
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -41,14 +40,16 @@ namespace AerolineaFrba.Abm_Rol
 
         private void FormSeleccionRol_Load(object sender, EventArgs e)
         {
-            //Datos de prueba, ya que no tengo la BD todavía. Quiero ver si puedo
-            //pasar estos datos al formulario Modificacion, como tendría que hacer la aplicación
-            //con los datos de la tabla verdadera de roles
-            dataGridView.Rows.Add(1);
-            dataGridView.Rows[0].Cells[0].Value = "Nombre de Rol";
-            dataGridView.Rows[0].Cells[1].Value = "Una Funcionalidad de Rol";
-            dataGridView.Rows[1].Cells[0].Value = "Otro nombre de Rol";
-            dataGridView.Rows[1].Cells[1].Value = "Una Funcionalidad de Otro Rol";
+            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasFuncionalidades", null);
+            dataGridView.DataSource = dt;
+            dataGridView.Columns[0].DisplayIndex = 2;
+            dataGridView.Columns[1].DisplayIndex = 1;
+            dataGridView.Columns[2].DisplayIndex = 0;
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
