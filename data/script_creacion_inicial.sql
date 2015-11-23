@@ -1203,7 +1203,11 @@ AS
 			c.fecha_devolucion Fecha_Devolucion, pc.motivo_cancelacion Motivo, p.Fecha_De_Compra, p.Destino
 		from ÑUFLO.DetallePasajes p,
 			ÑUFLO.Cancelacion c,
-			ÑUFLO.PasajeEncomiendaPorCancelacion pc
+			(select ppc.id_cancelacion, ppc.id_pasaje id_pasaje_encomienda, ppc.motivo_cancelacion
+			from ÑUFLO.PasajePorCancelacion ppc
+			union
+			select  epc.id_cancelacion, epc.id_encomienda id_pasaje_encomienda, epc.motivo_cancelacion
+			from ÑUFLO.EncomiendaPorCancelacion epc) pc
 		where p.pasaje = pc.id_pasaje_encomienda
 			and p.Codigo_de_Compra = c.codigo_de_compra
 GO
