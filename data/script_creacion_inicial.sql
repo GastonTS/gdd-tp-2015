@@ -431,8 +431,14 @@ GO
 /*401304 Compra - Consideramos como que las compras eran de a uno, no varios pasajes ni encomiendas juntas por no poder diferenciarlas*/
 INSERT INTO ÑUFLO.Compra (id_viaje, id_cliente, fecha_de_compra)
 	select id_viaje, id_cliente, fecha_compra
-		from  #CompraPasajeEncomienda
+		from  #CompraPasaje
 GO
+
+INSERT INTO ÑUFLO.Compra (id_viaje, id_cliente, fecha_de_compra)
+	select id_viaje, id_cliente, fecha_compra
+		from  #CompraEncomienda
+GO
+
 /*401304 PasajeEncomienda */
 INSERT INTO ÑUFLO.Pasaje (id_pasaje, codigo_de_compra, id_cliente, numero_de_butaca, precio)
 	select id_pasaje, codigo_compra, id_cliente, numero_butaca, pasaje_precio
