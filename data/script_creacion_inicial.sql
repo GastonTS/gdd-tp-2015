@@ -911,6 +911,30 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.RolDadoNombre
+@nombre nvarchar(255) = null
+AS
+	SELECT nombre_rol, habilitado
+		FROM ÑUFLO.Rol
+		WHERE @nombre is null OR nombre_rol LIKE @nombre + '%'
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.Inhabilitar_Habilitar
+@nombre nvarchar(255)
+AS
+	IF ((SELECT habilitado FROM Rol WHERE nombre_rol = @nombre) = 1)
+	BEGIN
+		UPDATE Rol SET habilitado = 0 WHERE nombre_rol = @nombre
+	END
+	ELSE
+	BEGIN
+		UPDATE Rol SET habilitado = 1 WHERE nombre_rol = @nombre
+	END
+	
+	EXEC ÑUFLO.RolDadoNombre @nombre
+;
+GO
 
 CREATE PROCEDURE ÑUFLO.DetalleServicioTecnicoPara
 @matricula nvarchar(255),

@@ -28,16 +28,23 @@ namespace AerolineaFrba.Abm_Rol
             {
                 DataGridViewRow filaSeleccionada = dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex];
 
-                String descripcion = filaSeleccionada.Cells[2].FormattedValue.ToString();
+                String nombre = filaSeleccionada.Cells[2].FormattedValue.ToString();
 
                 FormAltaRol far = new FormAltaRol();
 
-                far.setNombreRol(descripcion);
+                far.setNombreRol(nombre);
                 far.Show();
             }
             else if (e.ColumnIndex == 1) //habilitar/deshabilitar rol
             {
- 
+                DataGridViewRow filaSeleccionada = dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex];
+                String nombre = filaSeleccionada.Cells[2].FormattedValue.ToString();
+
+                Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+                camposValores.Add("nombre", new gdDataBase.ValorTipo(nombre, SqlDbType.VarChar));
+
+                var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.Inhabilitar_Habilitar", camposValores);
+                cargarDatosEnTabla(dt);
             }
         }
 
@@ -62,8 +69,9 @@ namespace AerolineaFrba.Abm_Rol
         private void cargarDatosEnTabla(DataTable dt)
         {
             dataGridView.DataSource = dt;
-            dataGridView.Columns[0].DisplayIndex = 2;
-            dataGridView.Columns[1].DisplayIndex = 1;
+            dataGridView.Columns[0].DisplayIndex = 3;
+            dataGridView.Columns[1].DisplayIndex = 2;
+            dataGridView.Columns[3].DisplayIndex = 1;
             dataGridView.Columns[2].DisplayIndex = 0;
         }
     }

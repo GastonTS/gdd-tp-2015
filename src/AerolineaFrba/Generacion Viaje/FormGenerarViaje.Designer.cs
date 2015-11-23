@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelFechaSalida = new System.Windows.Forms.Label();
             this.dateTimePickerSalida = new System.Windows.Forms.DateTimePicker();
             this.labelFechaLlegada = new System.Windows.Forms.Label();
@@ -49,9 +50,11 @@
             this.labelOrigen = new System.Windows.Forms.Label();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBoxFechasYHorarios.SuspendLayout();
             this.groupBoxAeronave.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // labelFechaSalida
@@ -70,7 +73,6 @@
             this.dateTimePickerSalida.Name = "dateTimePickerSalida";
             this.dateTimePickerSalida.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerSalida.TabIndex = 1;
-            this.dateTimePickerSalida.ValueChanged += new System.EventHandler(this.dateTimePickerSalida_ValueChanged);
             // 
             // labelFechaLlegada
             // 
@@ -88,6 +90,7 @@
             this.dateTimePickerLlegada.Name = "dateTimePickerLlegada";
             this.dateTimePickerLlegada.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerLlegada.TabIndex = 3;
+            this.dateTimePickerLlegada.Validating += new System.ComponentModel.CancelEventHandler(this.dateTimePickerLlegada_Validating);
             // 
             // labelFechaEstimada
             // 
@@ -255,6 +258,11 @@
             this.btnLimpiar.TabIndex = 11;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // FormGenerarViaje
             // 
@@ -275,6 +283,7 @@
             this.groupBoxAeronave.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -302,5 +311,6 @@
         private System.Windows.Forms.TextBox textBoxOrigen;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

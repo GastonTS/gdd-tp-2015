@@ -181,6 +181,9 @@ GO
 DROP PROCEDURE ÑUFLO.TodasLasFuncionalidades
 GO
 
+DROP PROCEDURE ÑUFLO.Inhabilitar_Habilitar
+GO
+
 DROP PROCEDURE ÑUFLO.RolDadoNombre
 GO
 

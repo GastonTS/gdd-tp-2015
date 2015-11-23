@@ -12,6 +12,8 @@ namespace AerolineaFrba.Generacion_Viaje
 {
     public partial class FormGenerarViaje : Form, IFormulariosViaje
     {
+        private Control primerControlInvalido;
+
         public FormGenerarViaje()
         {
             InitializeComponent();
@@ -36,12 +38,17 @@ namespace AerolineaFrba.Generacion_Viaje
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            
-        }
+            //Esta forma de validar, valida de a uno los errores. Como errores particulares
+            //en este formulario tengo este por ahora. No lo veo mal. Habría que ver cómo se lleva
+            //con los errores propios de los controles (validar campo obligatorio de user control texto y demás)
+            primerControlInvalido = null;
+            this.ValidateChildren();
 
-        private void dateTimePickerSalida_ValueChanged(object sender, EventArgs e)
-        {
-
+            if (primerControlInvalido != null) primerControlInvalido.Focus();
+            else
+            {
+                // lo que tiene que hacer el boton guardar (generar el viaje)     
+            }
         }
 
         private void FormGenerarViaje_Load(object sender, EventArgs e)
@@ -49,6 +56,34 @@ namespace AerolineaFrba.Generacion_Viaje
             dateTimePickerSalida.MinDate = DateTime.Now.Date;
             dateTimePickerLlegada.MinDate = DateTime.Now.Date;
             dateTimePickerEstimada.MinDate = DateTime.Now.Date;
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            textBoxDestino.Text = "";
+            textBoxMatricula.Text = "";
+            textBoxOrigen.Text = "";
+            textBoxTipoServicio.Text = "";
+            dateTimePickerEstimada.ResetText();
+            dateTimePickerLlegada.ResetText();
+            dateTimePickerSalida.ResetText();
+        }
+
+        private void asinarValidacion(object sender, bool validacion, string mensajeError)
+        {
+            var ctl = (Control)sender;
+            if (validacion) errorProvider1.SetError(ctl, "");
+            else
+            {
+                if (primerControlInvalido == null) primerControlInvalido = ctl;
+                errorProvider1.SetError(ctl, mensajeError);
+            }
+        }
+
+        private void dateTimePickerLlegada_Validating(object sender, CancelEventArgs e)
+        {
+            asinarValidacion(sender, dateTimePickerSalida.Value.CompareTo(dateTimePickerLlegada.Value) <= 0,
+                "La fecha de llegada debe ser mayor a la fecha d salida");
         }
     }
 }
