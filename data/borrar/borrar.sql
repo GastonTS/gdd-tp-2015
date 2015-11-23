@@ -178,6 +178,9 @@ GO
 DROP PROCEDURE ÑUFLO.RolDadoNombre
 GO
 
+DROP PROCEDURE ÑUFLO.Inhabilitar_Habilitar
+GO
+
 DROP PROCEDURE ÑUFLO.FiltrosModificacionRutaAerea
 GO
 
