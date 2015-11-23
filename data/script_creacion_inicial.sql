@@ -361,29 +361,52 @@ GO
 /*Comrpas Pasajes Encomiendas*/
 
 /*Tabla temporal para facilitar los insert*/
-CREATE TABLE #CompraPasajeEncomienda (
+CREATE TABLE #CompraPasaje (
 	codigo_compra int IDENTITY(1,1),
 	numero_butaca numeric(18,0),
 	pasaje_precio numeric(18,2),
+	id_pasaje numeric(18,0),
+	fecha_compra datetime,
+	id_cliente int,
+	id_viaje int
+	)
+GO
+CREATE TABLE #CompraEncomienda (
+	codigo_compra int IDENTITY(1,1),
 	paquete_kg numeric(18,0),
 	paquete_precio numeric(18,2),
-	id_pasaje_encomienda numeric(18,0),
+	id_encomienda numeric(18,0),
 	fecha_compra datetime,
 	id_cliente int,
 	id_viaje int
 	)
 GO
 
-INSERT INTO #CompraPasajeEncomienda(numero_butaca, pasaje_precio, paquete_kg, paquete_precio, id_pasaje_encomienda, fecha_compra, id_cliente, id_viaje)
-	select Butaca_Nro, Pasaje_Precio, Paquete_KG, Paquete_Precio,
-			case Butaca_Piso
-				when 0 then Paquete_Codigo
-				when 1 then Pasaje_Codigo
-				end id_pasaje_encomienda,
-			case Butaca_Piso
-				when 0 then Paquete_FechaCompra
-				when 1 then Pasaje_FechaCompra
-				end fecha_compra,
+INSERT INTO #CompraPasaje(numero_butaca, pasaje_precio, id_pasaje, fecha_compra, id_cliente, id_viaje)
+	select Butaca_Nro, Pasaje_Precio, Pasaje_Codigo, Pasaje_FechaCompra,
+			(select id_cliente 
+				from ÑUFLO.Cliente c 
+				where c.dni = m.Cli_Dni
+					and c.nombre = m.Cli_Nombre
+					and c.apellido = c.apellido) cliente,
+			(select v.id_viaje 
+				from  ÑUFLO.Viaje v, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
+				where v.id_ruta = r.id_ruta
+					and r.codigo_ruta = m.Ruta_Codigo
+					and r.id_ciudad_origen = co.id_ciudad
+					and r.id_ciudad_destino = cd.id_ciudad
+					and co.nombre = m.Ruta_Ciudad_Origen
+					and cd.nombre = m.Ruta_Ciudad_Destino
+					and v.id_aeronave = (select a.id_aeronave
+										from ÑUFLO.Aeronave a
+										where a.matricula = m.Aeronave_Matricula)
+					and v.fecha_salida = m.FechaSalida
+					and v.fecha_llegada_estimada = m.Fecha_LLegada_Estimada) id_viaje
+		from gd_esquema.Maestra m
+GO
+
+INSERT INTO #CompraEncomienda(paquete_kg, paquete_precio, id_encomienda, fecha_compra, id_cliente, id_viaje)
+	select Paquete_KG, Paquete_Precio, Paquete_Codigo, Paquete_FechaCompra,
 			(select id_cliente 
 				from ÑUFLO.Cliente c 
 				where c.dni = m.Cli_Dni
