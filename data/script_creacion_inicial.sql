@@ -966,9 +966,9 @@ AS
 	select top 5 p.Destino, COUNT(*) Cancelaciones
 		from ÑUFLO.DetallePasajes p,
 			ÑUFLO.Cancelacion c,
-			ÑUFLO.PasajeEncomiendaPorCancelacion pc
+			ÑUFLO.PasajePorCancelacion pc
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
-			and p.pasaje = pc.id_pasaje_encomienda
+			and p.pasaje = pc.id_pasaje
 			and p.Codigo_de_Compra = c.codigo_de_compra
 		group by p.Destino
 ;
