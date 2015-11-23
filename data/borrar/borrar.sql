@@ -176,6 +176,10 @@ DROP PROCEDURE ÑUFLO.TodasLasFuncionalidades
 GO
 
 DROP PROCEDURE ÑUFLO.RolDadoNombre
+GO
+
+DROP PROCEDURE ÑUFLO.FiltrosModificacionRutaAerea
+GO
 
 /********************************************/
 /***************** Functions ****************/
