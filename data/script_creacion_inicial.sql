@@ -1158,15 +1158,14 @@ GO
 
 CREATE VIEW ÑUFLO.DetallePasajes
 AS
-	select co.codigo_de_compra Codigo_de_Compra, co.fecha_de_compra Fecha_De_Compra, id_pasaje_encomienda Pasaje, ci.nombre Destino,
+	select co.codigo_de_compra Codigo_de_Compra, co.fecha_de_compra Fecha_De_Compra, id_pasaje Pasaje, ci.nombre Destino,
 			DNI, c.nombre Nombre, apellido Apellido, numero_de_butaca Butaca_Numero, precio Precio
-		from ÑUFLO.Cliente c , ÑUFLO.PasajeEncomienda p, ÑUFLO.Compra co, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad ci
+		from ÑUFLO.Cliente c , ÑUFLO.Pasaje p, ÑUFLO.Compra co, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad ci
 		where  v.id_viaje = co.id_viaje
 			and v.id_ruta = r.id_ruta
 			and r.id_ciudad_destino = ci.id_ciudad
 			and co.codigo_de_compra = p.codigo_de_compra
 			and c.id_cliente = p.id_cliente
-			and p.numero_de_butaca is not null
 GO
 
 CREATE VIEW ÑUFLO.DetalleAeronavesVacias
