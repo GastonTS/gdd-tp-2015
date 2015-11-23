@@ -1068,10 +1068,17 @@ RETURNS @MillasPorCliente TABLE
 AS
 BEGIN
    INSERT @MillasPorCliente
-        SELECT comp.id_cliente, ROUND(SUM(pe.precio)/10,0,1) as millas-- El tercer parametro asi trunca, con cero redondea
-        FROM ÑUFLO.Compra comp, ÑUFLO.PasajeEncomienda pe
+        SELECT comp.id_cliente, ROUND(SUM(p.precio)/10,0,1) as millas-- El tercer parametro asi trunca, con cero redondea
+        FROM ÑUFLO.Compra comp, ÑUFLO.Pasaje p
         WHERE comp.id_viaje = @Id_viaje
-			AND comp.codigo_de_compra = pe.codigo_de_compra
+			AND comp.codigo_de_compra = p.codigo_de_compra
+		GROUP BY comp.id_cliente
+   RETURN
+   INSERT @MillasPorCliente
+        SELECT comp.id_cliente, ROUND(SUM(e.precio)/10,0,1) as millas-- El tercer parametro asi trunca, con cero redondea
+        FROM ÑUFLO.Compra comp, ÑUFLO.Encomienda e
+        WHERE comp.id_viaje = @Id_viaje
+			AND comp.codigo_de_compra = e.codigo_de_compra
 		GROUP BY comp.id_cliente
    RETURN
 END
