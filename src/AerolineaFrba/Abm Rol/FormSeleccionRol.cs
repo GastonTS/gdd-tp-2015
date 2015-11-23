@@ -24,32 +24,47 @@ namespace AerolineaFrba.Abm_Rol
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dataGridView.ColumnCount - 1) //la última columna sería la de "Seleccionar"
+            if (e.ColumnIndex == 0) //modificar rol
             {
-                List<String> registroSeleccionado = new List<string>();
+                DataGridViewRow filaSeleccionada = dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex];
 
-                for (int i = 0; i < dataGridView.ColumnCount; i++)
-                {
-                    registroSeleccionado.Add(dataGridView.Rows[e.RowIndex].Cells[i].FormattedValue.ToString());
-                }
+                String descripcion = filaSeleccionada.Cells[2].FormattedValue.ToString();
 
-                FormModificacionRol fmr = new FormModificacionRol(registroSeleccionado);
-                fmr.Show();
+                FormAltaRol far = new FormAltaRol();
+
+                far.setNombreRol(descripcion);
+                far.Show();
+            }
+            else if (e.ColumnIndex == 1) //habilitar/deshabilitar rol
+            {
+ 
             }
         }
 
         private void FormSeleccionRol_Load(object sender, EventArgs e)
         {
-            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasFuncionalidades", null);
-            dataGridView.DataSource = dt;
-            dataGridView.Columns[0].DisplayIndex = 2;
-            dataGridView.Columns[1].DisplayIndex = 1;
-            dataGridView.Columns[2].DisplayIndex = 0;
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            camposValores.Add("nombre", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
+
+            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.RolDadoNombre", null);
+            cargarDatosEnTabla(dt);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            camposValores.Add("nombre", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
 
+            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.RolDadoNombre", camposValores);
+            cargarDatosEnTabla(dt);
+        }
+
+        private void cargarDatosEnTabla(DataTable dt)
+        {
+            dataGridView.DataSource = dt;
+            dataGridView.Columns[0].DisplayIndex = 2;
+            dataGridView.Columns[1].DisplayIndex = 1;
+            dataGridView.Columns[2].DisplayIndex = 0;
         }
     }
 }

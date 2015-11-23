@@ -70,5 +70,9 @@ namespace AerolineaFrba.Abm_Rol
                 btnQuitar.Enabled = false;
         }
 
+        public void setNombreRol(String nombreRol)
+        {
+            textBoxNombre.Text = nombreRol;
+        }
     }
 }
