@@ -625,8 +625,8 @@ AS
 	SET @fecha_f = convert(datetime, @fecha_fin)
 
 	DECLARE CPasajes CURSOR 
-		FOR select c.codigo_de_compra, p.id_pasaje_encomienda
-				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p
+		FOR select c.codigo_de_compra, p.id_pasaje
+				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
 				where @id_aeronave = v.id_aeronave
 					and ((@fecha_f is null and v.fecha_salida > @fecha_i)
 					or v.fecha_salida between @fecha_i and @fecha_f)
@@ -650,9 +650,9 @@ AS
 		INSERT INTO ÑUFLO.PasajeEncomiendaPorCancelacion(id_cancelacion, id_pasaje_encomienda, motivo_cancelacion)
 			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @pasaje, 'Baja de Aeronave')
 
-		UPDATE ÑUFLO.PasajeEncomienda
+		UPDATE ÑUFLO.Pasaje
 			SET cancelado = 1
-			WHERE @pasaje = id_pasaje_encomienda
+			WHERE @pasaje = id_pasaje
 
 		FETCH CPasajes INTO @pnr, @pasaje
 	END
