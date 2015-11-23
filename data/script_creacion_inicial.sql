@@ -647,7 +647,7 @@ AS
 			SET @cod_anterior = @pnr
 		END
 
-		INSERT INTO ÑUFLO.PasajeEncomiendaPorCancelacion(id_cancelacion, id_pasaje_encomienda, motivo_cancelacion)
+		INSERT INTO ÑUFLO.PasajePorCancelacion(id_cancelacion, id_pasaje, motivo_cancelacion)
 			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @pasaje, 'Baja de Aeronave')
 
 		UPDATE ÑUFLO.Pasaje
