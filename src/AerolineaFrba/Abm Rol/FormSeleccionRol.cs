@@ -20,35 +20,51 @@ namespace AerolineaFrba.Abm_Rol
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             textBoxNombre.Clear();
-            comboBoxFuncionalidad.ResetText();
         }
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dataGridView.ColumnCount - 1) //la última columna sería la de "Seleccionar"
+            if (e.ColumnIndex == 0) //modificar rol
             {
-                List<String> registroSeleccionado = new List<string>();
+                DataGridViewRow filaSeleccionada = dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex];
 
-                for (int i = 0; i < dataGridView.ColumnCount; i++)
-                {
-                    registroSeleccionado.Add(dataGridView.Rows[e.RowIndex].Cells[i].FormattedValue.ToString());
-                }
+                String descripcion = filaSeleccionada.Cells[2].FormattedValue.ToString();
 
-                FormModificacionRol fmr = new FormModificacionRol(registroSeleccionado);
-                fmr.Show();
+                FormAltaRol far = new FormAltaRol();
+
+                far.setNombreRol(descripcion);
+                far.Show();
+            }
+            else if (e.ColumnIndex == 1) //habilitar/deshabilitar rol
+            {
+ 
             }
         }
 
         private void FormSeleccionRol_Load(object sender, EventArgs e)
         {
-            //Datos de prueba, ya que no tengo la BD todavía. Quiero ver si puedo
-            //pasar estos datos al formulario Modificacion, como tendría que hacer la aplicación
-            //con los datos de la tabla verdadera de roles
-            dataGridView.Rows.Add(1);
-            dataGridView.Rows[0].Cells[0].Value = "Nombre de Rol";
-            dataGridView.Rows[0].Cells[1].Value = "Una Funcionalidad de Rol";
-            dataGridView.Rows[1].Cells[0].Value = "Otro nombre de Rol";
-            dataGridView.Rows[1].Cells[1].Value = "Una Funcionalidad de Otro Rol";
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            camposValores.Add("nombre", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
+
+            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.RolDadoNombre", null);
+            cargarDatosEnTabla(dt);
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            camposValores.Add("nombre", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
+
+            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.RolDadoNombre", camposValores);
+            cargarDatosEnTabla(dt);
+        }
+
+        private void cargarDatosEnTabla(DataTable dt)
+        {
+            dataGridView.DataSource = dt;
+            dataGridView.Columns[0].DisplayIndex = 2;
+            dataGridView.Columns[1].DisplayIndex = 1;
+            dataGridView.Columns[2].DisplayIndex = 0;
         }
     }
 }

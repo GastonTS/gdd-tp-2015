@@ -169,6 +169,14 @@ GO
 DROP PROCEDURE ÑUFLO.CiudadTipoServicio
 GO
 
+DROP PROCEDURE ÑUFLO.TodasLasCiudades
+GO
+
+DROP PROCEDURE ÑUFLO.TodasLasFuncionalidades
+GO
+
+DROP PROCEDURE ÑUFLO.RolDadoNombre
+
 /********************************************/
 /***************** Functions ****************/
 /********************************************/

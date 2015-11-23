@@ -872,6 +872,15 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.RolDadoNombre
+@nombre nvarchar(255) = null
+AS
+	SELECT nombre_rol 
+		FROM ÑUFLO.Rol
+		WHERE @nombre is null OR nombre_rol LIKE @nombre + '%'
+;
+GO
+
 
 CREATE PROCEDURE ÑUFLO.DetalleServicioTecnicoPara
 @matricula nvarchar(255),

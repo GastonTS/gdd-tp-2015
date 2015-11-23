@@ -37,8 +37,7 @@ namespace AerolineaFrba
 
         private void btnBajaRol_Click(object sender, EventArgs e)
         {
-            Abm_Rol.FormBajaRol fbr = new Abm_Rol.FormBajaRol();
-            fbr.Show();
+
         }
 
         private void btnAltaNave_Click(object sender, EventArgs e)

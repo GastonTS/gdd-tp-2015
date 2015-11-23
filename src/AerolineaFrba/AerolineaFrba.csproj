@@ -84,18 +84,6 @@
     <Compile Include="Abm Rol\FormAltaRol.Designer.cs">
       <DependentUpon>FormAltaRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Rol\FormBajaRol.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Rol\FormBajaRol.Designer.cs">
-      <DependentUpon>FormBajaRol.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Rol\FormModificacionRol.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Rol\FormModificacionRol.Designer.cs">
-      <DependentUpon>FormModificacionRol.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Rol\FormSeleccionRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,12 +273,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\FormAltaRol.resx">
       <DependentUpon>FormAltaRol.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Rol\FormBajaRol.resx">
-      <DependentUpon>FormBajaRol.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Rol\FormModificacionRol.resx">
-      <DependentUpon>FormModificacionRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\FormSeleccionRol.resx">
       <DependentUpon>FormSeleccionRol.cs</DependentUpon>
