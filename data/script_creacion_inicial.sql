@@ -178,11 +178,19 @@ CREATE TABLE ÑUFLO.Cancelacion (
 	)
 GO
 
-CREATE TABLE ÑUFLO.PasajeEncomiendaPorCancelacion (
-	id_pasaje_encomienda INT REFERENCES ÑUFLO.PasajeEncomienda,
+CREATE TABLE ÑUFLO.PasajePorCancelacion (
+	id_pasaje INT REFERENCES ÑUFLO.Pasaje,
 	id_cancelacion int REFERENCES ÑUFLO.Cancelacion,
 	motivo_cancelacion  nvarchar(255) NOT NULL,
-	PRIMARY KEY (id_cancelacion, id_pasaje_encomienda)
+	PRIMARY KEY (id_cancelacion, id_pasaje)
+	)
+GO
+
+CREATE TABLE ÑUFLO.EncomiendaPorCancelacion (
+	id_encomienda INT REFERENCES ÑUFLO.Encomienda,
+	id_cancelacion int REFERENCES ÑUFLO.Cancelacion,
+	motivo_cancelacion  nvarchar(255) NOT NULL,
+	PRIMARY KEY (id_cancelacion, id_encomienda)
 	)
 GO
 
