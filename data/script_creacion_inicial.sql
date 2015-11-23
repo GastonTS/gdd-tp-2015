@@ -793,7 +793,7 @@ AS
 			except
 			select distinct p.numero_de_butaca, b.id_tipo_butaca
 				from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b,
-					 ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p
+					 ÑUFLO.Compra c, ÑUFLO.Pasaje p
 				where @id_viaje = v.id_viaje
 					and v.id_aeronave = b.id_aeronave
 					and v.id_viaje = c.id_viaje
