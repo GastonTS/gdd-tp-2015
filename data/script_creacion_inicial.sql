@@ -151,16 +151,23 @@ CREATE TABLE ÑUFLO.Compra (
 	)
 GO
 	
-CREATE TABLE ÑUFLO.PasajeEncomienda (
-	id_pasaje_encomienda int PRIMARY KEY,
+CREATE TABLE ÑUFLO.Pasaje (
+	id_pasaje int PRIMARY KEY,
 	codigo_de_compra  int REFERENCES ÑUFLO.Compra,
 	id_cliente  int REFERENCES ÑUFLO.Cliente,
-	peso_encomienda numeric(18, 0),
-	numero_de_butaca numeric(18, 0), 
+	numero_de_butaca numeric(18, 0) NOT NULL, 
 	cancelado bit DEFAULT 0,
 	precio numeric(18,2) NOT NULL,
-	CHECK ((peso_encomienda IS NOT NULL) OR (numero_de_butaca IS NOT NULL)
-			AND NOT (peso_encomienda IS NOT NULL) AND (numero_de_butaca IS NOT NULL))
+	)
+GO
+
+CREATE TABLE ÑUFLO.Encomienda (
+	id_encomienda int PRIMARY KEY,
+	codigo_de_compra  int REFERENCES ÑUFLO.Compra,
+	id_cliente  int REFERENCES ÑUFLO.Cliente,
+	peso_encomienda numeric(18, 0) NOT NULL,
+	cancelado bit DEFAULT 0,
+	precio numeric(18,2) NOT NULL,
 	)
 GO
 
