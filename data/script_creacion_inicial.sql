@@ -872,15 +872,6 @@ AS
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.RolDadoNombre
-@nombre nvarchar(255) = null
-AS
-	SELECT nombre_rol 
-		FROM ÑUFLO.Rol
-		WHERE @nombre is null OR nombre_rol LIKE @nombre + '%'
-;
-GO
-
 
 CREATE PROCEDURE ÑUFLO.DetalleServicioTecnicoPara
 @matricula nvarchar(255),
@@ -989,14 +980,14 @@ AS
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.FiltrosModificacionRutaAerea
+CREATE PROCEDURE ÑUFLO.FiltrosAltaRutaAerea
 @id_ciudad_origen int = NULL,
 @id_ciudad_destino int = NULL,
 @id_tipo_servicio int = NULL
 AS
-	SELECT ra.codigo_ruta "Codigo de ruta", c1.nombre "Ciudad origen", c2.nombre "Ciudad destino",
-		   ra.precio_base_por_peso "Precio base por peso", ra.precio_base_por_pasaje "Precio base por pasaje",
-		   ts.tipo_servicio "Tipo de servicio"	
+	SELECT ra.id_ruta "Id ruta",ra.codigo_ruta "Codigo de ruta",c1.id_ciudad "Id ciudad origen",c1.nombre "Ciudad origen",
+		   c2.id_ciudad "Id ciudad destino",c2.nombre "Ciudad destino", ra.precio_base_por_peso "Precio base por peso",
+		   ra.precio_base_por_pasaje "Precio base por pasaje", ts.tipo_servicio "Tipo de servicio"	
 		FROM ÑUFLO.RutaAerea ra JOIN ÑUFLO.Ciudad c1			ON ra.id_ciudad_origen = c1.id_ciudad
 								JOIN ÑUFLO.Ciudad c2			ON ra.id_ciudad_destino = c2.id_ciudad
 								JOIN ÑUFLO.ServicioPorRuta sr	ON ra.id_ruta = sr.id_ruta
