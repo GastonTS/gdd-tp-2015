@@ -1000,6 +1000,28 @@ AS
 ;  
 GO
 
+
+CREATE PROCEDURE ÑUFLO.FiltrosModificacionRutaAerea
+@id_ciudad_origen int = NULL,
+@id_ciudad_destino int = NULL,
+@id_tipo_servicio int = NULL
+AS
+	SELECT ra.codigo_ruta "Codigo de ruta", c1.nombre "Ciudad origen", c2.nombre "Ciudad destino",
+		   ra.precio_base_por_peso "Precio base por peso", ra.precio_base_por_pasaje "Precio base por pasaje",
+		   ts.tipo_servicio "Tipo de servicio"	
+		FROM ÑUFLO.RutaAerea ra JOIN ÑUFLO.Ciudad c1			ON ra.id_ciudad_origen = c1.id_ciudad
+								JOIN ÑUFLO.Ciudad c2			ON ra.id_ciudad_destino = c2.id_ciudad
+								JOIN ÑUFLO.ServicioPorRuta sr	ON ra.id_ruta = sr.id_ruta
+								JOIN ÑUFLO.TipoServicio ts		ON sr.id_tipo_servicio  = ts.id_tipo_servicio
+
+		WHERE (@id_ciudad_origen IS NULL OR ra.id_ciudad_origen = @id_ciudad_origen) AND
+			  (@id_ciudad_destino IS NULL OR  ra.id_ciudad_destino = @id_ciudad_destino) AND
+			  (@id_tipo_servicio IS NULL OR sr.id_tipo_servicio = @id_tipo_servicio ) AND
+			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta )
+;  
+GO
+
+
 /*****************************************************************/
 /*************************** Function ****************************/
 /*****************************************************************/
