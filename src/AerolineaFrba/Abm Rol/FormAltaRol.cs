@@ -17,17 +17,23 @@ namespace AerolineaFrba.Abm_Rol
             InitializeComponent();
         }
 
+        private void FormAltaRol_Load(object sender, EventArgs e)
+        {
+            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasFuncionalidades", null);
+            comboBoxFuncionalidades.DataSource = dt;
+            comboBoxFuncionalidades.DisplayMember = dt.Columns[0].ColumnName;
+        }
 
         private void textBoxNombre_Validating(object sender, CancelEventArgs e)
         {
             if (textBoxNombre.Text.Trim() == "")
             {
-                
+
                 e.Cancel = true;
             }
             else
             {
-                
+
                 e.Cancel = false;
             }
         }
@@ -36,11 +42,8 @@ namespace AerolineaFrba.Abm_Rol
         {
             textBoxNombre.Clear();
             comboBoxFuncionalidades.ResetText();
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
+            listBoxFuncionalidades.Items.Clear();
+            btnQuitar.Enabled = false;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -48,19 +51,24 @@ namespace AerolineaFrba.Abm_Rol
             this.guardar();
         }
 
-        private void FormAltaRol_Load(object sender, EventArgs e)
+        private void btnAñadir_Click(object sender, EventArgs e)
         {
-
+            if (!listBoxFuncionalidades.Items.Contains(comboBoxFuncionalidades.Text))
+                listBoxFuncionalidades.Items.Add(comboBoxFuncionalidades.Text);
         }
 
-        private void textBoxNombre_TextChanged(object sender, EventArgs e)
+        private void listBoxFuncionalidades_SelectedValueChanged(object sender, EventArgs e)
         {
-
+            btnQuitar.Enabled = true;
         }
 
-        private void textBoxValidado1_Load(object sender, EventArgs e)
+        private void btnQuitar_Click(object sender, EventArgs e)
         {
+            listBoxFuncionalidades.Items.Remove(listBoxFuncionalidades.SelectedItem);
 
+            if (listBoxFuncionalidades.Items.Count == 0)
+                btnQuitar.Enabled = false;
         }
+
     }
 }

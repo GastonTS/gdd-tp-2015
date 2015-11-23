@@ -866,6 +866,12 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.TodasLasFuncionalidades
+AS
+	SELECT descripcion FROM ÑUFLO.Funcionalidad
+;
+GO
+
 
 CREATE PROCEDURE ÑUFLO.DetalleServicioTecnicoPara
 @matricula nvarchar(255),
