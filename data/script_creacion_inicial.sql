@@ -949,27 +949,10 @@ GO
 CREATE PROCEDURE ÑUFLO.CrearRol
 @nombre_rol nvarchar(255)
 AS
-	INSERT INTO ÑUFLO.Rol VALUES (@nombre_rol)
+	INSERT INTO ÑUFLO.Rol VALUES (@nombre_rol, 1)
 ;
-GO
+GO	
 
-CREATE PROCEDURE ÑUFLO.AsignarFuncionalidadARol
-@nombre_rol nvarchar(255),
-@descripcion nvarchar(255)
-AS
-	DECLARE @id INT, @id_funcionalidad INT
-	EXEC ÑUFLO.IdRolDe @nombre_rol, @id_rol = @id OUTPUT
-	
-	INSERT INTO ÑUFLO.Funcionalidad VALUES (@descripcion)
-	
-	SELECT @id_funcionalidad = id_funcionalidad 
-		FROM ÑUFLO.Funcionalidad
-		WHERE descripcion = @descripcion
-	
-	INSERT INTO ÑUFLO.FuncionalidadPorRol (@id, @id_funcionalidad)
-;
-GO
-	
 CREATE PROCEDURE ÑUFLO.IdRolDe
 @nombre_rol nvarchar(255),
 @id_rol int OUTPUT
@@ -979,6 +962,32 @@ AS
 		WHERE nombre_rol = @nombre_rol
 ;
 RETURN
+GO
+
+CREATE PROCEDURE ÑUFLO.AsignarFuncionalidadARol
+@nombre_rol nvarchar(255),
+@descripcion nvarchar(255)
+AS
+	DECLARE @id INT, @id_funcionalidad INT
+	EXEC ÑUFLO.IdRolDe @nombre_rol, @id_rol = @id OUTPUT
+	
+	SELECT @id_funcionalidad = id_funcionalidad 
+		FROM ÑUFLO.Funcionalidad
+		WHERE descripcion = @descripcion
+	
+	INSERT INTO ÑUFLO.FuncionalidadPorRol VALUES (@id, @id_funcionalidad)
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.BorrarFuncionalidadesDe
+@nombre_rol nvarchar(255)
+AS
+	DECLARE @id INT, @id_funcionalidad INT
+	EXEC ÑUFLO.IdRolDe @nombre_rol, @id_rol = @id OUTPUT
+	
+	DELETE FROM ÑUFLO.FuncionalidadPorRol
+		WHERE id_rol = @id
+;
 GO
 
 CREATE PROCEDURE ÑUFLO.FuncionalidadesDe
