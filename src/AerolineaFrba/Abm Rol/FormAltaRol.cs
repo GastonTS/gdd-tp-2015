@@ -12,6 +12,7 @@ namespace AerolineaFrba.Abm_Rol
 {
     public partial class FormAltaRol : Abm.Alta
     {
+        bool modificacion = false;
         public FormAltaRol()
         {
             InitializeComponent();
@@ -19,9 +20,12 @@ namespace AerolineaFrba.Abm_Rol
 
         private void FormAltaRol_Load(object sender, EventArgs e)
         {
-            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasFuncionalidades", null);
-            comboBoxFuncionalidades.DataSource = dt;
-            comboBoxFuncionalidades.DisplayMember = dt.Columns[0].ColumnName;
+            if (!modificacion)
+            {
+                var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasFuncionalidades", null);
+                comboBoxFuncionalidades.DataSource = dt;
+                comboBoxFuncionalidades.DisplayMember = dt.Columns[0].ColumnName;
+            }
         }
 
         private void textBoxNombre_Validating(object sender, CancelEventArgs e)
@@ -40,7 +44,9 @@ namespace AerolineaFrba.Abm_Rol
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            textBoxNombre.Clear();
+            if (!modificacion)
+                textBoxNombre.Clear();
+
             comboBoxFuncionalidades.ResetText();
             listBoxFuncionalidades.Items.Clear();
             btnQuitar.Enabled = false;
@@ -71,10 +77,18 @@ namespace AerolineaFrba.Abm_Rol
         }
 
         public void setNombreRol(String nombreRol)
-        {
+        {            
+            this.Text = "Modificación de Rol";
+            modificacion = true;
+            textBoxNombre.Enabled = false;
             textBoxNombre.Text = nombreRol;
 
-            this.Text = "Modificación de Rol";
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            camposValores.Add("nombre_rol", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
+
+            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.FuncionalidadesDe", camposValores);
+            comboBoxFuncionalidades.DataSource = dt;
+            comboBoxFuncionalidades.DisplayMember = dt.Columns[0].ColumnName;
         }
     }
 }

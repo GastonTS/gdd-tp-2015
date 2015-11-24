@@ -227,6 +227,8 @@ GO
 
 INSERT INTO ÑUFLO.Rol (nombre_rol)
 	values ('Administrador')
+INSERT INTO ÑUFLO.Rol (nombre_rol)
+	values ('Cliente')
 
 CREATE TABLE ÑUFLO.FuncionalidadPorRol (
 	id_rol int REFERENCES ÑUFLO.Rol,
@@ -247,6 +249,10 @@ INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,9)
 INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,10)
 INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,11)
 INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,12)
+
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (2,7)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (2,9)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (2,10)
 GO
 
 CREATE TABLE ÑUFLO.Usuario (
@@ -781,9 +787,7 @@ AS
 		FROM ÑUFLO.Producto
 		WHERE millas_necesarias <= @millas_cliente
 ;
-GO
-	
-	
+GO	
 
 CREATE PROCEDURE ÑUFLO.ViajesDisponiblesPara
 @ciudad_origen nvarchar(255),
@@ -941,6 +945,32 @@ AS
 	SELECT descripcion FROM ÑUFLO.Funcionalidad
 ;
 GO
+
+CREATE PROCEDURE ÑUFLO.IdRolDe
+@nombre_rol nvarchar(255),
+@id_rol int OUTPUT
+AS
+	SELECT @id_rol = id_rol 
+		FROM Rol 
+		WHERE nombre_rol = @nombre_rol
+;
+RETURN
+GO
+
+CREATE PROCEDURE ÑUFLO.FuncionalidadesDe
+@nombre_rol nvarchar(255)
+AS
+	DECLARE @id INT
+	EXEC ÑUFLO.IdRolDe @nombre_rol, @id_rol = @id OUTPUT
+	
+	SELECT descripcion
+		FROM ÑUFLO.Funcionalidad f 
+			JOIN ÑUFLO.FuncionalidadPorRol fr ON (f.id_funcionalidad = fr.id_funcionalidad)
+			JOIN ÑUFLO.Rol r ON (r.id_rol = fr.id_rol)
+		WHERE r.id_rol = @id
+;
+GO
+		
 
 CREATE PROCEDURE ÑUFLO.RolDadoNombre
 @nombre nvarchar(255) = null

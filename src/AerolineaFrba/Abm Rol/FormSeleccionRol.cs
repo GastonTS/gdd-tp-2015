@@ -44,6 +44,8 @@ namespace AerolineaFrba.Abm_Rol
                 camposValores.Add("nombre", new gdDataBase.ValorTipo(nombre, SqlDbType.VarChar));
 
                 var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.Inhabilitar_Habilitar", camposValores);
+
+                dt = new gdDataBase().GetDataWithParameters("ÑUFLO.RolDadoNombre", null);
                 cargarDatosEnTabla(dt);
             }
         }
