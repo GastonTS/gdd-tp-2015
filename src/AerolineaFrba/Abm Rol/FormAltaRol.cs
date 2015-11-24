@@ -13,6 +13,7 @@ namespace AerolineaFrba.Abm_Rol
     public partial class FormAltaRol : Abm.Alta
     {
         bool modificacion = false;
+
         public FormAltaRol()
         {
             InitializeComponent();
@@ -20,12 +21,10 @@ namespace AerolineaFrba.Abm_Rol
 
         private void FormAltaRol_Load(object sender, EventArgs e)
         {
-            if (!modificacion)
-            {
-                var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasFuncionalidades", null);
-                comboBoxFuncionalidades.DataSource = dt;
-                comboBoxFuncionalidades.DisplayMember = dt.Columns[0].ColumnName;
-            }
+            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasFuncionalidades", null);
+            comboBoxFuncionalidades.DataSource = dt;
+            comboBoxFuncionalidades.DisplayMember = dt.Columns[0].ColumnName;
+
         }
 
         private void textBoxNombre_Validating(object sender, CancelEventArgs e)
@@ -87,8 +86,11 @@ namespace AerolineaFrba.Abm_Rol
             camposValores.Add("nombre_rol", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
 
             var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.FuncionalidadesDe", camposValores);
-            comboBoxFuncionalidades.DataSource = dt;
-            comboBoxFuncionalidades.DisplayMember = dt.Columns[0].ColumnName;
+            
+            for(int i=0;i< dt.Rows.Count;i++)
+            {
+                listBoxFuncionalidades.Items.Add(dt.Rows[i].ItemArray[0]);
+            }
         }
     }
 }

@@ -946,6 +946,30 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.CrearRol
+@nombre_rol nvarchar(255)
+AS
+	INSERT INTO ÑUFLO.Rol VALUES (@nombre_rol)
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.AsignarFuncionalidadARol
+@nombre_rol nvarchar(255),
+@descripcion nvarchar(255)
+AS
+	DECLARE @id INT, @id_funcionalidad INT
+	EXEC ÑUFLO.IdRolDe @nombre_rol, @id_rol = @id OUTPUT
+	
+	INSERT INTO ÑUFLO.Funcionalidad VALUES (@descripcion)
+	
+	SELECT @id_funcionalidad = id_funcionalidad 
+		FROM ÑUFLO.Funcionalidad
+		WHERE descripcion = @descripcion
+	
+	INSERT INTO ÑUFLO.FuncionalidadPorRol (@id, @id_funcionalidad)
+;
+GO
+	
 CREATE PROCEDURE ÑUFLO.IdRolDe
 @nombre_rol nvarchar(255),
 @id_rol int OUTPUT
