@@ -151,16 +151,23 @@ CREATE TABLE ÑUFLO.Compra (
 	)
 GO
 	
-CREATE TABLE ÑUFLO.PasajeEncomienda (
-	id_pasaje_encomienda int PRIMARY KEY,
+CREATE TABLE ÑUFLO.Pasaje (
+	id_pasaje int PRIMARY KEY,
 	codigo_de_compra  int REFERENCES ÑUFLO.Compra,
 	id_cliente  int REFERENCES ÑUFLO.Cliente,
-	peso_encomienda numeric(18, 0),
-	numero_de_butaca numeric(18, 0), 
+	numero_de_butaca numeric(18, 0) NOT NULL, 
 	cancelado bit DEFAULT 0,
 	precio numeric(18,2) NOT NULL,
-	CHECK ((peso_encomienda IS NOT NULL) OR (numero_de_butaca IS NOT NULL)
-			AND NOT (peso_encomienda IS NOT NULL) AND (numero_de_butaca IS NOT NULL))
+	)
+GO
+
+CREATE TABLE ÑUFLO.Encomienda (
+	id_encomienda int PRIMARY KEY,
+	codigo_de_compra  int REFERENCES ÑUFLO.Compra,
+	id_cliente  int REFERENCES ÑUFLO.Cliente,
+	peso_encomienda numeric(18, 0) NOT NULL,
+	cancelado bit DEFAULT 0,
+	precio numeric(18,2) NOT NULL,
 	)
 GO
 
@@ -171,11 +178,19 @@ CREATE TABLE ÑUFLO.Cancelacion (
 	)
 GO
 
-CREATE TABLE ÑUFLO.PasajeEncomiendaPorCancelacion (
-	id_pasaje_encomienda INT REFERENCES ÑUFLO.PasajeEncomienda,
+CREATE TABLE ÑUFLO.PasajePorCancelacion (
+	id_pasaje INT REFERENCES ÑUFLO.Pasaje,
 	id_cancelacion int REFERENCES ÑUFLO.Cancelacion,
 	motivo_cancelacion  nvarchar(255) NOT NULL,
-	PRIMARY KEY (id_cancelacion, id_pasaje_encomienda)
+	PRIMARY KEY (id_cancelacion, id_pasaje)
+	)
+GO
+
+CREATE TABLE ÑUFLO.EncomiendaPorCancelacion (
+	id_encomienda INT REFERENCES ÑUFLO.Encomienda,
+	id_cancelacion int REFERENCES ÑUFLO.Cancelacion,
+	motivo_cancelacion  nvarchar(255) NOT NULL,
+	PRIMARY KEY (id_cancelacion, id_encomienda)
 	)
 GO
 
@@ -346,29 +361,52 @@ GO
 /*Comrpas Pasajes Encomiendas*/
 
 /*Tabla temporal para facilitar los insert*/
-CREATE TABLE #CompraPasajeEncomienda (
+CREATE TABLE #CompraPasaje (
 	codigo_compra int IDENTITY(1,1),
 	numero_butaca numeric(18,0),
 	pasaje_precio numeric(18,2),
+	id_pasaje numeric(18,0),
+	fecha_compra datetime,
+	id_cliente int,
+	id_viaje int
+	)
+GO
+CREATE TABLE #CompraEncomienda (
+	codigo_compra int IDENTITY(1,1),
 	paquete_kg numeric(18,0),
 	paquete_precio numeric(18,2),
-	id_pasaje_encomienda numeric(18,0),
+	id_encomienda numeric(18,0),
 	fecha_compra datetime,
 	id_cliente int,
 	id_viaje int
 	)
 GO
 
-INSERT INTO #CompraPasajeEncomienda(numero_butaca, pasaje_precio, paquete_kg, paquete_precio, id_pasaje_encomienda, fecha_compra, id_cliente, id_viaje)
-	select Butaca_Nro, Pasaje_Precio, Paquete_KG, Paquete_Precio,
-			case Butaca_Piso
-				when 0 then Paquete_Codigo
-				when 1 then Pasaje_Codigo
-				end id_pasaje_encomienda,
-			case Butaca_Piso
-				when 0 then Paquete_FechaCompra
-				when 1 then Pasaje_FechaCompra
-				end fecha_compra,
+INSERT INTO #CompraPasaje(numero_butaca, pasaje_precio, id_pasaje, fecha_compra, id_cliente, id_viaje)
+	select Butaca_Nro, Pasaje_Precio, Pasaje_Codigo, Pasaje_FechaCompra,
+			(select id_cliente 
+				from ÑUFLO.Cliente c 
+				where c.dni = m.Cli_Dni
+					and c.nombre = m.Cli_Nombre
+					and c.apellido = c.apellido) cliente,
+			(select v.id_viaje 
+				from  ÑUFLO.Viaje v, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
+				where v.id_ruta = r.id_ruta
+					and r.codigo_ruta = m.Ruta_Codigo
+					and r.id_ciudad_origen = co.id_ciudad
+					and r.id_ciudad_destino = cd.id_ciudad
+					and co.nombre = m.Ruta_Ciudad_Origen
+					and cd.nombre = m.Ruta_Ciudad_Destino
+					and v.id_aeronave = (select a.id_aeronave
+										from ÑUFLO.Aeronave a
+										where a.matricula = m.Aeronave_Matricula)
+					and v.fecha_salida = m.FechaSalida
+					and v.fecha_llegada_estimada = m.Fecha_LLegada_Estimada) id_viaje
+		from gd_esquema.Maestra m
+GO
+
+INSERT INTO #CompraEncomienda(paquete_kg, paquete_precio, id_encomienda, fecha_compra, id_cliente, id_viaje)
+	select Paquete_KG, Paquete_Precio, Paquete_Codigo, Paquete_FechaCompra,
 			(select id_cliente 
 				from ÑUFLO.Cliente c 
 				where c.dni = m.Cli_Dni
@@ -393,20 +431,23 @@ GO
 /*401304 Compra - Consideramos como que las compras eran de a uno, no varios pasajes ni encomiendas juntas por no poder diferenciarlas*/
 INSERT INTO ÑUFLO.Compra (id_viaje, id_cliente, fecha_de_compra)
 	select id_viaje, id_cliente, fecha_compra
-		from  #CompraPasajeEncomienda
+		from  #CompraPasaje
 GO
+
+INSERT INTO ÑUFLO.Compra (id_viaje, id_cliente, fecha_de_compra)
+	select id_viaje, id_cliente, fecha_compra
+		from  #CompraEncomienda
+GO
+
 /*401304 PasajeEncomienda */
-INSERT INTO ÑUFLO.PasajeEncomienda (id_pasaje_encomienda, codigo_de_compra, id_cliente, peso_encomienda, numero_de_butaca, precio)
-	select id_pasaje_encomienda, codigo_compra, id_cliente, paquete_kg, 
-			case 
-				when paquete_kg > 0 then NULL
-				else numero_butaca
-			end as numero_de_butaca,
-		case pasaje_precio
-			when 0.00 then paquete_precio
-			else pasaje_precio
-			end precio
-		from #CompraPasajeEncomienda
+INSERT INTO ÑUFLO.Pasaje (id_pasaje, codigo_de_compra, id_cliente, numero_de_butaca, precio)
+	select id_pasaje, codigo_compra, id_cliente, numero_butaca, pasaje_precio
+		from #CompraPasaje
+GO
+
+INSERT INTO ÑUFLO.Encomienda (id_encomienda, codigo_de_compra, id_cliente, peso_encomienda, precio)
+	select id_encomienda, codigo_compra, id_cliente, paquete_kg, paquete_precio
+		from #CompraEncomienda
 GO
 	
 /*****************************************************************/
@@ -590,8 +631,8 @@ AS
 	SET @fecha_f = convert(datetime, @fecha_fin)
 
 	DECLARE CPasajes CURSOR 
-		FOR select c.codigo_de_compra, p.id_pasaje_encomienda
-				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p
+		FOR select c.codigo_de_compra, p.id_pasaje
+				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
 				where @id_aeronave = v.id_aeronave
 					and ((@fecha_f is null and v.fecha_salida > @fecha_i)
 					or v.fecha_salida between @fecha_i and @fecha_f)
@@ -612,12 +653,12 @@ AS
 			SET @cod_anterior = @pnr
 		END
 
-		INSERT INTO ÑUFLO.PasajeEncomiendaPorCancelacion(id_cancelacion, id_pasaje_encomienda, motivo_cancelacion)
+		INSERT INTO ÑUFLO.PasajePorCancelacion(id_cancelacion, id_pasaje, motivo_cancelacion)
 			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @pasaje, 'Baja de Aeronave')
 
-		UPDATE ÑUFLO.PasajeEncomienda
+		UPDATE ÑUFLO.Pasaje
 			SET cancelado = 1
-			WHERE @pasaje = id_pasaje_encomienda
+			WHERE @pasaje = id_pasaje
 
 		FETCH CPasajes INTO @pnr, @pasaje
 	END
@@ -733,18 +774,16 @@ GO
 CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasDe
 @codigo_compra int
 AS
-	select p.id_pasaje_encomienda Codigo, 'Pasaje' Tipo, c.dni DNI, c.nombre Nombre, c.apellido Apellido,
+	select p.id_pasaje Codigo, 'Pasaje' Tipo, c.dni DNI, c.nombre Nombre, c.apellido Apellido,
 		 '-' Peso_Encomienda, cast(p.numero_de_butaca AS nvarchar(255)) Butaca_Numero, p.precio Precio
-		from ÑUFLO.PasajeEncomienda p, ÑUFLO.Cliente c
-		where p.numero_de_butaca is not null
-			and p.id_cliente = c.id_cliente
-			and p.codigo_de_compra = @codigo_compra
+		from ÑUFLO.Pasaje p, ÑUFLO.Cliente c
+		where p.id_cliente = c.id_cliente and
+			  p.codigo_de_compra = @codigo_compra
 	UNION
-	select p.id_pasaje_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
-		from ÑUFLO.PasajeEncomienda p, ÑUFLO.Cliente c
-		where p.numero_de_butaca is null
-			and p.id_cliente = c.id_cliente
-			and p.codigo_de_compra = @codigo_compra
+	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
+		from ÑUFLO.Encomienda p, ÑUFLO.Cliente c
+		where p.id_cliente = c.id_cliente and
+			  p.codigo_de_compra = @codigo_compra
 ;
 GO
 
@@ -760,7 +799,7 @@ AS
 			except
 			select distinct p.numero_de_butaca, b.id_tipo_butaca
 				from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b,
-					 ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p
+					 ÑUFLO.Compra c, ÑUFLO.Pasaje p
 				where @id_viaje = v.id_viaje
 					and v.id_aeronave = b.id_aeronave
 					and v.id_viaje = c.id_viaje
@@ -957,9 +996,9 @@ AS
 	select top 5 p.Destino, COUNT(*) Cancelaciones
 		from ÑUFLO.DetallePasajes p,
 			ÑUFLO.Cancelacion c,
-			ÑUFLO.PasajeEncomiendaPorCancelacion pc
+			ÑUFLO.PasajePorCancelacion pc
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
-			and p.pasaje = pc.id_pasaje_encomienda
+			and p.pasaje = pc.id_pasaje
 			and p.Codigo_de_Compra = c.codigo_de_compra
 		group by p.Destino
 ;
@@ -1059,10 +1098,17 @@ RETURNS @MillasPorCliente TABLE
 AS
 BEGIN
    INSERT @MillasPorCliente
-        SELECT comp.id_cliente, ROUND(SUM(pe.precio)/10,0,1) as millas-- El tercer parametro asi trunca, con cero redondea
-        FROM ÑUFLO.Compra comp, ÑUFLO.PasajeEncomienda pe
+        SELECT comp.id_cliente, ROUND(SUM(p.precio)/10,0,1) as millas-- El tercer parametro asi trunca, con cero redondea
+        FROM ÑUFLO.Compra comp, ÑUFLO.Pasaje p
         WHERE comp.id_viaje = @Id_viaje
-			AND comp.codigo_de_compra = pe.codigo_de_compra
+			AND comp.codigo_de_compra = p.codigo_de_compra
+		GROUP BY comp.id_cliente
+   RETURN
+   INSERT @MillasPorCliente
+        SELECT comp.id_cliente, ROUND(SUM(e.precio)/10,0,1) as millas-- El tercer parametro asi trunca, con cero redondea
+        FROM ÑUFLO.Compra comp, ÑUFLO.Encomienda e
+        WHERE comp.id_viaje = @Id_viaje
+			AND comp.codigo_de_compra = e.codigo_de_compra
 		GROUP BY comp.id_cliente
    RETURN
 END
@@ -1142,26 +1188,26 @@ GO
 
 CREATE VIEW ÑUFLO.DetallePasajes
 AS
-	select co.codigo_de_compra Codigo_de_Compra, co.fecha_de_compra Fecha_De_Compra, id_pasaje_encomienda Pasaje, ci.nombre Destino,
+	select co.codigo_de_compra Codigo_de_Compra, co.fecha_de_compra Fecha_De_Compra, id_pasaje Pasaje, ci.nombre Destino,
 			DNI, c.nombre Nombre, apellido Apellido, numero_de_butaca Butaca_Numero, precio Precio
-		from ÑUFLO.Cliente c , ÑUFLO.PasajeEncomienda p, ÑUFLO.Compra co, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad ci
+		from ÑUFLO.Cliente c , ÑUFLO.Pasaje p, ÑUFLO.Compra co, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad ci
 		where  v.id_viaje = co.id_viaje
 			and v.id_ruta = r.id_ruta
 			and r.id_ciudad_destino = ci.id_ciudad
 			and co.codigo_de_compra = p.codigo_de_compra
 			and c.id_cliente = p.id_cliente
-			and p.numero_de_butaca is not null
 GO
 
 CREATE VIEW ÑUFLO.DetalleAeronavesVacias
 AS
 	select v.id_viaje Viaje, ci.nombre Destino, a.matricula Matricula, a.modelo Modelo, a.fabricante Fabricante, a.capacidad_peso_encomiendas Capacidad_Peso,
 			c.fecha_de_compra Fecha_De_Compra
-		from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.PasajeEncomienda p, ÑUFLO.Ciudad ci, ÑUFLO.RutaAerea r, ÑUFLO.Aeronave a
+		from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje pa, ÑUFLO.Encomienda en, ÑUFLO.Ciudad ci, ÑUFLO.RutaAerea r, ÑUFLO.Aeronave a
 		where v.id_ruta = r.id_ruta
 			and r.id_ciudad_destino = ci.id_ciudad
 			and v.id_viaje = c.id_viaje
-			and c.codigo_de_compra = p.codigo_de_compra
+			and (c.codigo_de_compra = pa.codigo_de_compra OR
+				c.codigo_de_compra = en.codigo_de_compra)
 			and v.id_aeronave = a.id_aeronave
 		group by v.id_viaje, ci.nombre, a.matricula, a.modelo, a.fabricante, a.capacidad_peso_encomiendas, c.fecha_de_compra
 		having COUNT(*) = 0
@@ -1188,7 +1234,11 @@ AS
 			c.fecha_devolucion Fecha_Devolucion, pc.motivo_cancelacion Motivo, p.Fecha_De_Compra, p.Destino
 		from ÑUFLO.DetallePasajes p,
 			ÑUFLO.Cancelacion c,
-			ÑUFLO.PasajeEncomiendaPorCancelacion pc
+			(select ppc.id_cancelacion, ppc.id_pasaje id_pasaje_encomienda, ppc.motivo_cancelacion
+			from ÑUFLO.PasajePorCancelacion ppc
+			union
+			select  epc.id_cancelacion, epc.id_encomienda id_pasaje_encomienda, epc.motivo_cancelacion
+			from ÑUFLO.EncomiendaPorCancelacion epc) pc
 		where p.pasaje = pc.id_pasaje_encomienda
 			and p.Codigo_de_Compra = c.codigo_de_compra
 GO

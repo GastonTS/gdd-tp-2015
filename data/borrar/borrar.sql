@@ -9,13 +9,19 @@ GO
 /********************************************/
 /****************** Tables ******************/
 /********************************************/
-DROP TABLE ÑUFLO.PasajeEncomiendaPorCancelacion
+DROP TABLE ÑUFLO.EncomiendaPorCancelacion
+GO
+
+DROP TABLE ÑUFLO.PasajePorCancelacion
 GO
 
 DROP TABLE ÑUFLO.Cancelacion
 GO
 	
-DROP TABLE ÑUFLO.PasajeEncomienda
+DROP TABLE ÑUFLO.Pasaje
+GO
+
+DROP TABLE ÑUFLO.Encomienda
 GO
 
 DROP TABLE ÑUFLO.Compra
