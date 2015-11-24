@@ -134,6 +134,10 @@ CREATE TABLE ÑUFLO.Producto (
 	)
 GO
 
+INSERT INTO ÑUFLO.Producto VALUES (100, 5, 'Valija')
+INSERT INTO ÑUFLO.Producto VALUES (50, 10, 'Campera')
+INSERT INTO ÑUFLO.Producto VALUES (10, 20, 'Pelota de futbol')
+
 CREATE TABLE ÑUFLO.Canje (
 	id_canje int IDENTITY(1,1) PRIMARY KEY,
 	id_cliente int REFERENCES ÑUFLO.Cliente,
@@ -357,6 +361,15 @@ INSERT INTO ÑUFLO.Cliente (dni , nombre, apellido, direccion, telefono, mail, f
 	select distinct Cli_Dni, Cli_Nombre, Cli_Apellido, Cli_Dir, Cli_Telefono, Cli_Mail, Cli_Fecha_Nac 
 	from gd_esquema.Maestra
 GO
+
+/*PONGO UN CASO DE PRUEBA PORQUE TODAVÍA NO SE IMPLEMENTÓ ESTO*/
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (1, 200)
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (1, 30)
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (1, 40)
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (2, 20)
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (2, 30)
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (3, 150)
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (4, 300)
 
 /*Comrpas Pasajes Encomiendas*/
 
@@ -747,14 +760,30 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.MillasTotalesDe
-@dni numeric(18,0)
+@dni numeric(18,0),
+@total numeric(18,0) OUTPUT
 AS
-	select SUM(Cantidad - Cantidad_Gastada) Total_Millas
+	select @total = SUM(Cantidad - Cantidad_Gastada)
 		from ÑUFLO.DetalleMillas
 		where Estado = 'Vigentes'
 			and DNI = @dni
 ;
+RETURN
 GO
+
+CREATE PROCEDURE ÑUFLO.ProductosDe
+@dni NUMERIC(18,0)
+AS
+	DECLARE @millas_cliente NUMERIC(18,0)
+	EXEC ÑUFLO.MillasTotalesDe @dni, @total = @millas_cliente OUTPUT
+	
+	SELECT descripcion 
+		FROM ÑUFLO.Producto
+		WHERE millas_necesarias <= @millas_cliente
+;
+GO
+	
+	
 
 CREATE PROCEDURE ÑUFLO.ViajesDisponiblesPara
 @ciudad_origen nvarchar(255),

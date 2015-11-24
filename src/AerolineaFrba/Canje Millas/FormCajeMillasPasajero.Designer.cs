@@ -37,6 +37,7 @@
             this.labelFechaCanje = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.groupBoxInfoCliente = new System.Windows.Forms.GroupBox();
+            this.btnVerProductos = new System.Windows.Forms.Button();
             this.groupBoxProducto = new System.Windows.Forms.GroupBox();
             this.groupBoxFecha = new System.Windows.Forms.GroupBox();
             this.labelVentanillaPasillo = new System.Windows.Forms.Label();
@@ -116,6 +117,7 @@
             // 
             // groupBoxInfoCliente
             // 
+            this.groupBoxInfoCliente.Controls.Add(this.btnVerProductos);
             this.groupBoxInfoCliente.Controls.Add(this.textBoxDni);
             this.groupBoxInfoCliente.Controls.Add(this.labelDni);
             this.groupBoxInfoCliente.Location = new System.Drawing.Point(36, 24);
@@ -124,6 +126,16 @@
             this.groupBoxInfoCliente.TabIndex = 8;
             this.groupBoxInfoCliente.TabStop = false;
             this.groupBoxInfoCliente.Text = "Información de cliente";
+            // 
+            // btnVerProductos
+            // 
+            this.btnVerProductos.Location = new System.Drawing.Point(201, 27);
+            this.btnVerProductos.Name = "btnVerProductos";
+            this.btnVerProductos.Size = new System.Drawing.Size(121, 23);
+            this.btnVerProductos.TabIndex = 2;
+            this.btnVerProductos.Text = "Ver sus Productos";
+            this.btnVerProductos.UseVisualStyleBackColor = true;
+            this.btnVerProductos.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBoxProducto
             // 
@@ -166,6 +178,7 @@
             this.btnGuardar.TabIndex = 18;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnLimpiar
             // 
@@ -217,5 +230,6 @@
         private System.Windows.Forms.Label labelVentanillaPasillo;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Button btnVerProductos;
     }
 }
