@@ -949,6 +949,9 @@ GO
 CREATE PROCEDURE ÑUFLO.CrearRol
 @nombre_rol nvarchar(255)
 AS
+	IF((SELECT nombre_rol FROM ÑUFLO.Rol WHERE nombre_rol = @nombre_rol) IS NOT NULL)
+		THROW 60005, 'Ese rol ya existe', 1
+		
 	INSERT INTO ÑUFLO.Rol VALUES (@nombre_rol, 1)
 ;
 GO	

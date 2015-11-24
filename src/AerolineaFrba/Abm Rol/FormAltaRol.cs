@@ -53,7 +53,10 @@ namespace AerolineaFrba.Abm_Rol
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            this.guardar();
+            darDeAltaRol();
+            agregarFuncionalidades();
+
+            //this.guardar(); No estaría funcionando esto como uno espera. Pero es una buena idea
         }
 
         private void btnAñadir_Click(object sender, EventArgs e)
@@ -90,6 +93,33 @@ namespace AerolineaFrba.Abm_Rol
             for(int i=0;i< dt.Rows.Count;i++)
             {
                 listBoxFuncionalidades.Items.Add(dt.Rows[i].ItemArray[0]);
+            }
+        }
+
+        private void darDeAltaRol()
+        {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
+            camposValores.Add("nombre_rol", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
+            
+            errorMensaje.Add(60005, "Ese rol ya existe en el sistema. Ingrese uno distinto...");
+
+            new gdDataBase().Exec("ÑUFLO.CrearRol", camposValores, errorMensaje, "Rol registrada correctamente");
+        }
+
+        private void agregarFuncionalidades()
+        {
+            for (int i = 0; i < listBoxFuncionalidades.Items.Count; i++)
+            {
+                Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+                Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
+                camposValores.Add("nombre_rol", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
+                camposValores.Add("descripcion", new gdDataBase.ValorTipo(listBoxFuncionalidades.Items[i].ToString()
+                    , SqlDbType.VarChar));
+
+                new gdDataBase().Exec("ÑUFLO.AsignarFuncionalidadARol", camposValores, errorMensaje, null);
             }
         }
     }
