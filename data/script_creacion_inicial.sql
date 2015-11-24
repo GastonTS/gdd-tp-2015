@@ -443,11 +443,13 @@ GO
 INSERT INTO ÑUFLO.Pasaje (id_pasaje, codigo_de_compra, id_cliente, numero_de_butaca, precio)
 	select id_pasaje, codigo_compra, id_cliente, numero_butaca, pasaje_precio
 		from #CompraPasaje
+		where id_pasaje != 0
 GO
 
 INSERT INTO ÑUFLO.Encomienda (id_encomienda, codigo_de_compra, id_cliente, peso_encomienda, precio)
 	select id_encomienda, codigo_compra, id_cliente, paquete_kg, paquete_precio
 		from #CompraEncomienda
+		where id_encomienda != 0
 GO
 	
 /*****************************************************************/
