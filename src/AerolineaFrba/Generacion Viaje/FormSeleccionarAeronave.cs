@@ -69,7 +69,7 @@ namespace AerolineaFrba.Generacion_Viaje
         {
             DataGridViewRow filaAeronave = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
 
-            IFormulariosViaje formInterface = this.Owner as IFormulariosViaje;
+            ISeleccionAeronave formInterface = this.Owner as ISeleccionAeronave;
 
             if (formInterface != null)
                 formInterface.setMatricula(filaAeronave.Cells[2].FormattedValue.ToString());

@@ -172,6 +172,18 @@ GO
 DROP PROCEDURE ÑUFLO.DestinoOrigen
 GO
 
+DROP PROCEDURE ÑUFLO.TiposDeServicio
+GO
+
+DROP PROCEDURE ÑUFLO.Ciudades
+GO
+
+DROP PROCEDURE ÑUFLO.IdCiudadDadoNombre
+GO
+
+DROP PROCEDURE ÑUFLO.IdTipoServicioDadoServicio
+GO
+
 DROP PROCEDURE ÑUFLO.CiudadTipoServicio
 GO
 

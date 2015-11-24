@@ -1033,6 +1033,18 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.TiposDeServicio
+AS
+	SELECT tipo_servicio "Tipo Servicio" FROM ÑUFLO.TipoServicio
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.Ciudades
+AS
+	SELECT nombre FROM ÑUFLO.Ciudad
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.CiudadTipoServicio
 AS
 	select id_ciudad "Id ciudad", nombre "Nombre"
@@ -1043,11 +1055,34 @@ AS
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.FiltrosAltaRutaAerea
-@id_ciudad_origen int = NULL,
-@id_ciudad_destino int = NULL,
-@id_tipo_servicio int = NULL
+CREATE PROCEDURE ÑUFLO.IdCiudadDadoNombre
+@nombre nvarchar(255),
+@id INT OUTPUT
 AS
+	SELECT @id = id_ciudad FROM Ciudad WHERE nombre = @nombre
+;
+RETURN
+GO
+
+CREATE PROCEDURE ÑUFLO.IdTipoServicioDadoServicio
+@servicio nvarchar(255),
+@id INT OUTPUT
+AS
+	SELECT @id = id_tipo_servicio FROM TipoServicio WHERE tipo_servicio = @servicio
+;
+RETURN
+GO
+
+CREATE PROCEDURE ÑUFLO.FiltrosAltaRutaAerea
+@nombre_origen nvarchar(255) = NULL,
+@nombre_destino nvarchar(255) = NULL,
+@tipo_servicio nvarchar(255) = NULL
+AS
+	DECLARE @id_ciudad_origen int, @id_ciudad_destino int, @id_tipo_servicio int
+	EXEC ÑUFLO.IdCiudadDadoNombre @nombre_origen, @id = @id_ciudad_origen OUTPUT;
+	EXEC ÑUFLO.IdCiudadDadoNombre @nombre_destino, @id = @id_ciudad_destino OUTPUT;
+	EXEC ÑUFLO.IdTipoServicioDadoServicio @tipo_servicio, @id = @id_tipo_servicio OUTPUT;
+
 	SELECT ra.id_ruta "Id ruta",ra.codigo_ruta "Codigo de ruta",c1.id_ciudad "Id ciudad origen",c1.nombre "Ciudad origen",
 		   c2.id_ciudad "Id ciudad destino",c2.nombre "Ciudad destino", ra.precio_base_por_peso "Precio base por peso",
 		   ra.precio_base_por_pasaje "Precio base por pasaje", ts.tipo_servicio "Tipo de servicio"	

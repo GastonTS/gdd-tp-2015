@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Generacion_Viaje
 {
-    public partial class FormGenerarViaje : Form, IFormulariosViaje
+    public partial class FormGenerarViaje : Form, ISeleccionAeronave, ISeleccionRuta
     {
         private Control primerControlInvalido;
 
@@ -28,7 +28,7 @@ namespace AerolineaFrba.Generacion_Viaje
         private void btnSeleccionRuta_Click(object sender, EventArgs e)
         {
             FormSeleccionarRutaAerea fra = new FormSeleccionarRutaAerea();
-            fra.Show();
+            fra.Show(this);
         }
 
         public void setMatricula(String matricula)
@@ -84,6 +84,19 @@ namespace AerolineaFrba.Generacion_Viaje
         {
             asinarValidacion(sender, dateTimePickerSalida.Value.CompareTo(dateTimePickerLlegada.Value) <= 0,
                 "La fecha de llegada debe ser mayor a la fecha d salida");
+        }
+
+        public void setCiudadOrigen(String origen)
+        {
+            textBoxOrigen.Text = origen;
+        }
+        public void setCiudadDestino(String destino)
+        {
+            textBoxDestino.Text = destino;
+        }
+        public void setTipoServicio(String tipoServicio)
+        {
+            textBoxTipoServicio.Text = tipoServicio;
         }
     }
 }

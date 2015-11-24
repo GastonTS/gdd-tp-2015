@@ -232,7 +232,8 @@
     <Compile Include="Generacion Viaje\FormSeleccionarRutaAerea.Designer.cs">
       <DependentUpon>FormSeleccionarRutaAerea.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generacion Viaje\IFormulariosViaje.cs" />
+    <Compile Include="Generacion Viaje\ISeleccionAeronave.cs" />
+    <Compile Include="Generacion Viaje\ISeleccionRuta.cs" />
     <Compile Include="Listado Estadistico\FormListadoEstadistico.cs">
       <SubType>Form</SubType>
     </Compile>
