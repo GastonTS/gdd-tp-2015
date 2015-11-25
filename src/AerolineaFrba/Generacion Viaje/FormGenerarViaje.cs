@@ -47,7 +47,19 @@ namespace AerolineaFrba.Generacion_Viaje
             if (primerControlInvalido != null) primerControlInvalido.Focus();
             else
             {
-                // lo que tiene que hacer el boton guardar (generar el viaje)     
+                Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+                Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
+                camposValores.Add("fecha_salida", new gdDataBase.ValorTipo(dateTimePickerSalida.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
+                camposValores.Add("fecha_llegada_estimada", new gdDataBase.ValorTipo(dateTimePickerEstimada.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
+                camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.VarChar));
+                camposValores.Add("ciudad_origen", new gdDataBase.ValorTipo(textBoxOrigen.Text, SqlDbType.VarChar));
+                camposValores.Add("ciudad_destino", new gdDataBase.ValorTipo(textBoxDestino.Text, SqlDbType.VarChar));
+                camposValores.Add("tipo_de_servicio", new gdDataBase.ValorTipo(textBoxTipoServicio.Text, SqlDbType.VarChar));
+
+                errorMensaje.Add(60007, "El servicio brindado por la aeronave no coincide con el de la ruta");
+
+                new gdDataBase().Exec("ÑUFLO.GenerarViaje", camposValores, errorMensaje, "Viaje registrado correctamente");
             }
         }
 

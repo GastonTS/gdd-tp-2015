@@ -814,7 +814,10 @@ CREATE PROCEDURE ÑUFLO.GenerarViaje
 @ciudad_destino nvarchar(255),
 @tipo_de_servicio nvarchar(255)
 AS
-	DECLARE @id_aeronave INT, @id_ruta INT
+	DECLARE @id_aeronave INT, @id_ruta INT, @id_origen INT, @id_destino INT
+	
+	SELECT @id_origen = id_ciudad FROM ÑUFLO.Ciudad WHERE nombre = @ciudad_origen
+	SELECT @id_destino = id_ciudad FROM ÑUFLO.Ciudad WHERE nombre = @ciudad_destino
 	
 	SELECT @id_aeronave = id_aeronave FROM ÑUFLO.Aeronave WHERE matricula = @matricula
 	
@@ -825,13 +828,9 @@ AS
 		THROW 60007, 'El servicio brindado por la aeronave no coincide con el de la ruta', 1
 	END
 	
-	SELECT @id_ruta = r.id_ruta 
-		FROM ÑUFLO.Ruta r 
-			JOIN ÑUFLO.ServicioPorRuta sr ON (r.id_ruta = sr.id_ruta)
-			JOIN ÑUFLO.TipoServicio ts ON (ts.id_tipo_servicio = sr.id_tipo_servicio)
-		WHERE id_ciudad_origen = @ciudad_origen AND id_ciudad_destino = @ciudad_destino
-			AND ts.id_tipo = (SELECT id_tipo FROM ÑUFLO.TipoServicio 
-								WHERE tipo_servicio = @tipo_de_servicio)
+	SELECT @id_ruta = id_ruta 
+		FROM ÑUFLO.RutaAerea
+		WHERE id_ciudad_origen = @id_origen AND id_ciudad_destino = @id_destino
 	
 	INSERT INTO ÑUFLO.Viaje (id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada_estimada)
 		VALUES (@id_aeronave, @id_ruta, 0, @fecha_salida, @fecha_llegada_estimada)
