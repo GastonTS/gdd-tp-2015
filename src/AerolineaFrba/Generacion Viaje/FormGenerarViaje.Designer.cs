@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.labelFechaSalida = new System.Windows.Forms.Label();
             this.dateTimePickerSalida = new System.Windows.Forms.DateTimePicker();
-            this.labelFechaLlegada = new System.Windows.Forms.Label();
-            this.dateTimePickerLlegada = new System.Windows.Forms.DateTimePicker();
             this.labelFechaEstimada = new System.Windows.Forms.Label();
             this.dateTimePickerEstimada = new System.Windows.Forms.DateTimePicker();
             this.groupBoxFechasYHorarios = new System.Windows.Forms.GroupBox();
@@ -74,28 +72,10 @@
             this.dateTimePickerSalida.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerSalida.TabIndex = 1;
             // 
-            // labelFechaLlegada
-            // 
-            this.labelFechaLlegada.AutoSize = true;
-            this.labelFechaLlegada.Location = new System.Drawing.Point(29, 73);
-            this.labelFechaLlegada.Name = "labelFechaLlegada";
-            this.labelFechaLlegada.Size = new System.Drawing.Size(96, 13);
-            this.labelFechaLlegada.TabIndex = 2;
-            this.labelFechaLlegada.Text = "Fecha de Llegada:";
-            // 
-            // dateTimePickerLlegada
-            // 
-            this.dateTimePickerLlegada.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerLlegada.Location = new System.Drawing.Point(166, 67);
-            this.dateTimePickerLlegada.Name = "dateTimePickerLlegada";
-            this.dateTimePickerLlegada.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerLlegada.TabIndex = 3;
-            this.dateTimePickerLlegada.Validating += new System.ComponentModel.CancelEventHandler(this.dateTimePickerLlegada_Validating);
-            // 
             // labelFechaEstimada
             // 
             this.labelFechaEstimada.AutoSize = true;
-            this.labelFechaEstimada.Location = new System.Drawing.Point(29, 114);
+            this.labelFechaEstimada.Location = new System.Drawing.Point(29, 73);
             this.labelFechaEstimada.Name = "labelFechaEstimada";
             this.labelFechaEstimada.Size = new System.Drawing.Size(131, 13);
             this.labelFechaEstimada.TabIndex = 4;
@@ -104,22 +84,21 @@
             // dateTimePickerEstimada
             // 
             this.dateTimePickerEstimada.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerEstimada.Location = new System.Drawing.Point(166, 108);
+            this.dateTimePickerEstimada.Location = new System.Drawing.Point(166, 67);
             this.dateTimePickerEstimada.Name = "dateTimePickerEstimada";
             this.dateTimePickerEstimada.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerEstimada.TabIndex = 5;
+            this.dateTimePickerEstimada.Validating += new System.ComponentModel.CancelEventHandler(this.dateTimePickerEstimada_Validating);
             // 
             // groupBoxFechasYHorarios
             // 
-            this.groupBoxFechasYHorarios.Controls.Add(this.dateTimePickerLlegada);
             this.groupBoxFechasYHorarios.Controls.Add(this.labelFechaSalida);
             this.groupBoxFechasYHorarios.Controls.Add(this.dateTimePickerEstimada);
             this.groupBoxFechasYHorarios.Controls.Add(this.dateTimePickerSalida);
             this.groupBoxFechasYHorarios.Controls.Add(this.labelFechaEstimada);
-            this.groupBoxFechasYHorarios.Controls.Add(this.labelFechaLlegada);
             this.groupBoxFechasYHorarios.Location = new System.Drawing.Point(34, 17);
             this.groupBoxFechasYHorarios.Name = "groupBoxFechasYHorarios";
-            this.groupBoxFechasYHorarios.Size = new System.Drawing.Size(475, 155);
+            this.groupBoxFechasYHorarios.Size = new System.Drawing.Size(475, 106);
             this.groupBoxFechasYHorarios.TabIndex = 8;
             this.groupBoxFechasYHorarios.TabStop = false;
             this.groupBoxFechasYHorarios.Text = "Fechas y Horarios Programados";
@@ -129,7 +108,7 @@
             this.groupBoxAeronave.Controls.Add(this.btnSeleccionAeronave);
             this.groupBoxAeronave.Controls.Add(this.textBoxMatricula);
             this.groupBoxAeronave.Controls.Add(this.labelMatricula);
-            this.groupBoxAeronave.Location = new System.Drawing.Point(34, 196);
+            this.groupBoxAeronave.Location = new System.Drawing.Point(34, 141);
             this.groupBoxAeronave.Name = "groupBoxAeronave";
             this.groupBoxAeronave.Size = new System.Drawing.Size(475, 73);
             this.groupBoxAeronave.TabIndex = 9;
@@ -172,7 +151,7 @@
             this.groupBox1.Controls.Add(this.labelTipoServicio);
             this.groupBox1.Controls.Add(this.labelDestino);
             this.groupBox1.Controls.Add(this.labelOrigen);
-            this.groupBox1.Location = new System.Drawing.Point(34, 297);
+            this.groupBox1.Location = new System.Drawing.Point(34, 232);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(475, 132);
             this.groupBox1.TabIndex = 10;
@@ -242,7 +221,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(434, 461);
+            this.btnGuardar.Location = new System.Drawing.Point(434, 395);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 12;
@@ -252,7 +231,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(34, 461);
+            this.btnLimpiar.Location = new System.Drawing.Point(34, 395);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 11;
@@ -268,7 +247,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 508);
+            this.ClientSize = new System.Drawing.Size(542, 431);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBoxFechasYHorarios);
@@ -292,8 +271,6 @@
 
         private System.Windows.Forms.Label labelFechaSalida;
         private System.Windows.Forms.DateTimePicker dateTimePickerSalida;
-        private System.Windows.Forms.Label labelFechaLlegada;
-        private System.Windows.Forms.DateTimePicker dateTimePickerLlegada;
         private System.Windows.Forms.Label labelFechaEstimada;
         private System.Windows.Forms.DateTimePicker dateTimePickerEstimada;
         private System.Windows.Forms.GroupBox groupBoxFechasYHorarios;

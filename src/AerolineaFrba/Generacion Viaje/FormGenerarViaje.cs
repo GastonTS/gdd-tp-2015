@@ -54,7 +54,6 @@ namespace AerolineaFrba.Generacion_Viaje
         private void FormGenerarViaje_Load(object sender, EventArgs e)
         {
             dateTimePickerSalida.MinDate = DateTime.Now.Date;
-            dateTimePickerLlegada.MinDate = DateTime.Now.Date;
             dateTimePickerEstimada.MinDate = DateTime.Now.Date;
         }
 
@@ -65,7 +64,6 @@ namespace AerolineaFrba.Generacion_Viaje
             textBoxOrigen.Text = "";
             textBoxTipoServicio.Text = "";
             dateTimePickerEstimada.ResetText();
-            dateTimePickerLlegada.ResetText();
             dateTimePickerSalida.ResetText();
         }
 
@@ -80,12 +78,6 @@ namespace AerolineaFrba.Generacion_Viaje
             }
         }
 
-        private void dateTimePickerLlegada_Validating(object sender, CancelEventArgs e)
-        {
-            asinarValidacion(sender, dateTimePickerSalida.Value.CompareTo(dateTimePickerLlegada.Value) <= 0,
-                "La fecha de llegada debe ser mayor a la fecha d salida");
-        }
-
         public void setCiudadOrigen(String origen)
         {
             textBoxOrigen.Text = origen;
@@ -97,6 +89,12 @@ namespace AerolineaFrba.Generacion_Viaje
         public void setTipoServicio(String tipoServicio)
         {
             textBoxTipoServicio.Text = tipoServicio;
+        }
+
+        private void dateTimePickerEstimada_Validating(object sender, CancelEventArgs e)
+        {
+            asinarValidacion(sender, dateTimePickerSalida.Value.CompareTo(dateTimePickerEstimada.Value) <= 0,
+                "La fecha de llegada estimada debe ser mayor a la fecha de salida");
         }
     }
 }
