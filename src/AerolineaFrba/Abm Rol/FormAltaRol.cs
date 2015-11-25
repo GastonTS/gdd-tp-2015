@@ -53,8 +53,13 @@ namespace AerolineaFrba.Abm_Rol
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            darDeAltaRol();
-            agregarFuncionalidades();
+            if (!modificacion)
+            {
+                darDeAltaRol();
+                agregarFuncionalidades();
+            }
+            else
+                actualizarRol();
 
             //this.guardar(); No estaría funcionando esto como uno espera. Pero es una buena idea
         }
@@ -121,6 +126,18 @@ namespace AerolineaFrba.Abm_Rol
 
                 new gdDataBase().Exec("ÑUFLO.AsignarFuncionalidadARol", camposValores, errorMensaje, null);
             }
+        }
+
+        private void actualizarRol()
+        {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            camposValores.Add("nombre_rol", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
+
+            new gdDataBase().GetDataWithParameters("ÑUFLO.BorrarFuncionalidadesDe", camposValores);
+
+            agregarFuncionalidades();
+
+            MessageBox.Show("Rol modificado correctamente"); //no valido nada, porque no hay posibilidad de error...
         }
     }
 }
