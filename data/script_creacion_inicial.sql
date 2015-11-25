@@ -806,6 +806,38 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.GenerarViaje
+@fecha_salida datetime,
+@fecha_llegada_estimada datetime,
+@matricula nvarchar(255),
+@ciudad_origen nvarchar(255),
+@ciudad_destino nvarchar(255),
+@tipo_de_servicio nvarchar(255)
+AS
+	DECLARE @id_aeronave INT, @id_ruta INT
+	
+	SELECT @id_aeronave = id_aeronave FROM ÑUFLO.Aeronave WHERE matricula = @matricula
+	
+	IF (@tipo_de_servicio not in (SELECT ts.tipo_servicio FROM ÑUFLO.TipoServicio ts 
+								JOIN ÑUFLO.Aeronave a ON (ts.id_tipo_servicio = a.id_tipo_servicio)
+									WHERE id_aeronave = @id_aeronave))
+	BEGIN
+		THROW 60007, 'El servicio brindado por la aeronave no coincide con el de la ruta', 1
+	END
+	
+	SELECT @id_ruta = r.id_ruta 
+		FROM ÑUFLO.Ruta r 
+			JOIN ÑUFLO.ServicioPorRuta sr ON (r.id_ruta = sr.id_ruta)
+			JOIN ÑUFLO.TipoServicio ts ON (ts.id_tipo_servicio = sr.id_tipo_servicio)
+		WHERE id_ciudad_origen = @ciudad_origen AND id_ciudad_destino = @ciudad_destino
+			AND ts.id_tipo = (SELECT id_tipo FROM ÑUFLO.TipoServicio 
+								WHERE tipo_servicio = @tipo_de_servicio)
+	
+	INSERT INTO ÑUFLO.Viaje (id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada_estimada)
+		VALUES (@id_aeronave, @id_ruta, 0, @fecha_salida, @fecha_llegada_estimada)
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasDe
 @codigo_compra int
 AS
