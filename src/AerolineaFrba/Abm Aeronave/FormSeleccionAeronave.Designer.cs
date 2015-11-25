@@ -212,6 +212,7 @@
             this.checkBoxPorVidaUtil.TabIndex = 1;
             this.checkBoxPorVidaUtil.Text = "de Baja por Vida Útil";
             this.checkBoxPorVidaUtil.UseVisualStyleBackColor = true;
+            this.checkBoxPorVidaUtil.CheckedChanged += new System.EventHandler(this.checkBoxPorVidaUtil_CheckedChanged);
             // 
             // checkBoxBajaPorServicio
             // 
@@ -222,6 +223,7 @@
             this.checkBoxBajaPorServicio.TabIndex = 0;
             this.checkBoxBajaPorServicio.Text = "De Baja por Fuera de Servicio";
             this.checkBoxBajaPorServicio.UseVisualStyleBackColor = true;
+            this.checkBoxBajaPorServicio.CheckedChanged += new System.EventHandler(this.checkBoxBajaPorServicio_CheckedChanged);
             // 
             // btnLimpiar
             // 
@@ -273,6 +275,7 @@
             this.btnBajaFueraServicio.TabIndex = 20;
             this.btnBajaFueraServicio.Text = "Dar de Baja Por Fuera de Servicio";
             this.btnBajaFueraServicio.UseVisualStyleBackColor = true;
+            this.btnBajaFueraServicio.Click += new System.EventHandler(this.btnBajaFueraServicio_Click);
             // 
             // btnBajaVidaUtil
             // 
