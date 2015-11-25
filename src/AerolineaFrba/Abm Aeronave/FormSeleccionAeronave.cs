@@ -119,11 +119,27 @@ namespace AerolineaFrba.Abm_Aeronave
                     "Baja por vida útil de Aeronave con viajes asignados", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    //do something
+                    // fecha inicio la considero como la fecha actual
+                    camposValores.Clear();
+                    camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
+                    camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+                    
+                    errorMensaje.Clear();
+                    errorMensaje.Add(60005, "No se pudieron reemplazar todos los viajes");
+
+                    new gdDataBase().Exec("ÑUFLO.ReemplazarAeronavePara", camposValores, errorMensaje, 
+                        "Pasajes/Encomiendas de la aeronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " reprogramadas exitosamente");
                 }
                 else if (dialogResult == DialogResult.No)
                 {
-                    //do something else
+                    // fecha inicio la considero como la fecha actual
+                    camposValores.Clear();
+                    camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
+                    camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+                    camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+
+                    new gdDataBase().Exec("ÑUFLO.CancelarPasajesDe", camposValores, null,
+                        "Pasajes de aronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " cancelados correctamente");
                 }
             }
         }
