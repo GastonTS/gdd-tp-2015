@@ -83,17 +83,7 @@ namespace AerolineaFrba.Abm_Ruta
             dataGridView1.DataSource = rutaAereaBindingSource;
         }
 
-        private void comboBoxOrigen_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            consultarConFiltro();
-        }
-
-        private void comboBoxDestino_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            consultarConFiltro();
-        }
-
-        private void comboBoxTipoServicio_SelectionChangeCommitted(object sender, EventArgs e)
+        private void cambioAlgunFiltro(object sender, EventArgs e)
         {
             consultarConFiltro();
         }
