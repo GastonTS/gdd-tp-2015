@@ -87,10 +87,6 @@ CREATE TABLE ÑUFLO.ServicioTecnico (
 	fecha_reinicio_de_servicio datetime
 	)
 GO
-
-ALTER TABLE ÑUFLO.Aeronave
-	ADD CONSTRAINT fk_baja_por_fuera_de_servicio FOREIGN KEY (baja_por_fuera_de_servicio) REFERENCES ÑUFLO.ServicioTecnico
-GO
 	
 CREATE TABLE ÑUFLO.Viaje (
 	id_viaje int IDENTITY(1,1) PRIMARY KEY,
@@ -532,7 +528,7 @@ CREATE PROCEDURE ÑUFLO.FiltroAeronave
 @cantidad_butacas int = null
 AS
 select id_aeronave, modelo, matricula, fabricante, id_tipo_servicio, fecha_de_alta, capacidad_peso_encomiendas, baja_vida_utill, baja_por_fuera_de_servicio
-	from ÑUFLO.Aeronave
+	from ÑUFLO.Aeronave a
 	where (@modelo is null or @modelo = modelo)
 		and (@matricula is null or @matricula = matricula)
 		and (@fabricante is null or @fabricante = fabricante)
@@ -540,9 +536,9 @@ select id_aeronave, modelo, matricula, fabricante, id_tipo_servicio, fecha_de_al
 		and (@baja_vida_util is null or (@baja_vida_util = 1 and baja_vida_utill is not null))
 		and (@tipo_servicio is null or @tipo_servicio = id_tipo_servicio)
 		and (@capacidad_encomiendas is null or @capacidad_encomiendas < capacidad_peso_encomiendas)
-		and (@cantidad_butacas is null or @cantidad_butacas < (select COUNT(id_tipo_butaca) 
+		and (@cantidad_butacas is null or @cantidad_butacas <= (select COUNT(id_tipo_butaca) 
 																	from ÑUFLO.ButacaPorAvion b
-																	where id_aeronave = b.id_aeronave))
+																	where a.id_aeronave = b.id_aeronave))
 
 ;
 GO
@@ -598,7 +594,7 @@ CREATE PROCEDURE ÑUFLO.BajaPorVidaUtil
 @fecha nvarchar(255)
 AS
 	if((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave=@id_aeronave) is not null)
-		THROW 60004, 'La nave ya se fuera de su vida util', 1
+		THROW 60004, 'La nave ya se encuentra fuera de su vida util', 1
 	
 	DECLARE @fecha_baja datetime
 	SET @fecha_baja = convert(datetime, @fecha)
@@ -643,20 +639,18 @@ GO
 CREATE PROCEDURE ÑUFLO.CancelarPasajesDe
 @id_aeronave int,
 @fecha_hoy nvarchar(255),
-@fecha_inicio nvarchar(255),
 @fecha_fin nvarchar(255) = null
 AS
-	DECLARE @fecha_i datetime, @fecha_f datetime, @hoy datetime
+	DECLARE @fecha_f datetime, @hoy datetime
 	SET @hoy = convert(datetime, @fecha_hoy)
-	SET @fecha_i = convert(datetime, @fecha_inicio)
 	SET @fecha_f = convert(datetime, @fecha_fin)
 
 	DECLARE CPasajes CURSOR 
 		FOR select c.codigo_de_compra, p.id_pasaje
 				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
 				where @id_aeronave = v.id_aeronave
-					and ((@fecha_f is null and v.fecha_salida > @fecha_i)
-					or v.fecha_salida between @fecha_i and @fecha_f)
+					and ((@fecha_f is null and v.fecha_salida > @hoy)
+					or v.fecha_salida between @hoy and @fecha_f)
 					and v.id_viaje = c.id_viaje
 					and c.codigo_de_compra = p.codigo_de_compra
 
@@ -1247,6 +1241,20 @@ AS
 ;  
 GO
 
+CREATE PROCEDURE ÑUFLO.UpdateRutaAerea
+@id_ruta int,
+@codigo_ruta numeric (18, 0),
+@id_ciudad_origen int,
+@id_ciudad_destino int,
+@precio_base_por_peso  numeric (18, 0),
+@precio_base_por_pasaje  numeric (18, 0)
+AS
+	UPDATE ÑUFLO.RutaAerea
+	SET codigo_ruta = @codigo_ruta, id_ciudad_origen = @id_ciudad_origen, id_ciudad_destino = @id_ciudad_destino,
+		precio_base_por_peso = @precio_base_por_peso, precio_base_por_pasaje = @precio_base_por_pasaje
+	WHERE id_ruta = @id_ruta
+;  
+GO
 
 /*****************************************************************/
 /*************************** Function ****************************/
