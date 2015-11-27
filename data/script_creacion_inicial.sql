@@ -528,7 +528,7 @@ CREATE PROCEDURE ÑUFLO.FiltroAeronave
 @cantidad_butacas int = null
 AS
 select id_aeronave, modelo, matricula, fabricante, id_tipo_servicio, fecha_de_alta, capacidad_peso_encomiendas, baja_vida_utill, baja_por_fuera_de_servicio
-	from ÑUFLO.Aeronave
+	from ÑUFLO.Aeronave a
 	where (@modelo is null or @modelo = modelo)
 		and (@matricula is null or @matricula = matricula)
 		and (@fabricante is null or @fabricante = fabricante)
@@ -536,9 +536,9 @@ select id_aeronave, modelo, matricula, fabricante, id_tipo_servicio, fecha_de_al
 		and (@baja_vida_util is null or (@baja_vida_util = 1 and baja_vida_utill is not null))
 		and (@tipo_servicio is null or @tipo_servicio = id_tipo_servicio)
 		and (@capacidad_encomiendas is null or @capacidad_encomiendas < capacidad_peso_encomiendas)
-		and (@cantidad_butacas is null or @cantidad_butacas < (select COUNT(id_tipo_butaca) 
+		and (@cantidad_butacas is null or @cantidad_butacas <= (select COUNT(id_tipo_butaca) 
 																	from ÑUFLO.ButacaPorAvion b
-																	where id_aeronave = b.id_aeronave))
+																	where a.id_aeronave = b.id_aeronave))
 
 ;
 GO
