@@ -21,20 +21,29 @@ namespace AerolineaFrba.Abm_Ruta
         {
 
         }
-        private String rutasAereasQuery()
-        {
-            return "SELECT ra.codigo_ruta AS 'Código Ruta', co.nombre AS 'Ciudad Origen', cd.nombre AS 'Ciudad Destino', ra.precio_base_por_peso AS 'Precio base x peso', ra.precio_base_por_pasaje AS 'Precio base x pasaje' FROM [ÑUFLO].RutaAerea ra,[ÑUFLO].Ciudad co,[ÑUFLO].Ciudad cd,[ÑUFLO].ServicioPorRuta spr WHERE ra.id_ciudad_origen=co.id_ciudad AND ra.id_ciudad_destino=cd.id_ciudad AND spr.id_ruta = ra.id_ruta";
-        }
 
         private void FormModificacionRuta_Load(object sender, EventArgs e)
         {
 
-            var ds = new gdDataBase().GetDataQuery("ÑUFLO.DestinoOrigen SELECT id_tipo_servicio 'Id Tipo Servicio', tipo_servicio 'Tipo Servicio', porcentaje_recargo 'Porcentaje Recargo' FROM ÑUFLO.TipoServicio " + rutasAereasQuery());
+            var ds = new gdDataBase().ExecAndGetDataSet("CiudadTipoServicio");
 
-            origenBindingSource.DataSource = ds.Tables[1];
-            destinoBindingSource.DataSource = ds.Tables[1];
-            tipoServicioBinding.DataSource = ds.Tables[2];
-            rutaAereaBindingSource.DataSource = ds.Tables[3];
+            DataTable ciudades = ds.Tables[0];
+            var filaExtraCiudad = ciudades.NewRow();
+            filaExtraCiudad["Nombre"] = " Cualquiera";
+            ciudades.Rows.InsertAt(filaExtraCiudad,0);
+
+            DataTable servicios = ds.Tables[1];
+            var filaExtraServicios = servicios.NewRow();
+            filaExtraServicios["Tipo Servicio"] = "Cualquiera";
+            servicios.Rows.InsertAt(filaExtraServicios, 0);
+
+
+            origenBindingSource.DataSource = ciudades;
+            destinoBindingSource.DataSource = ciudades;            
+            tipoServicioBinding.DataSource = servicios;
+            
+
+            rutaAereaBindingSource.DataSource = new gdDataBase().ExecAndGetDataSet("FiltrosModificacionRutaAerea").Tables[0];
             
 
             comboBoxOrigen.DisplayMember = "Nombre";
@@ -53,33 +62,40 @@ namespace AerolineaFrba.Abm_Ruta
             
         }
 
-        private String queryFiltros()
-        {
-            return "SELECT * FROM [ÑUFLO].RutaAerea "+"WHERE id_servicio = "+filtros()[0];
-        }
         
-        private List<String> filtros()
+        private void consultarConFiltro()
         {
-            return new List<ComboBox>{ comboBoxTipoServicio, comboBoxDestino, comboBoxOrigen }.Select(control => "'"+control.SelectedValue.ToString()+"'").ToList();
+         
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            
+            if(comboBoxOrigen.SelectedValue.ToString()!="")
+            camposValores.Add("id_ciudad_origen", new gdDataBase.ValorTipo(comboBoxOrigen.SelectedValue.ToString(), SqlDbType.Int));
+
+            if(comboBoxDestino.SelectedValue.ToString() != "")
+            camposValores.Add("id_ciudad_destino", new gdDataBase.ValorTipo(comboBoxDestino.SelectedValue.ToString(), SqlDbType.Int));
+
+            if (comboBoxTipoServicio.SelectedValue.ToString() != "")
+            camposValores.Add("id_tipo_servicio", new gdDataBase.ValorTipo(comboBoxTipoServicio.SelectedValue.ToString(), SqlDbType.Int));
+
+            var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.FiltrosModificacionRutaAerea", camposValores);
+
+            rutaAereaBindingSource.DataSource = ds;
+            dataGridView1.DataSource = rutaAereaBindingSource;
         }
 
-        private void queryFoo()
-        {
-            new gdDataBase().actualizarBindingSourceQuery(rutaAereaBindingSource, rutasAereasQuery() + " AND ra.id_ciudad_destino=" + "'" + comboBoxDestino.SelectedValue.ToString() + "'" + " AND ra.id_ciudad_origen=" + "'" + comboBoxOrigen.SelectedValue.ToString() + "'" + " AND spr.id_tipo_servicio=" + "'" + comboBoxTipoServicio.SelectedValue.ToString() + "'");
-        }
         private void comboBoxOrigen_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            queryFoo();
+            consultarConFiltro();
         }
 
         private void comboBoxDestino_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            queryFoo();
+            consultarConFiltro();
         }
 
         private void comboBoxTipoServicio_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            queryFoo();
+            consultarConFiltro();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
