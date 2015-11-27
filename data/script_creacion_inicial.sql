@@ -730,6 +730,17 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.CancelarPasajesYEncomiendasDe
+@id_aeronave int,
+@fecha_hoy nvarchar(255),
+@fecha_fin nvarchar(255)
+AS
+EXEC ÑUFLO.CancelarPasajesDe @id_aeronave, @fecha_hoy, @fecha_fin
+EXEC ÑUFLO.CancelarEncomiendasDe @id_aeronave, @fecha_hoy, @fecha_fin
+
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.ReemplazarAeronavePara
 @id_aeronave int,
 @fecha_inicio nvarchar(255),
