@@ -87,10 +87,6 @@ CREATE TABLE ÑUFLO.ServicioTecnico (
 	fecha_reinicio_de_servicio datetime
 	)
 GO
-
-ALTER TABLE ÑUFLO.Aeronave
-	ADD CONSTRAINT fk_baja_por_fuera_de_servicio FOREIGN KEY (baja_por_fuera_de_servicio) REFERENCES ÑUFLO.ServicioTecnico
-GO
 	
 CREATE TABLE ÑUFLO.Viaje (
 	id_viaje int IDENTITY(1,1) PRIMARY KEY,
