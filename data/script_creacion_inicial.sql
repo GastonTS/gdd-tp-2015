@@ -49,11 +49,23 @@ CREATE TABLE ÑUFLO.ServicioPorRuta (
 	)
 GO
 
+CREATE TABLE ÑUFLO.Fabricante (
+	id_fabricante int IDENTITY(1,1) PRIMARY KEY,
+	nombre nvarchar(255) NOT NULL
+	)
+GO
+
+CREATE TABLE ÑUFLO.Modelo (
+	id_modelo int IDENTITY(1,1) PRIMARY KEY,
+	nombre nvarchar(255) NOT NULL
+	)
+GO
+
 CREATE TABLE ÑUFLO.Aeronave (
 	id_aeronave int IDENTITY(1,1) PRIMARY KEY,
-	modelo nvarchar(255) NOT NULL,
+	id_modelo int REFERENCES ÑUFLO.Modelo,
 	matricula nvarchar(255) UNIQUE NOT NULL,
-	fabricante nvarchar(255) NOT NULL,
+	id_fabricante int REFERENCES ÑUFLO.Fabricante,
 	id_tipo_servicio int REFERENCES ÑUFLO.TipoServicio,
 	fecha_de_alta datetime NOT NULL, --XXX
 	capacidad_peso_encomiendas numeric(18,0) NOT NULL,
@@ -279,15 +291,29 @@ INSERT INTO ÑUFLO.Ciudad (nombre)
 	group by Ruta_Ciudad_Destino
 GO
 
+/*4 Fabricante*/
+INSERT INTO ÑUFLO.Fabricante
+	select distinct Aeronave_Fabricante
+	from gd_esquema.Maestra
+GO
+
+/*1 Modelo*/
+INSERT INTO ÑUFLO.Modelo
+	select distinct Aeronave_Modelo
+	from gd_esquema.Maestra
+GO
+
 /*30 Aeronave - Sin fechas, en alta pongo today?*/
-INSERT INTO ÑUFLO.Aeronave (matricula, modelo, fabricante, capacidad_peso_encomiendas, fecha_de_alta, id_tipo_servicio)
-	select distinct Aeronave_Matricula, Aeronave_Modelo, Aeronave_Fabricante, Aeronave_KG_Disponibles, GETDATE(),
+INSERT INTO ÑUFLO.Aeronave (matricula, id_modelo, id_fabricante, capacidad_peso_encomiendas, fecha_de_alta, id_tipo_servicio)
+	select distinct Aeronave_Matricula, m.id_modelo, f.id_fabricante, Aeronave_KG_Disponibles, GETDATE(),
 				case Tipo_Servicio
 					when 'Primera Clase' then 1
 					when 'Ejecutivo' then 2
 					when 'Turista' then 3
 				end id_tipo_servicio
-	from gd_esquema.Maestra
+	from gd_esquema.Maestra ma, Ñuflo.Modelo m, Ñuflo.Fabricante f
+	where Aeronave_Fabricante = f.nombre
+		and Aeronave_Modelo = m.nombre
 	order by Aeronave_Matricula
 GO
 	
@@ -527,11 +553,13 @@ CREATE PROCEDURE ÑUFLO.FiltroAeronave
 @capacidad_encomiendas numeric(18,0) = null,
 @cantidad_butacas int = null
 AS
-select id_aeronave, modelo, matricula, fabricante, id_tipo_servicio, fecha_de_alta, capacidad_peso_encomiendas, baja_vida_utill, baja_por_fuera_de_servicio
-	from ÑUFLO.Aeronave a
-	where (@modelo is null or @modelo = modelo)
+select id_aeronave, m.nombre, matricula, f.nombre, id_tipo_servicio, fecha_de_alta, capacidad_peso_encomiendas, baja_vida_utill, baja_por_fuera_de_servicio
+	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f
+	where a.id_modelo = m.id_modelo
+		and a.id_fabricante = f.id_fabricante
+		and (@modelo is null or @modelo = m.nombre)
 		and (@matricula is null or @matricula = matricula)
-		and (@fabricante is null or @fabricante = fabricante)
+		and (@fabricante is null or @fabricante = f.nombre)
 		and (@baja_fuera_servicio is null or @baja_fuera_servicio = baja_por_fuera_de_servicio)
 		and (@baja_vida_util is null or (@baja_vida_util = 1 and baja_vida_utill is not null))
 		and (@tipo_servicio is null or @tipo_servicio = id_tipo_servicio)
@@ -551,8 +579,22 @@ CREATE PROCEDURE ÑUFLO.AltaAeronave
 @capacidad_de_encomiendas numeric(18,0),
 @fecha_hoy nvarchar(255)
 AS
-	INSERT INTO ÑUFLO.Aeronave(matricula, modelo, fabricante, id_tipo_servicio, capacidad_peso_encomiendas, fecha_de_alta)
-		values(@matricula, @modelo, @fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy ))
+	DECLARE @id_modelo int, @id_fabricante int
+	
+	IF(NOT EXISTS(select id_modelo from ÑUFLO.Modelo where @modelo = nombre))
+		INSERT INTO ÑUFLO.Modelo(nombre)
+			values(@modelo)
+
+	set @id_modelo = (select id_modelo from ÑUFLO.Modelo where @modelo = nombre)
+
+	IF(NOT EXISTS(select id_fabricante from ÑUFLO.Fabricante where @fabricante = nombre))
+		INSERT INTO ÑUFLO.Fabricante(nombre)
+			values(@fabricante)
+
+	set @id_fabricante = (select id_fabricante from ÑUFLO.Fabricante where @fabricante = nombre)
+	
+	INSERT INTO ÑUFLO.Aeronave(matricula, id_modelo, id_fabricante, id_tipo_servicio, capacidad_peso_encomiendas, fecha_de_alta)
+		values(@matricula, @id_modelo, @id_fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy ))
 ;
 GO
 
@@ -578,10 +620,24 @@ CREATE PROCEDURE ÑUFLO.ActualizarAeronave
 @capacidad_de_encomiendas numeric(18,0),
 @fecha_hoy nvarchar(255)
 AS
+	DECLARE @id_modelo int, @id_fabricante int
+	
+	IF(NOT EXISTS(select id_modelo from ÑUFLO.Modelo where @modelo = nombre))
+		INSERT INTO ÑUFLO.Modelo(nombre)
+			values(@modelo)
+
+	set @id_modelo = (select id_modelo from ÑUFLO.Modelo where @modelo = nombre)
+
+	IF(NOT EXISTS(select id_fabricante from ÑUFLO.Fabricante where @fabricante = nombre))
+		INSERT INTO ÑUFLO.Fabricante(nombre)
+			values(@fabricante)
+
+	set @id_fabricante = (select id_fabricante from ÑUFLO.Fabricante where @fabricante = nombre)
+	
 	UPDATE ÑUFLO.Aeronave
 		SET matricula = @matricula, 
-			modelo = @modelo, 
-			fabricante = @fabricante, 
+			id_modelo = @id_modelo, 
+			id_fabricante = @id_fabricante, 
 			id_tipo_servicio = @tipo_de_servicio, 
 			capacidad_peso_encomiendas = @capacidad_de_encomiendas, 
 			fecha_de_alta = convert(datetime, @fecha_hoy)
@@ -692,8 +748,8 @@ AS
 
 	SET @fecha_i = convert(datetime, @fecha_inicio)
 	SET @fecha_f = convert(datetime, @fecha_fin)
-	SET @modelo = (select modelo from ÑUFLO.Aeronave where id_aeronave = @id_aeronave)
-	SET @fabricante = (select fabricante from ÑUFLO.Aeronave where id_aeronave = @id_aeronave)
+	SET @modelo = (select id_modelo from ÑUFLO.Aeronave where id_aeronave = @id_aeronave)
+	SET @fabricante = (select id_fabricante from ÑUFLO.Aeronave where id_aeronave = @id_aeronave)
 	SET @tipo_servicio = (select id_tipo_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave)
 	
 	DECLARE CViajes CURSOR FOR
@@ -722,8 +778,8 @@ AS
 						else null
 					end
 				from ÑUFLO.Aeronave a
-				where @modelo = a.modelo
-					and @fabricante = a.fabricante
+				where @modelo = a.id_modelo
+					and @fabricante = a.id_fabricante
 					and @tipo_servicio = a.id_tipo_servicio
 					and baja_por_fuera_de_servicio is null
 					and baja_vida_utill is null
@@ -1357,16 +1413,18 @@ GO
 
 CREATE VIEW ÑUFLO.DetalleAeronavesVacias
 AS
-	select v.id_viaje Viaje, ci.nombre Destino, a.matricula Matricula, a.modelo Modelo, a.fabricante Fabricante, a.capacidad_peso_encomiendas Capacidad_Peso,
+	select v.id_viaje Viaje, ci.nombre Destino, a.matricula Matricula, m.nombre Modelo, m.nombre Fabricante, a.capacidad_peso_encomiendas Capacidad_Peso,
 			c.fecha_de_compra Fecha_De_Compra
-		from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje pa, ÑUFLO.Encomienda en, ÑUFLO.Ciudad ci, ÑUFLO.RutaAerea r, ÑUFLO.Aeronave a
+		from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje pa, ÑUFLO.Encomienda en, ÑUFLO.Ciudad ci, ÑUFLO.RutaAerea r, ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f
 		where v.id_ruta = r.id_ruta
 			and r.id_ciudad_destino = ci.id_ciudad
 			and v.id_viaje = c.id_viaje
 			and (c.codigo_de_compra = pa.codigo_de_compra OR
 				c.codigo_de_compra = en.codigo_de_compra)
 			and v.id_aeronave = a.id_aeronave
-		group by v.id_viaje, ci.nombre, a.matricula, a.modelo, a.fabricante, a.capacidad_peso_encomiendas, c.fecha_de_compra
+			and a.id_modelo = m.id_modelo
+			and a.id_fabricante = f.id_fabricante
+		group by v.id_viaje, ci.nombre, a.matricula, m.nombre, f.nombre, a.capacidad_peso_encomiendas, c.fecha_de_compra
 		having COUNT(*) = 0
 GO
 
@@ -1402,8 +1460,10 @@ GO
 
 CREATE VIEW ÑUFLO.DetalleServiciosTecnicos
 AS
-	select a.matricula Matricula, a.modelo Modelo, a.fabricante Fabricante, a.capacidad_peso_encomiendas Capacidad_Peso,
+	select a.matricula Matricula, m.nombre Modelo, f.nombre Fabricante, a.capacidad_peso_encomiendas Capacidad_Peso,
 			st.fecha_fuera_de_servicio Fecha_Fuera_de_Servicio, st.fecha_reinicio_de_servicio Fecha_Reinicio_De_Servicio
-		from ÑUFLO.Aeronave a, ÑUFLO.ServicioTecnico st
-		where st.id_aeronave = a.id_aeronave			
+		from ÑUFLO.Aeronave a, ÑUFLO.ServicioTecnico st, ÑUFLO.Modelo m, ÑUFLO.Fabricante f
+		where st.id_aeronave = a.id_aeronave
+			and a.id_modelo = m.id_modelo
+			and a.id_fabricante = f.id_fabricante
 GO
