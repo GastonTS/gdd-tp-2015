@@ -266,14 +266,24 @@ GO
 CREATE TABLE ÑUFLO.Usuario (
 	nombre_usuario nvarchar(255) PRIMARY KEY,
 	password varbinary(255) NOT NULL,
-	id_rol int REFERENCES ÑUFLO.Rol,
 	cantidad_intentos smallint DEFAULT 0 NOT NULL,
 	habilitado bit NOT NULL DEFAULT 1
 	)
 GO
 
-INSERT INTO ÑUFLO.Usuario (nombre_usuario, password, id_rol)
-	values ('Juan', HASHBYTES('SHA2_256', 'w23e'), 1)
+INSERT INTO ÑUFLO.Usuario (nombre_usuario, password)
+	values ('Juan', HASHBYTES('SHA2_256', 'w23e'))
+GO
+
+CREATE TABLE ÑUFLO.RolPorUsuario (
+	id_rol int REFERENCES ÑUFLO.Rol,
+	nombre_usuario nvarchar(255) REFERENCES ÑUFLO.Usuario,
+	PRIMARY KEY(id_rol, nombre_usuario)
+	)
+GO
+
+INSERT INTO ÑUFLO.RolPorUsuario(id_rol, nombre_usuario)
+	values(1, 'Juan')
 GO
 
 /*****************************************************************/
