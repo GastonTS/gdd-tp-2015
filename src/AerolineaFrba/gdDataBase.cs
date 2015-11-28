@@ -216,15 +216,18 @@ namespace AerolineaFrba
                 }
                 catch (SqlException exception)
                 {
-                    for (int i = 0; i < errorMensaje.Count; i++)
+                    if (errorMensaje != null)
                     {
-                        if (exception.Number == errorMensaje.ElementAt(i).Key)
+                        for (int i = 0; i < errorMensaje.Count; i++)
                         {
-                            MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-                            MessageBox.Show(exception.Message);
+                            if (exception.Number == errorMensaje.ElementAt(i).Key)
+                            {
+                                MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                MessageBox.Show(exception.Message);
+                            }
                         }
                     }
                 }
