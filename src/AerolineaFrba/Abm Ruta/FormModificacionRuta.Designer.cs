@@ -58,7 +58,7 @@
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";
             this.comboBoxTipoServicio.Size = new System.Drawing.Size(139, 21);
             this.comboBoxTipoServicio.TabIndex = 15;
-            this.comboBoxTipoServicio.SelectionChangeCommitted += new System.EventHandler(this.comboBoxTipoServicio_SelectionChangeCommitted);
+            this.comboBoxTipoServicio.SelectionChangeCommitted += new System.EventHandler(this.cambioAlgunFiltro);
             // 
             // labelTipoServicio
             // 
@@ -78,7 +78,7 @@
             this.comboBoxDestino.Name = "comboBoxDestino";
             this.comboBoxDestino.Size = new System.Drawing.Size(139, 21);
             this.comboBoxDestino.TabIndex = 13;
-            this.comboBoxDestino.SelectionChangeCommitted += new System.EventHandler(this.comboBoxDestino_SelectionChangeCommitted);
+            this.comboBoxDestino.SelectionChangeCommitted += new System.EventHandler(this.cambioAlgunFiltro);
             // 
             // comboBoxOrigen
             // 
@@ -89,7 +89,7 @@
             this.comboBoxOrigen.Name = "comboBoxOrigen";
             this.comboBoxOrigen.Size = new System.Drawing.Size(139, 21);
             this.comboBoxOrigen.TabIndex = 11;
-            this.comboBoxOrigen.SelectionChangeCommitted += new System.EventHandler(this.comboBoxOrigen_SelectionChangeCommitted);
+            this.comboBoxOrigen.SelectionChangeCommitted += new System.EventHandler(this.cambioAlgunFiltro);
             // 
             // labelDestino
             // 

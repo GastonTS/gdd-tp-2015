@@ -739,6 +739,64 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.CancelarEncomiendasDe
+@id_aeronave int,
+@fecha_hoy nvarchar(255),
+@fecha_fin nvarchar(255) = null
+AS
+	DECLARE @fecha_f datetime, @hoy datetime
+	SET @hoy = convert(datetime, @fecha_hoy)
+	SET @fecha_f = convert(datetime, @fecha_fin)
+
+	DECLARE CPasajes CURSOR 
+		FOR select c.codigo_de_compra, e.id_encomienda
+				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Encomienda e
+				where @id_aeronave = v.id_aeronave
+					and ((@fecha_f is null and v.fecha_salida > @hoy)
+					or v.fecha_salida between @hoy and @fecha_f)
+					and v.id_viaje = c.id_viaje
+					and c.codigo_de_compra = e.codigo_de_compra
+
+	DECLARE @pnr int, @pasaje int, @cod_anterior int
+	SET @cod_anterior = -1
+	OPEN CPasajes
+	FETCH CPasajes INTO @pnr, @pasaje
+
+	WHILE (@@FETCH_STATUS = 0)
+	BEGIN	
+		if(@pnr <> @cod_anterior)
+		BEGIN
+			INSERT INTO ÑUFLO.Cancelacion(codigo_de_compra, fecha_devolucion)
+				values(@pnr, @hoy)
+			SET @cod_anterior = @pnr
+		END
+
+		INSERT INTO ÑUFLO.EncomiendaPorCancelacion(id_cancelacion, id_encomienda, motivo_cancelacion)
+			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @pasaje, 'Baja de Aeronave')
+
+		UPDATE ÑUFLO.Pasaje
+			SET cancelado = 1
+			WHERE @pasaje = id_pasaje
+
+		FETCH CPasajes INTO @pnr, @pasaje
+	END
+
+	CLOSE CPasajes
+	DEALLOCATE CPasajes
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.CancelarPasajesYEncomiendasDe
+@id_aeronave int,
+@fecha_hoy nvarchar(255),
+@fecha_fin nvarchar(255)
+AS
+EXEC ÑUFLO.CancelarPasajesDe @id_aeronave, @fecha_hoy, @fecha_fin
+EXEC ÑUFLO.CancelarEncomiendasDe @id_aeronave, @fecha_hoy, @fecha_fin
+
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.ReemplazarAeronavePara
 @id_aeronave int,
 @fecha_inicio nvarchar(255),
@@ -1297,6 +1355,20 @@ AS
 ;  
 GO
 
+CREATE PROCEDURE ÑUFLO.UpdateRutaAerea
+@id_ruta int,
+@codigo_ruta numeric (18, 0),
+@id_ciudad_origen int,
+@id_ciudad_destino int,
+@precio_base_por_peso  numeric (18, 0),
+@precio_base_por_pasaje  numeric (18, 0)
+AS
+	UPDATE ÑUFLO.RutaAerea
+	SET codigo_ruta = @codigo_ruta, id_ciudad_origen = @id_ciudad_origen, id_ciudad_destino = @id_ciudad_destino,
+		precio_base_por_peso = @precio_base_por_peso, precio_base_por_pasaje = @precio_base_por_pasaje
+	WHERE id_ruta = @id_ruta
+;  
+GO
 
 /*****************************************************************/
 /*************************** Function ****************************/

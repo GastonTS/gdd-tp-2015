@@ -281,8 +281,61 @@ namespace AerolineaFrba
 
             return ds;
         }
-        
 
+
+        public DataSet ExecAndGetDataSet(String spName, Dictionary<String, ValorTipo> campoValor = null,
+                                        Dictionary<int, String> errorMensaje = null, String ejecucionCorrecta = null)
+        {
+            conectar();
+
+            DataSet ds = new DataSet();
+
+            using (var cmd = new SqlCommand("ÑUFLO."+spName, miConexion))
+            using (var da = new SqlDataAdapter(cmd))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                if (campoValor != null)
+                {
+                    for (int i = 0; i < campoValor.Count; i++)
+                    {
+                        cmd.Parameters.Add("@" + campoValor.ElementAt(i).Key,
+                            campoValor.ElementAt(i).Value.getTipo()).Value = campoValor.ElementAt(i).Value.getValor();
+                    }
+                }
+
+                try
+                {
+
+                    da.SelectCommand = cmd;
+                    da.Fill(ds);
+                    if (ejecucionCorrecta != null)
+                        MessageBox.Show(ejecucionCorrecta);
+                }
+                catch (SqlException exception)
+                {
+                    if (errorMensaje != null)
+                    {
+                        for (int i = 0; i < errorMensaje.Count; i++)
+                        {
+                            if (exception.Number == errorMensaje.ElementAt(i).Key)
+                            {
+                                MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                MessageBox.Show(exception.Message);
+                            }
+                        }
+                    }
+                    else MessageBox.Show("The impossible has happened");
+                }
+            }
+
+            desconectar();
+
+            return ds;
+        }
 
     }
 }
