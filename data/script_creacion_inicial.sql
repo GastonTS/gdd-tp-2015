@@ -1121,54 +1121,43 @@ AS
 ;
 GO	
 
-CREATE PROCEDURE ÑUFLO.IdRolDe
-@nombre_rol nvarchar(255),
-@id_rol int OUTPUT
-AS
-	SELECT @id_rol = id_rol 
-		FROM Rol 
-		WHERE nombre_rol = @nombre_rol
-;
-RETURN
-GO
-
 CREATE PROCEDURE ÑUFLO.AsignarFuncionalidadARol
 @nombre_rol nvarchar(255),
 @descripcion nvarchar(255)
 AS
-	DECLARE @id INT, @id_funcionalidad INT
-	EXEC ÑUFLO.IdRolDe @nombre_rol, @id_rol = @id OUTPUT
+	DECLARE @id_rol INT, @id_funcionalidad INT
+	SET @id_rol = (select ÑUFLO.idRolDe(@nombre_rol))
 	
 	SELECT @id_funcionalidad = id_funcionalidad 
 		FROM ÑUFLO.Funcionalidad
 		WHERE descripcion = @descripcion
 	
-	INSERT INTO ÑUFLO.FuncionalidadPorRol VALUES (@id, @id_funcionalidad)
+	INSERT INTO ÑUFLO.FuncionalidadPorRol VALUES (@id_rol, @id_funcionalidad)
 ;
 GO
 
 CREATE PROCEDURE ÑUFLO.BorrarFuncionalidadesDe
 @nombre_rol nvarchar(255)
 AS
-	DECLARE @id INT, @id_funcionalidad INT
-	EXEC ÑUFLO.IdRolDe @nombre_rol, @id_rol = @id OUTPUT
+	DECLARE @id_rol INT, @id_funcionalidad INT
+	SET @id_rol = (select ÑUFLO.idRolDe(@nombre_rol))
 	
 	DELETE FROM ÑUFLO.FuncionalidadPorRol
-		WHERE id_rol = @id
+		WHERE id_rol = @id_rol
 ;
 GO
 
 CREATE PROCEDURE ÑUFLO.FuncionalidadesDe
 @nombre_rol nvarchar(255)
 AS
-	DECLARE @id INT
-	EXEC ÑUFLO.IdRolDe @nombre_rol, @id_rol = @id OUTPUT
+	DECLARE @id_rol INT
+	SET @id_rol = (select ÑUFLO.idRolDe(@nombre_rol))
 	
 	SELECT descripcion
 		FROM ÑUFLO.Funcionalidad f 
 			JOIN ÑUFLO.FuncionalidadPorRol fr ON (f.id_funcionalidad = fr.id_funcionalidad)
 			JOIN ÑUFLO.Rol r ON (r.id_rol = fr.id_rol)
-		WHERE r.id_rol = @id
+		WHERE r.id_rol = @id_rol
 ;
 GO
 		
@@ -1435,6 +1424,18 @@ BEGIN
 		where Estado = 'Vigentes'
 			and DNI = @dni
 	RETURN @total
+END
+GO
+
+CREATE FUNCTION ÑUFLO.IdRolDe(@nombre_rol nvarchar(255))
+RETURNS int
+AS
+BEGIN
+	DECLARE @id_rol int
+	SELECT @id_rol = id_rol 
+		FROM Rol 
+		WHERE nombre_rol = @nombre_rol
+RETURN @id_rol
 END
 GO
 
