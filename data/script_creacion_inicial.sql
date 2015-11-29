@@ -400,7 +400,7 @@ INSERT INTO ÑUFLO.Cliente (dni , nombre, apellido, direccion, telefono, mail, f
 	from gd_esquema.Maestra
 GO
 
-/*PONGO UN CASO DE PRUEBA PORQUE TODAVÍA NO SE IMPLEMENTÓ ESTO*/
+/*XXX PONGO UN CASO DE PRUEBA PORQUE TODAVÍA NO SE IMPLEMENTÓ ESTO*/
 INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (1, 200)
 INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (1, 30)
 INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (1, 40)
@@ -882,22 +882,17 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.MillasTotalesDe
-@dni numeric(18,0),
-@total numeric(18,0) OUTPUT
+@dni NUMERIC(18,0)
 AS
-	select @total = SUM(Cantidad - Cantidad_Gastada)
-		from ÑUFLO.DetalleMillas
-		where Estado = 'Vigentes'
-			and DNI = @dni
+select ÑUFLO.TotalMillasDe(@dni)
 ;
-RETURN
 GO
 
 CREATE PROCEDURE ÑUFLO.ProductosDe
 @dni NUMERIC(18,0)
 AS
 	DECLARE @millas_cliente NUMERIC(18,0)
-	EXEC ÑUFLO.MillasTotalesDe @dni, @total = @millas_cliente OUTPUT
+	SET @millas_cliente = (select ÑUFLO.TotalMillasDe(@dni))
 	
 	SELECT descripcion 
 		FROM ÑUFLO.Producto
@@ -1404,6 +1399,19 @@ BEGIN
 			AND comp.codigo_de_compra = e.codigo_de_compra
 		GROUP BY comp.id_cliente
    RETURN
+END
+GO
+
+CREATE FUNCTION ÑUFLO.TotalMillasDe(@dni numeric(18,0))
+RETURNS numeric(18,0)
+AS
+BEGIN
+	DECLARE @total numeric(18,0)
+	select @total = SUM(Cantidad - Cantidad_Gastada)
+		from ÑUFLO.DetalleMillas
+		where Estado = 'Vigentes'
+			and DNI = @dni
+	RETURN @total
 END
 GO
 
