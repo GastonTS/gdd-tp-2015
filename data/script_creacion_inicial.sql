@@ -34,7 +34,7 @@ GO
 
 CREATE TABLE ÑUFLO.RutaAerea (
 	id_ruta int IDENTITY(1,1) PRIMARY KEY,
-	codigo_ruta numeric(18,0) NOT NULL, --XXX
+	codigo_ruta numeric(18,0) NOT NULL,
 	id_ciudad_origen int REFERENCES ÑUFLO.Ciudad NOT NULL,
 	id_ciudad_destino int REFERENCES ÑUFLO.Ciudad NOT NULL,
 	precio_base_por_peso numeric(18,2) NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE ÑUFLO.Aeronave (
 	matricula nvarchar(255) UNIQUE NOT NULL,
 	id_fabricante int REFERENCES ÑUFLO.Fabricante,
 	id_tipo_servicio int REFERENCES ÑUFLO.TipoServicio,
-	fecha_de_alta datetime NOT NULL, --XXX
+	fecha_de_alta datetime NOT NULL,
 	capacidad_peso_encomiendas numeric(18,0) NOT NULL,
 	baja_vida_utill datetime,
 	baja_por_fuera_de_servicio int 
@@ -507,6 +507,7 @@ GO
 /*********************** Stored Procedures ***********************/
 /*****************************************************************/
 
+/*Usuario*/
 CREATE PROCEDURE ÑUFLO.LogearUsuario
 @usuario nvarchar(255),
 @password varchar(255)
@@ -553,6 +554,102 @@ AS
 ;
 GO
 
+/*Cliente*/
+CREATE PROCEDURE ÑUFLO.ConsultaCliente
+@dni numeric(18,0)
+AS
+	select nombre, apellido, direccion, telefono, mail, fecha_de_nacimiento
+		from ÑUFLO.Cliente
+		where dni = @dni
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.ModificarCliente
+@dni numeric(18,0),
+@nombre nvarchar(255),
+@apellido nvarchar(255),
+@direccion nvarchar(255),
+@telefono numeric(18,0),
+@mail nvarchar(255),
+@fecha_de_nacimiento datetime
+AS
+	UPDATE ÑUFLO.Cliente
+		SET nombre = @nombre, apellido = @apellido, direccion = @direccion, 
+			telefono = @telefono, mail = @mail, fecha_de_nacimiento = @fecha_de_nacimiento
+		where dni = @dni
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.MillasTotalesDe
+@dni NUMERIC(18,0)
+AS
+select ÑUFLO.TotalMillasDe(@dni)
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.ProductosDe
+@dni NUMERIC(18,0)
+AS
+	DECLARE @millas_cliente NUMERIC(18,0)
+	SET @millas_cliente = (select ÑUFLO.TotalMillasDe(@dni))
+	
+	SELECT descripcion 
+		FROM ÑUFLO.Producto
+		WHERE millas_necesarias <= @millas_cliente
+;
+GO	
+
+CREATE PROCEDURE ÑUFLO.CanjearProductoA
+@dni NUMERIC(18,0),
+@cantidad int,
+@descripcion nvarchar(255),
+@hoy datetime
+AS
+	DECLARE @gasto int, @id_producto int
+	SET @id_producto = (select id_producto from ÑUFLO.Producto where descripcion = @descripcion)
+	SET @gasto = (select millas_necesarias * @cantidad from ÑUFLO.Producto where id_producto = @id_producto)
+	
+	IF((select ÑUFLO.TotalMillasDe(@dni)) < @gasto)
+		THROW 60008, 'El cliente no posee suficientes millas para realizar el canje', 1
+	
+	IF((select stock from ÑUFLO.Producto where id_producto = @id_producto) < @cantidad or @id_Producto is null)
+		THROW 60009, 'No hay suficiente stock del producto deseado para realizar el canje', 1
+
+	INSERT INTO ÑUFLO.Canje(id_cliente, id_Producto, cantidad, fecha_de_canje)
+		values((select top 1 id_cliente from ÑUFLO.Cliente where dni=@dni), @id_producto, @cantidad, @hoy)
+			
+;
+GO	
+
+CREATE PROCEDURE ÑUFLO.ExpirarMillas
+AS
+
+	DECLARE @id_milla int, @fecha datetime
+	DECLARE CMillas CURSOR 
+		FOR select id_milla, fecha_de_obtencion
+				from ÑUFLO.Milla
+				where expirado = 0
+
+	OPEN CMillas 
+	FETCH CMillas INTO @id_milla, @fecha
+
+	WHILE (@@FETCH_STATUS = 0)
+	BEGIN	
+
+		IF(DATEDIFF(DD, @fecha, GETDATE()) > 365)
+			UPDATE ÑUFLO.Milla
+			 set expirado = 1
+			 where id_milla = @id_milla
+
+		FETCH CMillas INTO @id_milla, @fecha
+	END
+
+	CLOSE CMillas
+	DEALLOCATE CMillas
+;
+GO
+
+/*Aeronave*/
 CREATE PROCEDURE ÑUFLO.FiltroAeronave
 @modelo nvarchar(255) = null,
 @matricula nvarchar(255) = null,
@@ -801,8 +898,9 @@ CREATE PROCEDURE ÑUFLO.CancelarPasajesYEncomiendasDe
 @fecha_hoy nvarchar(255),
 @fecha_fin nvarchar(255)
 AS
-EXEC ÑUFLO.CancelarPasajesDe @id_aeronave, @fecha_hoy, @fecha_fin
-EXEC ÑUFLO.CancelarEncomiendasDe @id_aeronave, @fecha_hoy, @fecha_fin
+
+	EXEC ÑUFLO.CancelarPasajesDe @id_aeronave, @fecha_hoy, @fecha_fin
+	EXEC ÑUFLO.CancelarEncomiendasDe @id_aeronave, @fecha_hoy, @fecha_fin
 
 ;
 GO
@@ -867,47 +965,7 @@ AS
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.MillasTotalesDe
-@dni NUMERIC(18,0)
-AS
-select ÑUFLO.TotalMillasDe(@dni)
-;
-GO
-
-CREATE PROCEDURE ÑUFLO.ProductosDe
-@dni NUMERIC(18,0)
-AS
-	DECLARE @millas_cliente NUMERIC(18,0)
-	SET @millas_cliente = (select ÑUFLO.TotalMillasDe(@dni))
-	
-	SELECT descripcion 
-		FROM ÑUFLO.Producto
-		WHERE millas_necesarias <= @millas_cliente
-;
-GO	
-
-
-CREATE PROCEDURE ÑUFLO.CanjearProductoA
-@dni NUMERIC(18,0),
-@cantidad int,
-@descripcion nvarchar(255),
-@hoy datetime
-AS
-	DECLARE @gasto int, @id_producto int
-	SET @id_producto = (select id_producto from ÑUFLO.Producto where descripcion = @descripcion)
-	SET @gasto = (select millas_necesarias * @cantidad from ÑUFLO.Producto where id_producto = @id_producto)
-	
-	IF((select ÑUFLO.TotalMillasDe(@dni)) < @gasto)
-		THROW 60008, 'El cliente no posee suficientes millas para realizar el canje', 1
-	
-	IF((select stock from ÑUFLO.Producto where id_producto = @id_producto) < @cantidad or @id_Producto is null)
-		THROW 60009, 'No hay suficiente stock del producto deseado para realizar el canje', 1
-
-	INSERT INTO ÑUFLO.Canje(id_cliente, id_Producto, cantidad, fecha_de_canje)
-		values((select top 1 id_cliente from ÑUFLO.Cliente where dni=@dni), @id_producto, @cantidad, @hoy)
-			
-;
-GO	
+/*Viaje*/
 
 CREATE PROCEDURE ÑUFLO.ViajesDisponiblesPara
 @ciudad_origen nvarchar(255),
@@ -962,22 +1020,6 @@ AS
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasDe
-@codigo_compra int
-AS
-	select p.id_pasaje Codigo, 'Pasaje' Tipo, c.dni DNI, c.nombre Nombre, c.apellido Apellido,
-		 '-' Peso_Encomienda, cast(p.numero_de_butaca AS nvarchar(255)) Butaca_Numero, p.precio Precio
-		from ÑUFLO.Pasaje p, ÑUFLO.Cliente c
-		where p.id_cliente = c.id_cliente and
-			  p.codigo_de_compra = @codigo_compra
-	UNION
-	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
-		from ÑUFLO.Encomienda p, ÑUFLO.Cliente c
-		where p.id_cliente = c.id_cliente and
-			  p.codigo_de_compra = @codigo_compra
-;
-GO
-
 CREATE PROCEDURE ÑUFLO.ButacasDisponibles
 @id_viaje int
 AS
@@ -1001,69 +1043,7 @@ AS
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.ConsultaCliente
-@dni numeric(18,0)
-AS
-	select nombre, apellido, direccion, telefono, mail, fecha_de_nacimiento
-		from ÑUFLO.Cliente
-		where dni = @dni
-;
-
-CREATE PROCEDURE ÑUFLO.ModificarCliente
-@dni numeric(18,0),
-@nombre nvarchar(255),
-@apellido nvarchar(255),
-@direccion nvarchar(255),
-@telefono numeric(18,0),
-@mail nvarchar(255),
-@fecha_de_nacimiento datetime
-AS
-	UPDATE ÑUFLO.Cliente
-		SET nombre = @nombre, apellido = @apellido, direccion = @direccion, 
-			telefono = @telefono, mail = @mail, fecha_de_nacimiento = @fecha_de_nacimiento
-		where dni = @dni
-;
-
-CREATE PROCEDURE ÑUFLO.ExpirarMillas
-AS
-
-	DECLARE @id_milla int, @fecha datetime
-	DECLARE CMillas CURSOR 
-		FOR select id_milla, fecha_de_obtencion
-				from ÑUFLO.Milla
-				where expirado = 0
-
-	OPEN CMillas 
-	FETCH CMillas INTO @id_milla, @fecha
-
-	WHILE (@@FETCH_STATUS = 0)
-	BEGIN	
-
-		IF(DATEDIFF(DD, @fecha, GETDATE()) > 365)
-			UPDATE ÑUFLO.Milla
-			 set expirado = 1
-			 where id_milla = @id_milla
-
-		FETCH CMillas INTO @id_milla, @fecha
-	END
-
-	CLOSE CMillas
-	DEALLOCATE CMillas
-;
-GO
-
-CREATE PROCEDURE ÑUFLO.TodasLasCiudades
-AS
-	SELECT nombre FROM ÑUFLO.Ciudad
-;
-GO
-
-CREATE PROCEDURE ÑUFLO.TodasLasFuncionalidades
-AS
-	SELECT descripcion FROM ÑUFLO.Funcionalidad
-;
-GO
-
+/*Rol*/
 CREATE PROCEDURE ÑUFLO.CrearRol
 @nombre_rol nvarchar(255)
 AS
@@ -1073,6 +1053,61 @@ AS
 	INSERT INTO ÑUFLO.Rol VALUES (@nombre_rol, 1)
 ;
 GO	
+		
+CREATE PROCEDURE ÑUFLO.RolDadoNombre
+@nombre nvarchar(255) = null
+AS
+	SELECT nombre_rol, habilitado
+		FROM ÑUFLO.Rol
+		WHERE @nombre is null OR nombre_rol LIKE @nombre + '%'
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.CambiarNombreDeRol
+@nombre_old nvarchar(255),
+@nombre nvarchar(255)
+AS
+	IF(@nombre NOT IN (select nombre_rol from ÑUFLO.Rol))
+		Update ÑUFLO.ROL
+			SET nombre_rol = @nombre
+			where @nombre_old = nombre_rol
+	ELSE
+		THROW 60011, 'No Puede cambiar el nombre a un nombre de un rol ya existente', 1
+;		
+GO
+
+CREATE PROCEDURE ÑUFLO.Inhabilitar_Habilitar
+@nombre nvarchar(255)
+AS
+	UPDATE ÑUFLO.Rol SET habilitado = habilitado ^ 1 WHERE nombre_rol = @nombre
+	
+	IF ((SELECT habilitado FROM Rol WHERE nombre_rol = @nombre) = 0)
+		DELETE ÑUFLO.RolPorUsuario
+			where id_rol = (select id_rol from ÑUFLO.Rol where @nombre = nombre_rol)
+	
+	EXEC ÑUFLO.RolDadoNombre @nombre
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.TodasLasFuncionalidades
+AS
+	SELECT descripcion FROM ÑUFLO.Funcionalidad
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.FuncionalidadesDe
+@nombre_rol nvarchar(255)
+AS
+	DECLARE @id_rol INT
+	SET @id_rol = (select ÑUFLO.idRolDe(@nombre_rol))
+	
+	SELECT descripcion
+		FROM ÑUFLO.Funcionalidad f 
+			JOIN ÑUFLO.FuncionalidadPorRol fr ON (f.id_funcionalidad = fr.id_funcionalidad)
+			JOIN ÑUFLO.Rol r ON (r.id_rol = fr.id_rol)
+		WHERE r.id_rol = @id_rol
+;
+GO
 
 CREATE PROCEDURE ÑUFLO.AsignarFuncionalidadARol
 @nombre_rol nvarchar(255),
@@ -1100,55 +1135,139 @@ AS
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.FuncionalidadesDe
-@nombre_rol nvarchar(255)
+
+/*Ciudad*/
+CREATE PROCEDURE ÑUFLO.DestinoOrigen
 AS
-	DECLARE @id_rol INT
-	SET @id_rol = (select ÑUFLO.idRolDe(@nombre_rol))
-	
-	SELECT descripcion
-		FROM ÑUFLO.Funcionalidad f 
-			JOIN ÑUFLO.FuncionalidadPorRol fr ON (f.id_funcionalidad = fr.id_funcionalidad)
-			JOIN ÑUFLO.Rol r ON (r.id_rol = fr.id_rol)
-		WHERE r.id_rol = @id_rol
-;
-GO
-		
-CREATE PROCEDURE ÑUFLO.CambiarNombreDeRol
-@nombre_old nvarchar(255),
-@nombre nvarchar(255)
-AS
-	IF(@nombre NOT IN (select nombre_rol from ÑUFLO.Rol))
-		Update ÑUFLO.ROL
-			SET nombre_rol = @nombre
-			where @nombre_old = nombre_rol
-	ELSE
-		THROW 60011, 'No Puede cambiar el nombre a un nombre de un rol ya existente', 1
-;		
-GO
-		
-CREATE PROCEDURE ÑUFLO.RolDadoNombre
-@nombre nvarchar(255) = null
-AS
-	SELECT nombre_rol, habilitado
-		FROM ÑUFLO.Rol
-		WHERE @nombre is null OR nombre_rol LIKE @nombre + '%'
+	select id_ciudad_origen "Id ciudad origen", id_ciudad_destino "Id ciudad destino"
+		from ÑUFLO.RutaAerea
+
+	select id_ciudad "Id ciudad", nombre "Nombre"
+		from ÑUFLO.Ciudad
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.Inhabilitar_Habilitar
-@nombre nvarchar(255)
+CREATE PROCEDURE ÑUFLO.TodasLasCiudades
 AS
-	UPDATE ÑUFLO.Rol SET habilitado = habilitado ^ 1 WHERE nombre_rol = @nombre
-	
-	IF ((SELECT habilitado FROM Rol WHERE nombre_rol = @nombre) = 0)
-		DELETE ÑUFLO.RolPorUsuario
-			where id_rol = (select id_rol from ÑUFLO.Rol where @nombre = nombre_rol)
-	
-	EXEC ÑUFLO.RolDadoNombre @nombre
+	SELECT nombre FROM ÑUFLO.Ciudad
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.IdCiudadDadoNombre
+@nombre nvarchar(255),
+@id INT OUTPUT
+AS
+	SELECT @id = id_ciudad FROM Ciudad WHERE nombre = @nombre
+;
+RETURN
+GO
+
+/*Tipo Servicio*/
+CREATE PROCEDURE ÑUFLO.TiposDeServicio
+AS
+	SELECT tipo_servicio "Tipo Servicio" FROM ÑUFLO.TipoServicio
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.CiudadTipoServicio
+AS
+	select id_ciudad "Id ciudad", nombre "Nombre"
+		from ÑUFLO.Ciudad
+
+	select id_tipo_servicio "Id Tipo Servicio", tipo_servicio "Tipo Servicio", porcentaje_recargo "Porcentaje de recargo"
+		from ÑUFLO.TipoServicio
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.IdTipoServicioDadoServicio
+@servicio nvarchar(255),
+@id INT OUTPUT
+AS
+	SELECT @id = id_tipo_servicio FROM TipoServicio WHERE tipo_servicio = @servicio
+;
+RETURN
+GO
+
+/*Ruta Aerea*/
+CREATE PROCEDURE ÑUFLO.FiltrosAltaRutaAerea
+@nombre_origen nvarchar(255) = NULL,
+@nombre_destino nvarchar(255) = NULL,
+@tipo_servicio nvarchar(255) = NULL
+AS
+	DECLARE @id_ciudad_origen int, @id_ciudad_destino int, @id_tipo_servicio int
+	EXEC ÑUFLO.IdCiudadDadoNombre @nombre_origen, @id = @id_ciudad_origen OUTPUT;
+	EXEC ÑUFLO.IdCiudadDadoNombre @nombre_destino, @id = @id_ciudad_destino OUTPUT;
+	EXEC ÑUFLO.IdTipoServicioDadoServicio @tipo_servicio, @id = @id_tipo_servicio OUTPUT;
+
+	SELECT ra.id_ruta "Id ruta",ra.codigo_ruta "Codigo de ruta",c1.id_ciudad "Id ciudad origen",c1.nombre "Ciudad origen",
+		   c2.id_ciudad "Id ciudad destino",c2.nombre "Ciudad destino", ra.precio_base_por_peso "Precio base por peso",
+		   ra.precio_base_por_pasaje "Precio base por pasaje", ts.tipo_servicio "Tipo de servicio"	
+		FROM ÑUFLO.RutaAerea ra JOIN ÑUFLO.Ciudad c1			ON ra.id_ciudad_origen = c1.id_ciudad
+								JOIN ÑUFLO.Ciudad c2			ON ra.id_ciudad_destino = c2.id_ciudad
+								JOIN ÑUFLO.ServicioPorRuta sr	ON ra.id_ruta = sr.id_ruta
+								JOIN ÑUFLO.TipoServicio ts		ON sr.id_tipo_servicio  = ts.id_tipo_servicio
+
+		WHERE (@id_ciudad_origen IS NULL OR ra.id_ciudad_origen = @id_ciudad_origen) AND
+			  (@id_ciudad_destino IS NULL OR  ra.id_ciudad_destino = @id_ciudad_destino) AND
+			  (@id_tipo_servicio IS NULL OR sr.id_tipo_servicio = @id_tipo_servicio ) AND
+			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta )
+;  
+GO
+
+
+CREATE PROCEDURE ÑUFLO.FiltrosModificacionRutaAerea
+@id_ciudad_origen int = NULL,
+@id_ciudad_destino int = NULL,
+@id_tipo_servicio int = NULL
+AS
+	SELECT ra.codigo_ruta "Codigo de ruta", c1.nombre "Ciudad origen", c2.nombre "Ciudad destino",
+		   ra.precio_base_por_peso "Precio base por peso", ra.precio_base_por_pasaje "Precio base por pasaje",
+		   ts.tipo_servicio "Tipo de servicio"	
+		FROM ÑUFLO.RutaAerea ra JOIN ÑUFLO.Ciudad c1			ON ra.id_ciudad_origen = c1.id_ciudad
+								JOIN ÑUFLO.Ciudad c2			ON ra.id_ciudad_destino = c2.id_ciudad
+								JOIN ÑUFLO.ServicioPorRuta sr	ON ra.id_ruta = sr.id_ruta
+								JOIN ÑUFLO.TipoServicio ts		ON sr.id_tipo_servicio  = ts.id_tipo_servicio
+
+		WHERE (@id_ciudad_origen IS NULL OR ra.id_ciudad_origen = @id_ciudad_origen) AND
+			  (@id_ciudad_destino IS NULL OR  ra.id_ciudad_destino = @id_ciudad_destino) AND
+			  (@id_tipo_servicio IS NULL OR sr.id_tipo_servicio = @id_tipo_servicio ) AND
+			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta )
+;  
+GO
+
+CREATE PROCEDURE ÑUFLO.UpdateRutaAerea
+@id_ruta int,
+@codigo_ruta numeric (18, 0),
+@id_ciudad_origen int,
+@id_ciudad_destino int,
+@precio_base_por_peso  numeric (18, 0),
+@precio_base_por_pasaje  numeric (18, 0)
+AS
+	UPDATE ÑUFLO.RutaAerea
+	SET codigo_ruta = @codigo_ruta, id_ciudad_origen = @id_ciudad_origen, id_ciudad_destino = @id_ciudad_destino,
+		precio_base_por_peso = @precio_base_por_peso, precio_base_por_pasaje = @precio_base_por_pasaje
+	WHERE id_ruta = @id_ruta
+;  
+GO
+
+/*Compra*/
+CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasDe
+@codigo_compra int
+AS
+	select p.id_pasaje Codigo, 'Pasaje' Tipo, c.dni DNI, c.nombre Nombre, c.apellido Apellido,
+		 '-' Peso_Encomienda, cast(p.numero_de_butaca AS nvarchar(255)) Butaca_Numero, p.precio Precio
+		from ÑUFLO.Pasaje p, ÑUFLO.Cliente c
+		where p.id_cliente = c.id_cliente and
+			  p.codigo_de_compra = @codigo_compra
+	UNION
+	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
+		from ÑUFLO.Encomienda p, ÑUFLO.Cliente c
+		where p.id_cliente = c.id_cliente and
+			  p.codigo_de_compra = @codigo_compra
+;
+GO
+		
+/*Detalles para listados*/
 CREATE PROCEDURE ÑUFLO.DetallePasajePara
 @ciudad nvarchar(255),
 @fecha_inicio nvarchar(255),
@@ -1226,6 +1345,7 @@ AS
 ;
 GO
 
+/*Listados Estadisticos*/
 CREATE PROCEDURE ÑUFLO.TOP5DestinoPasajesComprados
 @fecha_inicio datetime,
 @fecha_fin datetime
@@ -1297,121 +1417,11 @@ AS
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.DestinoOrigen
-AS
-	select id_ciudad_origen "Id ciudad origen", id_ciudad_destino "Id ciudad destino"
-		from ÑUFLO.RutaAerea
-
-	select id_ciudad "Id ciudad", nombre "Nombre"
-		from ÑUFLO.Ciudad
-;
-GO
-
-CREATE PROCEDURE ÑUFLO.TiposDeServicio
-AS
-	SELECT tipo_servicio "Tipo Servicio" FROM ÑUFLO.TipoServicio
-;
-GO
-
-CREATE PROCEDURE ÑUFLO.Ciudades
-AS
-	SELECT nombre FROM ÑUFLO.Ciudad
-;
-GO
-
-CREATE PROCEDURE ÑUFLO.CiudadTipoServicio
-AS
-	select id_ciudad "Id ciudad", nombre "Nombre"
-		from ÑUFLO.Ciudad
-
-	select id_tipo_servicio "Id Tipo Servicio", tipo_servicio "Tipo Servicio", porcentaje_recargo "Porcentaje de recargo"
-		from ÑUFLO.TipoServicio
-;
-GO
-
-CREATE PROCEDURE ÑUFLO.IdCiudadDadoNombre
-@nombre nvarchar(255),
-@id INT OUTPUT
-AS
-	SELECT @id = id_ciudad FROM Ciudad WHERE nombre = @nombre
-;
-RETURN
-GO
-
-CREATE PROCEDURE ÑUFLO.IdTipoServicioDadoServicio
-@servicio nvarchar(255),
-@id INT OUTPUT
-AS
-	SELECT @id = id_tipo_servicio FROM TipoServicio WHERE tipo_servicio = @servicio
-;
-RETURN
-GO
-
-CREATE PROCEDURE ÑUFLO.FiltrosAltaRutaAerea
-@nombre_origen nvarchar(255) = NULL,
-@nombre_destino nvarchar(255) = NULL,
-@tipo_servicio nvarchar(255) = NULL
-AS
-	DECLARE @id_ciudad_origen int, @id_ciudad_destino int, @id_tipo_servicio int
-	EXEC ÑUFLO.IdCiudadDadoNombre @nombre_origen, @id = @id_ciudad_origen OUTPUT;
-	EXEC ÑUFLO.IdCiudadDadoNombre @nombre_destino, @id = @id_ciudad_destino OUTPUT;
-	EXEC ÑUFLO.IdTipoServicioDadoServicio @tipo_servicio, @id = @id_tipo_servicio OUTPUT;
-
-	SELECT ra.id_ruta "Id ruta",ra.codigo_ruta "Codigo de ruta",c1.id_ciudad "Id ciudad origen",c1.nombre "Ciudad origen",
-		   c2.id_ciudad "Id ciudad destino",c2.nombre "Ciudad destino", ra.precio_base_por_peso "Precio base por peso",
-		   ra.precio_base_por_pasaje "Precio base por pasaje", ts.tipo_servicio "Tipo de servicio"	
-		FROM ÑUFLO.RutaAerea ra JOIN ÑUFLO.Ciudad c1			ON ra.id_ciudad_origen = c1.id_ciudad
-								JOIN ÑUFLO.Ciudad c2			ON ra.id_ciudad_destino = c2.id_ciudad
-								JOIN ÑUFLO.ServicioPorRuta sr	ON ra.id_ruta = sr.id_ruta
-								JOIN ÑUFLO.TipoServicio ts		ON sr.id_tipo_servicio  = ts.id_tipo_servicio
-
-		WHERE (@id_ciudad_origen IS NULL OR ra.id_ciudad_origen = @id_ciudad_origen) AND
-			  (@id_ciudad_destino IS NULL OR  ra.id_ciudad_destino = @id_ciudad_destino) AND
-			  (@id_tipo_servicio IS NULL OR sr.id_tipo_servicio = @id_tipo_servicio ) AND
-			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta )
-;  
-GO
-
-
-CREATE PROCEDURE ÑUFLO.FiltrosModificacionRutaAerea
-@id_ciudad_origen int = NULL,
-@id_ciudad_destino int = NULL,
-@id_tipo_servicio int = NULL
-AS
-	SELECT ra.codigo_ruta "Codigo de ruta", c1.nombre "Ciudad origen", c2.nombre "Ciudad destino",
-		   ra.precio_base_por_peso "Precio base por peso", ra.precio_base_por_pasaje "Precio base por pasaje",
-		   ts.tipo_servicio "Tipo de servicio"	
-		FROM ÑUFLO.RutaAerea ra JOIN ÑUFLO.Ciudad c1			ON ra.id_ciudad_origen = c1.id_ciudad
-								JOIN ÑUFLO.Ciudad c2			ON ra.id_ciudad_destino = c2.id_ciudad
-								JOIN ÑUFLO.ServicioPorRuta sr	ON ra.id_ruta = sr.id_ruta
-								JOIN ÑUFLO.TipoServicio ts		ON sr.id_tipo_servicio  = ts.id_tipo_servicio
-
-		WHERE (@id_ciudad_origen IS NULL OR ra.id_ciudad_origen = @id_ciudad_origen) AND
-			  (@id_ciudad_destino IS NULL OR  ra.id_ciudad_destino = @id_ciudad_destino) AND
-			  (@id_tipo_servicio IS NULL OR sr.id_tipo_servicio = @id_tipo_servicio ) AND
-			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta )
-;  
-GO
-
-CREATE PROCEDURE ÑUFLO.UpdateRutaAerea
-@id_ruta int,
-@codigo_ruta numeric (18, 0),
-@id_ciudad_origen int,
-@id_ciudad_destino int,
-@precio_base_por_peso  numeric (18, 0),
-@precio_base_por_pasaje  numeric (18, 0)
-AS
-	UPDATE ÑUFLO.RutaAerea
-	SET codigo_ruta = @codigo_ruta, id_ciudad_origen = @id_ciudad_origen, id_ciudad_destino = @id_ciudad_destino,
-		precio_base_por_peso = @precio_base_por_peso, precio_base_por_pasaje = @precio_base_por_pasaje
-	WHERE id_ruta = @id_ruta
-;  
-GO
-
 /*****************************************************************/
 /*************************** Function ****************************/
 /*****************************************************************/
 
+/*Milla*/
 CREATE FUNCTION ÑUFLO.MillasPorClienteCarga(@Id_viaje int)
 RETURNS @MillasPorCliente TABLE
    (
@@ -1451,6 +1461,7 @@ BEGIN
 END
 GO
 
+/*Rol*/
 CREATE FUNCTION ÑUFLO.IdRolDe(@nombre_rol nvarchar(255))
 RETURNS int
 AS
@@ -1463,6 +1474,7 @@ RETURN @id_rol
 END
 GO
 
+/*Viaje*/
 CREATE FUNCTION ÑUFLO.ViajesDeAeronaveEntre(@id_aeronave int, @salida datetime, @llegada datetime)
 RETURNS @Viajes TABLE (id_viaje int)
 AS
