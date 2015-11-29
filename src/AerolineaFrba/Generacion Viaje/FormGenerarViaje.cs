@@ -13,6 +13,7 @@ namespace AerolineaFrba.Generacion_Viaje
     public partial class FormGenerarViaje : Form, ISeleccionAeronave, ISeleccionRuta
     {
         private Control primerControlInvalido;
+        private int idRuta;
 
         public FormGenerarViaje()
         {
@@ -101,6 +102,10 @@ namespace AerolineaFrba.Generacion_Viaje
         public void setTipoServicio(String tipoServicio)
         {
             textBoxTipoServicio.Text = tipoServicio;
+        }
+        public void setIdRuta(int idRuta)
+        {
+            this.idRuta = idRuta;
         }
 
         private void dateTimePickerEstimada_Validating(object sender, CancelEventArgs e)
