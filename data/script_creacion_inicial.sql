@@ -138,7 +138,7 @@ CREATE TABLE ÑUFLO.Producto (
 	id_producto int IDENTITY(1,1) PRIMARY KEY,
 	millas_necesarias int NOT NULL,
 	stock int NOT NULL,
-	descripcion nvarchar(255) NOT NULL
+	descripcion nvarchar(255) UNIQUE NOT NULL
 	)
 GO
 
@@ -908,13 +908,13 @@ CREATE PROCEDURE ÑUFLO.CanjearProductoA
 @hoy datetime
 AS
 	DECLARE @gasto int, @id_producto int
-	SET @gasto = (select millas_necesarias * @cantidad from ÑUFLO.Producto where id_producto = @id_producto)
 	SET @id_producto = (select id_producto from ÑUFLO.Producto where descripcion = @descripcion)
+	SET @gasto = (select millas_necesarias * @cantidad from ÑUFLO.Producto where id_producto = @id_producto)
 	
 	IF((select ÑUFLO.TotalMillasDe(@dni)) < @gasto)
 		THROW 60008, 'El cliente no posee suficientes millas para realizar el canje', 1
 	
-	IF((select stock from ÑUFLO.Producto where id_producto = @id_producto) < @cantidad)
+	IF((select stock from ÑUFLO.Producto where id_producto = @id_producto) < @cantidad or @id_Producto is null)
 		THROW 60009, 'No hay suficiente stock del producto deseado para realizar el canje', 1
 
 	INSERT INTO ÑUFLO.Canje(id_cliente, id_Producto, cantidad, fecha_de_canje)
@@ -1548,7 +1548,7 @@ GO
 
 CREATE VIEW ÑUFLO.DetalleMillas
 AS
-	select 'Obtencion' Tipo, fecha_de_obtencion Fecha, m.cantidad Cantidad, CAST(cantidad_gastada AS nvarchar(255)) Cantidad_Gastada, cli.dni DNI,
+	select id_milla, 'Obtencion' Tipo, fecha_de_obtencion Fecha, m.cantidad Cantidad, CAST(cantidad_gastada AS nvarchar(255)) Cantidad_Gastada, cli.dni DNI,
 			case expirado
 				when 0 then 'Vigentes'
 				else 'Expiradas'
@@ -1556,7 +1556,7 @@ AS
 		from ÑUFLO.Milla m, ÑUFLO.Cliente cli
 		where m.id_cliente = cli.id_cliente
 	UNION
-	select 'Canje' Tipo, fecha_de_canje, -(c.cantidad * p.millas_necesarias), '-', cli.DNI, '-'
+	select id_canje, 'Canje' Tipo, fecha_de_canje, -(c.cantidad * p.millas_necesarias), '-', cli.DNI, '-'
 		from ÑUFLO.Canje c, ÑUFLO.Cliente cli, ÑUFLO.Producto p
 		where c.id_cliente = cli.id_cliente
 			and c.id_Producto = p.id_Producto
