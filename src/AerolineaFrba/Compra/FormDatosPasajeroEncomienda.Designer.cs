@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxModificarDatos = new System.Windows.Forms.CheckBox();
+            this.btnActualizar = new System.Windows.Forms.Button();
             this.dateTimeFechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.labelFechaDeNacimiento = new System.Windows.Forms.Label();
             this.labelMail = new System.Windows.Forms.Label();
@@ -45,18 +47,20 @@
             this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBoxButacaYEncomienda = new System.Windows.Forms.GroupBox();
-            this.listBoxEleccionButaca = new System.Windows.Forms.ListBox();
-            this.labelButaca = new System.Windows.Forms.Label();
-            this.labelEncomienda = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.btnAceptar = new System.Windows.Forms.Button();
             this.labelVentanillaOPasillo = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.labelEncomienda = new System.Windows.Forms.Label();
+            this.labelButaca = new System.Windows.Forms.Label();
+            this.listBoxEleccionButaca = new System.Windows.Forms.ListBox();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBoxButacaYEncomienda.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxModificarDatos);
+            this.groupBox1.Controls.Add(this.btnActualizar);
             this.groupBox1.Controls.Add(this.dateTimeFechaNacimiento);
             this.groupBox1.Controls.Add(this.labelFechaDeNacimiento);
             this.groupBox1.Controls.Add(this.labelMail);
@@ -78,8 +82,30 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del pasajero";
             // 
+            // checkBoxModificarDatos
+            // 
+            this.checkBoxModificarDatos.AutoSize = true;
+            this.checkBoxModificarDatos.Location = new System.Drawing.Point(249, 152);
+            this.checkBoxModificarDatos.Name = "checkBoxModificarDatos";
+            this.checkBoxModificarDatos.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxModificarDatos.TabIndex = 17;
+            this.checkBoxModificarDatos.Text = "Modificar Datos";
+            this.checkBoxModificarDatos.UseVisualStyleBackColor = true;
+            this.checkBoxModificarDatos.CheckedChanged += new System.EventHandler(this.checkBoxModificarDatos_CheckedChanged);
+            // 
+            // btnActualizar
+            // 
+            this.btnActualizar.Enabled = false;
+            this.btnActualizar.Location = new System.Drawing.Point(508, 163);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(75, 23);
+            this.btnActualizar.TabIndex = 16;
+            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.UseVisualStyleBackColor = true;
+            // 
             // dateTimeFechaNacimiento
             // 
+            this.dateTimeFechaNacimiento.Enabled = false;
             this.dateTimeFechaNacimiento.Location = new System.Drawing.Point(374, 112);
             this.dateTimeFechaNacimiento.Name = "dateTimeFechaNacimiento";
             this.dateTimeFechaNacimiento.Size = new System.Drawing.Size(195, 20);
@@ -105,6 +131,7 @@
             // 
             // textBoxMail
             // 
+            this.textBoxMail.Enabled = false;
             this.textBoxMail.Location = new System.Drawing.Point(374, 79);
             this.textBoxMail.Name = "textBoxMail";
             this.textBoxMail.Size = new System.Drawing.Size(100, 20);
@@ -121,6 +148,7 @@
             // 
             // textBoxTelefono
             // 
+            this.textBoxTelefono.Enabled = false;
             this.textBoxTelefono.Location = new System.Drawing.Point(374, 43);
             this.textBoxTelefono.Name = "textBoxTelefono";
             this.textBoxTelefono.Size = new System.Drawing.Size(100, 20);
@@ -137,6 +165,7 @@
             // 
             // textBoxDireccion
             // 
+            this.textBoxDireccion.Enabled = false;
             this.textBoxDireccion.Location = new System.Drawing.Point(92, 149);
             this.textBoxDireccion.Name = "textBoxDireccion";
             this.textBoxDireccion.Size = new System.Drawing.Size(100, 20);
@@ -153,6 +182,7 @@
             // 
             // textBoxApellido
             // 
+            this.textBoxApellido.Enabled = false;
             this.textBoxApellido.Location = new System.Drawing.Point(92, 115);
             this.textBoxApellido.Name = "textBoxApellido";
             this.textBoxApellido.Size = new System.Drawing.Size(100, 20);
@@ -169,6 +199,7 @@
             // 
             // textBoxNombre
             // 
+            this.textBoxNombre.Enabled = false;
             this.textBoxNombre.Location = new System.Drawing.Point(92, 79);
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(100, 20);
@@ -213,22 +244,22 @@
             this.groupBoxButacaYEncomienda.TabStop = false;
             this.groupBoxButacaYEncomienda.Text = "Elección Butaca (si accede desde agregar encomienda, por Y Encomienda de nombre)";
             // 
-            // listBoxEleccionButaca
+            // labelVentanillaOPasillo
             // 
-            this.listBoxEleccionButaca.FormattingEnabled = true;
-            this.listBoxEleccionButaca.Location = new System.Drawing.Point(92, 36);
-            this.listBoxEleccionButaca.Name = "listBoxEleccionButaca";
-            this.listBoxEleccionButaca.Size = new System.Drawing.Size(120, 95);
-            this.listBoxEleccionButaca.TabIndex = 0;
+            this.labelVentanillaOPasillo.AutoSize = true;
+            this.labelVentanillaOPasillo.Location = new System.Drawing.Point(20, 140);
+            this.labelVentanillaOPasillo.Name = "labelVentanillaOPasillo";
+            this.labelVentanillaOPasillo.Size = new System.Drawing.Size(198, 13);
+            this.labelVentanillaOPasillo.TabIndex = 4;
+            this.labelVentanillaOPasillo.Text = "La butaca seleccionada corresponde a: ";
             // 
-            // labelButaca
+            // textBox7
             // 
-            this.labelButaca.AutoSize = true;
-            this.labelButaca.Location = new System.Drawing.Point(20, 36);
-            this.labelButaca.Name = "labelButaca";
-            this.labelButaca.Size = new System.Drawing.Size(44, 13);
-            this.labelButaca.TabIndex = 1;
-            this.labelButaca.Text = "Butaca:";
+            this.textBox7.Enabled = false;
+            this.textBox7.Location = new System.Drawing.Point(396, 36);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(78, 20);
+            this.textBox7.TabIndex = 3;
             // 
             // labelEncomienda
             // 
@@ -239,13 +270,22 @@
             this.labelEncomienda.TabIndex = 2;
             this.labelEncomienda.Text = "Cantidad a encomendar:";
             // 
-            // textBox7
+            // labelButaca
             // 
-            this.textBox7.Enabled = false;
-            this.textBox7.Location = new System.Drawing.Point(396, 36);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(78, 20);
-            this.textBox7.TabIndex = 3;
+            this.labelButaca.AutoSize = true;
+            this.labelButaca.Location = new System.Drawing.Point(20, 36);
+            this.labelButaca.Name = "labelButaca";
+            this.labelButaca.Size = new System.Drawing.Size(44, 13);
+            this.labelButaca.TabIndex = 1;
+            this.labelButaca.Text = "Butaca:";
+            // 
+            // listBoxEleccionButaca
+            // 
+            this.listBoxEleccionButaca.FormattingEnabled = true;
+            this.listBoxEleccionButaca.Location = new System.Drawing.Point(92, 36);
+            this.listBoxEleccionButaca.Name = "listBoxEleccionButaca";
+            this.listBoxEleccionButaca.Size = new System.Drawing.Size(120, 95);
+            this.listBoxEleccionButaca.TabIndex = 0;
             // 
             // btnAceptar
             // 
@@ -255,15 +295,6 @@
             this.btnAceptar.TabIndex = 18;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
-            // 
-            // labelVentanillaOPasillo
-            // 
-            this.labelVentanillaOPasillo.AutoSize = true;
-            this.labelVentanillaOPasillo.Location = new System.Drawing.Point(20, 140);
-            this.labelVentanillaOPasillo.Name = "labelVentanillaOPasillo";
-            this.labelVentanillaOPasillo.Size = new System.Drawing.Size(198, 13);
-            this.labelVentanillaOPasillo.TabIndex = 4;
-            this.labelVentanillaOPasillo.Text = "La butaca seleccionada corresponde a: ";
             // 
             // FormDatosPasajeroEncomienda
             // 
@@ -309,5 +340,7 @@
         private System.Windows.Forms.ListBox listBoxEleccionButaca;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label labelVentanillaOPasillo;
+        private System.Windows.Forms.CheckBox checkBoxModificarDatos;
+        private System.Windows.Forms.Button btnActualizar;
     }
 }

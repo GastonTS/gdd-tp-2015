@@ -16,5 +16,24 @@ namespace AerolineaFrba.Compra
         {
             InitializeComponent();
         }
+
+        private void checkBoxModificarDatos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxModificarDatos.Checked)
+                habilitacionDatosCliente(true);
+            else
+                habilitacionDatosCliente(false);
+        }
+
+        private void habilitacionDatosCliente(bool estado)
+        {
+            textBoxNombre.Enabled = estado;
+            textBoxTelefono.Enabled = estado;
+            textBoxMail.Enabled = estado;
+            textBoxApellido.Enabled = estado;
+            dateTimeFechaNacimiento.Enabled = estado;
+            textBoxDireccion.Enabled = estado;
+            btnActualizar.Enabled = estado;
+        }
     }
 }
