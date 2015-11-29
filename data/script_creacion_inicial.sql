@@ -1174,14 +1174,11 @@ GO
 CREATE PROCEDURE ÑUFLO.Inhabilitar_Habilitar
 @nombre nvarchar(255)
 AS
-	IF ((SELECT habilitado FROM Rol WHERE nombre_rol = @nombre) = 1)
-	BEGIN
-		UPDATE Rol SET habilitado = 0 WHERE nombre_rol = @nombre
-	END
-	ELSE
-	BEGIN
-		UPDATE Rol SET habilitado = 1 WHERE nombre_rol = @nombre
-	END
+	UPDATE ÑUFLO.Rol SET habilitado = habilitado ^ 1 WHERE nombre_rol = @nombre
+	
+	IF ((SELECT habilitado FROM Rol WHERE nombre_rol = @nombre) = 0)
+		DELETE ÑUFLO.RolPorUsuario
+			where id_rol = (select id_rol from ÑUFLO.Rol where @nombre = nombre_rol)
 	
 	EXEC ÑUFLO.RolDadoNombre @nombre
 ;
@@ -1502,6 +1499,18 @@ BEGIN
 
 	CLOSE CMillas
 	DEALLOCATE CMillas
+END
+GO
+
+CREATE TRIGGER ÑUFLO.NoAsignarRolesInhabilitados
+ON ÑUFLO.RolPorUsuario INSTEAD OF INSERT
+AS
+BEGIN
+	IF((select habilitado from ÑUFLO.Rol r, inserted i where i.id_rol = r.id_rol) = 0)
+		THROW 60010, 'No se puede asignar un rol inhabilitado', 1
+	
+	INSERT INTO ÑUFLO.RolPorUsuario
+		select * from inserted
 END
 GO
 
