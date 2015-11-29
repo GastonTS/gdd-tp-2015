@@ -53,12 +53,14 @@ namespace AerolineaFrba.Generacion_Viaje
 
                 camposValores.Add("fecha_salida", new gdDataBase.ValorTipo(dateTimePickerSalida.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
                 camposValores.Add("fecha_llegada_estimada", new gdDataBase.ValorTipo(dateTimePickerEstimada.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
+                camposValores.Add("hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
                 camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.VarChar));
-                camposValores.Add("ciudad_origen", new gdDataBase.ValorTipo(textBoxOrigen.Text, SqlDbType.VarChar));
-                camposValores.Add("ciudad_destino", new gdDataBase.ValorTipo(textBoxDestino.Text, SqlDbType.VarChar));
-                camposValores.Add("tipo_de_servicio", new gdDataBase.ValorTipo(textBoxTipoServicio.Text, SqlDbType.VarChar));
+                camposValores.Add("id_ruta", new gdDataBase.ValorTipo(idRuta.ToString(), SqlDbType.VarChar));
 
-                errorMensaje.Add(60007, "El servicio brindado por la aeronave no coincide con el de la ruta");
+                errorMensaje.Add(60007,  "La matricula ingresada no pertenece a ninguna Aeronave");
+                errorMensaje.Add(600012, "La ruta ingresada no existe");
+                errorMensaje.Add(600015, "El servicio brindado por la aeronave no coincide con el de la ruta");
+                errorMensaje.Add(600016, "La aeronave ya posee un viaje en esas fechas");
 
                 new gdDataBase().Exec("ÑUFLO.GenerarViaje", camposValores, errorMensaje, "Viaje registrado correctamente");
             }
