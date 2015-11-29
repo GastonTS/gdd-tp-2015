@@ -35,8 +35,8 @@
             this.labelDestino = new System.Windows.Forms.Label();
             this.labelOrigen = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Seleccionar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxFechaYRuta = new System.Windows.Forms.GroupBox();
+            this.btnVerDisponibles = new System.Windows.Forms.Button();
             this.labelViajesDisponibles = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnAgregarPasaje = new System.Windows.Forms.Button();
@@ -68,6 +68,7 @@
             // comboBoxDestino
             // 
             this.comboBoxDestino.DisplayMember = "nombre";
+            this.comboBoxDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDestino.FormattingEnabled = true;
             this.comboBoxDestino.Location = new System.Drawing.Point(118, 98);
             this.comboBoxDestino.Name = "comboBoxDestino";
@@ -78,6 +79,7 @@
             // comboBoxOrigen
             // 
             this.comboBoxOrigen.DisplayMember = "nombre";
+            this.comboBoxOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxOrigen.FormattingEnabled = true;
             this.comboBoxOrigen.Location = new System.Drawing.Point(118, 59);
             this.comboBoxOrigen.Name = "comboBoxOrigen";
@@ -106,20 +108,14 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Seleccionar});
             this.dataGridView1.Location = new System.Drawing.Point(22, 206);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(451, 131);
             this.dataGridView1.TabIndex = 8;
             // 
-            // Seleccionar
-            // 
-            this.Seleccionar.HeaderText = "Seleccionar";
-            this.Seleccionar.Name = "Seleccionar";
-            // 
             // groupBoxFechaYRuta
             // 
+            this.groupBoxFechaYRuta.Controls.Add(this.btnVerDisponibles);
             this.groupBoxFechaYRuta.Controls.Add(this.dateTimePicker1);
             this.groupBoxFechaYRuta.Controls.Add(this.comboBoxDestino);
             this.groupBoxFechaYRuta.Controls.Add(this.labelFechaViaje);
@@ -128,10 +124,20 @@
             this.groupBoxFechaYRuta.Controls.Add(this.labelDestino);
             this.groupBoxFechaYRuta.Location = new System.Drawing.Point(22, 21);
             this.groupBoxFechaYRuta.Name = "groupBoxFechaYRuta";
-            this.groupBoxFechaYRuta.Size = new System.Drawing.Size(360, 139);
+            this.groupBoxFechaYRuta.Size = new System.Drawing.Size(451, 139);
             this.groupBoxFechaYRuta.TabIndex = 9;
             this.groupBoxFechaYRuta.TabStop = false;
             this.groupBoxFechaYRuta.Text = "Fecha y ruta requeridas";
+            // 
+            // btnVerDisponibles
+            // 
+            this.btnVerDisponibles.Location = new System.Drawing.Point(320, 96);
+            this.btnVerDisponibles.Name = "btnVerDisponibles";
+            this.btnVerDisponibles.Size = new System.Drawing.Size(110, 23);
+            this.btnVerDisponibles.TabIndex = 8;
+            this.btnVerDisponibles.Text = "Ver disponibles";
+            this.btnVerDisponibles.UseVisualStyleBackColor = true;
+            this.btnVerDisponibles.Click += new System.EventHandler(this.btnVerDisponibles_Click);
             // 
             // labelViajesDisponibles
             // 
@@ -230,7 +236,6 @@
         private System.Windows.Forms.Label labelDestino;
         private System.Windows.Forms.Label labelOrigen;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Seleccionar;
         private System.Windows.Forms.GroupBox groupBoxFechaYRuta;
         private System.Windows.Forms.Label labelViajesDisponibles;
         private System.Windows.Forms.Button btnLimpiar;
@@ -239,5 +244,6 @@
         private System.Windows.Forms.ListBox listBoxPasajesYEncomiendasComprados;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.GroupBox groupBoxPasajesEncomiendas;
+        private System.Windows.Forms.Button btnVerDisponibles;
     }
 }

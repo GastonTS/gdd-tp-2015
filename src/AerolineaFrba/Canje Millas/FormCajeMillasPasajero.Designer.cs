@@ -84,6 +84,7 @@
             // 
             // comboBoxProducto
             // 
+            this.comboBoxProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxProducto.Enabled = false;
             this.comboBoxProducto.FormattingEnabled = true;
             this.comboBoxProducto.Location = new System.Drawing.Point(201, 28);

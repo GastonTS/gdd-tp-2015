@@ -136,6 +136,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // comboBoxTipoServicio
             // 
             this.comboBoxTipoServicio.DataSource = this.bindingSourceTipoServicio;
+            this.comboBoxTipoServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipoServicio.FormattingEnabled = true;
             this.comboBoxTipoServicio.Location = new System.Drawing.Point(105, 25);
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";

@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxCapacidadEncomiendas = new System.Windows.Forms.TextBox();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
+            this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
             this.labelCapacidadEncomiendas = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxModelo = new System.Windows.Forms.TextBox();
@@ -48,12 +49,11 @@
             this.labelFabricante = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.bindingAeronaves = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAeronave)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingAeronaves)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewAeronave
@@ -136,6 +136,7 @@
             // comboBoxTipoServicio
             // 
             this.comboBoxTipoServicio.DataSource = this.bindingSourceTipoServicio;
+            this.comboBoxTipoServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipoServicio.FormattingEnabled = true;
             this.comboBoxTipoServicio.Location = new System.Drawing.Point(105, 25);
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";
@@ -240,10 +241,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAeronave)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingAeronaves)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).EndInit();
             this.ResumeLayout(false);
 
         }
