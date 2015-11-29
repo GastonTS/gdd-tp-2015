@@ -867,16 +867,6 @@ AS
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.PesoDisponible
-@Id_viaje int
-AS
-	select (a.capacidad_peso_encomiendas - v.peso_ocupado) Peso_Disponible
-		from ÑUFLO.Aeronave a, ÑUFLO.Viaje v
-		where @Id_viaje = v.id_viaje
-			and v.id_aeronave = a.id_aeronave
-;
-GO
-
 CREATE PROCEDURE ÑUFLO.MillasTotalesDe
 @dni NUMERIC(18,0)
 AS
@@ -924,8 +914,9 @@ CREATE PROCEDURE ÑUFLO.ViajesDisponiblesPara
 @ciudad_destino nvarchar(255),
 @fecha datetime
 AS
-	select v.id_viaje Viaje, a.matricula Matricula, v.peso_ocupado Peso_Ocupado, v.fecha_salida Fecha_Salida, v.fecha_llegada_estimada Fecha_Llegada_Estimada
-		from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
+	select v.id_viaje, a.matricula Matricula_aeronave, v.fecha_salida, v.fecha_llegada_estimada Fecha_Llegada_Estimada, ÑUFLO.CantidadButacasDisponibles(v.id_viaje) Cantidad_Butacas,
+			ÑUFLO.PesoDisponible(v.id_viaje) Peso_Disponible, ts.tipo_servicio
+		from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd, ÑUFLO.TipoServicio ts
 		where r.id_ruta = v.id_ruta
 			and r.id_ciudad_origen = co.id_ciudad
 			and r.id_ciudad_destino = cd.id_ciudad
@@ -933,6 +924,7 @@ AS
 			and cd.nombre = @ciudad_destino
 			and convert(date, v.fecha_salida) = convert(date, @fecha)
 			and v.id_aeronave = a.id_aeronave
+			and ts.id_tipo_servicio = a.id_tipo_servicio
 ;
 GO
 
@@ -1037,67 +1029,6 @@ AS
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.DetallePasajePara
-@ciudad nvarchar(255),
-@fecha_inicio nvarchar(255),
-@fecha_fin nvarchar(255)
-AS
-	select Codigo_de_Compra, Fecha_De_Compra, Pasaje, Destino, DNI, Nombre, Apellido, Butaca_Numero, Precio
-		from ÑUFLO.DetallePasajes
-		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
-			and Destino = @ciudad
-;
-GO	
-
-CREATE PROCEDURE ÑUFLO.DetalleAeronavesVaciasPara
-@ciudad nvarchar(255),
-@fecha_inicio datetime,
-@fecha_fin datetime
-AS
-	select Viaje, Destino, Matricula, Modelo, Fabricante, Capacidad_Peso, Fecha_De_Compra
-		from ÑUFLO.DetalleAeronavesVacias
-		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
-			and @ciudad = Destino
-;
-GO
-
-CREATE PROCEDURE ÑUFLO.DetalleMillasDe
-@dni int
-AS
-	EXEC ÑUFLO.ExpirarMillas
-	select Tipo, Cantidad, Cantidad_Gastada, Fecha, Estado
-		from ÑUFLO.DetalleMillas 
-		where DNI = @dni
-		order by Fecha
-;
-GO
-
-CREATE PROCEDURE ÑUFLO.DetalleMillasPara
-@dni int,
-@fecha_inicio datetime,
-@fecha_fin datetime
-AS
-	EXEC ÑUFLO.ExpirarMillas
-	select Tipo, Cantidad, Fecha
-		from ÑUFLO.DetalleMillas
-		where Fecha between @fecha_inicio and @fecha_fin
-			and DNI = @dni
-		order by Fecha
-;
-GO
-
-CREATE PROCEDURE ÑUFLO.DetalleCancelacionesPara
-@ciudad nvarchar(255),
-@fecha_inicio datetime,
-@fecha_fin datetime
-AS
-	select Pasaje, DNI, Nombre, Apellido, Butaca_Numero, Fecha_De_Compra, Fecha_Devolucion, Motivo
-		from ÑUFLO.DetalleCancelaciones
-		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
-			and @ciudad = Destino
-;
-GO
-
 CREATE PROCEDURE ÑUFLO.TodasLasCiudades
 AS
 	SELECT nombre FROM ÑUFLO.Ciudad
@@ -1192,6 +1123,67 @@ AS
 			where id_rol = (select id_rol from ÑUFLO.Rol where @nombre = nombre_rol)
 	
 	EXEC ÑUFLO.RolDadoNombre @nombre
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.DetallePasajePara
+@ciudad nvarchar(255),
+@fecha_inicio nvarchar(255),
+@fecha_fin nvarchar(255)
+AS
+	select Codigo_de_Compra, Fecha_De_Compra, Pasaje, Destino, DNI, Nombre, Apellido, Butaca_Numero, Precio
+		from ÑUFLO.DetallePasajes
+		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
+			and Destino = @ciudad
+;
+GO	
+
+CREATE PROCEDURE ÑUFLO.DetalleAeronavesVaciasPara
+@ciudad nvarchar(255),
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	select Viaje, Destino, Matricula, Modelo, Fabricante, Capacidad_Peso, Fecha_De_Compra
+		from ÑUFLO.DetalleAeronavesVacias
+		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
+			and @ciudad = Destino
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.DetalleMillasDe
+@dni int
+AS
+	EXEC ÑUFLO.ExpirarMillas
+	select Tipo, Cantidad, Cantidad_Gastada, Fecha, Estado
+		from ÑUFLO.DetalleMillas 
+		where DNI = @dni
+		order by Fecha
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.DetalleMillasPara
+@dni int,
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	EXEC ÑUFLO.ExpirarMillas
+	select Tipo, Cantidad, Fecha
+		from ÑUFLO.DetalleMillas
+		where Fecha between @fecha_inicio and @fecha_fin
+			and DNI = @dni
+		order by Fecha
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.DetalleCancelacionesPara
+@ciudad nvarchar(255),
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	select Pasaje, DNI, Nombre, Apellido, Butaca_Numero, Fecha_De_Compra, Fecha_Devolucion, Motivo
+		from ÑUFLO.DetalleCancelaciones
+		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
+			and @ciudad = Destino
 ;
 GO
 
@@ -1459,6 +1451,44 @@ BEGIN
 				and (v.fecha_salida between @salida and @llegada
 				or v.fecha_llegada_estimada between @salida and @llegada)
 RETURN
+END
+GO
+
+CREATE FUNCTION ÑUFLO.PesoDisponible(@Id_viaje int)
+RETURNS numeric(18,0)
+AS
+BEGIN
+	DECLARE @peso_disponible numeric(18,0)
+	
+	SET @peso_disponible = (select (a.capacidad_peso_encomiendas - v.peso_ocupado) Peso_Disponible
+								from ÑUFLO.Aeronave a, ÑUFLO.Viaje v
+								where @Id_viaje = v.id_viaje
+									and v.id_aeronave = a.id_aeronave)
+	
+	RETURN @peso_disponible
+END
+GO
+
+CREATE FUNCTION ÑUFLO.CantidadButacasDisponibles(@id_viaje int)
+RETURNS int
+AS
+BEGIN
+	DECLARE @total int, @ocupadas int, @disponibles int
+
+	SET @total = (select COUNT(numero_de_butaca)
+					from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b
+					where 1 = v.id_viaje
+						and v.id_aeronave = b.id_aeronave)
+
+	SET @ocupadas = (select COUNT(numero_de_butaca)
+						from ÑUFLO.Viaje v, ÑUFLO.Pasaje p, ÑUFLO.Compra c
+						where 1 = v.id_viaje
+							and v.id_viaje = c.id_viaje
+							and c.codigo_de_compra = p.codigo_de_compra)
+
+	SET @disponibles = @total - @ocupadas
+
+	RETURN @disponibles
 END
 GO
 
