@@ -1009,6 +1009,21 @@ AS
 		where dni = @dni
 ;
 
+CREATE PROCEDURE ÑUFLO.ModificarCliente
+@dni numeric(18,0),
+@nombre nvarchar(255),
+@apellido nvarchar(255),
+@direccion nvarchar(255),
+@telefono numeric(18,0),
+@mail nvarchar(255),
+@fecha_de_nacimiento datetime
+AS
+	UPDATE ÑUFLO.Cliente
+		SET nombre = @nombre, apellido = @apellido, direccion = @direccion, 
+			telefono = @telefono, mail = @mail, fecha_de_nacimiento = @fecha_de_nacimiento
+		where dni = @dni
+;
+
 CREATE PROCEDURE ÑUFLO.ExpirarMillas
 AS
 
