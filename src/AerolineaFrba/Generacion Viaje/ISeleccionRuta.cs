@@ -11,5 +11,6 @@ namespace AerolineaFrba.Generacion_Viaje
         void setCiudadOrigen(String origen);
         void setCiudadDestino(String destino);
         void setTipoServicio(String tipoServicio);
+        void setIdRuta(int idRuta);
     }
 }

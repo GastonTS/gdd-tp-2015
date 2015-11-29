@@ -28,6 +28,7 @@ namespace AerolineaFrba.Generacion_Viaje
                 formInterface.setCiudadOrigen(filaAeronave.Cells[3].FormattedValue.ToString());
                 formInterface.setCiudadDestino(filaAeronave.Cells[5].FormattedValue.ToString());
                 formInterface.setTipoServicio(filaAeronave.Cells[8].FormattedValue.ToString());
+                formInterface.setIdRuta(Convert.ToInt32(filaAeronave.Cells[0].FormattedValue.ToString()));
             }
 
             this.Close();
