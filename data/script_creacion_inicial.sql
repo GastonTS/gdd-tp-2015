@@ -1472,6 +1472,7 @@ BEGIN
 				from ÑUFLO.Milla
 				where expirado = 0
 					and (cantidad - cantidad_gastada) > 0
+					and id_cliente = (select i.id_cliente from inserted i)
 				order by fecha_de_obtencion
 
 	OPEN CMillas 
