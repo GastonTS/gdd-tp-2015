@@ -836,21 +836,19 @@ AS
 	
 	WHILE(@@FETCH_STATUS = 0)
 	BEGIN
-		INSERT INTO @reemplazos
-			select case
-						when (select COUNT(id_viaje) viajes
-								from ÑUFLO.Viaje v
-								where a.id_aeronave = v.id_aeronave
-									and (v.fecha_salida between @salida and @llegada
-									or v.fecha_llegada_estimada between @salida and @llegada)) = 0 then a.id_aeronave
-						else null
-					end
+		INSERT INTO @reemplazos			
+			select a.id_aeronave
 				from ÑUFLO.Aeronave a
 				where @modelo = a.id_modelo
 					and @fabricante = a.id_fabricante
 					and @tipo_servicio = a.id_tipo_servicio
 					and baja_por_fuera_de_servicio is null
 					and baja_vida_utill is null
+					and NOT EXISTS (select id_viaje viajes
+										from ÑUFLO.Viaje v
+										where a.id_aeronave = v.id_aeronave
+											and (v.fecha_salida between @salida and @llegada
+											or v.fecha_llegada_estimada between @salida and @llegada))
 		 
 		IF ((select COUNT(*) from @reemplazos where id_aeronave is not null) = 0)
 		BEGIN
