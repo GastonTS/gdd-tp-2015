@@ -1001,6 +1001,14 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.ConsultaCliente
+@dni numeric(18,0)
+AS
+	select nombre, apellido, direccion, telefono, mail, fecha_de_nacimiento
+		from ÑUFLO.Cliente
+		where dni = @dni
+;
+
 CREATE PROCEDURE ÑUFLO.ExpirarMillas
 AS
 
