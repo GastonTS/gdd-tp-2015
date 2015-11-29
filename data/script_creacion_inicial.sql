@@ -844,11 +844,7 @@ AS
 					and @tipo_servicio = a.id_tipo_servicio
 					and baja_por_fuera_de_servicio is null
 					and baja_vida_utill is null
-					and NOT EXISTS (select id_viaje viajes
-										from ÑUFLO.Viaje v
-										where a.id_aeronave = v.id_aeronave
-											and (v.fecha_salida between @salida and @llegada
-											or v.fecha_llegada_estimada between @salida and @llegada))
+					and NOT EXISTS (select * from ÑUFLO.ViajesDeAeronaveEntre(a.id_aeronave, @salida, @llegada))
 		 
 		IF ((select COUNT(*) from @reemplazos where id_aeronave is not null) = 0)
 		BEGIN
@@ -943,31 +939,34 @@ GO
 CREATE PROCEDURE ÑUFLO.GenerarViaje
 @fecha_salida datetime,
 @fecha_llegada_estimada datetime,
+@hoy datetime,
 @matricula nvarchar(255),
-@ciudad_origen nvarchar(255),
-@ciudad_destino nvarchar(255),
-@tipo_de_servicio nvarchar(255)
+@id_ruta int
 AS
-	DECLARE @id_aeronave INT, @id_ruta INT, @id_origen INT, @id_destino INT
+	DECLARE @id_aeronave int
 	
-	SELECT @id_origen = id_ciudad FROM ÑUFLO.Ciudad WHERE nombre = @ciudad_origen
-	SELECT @id_destino = id_ciudad FROM ÑUFLO.Ciudad WHERE nombre = @ciudad_destino
+	SET @id_aeronave = (select id_aeronave from ÑUFLO.Aeronave where matricula = @matricula)
 	
-	SELECT @id_aeronave = id_aeronave FROM ÑUFLO.Aeronave WHERE matricula = @matricula
+	IF(@id_aeronave is null)
+		THROW 60007, 'La matricula ingresada no pertenece a ninguna Aeronave', 1
+		
+	IF(@id_ruta NOT IN (select id_ruta from ÑUFLO.RutaAerea))
+		THROW 60012, 'La ruta ingresada no existe', 1
 	
-	IF (@tipo_de_servicio not in (SELECT ts.tipo_servicio FROM ÑUFLO.TipoServicio ts 
-								JOIN ÑUFLO.Aeronave a ON (ts.id_tipo_servicio = a.id_tipo_servicio)
-									WHERE id_aeronave = @id_aeronave))
-	BEGIN
-		THROW 60007, 'El servicio brindado por la aeronave no coincide con el de la ruta', 1
-	END
-	
-	SELECT @id_ruta = id_ruta 
-		FROM ÑUFLO.RutaAerea
-		WHERE id_ciudad_origen = @id_origen AND id_ciudad_destino = @id_destino
+	IF(@fecha_llegada_estimada < @fecha_salida)
+		THROW 60013, 'La fecha de llegada no puede ser menor a la de salida', 1
+		
+	IF(@fecha_salida < @hoy)
+		THROW 60014, 'La fecha de salida debe ser mayor a la fecha de hoy', 1
+		
+	IF ((select id_tipo_servicio from ÑUFLO.ServicioPorRuta where id_ruta = @id_ruta) <> (select id_tipo_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave))
+		THROW 600015, 'El servicio brindado por la aeronave no coincide con el de la ruta', 1
+		
+	IF(EXISTS (select * from ÑUFLO.ViajesDeAeronaveEntre(@id_aeronave, @fecha_salida, @fecha_llegada_estimada)))
+		THROW 60016, 'La aeronave ya posee un viaje en esas fechas', 1
 	
 	INSERT INTO ÑUFLO.Viaje (id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada_estimada)
-		VALUES (@id_aeronave, @id_ruta, 0, @fecha_salida, @fecha_llegada_estimada)
+		VALUES (@id_aeronave, @id_ruta, 0, @fecha_salida, @fecha_llegada_estimada)	
 ;
 GO
 
@@ -1412,13 +1411,14 @@ BEGIN
         WHERE comp.id_viaje = @Id_viaje
 			AND comp.codigo_de_compra = p.codigo_de_compra
 		GROUP BY comp.id_cliente
-   RETURN
+		
    INSERT @MillasPorCliente
         SELECT comp.id_cliente, ROUND(SUM(e.precio)/10,0,1) as millas-- El tercer parametro asi trunca, con cero redondea
         FROM ÑUFLO.Compra comp, ÑUFLO.Encomienda e
         WHERE comp.id_viaje = @Id_viaje
 			AND comp.codigo_de_compra = e.codigo_de_compra
 		GROUP BY comp.id_cliente
+   
    RETURN
 END
 GO
@@ -1445,6 +1445,20 @@ BEGIN
 		FROM Rol 
 		WHERE nombre_rol = @nombre_rol
 RETURN @id_rol
+END
+GO
+
+CREATE FUNCTION ÑUFLO.ViajesDeAeronaveEntre(@id_aeronave int, @salida datetime, @llegada datetime)
+RETURNS @Viajes TABLE (id_viaje int)
+AS
+BEGIN
+	INSERT INTO @Viajes
+		select id_viaje viajes
+			from ÑUFLO.Viaje v
+			where @id_aeronave = v.id_aeronave
+				and (v.fecha_salida between @salida and @llegada
+				or v.fecha_llegada_estimada between @salida and @llegada)
+RETURN
 END
 GO
 
