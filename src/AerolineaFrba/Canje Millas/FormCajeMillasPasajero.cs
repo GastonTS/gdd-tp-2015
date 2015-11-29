@@ -30,7 +30,18 @@ namespace AerolineaFrba.Canje_Millas
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
+            camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDni.Text, SqlDbType.Decimal));
+            camposValores.Add("cantidad", new gdDataBase.ValorTipo(textBoxCantidadProducto.Text, SqlDbType.Int));
+            camposValores.Add("descripcion", new gdDataBase.ValorTipo(comboBoxProducto.Text, SqlDbType.VarChar));
+            camposValores.Add("hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+
+            errorMensaje.Add(60008, "El cliente no posee suficientes millas para realizar el canje");
+            errorMensaje.Add(60009, "No hay suficiente stock del producto deseado para realizar el canje");
+
+            new gdDataBase().Exec("ÑUFLO.CanjearProductoA", camposValores, errorMensaje, "Canje realizado con éxito");
         }
 
         private void button1_Click(object sender, EventArgs e)

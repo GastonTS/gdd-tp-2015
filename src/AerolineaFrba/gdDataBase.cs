@@ -195,6 +195,7 @@ namespace AerolineaFrba
         public void Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta)
         {
             conectar();
+            bool encontroErrorConocido = false;
 
             using (var cmd = new SqlCommand(spName, miConexion))
             {
@@ -223,12 +224,11 @@ namespace AerolineaFrba
                             if (exception.Number == errorMensaje.ElementAt(i).Key)
                             {
                                 MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else
-                            {
-                                MessageBox.Show(exception.Message);
+                                encontroErrorConocido = true;
                             }
                         }
+                        if(!encontroErrorConocido)
+                            MessageBox.Show(exception.Message);
                     }
                 }
             }
@@ -243,6 +243,7 @@ namespace AerolineaFrba
         {
             conectar();
 
+            bool encontroErrorConocido = false;
             DataTable ds = new DataTable();
 
             using (var cmd = new SqlCommand(spName, miConexion))
@@ -271,12 +272,11 @@ namespace AerolineaFrba
                         if (exception.Number == errorMensaje.ElementAt(i).Key)
                         {
                             MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-                            MessageBox.Show(exception.Message);
+                            encontroErrorConocido = true;
                         }
                     }
+                    if(!encontroErrorConocido)
+                        MessageBox.Show(exception.Message);
                 }
             }
 
@@ -291,6 +291,7 @@ namespace AerolineaFrba
         {
             conectar();
 
+            bool encontroErrorConocido = false;
             DataSet ds = new DataSet();
 
             using (var cmd = new SqlCommand("ÑUFLO."+spName, miConexion))
@@ -324,12 +325,11 @@ namespace AerolineaFrba
                             if (exception.Number == errorMensaje.ElementAt(i).Key)
                             {
                                 MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else
-                            {
-                                MessageBox.Show(exception.Message);
+                            encontroErrorConocido = true;
                             }
                         }
+                        if(!encontroErrorConocido)
+                            MessageBox.Show(exception.Message);
                     }
                     else MessageBox.Show("The impossible has happened");
                 }

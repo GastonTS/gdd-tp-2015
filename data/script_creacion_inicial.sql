@@ -904,11 +904,12 @@ GO
 CREATE PROCEDURE ÑUFLO.CanjearProductoA
 @dni NUMERIC(18,0),
 @cantidad int,
-@id_producto int,
+@descripcion nvarchar(255),
 @hoy datetime
 AS
-	DECLARE @gasto int
+	DECLARE @gasto int, @id_producto int
 	SET @gasto = (select millas_necesarias * @cantidad from ÑUFLO.Producto where id_producto = @id_producto)
+	SET @id_producto = (select id_producto from ÑUFLO.Producto where descripcion = @descripcion)
 	
 	IF((select ÑUFLO.TotalMillasDe(@dni)) < @gasto)
 		THROW 60008, 'El cliente no posee suficientes millas para realizar el canje', 1
