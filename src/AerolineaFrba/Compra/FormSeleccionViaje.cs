@@ -16,5 +16,10 @@ namespace AerolineaFrba.Compra
         {
             InitializeComponent();
         }
+
+        private void btnVerDisponibles_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
