@@ -1161,7 +1161,19 @@ AS
 ;
 GO
 		
-
+CREATE PROCEDURE ÑUFLO.CambiarNombreDeRol
+@nombre_old nvarchar(255),
+@nombre nvarchar(255)
+AS
+	IF(@nombre NOT IN (select nombre_rol from ÑUFLO.Rol))
+		Update ÑUFLO.ROL
+			SET nombre_rol = @nombre
+			where @nombre_old = nombre_rol
+	ELSE
+		THROW 60011, 'No Puede cambiar el nombre a un nombre de un rol ya existente', 1
+;		
+GO
+		
 CREATE PROCEDURE ÑUFLO.RolDadoNombre
 @nombre nvarchar(255) = null
 AS
