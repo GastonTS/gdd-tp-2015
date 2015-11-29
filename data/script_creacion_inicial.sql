@@ -900,6 +900,28 @@ AS
 ;
 GO	
 
+
+CREATE PROCEDURE ÑUFLO.CanjearProductoA
+@dni NUMERIC(18,0),
+@cantidad int,
+@id_producto int,
+@hoy datetime
+AS
+	DECLARE @gasto int
+	SET @gasto = (select millas_necesarias * @cantidad from ÑUFLO.Producto where id_producto = @id_producto)
+	
+	IF((select ÑUFLO.TotalMillasDe(@dni)) < @gasto)
+		THROW 60008, 'El cliente no posee suficientes millas para realizar el canje', 1
+	
+	IF((select stock from ÑUFLO.Producto where id_producto = @id_producto) < @cantidad)
+		THROW 60009, 'No hay suficiente stock del producto deseado para realizar el canje', 1
+
+	INSERT INTO ÑUFLO.Canje(id_cliente, id_Producto, cantidad, fecha_de_canje)
+		values((select top 1 id_cliente from ÑUFLO.Cliente where dni=@dni), @id_producto, @cantidad, @hoy)
+			
+;
+GO	
+
 CREATE PROCEDURE ÑUFLO.ViajesDisponiblesPara
 @ciudad_origen nvarchar(255),
 @ciudad_destino nvarchar(255),
@@ -1430,14 +1452,19 @@ BEGIN
 END
 GO
 
-CREATE TRIGGER ÑUFLO.DisminiurMillaPorCanje
+CREATE TRIGGER ÑUFLO.DisminiurCantidadesPorCanje
 ON ÑUFLO.Canje FOR INSERT
 AS
 BEGIN
 	DECLARE @id_milla int, @id_cliente int, @fecha datetime, @cantidad int, @cantidad_gastada int, @gasto int
 
+	UPDATE ÑUFLO.Producto
+		SET stock = stock - (select i.cantidad from inserted i)
+		where id_Producto = (select i.id_Producto from inserted i)
+
 	SET @gasto = (select (i.cantidad * p.millas_necesarias)
-								from inserted i, ÑUFLO.Producto p)
+								from inserted i, ÑUFLO.Producto p
+								where p.id_Producto = i.id_Producto)
 	
 	DECLARE CMillas CURSOR 
 		FOR select id_milla, id_cliente , fecha_de_obtencion, cantidad, cantidad_gastada
@@ -1464,6 +1491,7 @@ BEGIN
 				SET cantidad_gastada = @cantidad_gastada + @gasto
 				where id_milla = @id_milla
 			SET @gasto = 0
+			BREAK;
 			END
 
 		FETCH CMillas INTO @id_milla, @id_cliente, @fecha, @cantidad, @cantidad_gastada
@@ -1526,9 +1554,10 @@ AS
 		from ÑUFLO.Milla m, ÑUFLO.Cliente cli
 		where m.id_cliente = cli.id_cliente
 	UNION
-	select 'Canje' Tipo, fecha_de_canje, -c.cantidad, '-', cli.DNI, '-'
-		from ÑUFLO.Canje c, ÑUFLO.Cliente cli
+	select 'Canje' Tipo, fecha_de_canje, -(c.cantidad * p.millas_necesarias), '-', cli.DNI, '-'
+		from ÑUFLO.Canje c, ÑUFLO.Cliente cli, ÑUFLO.Producto p
 		where c.id_cliente = cli.id_cliente
+			and c.id_Producto = p.id_Producto
 GO
 
 CREATE VIEW ÑUFLO.DetalleCancelaciones
