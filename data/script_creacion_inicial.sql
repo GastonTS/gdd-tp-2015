@@ -573,10 +573,14 @@ CREATE PROCEDURE ÑUFLO.ModificarCliente
 @mail nvarchar(255),
 @fecha_de_nacimiento datetime
 AS
-	UPDATE ÑUFLO.Cliente
-		SET nombre = @nombre, apellido = @apellido, direccion = @direccion, 
-			telefono = @telefono, mail = @mail, fecha_de_nacimiento = @fecha_de_nacimiento
-		where dni = @dni
+	IF(NOT EXISTS (select id_cliente from ÑUFLO.Cliente where dni = @dni))
+		INSERT INTO ÑUFLO.Cliente(dni, nombre, apellido, direccion, telefono, mail, fecha_de_nacimiento)
+			values(@dni, @nombre, @apellido, @direccion, @telefono, @mail, @fecha_de_nacimiento)
+	ELSE
+		UPDATE ÑUFLO.Cliente
+			SET nombre = @nombre, apellido = @apellido, direccion = @direccion, 
+				telefono = @telefono, mail = @mail, fecha_de_nacimiento = @fecha_de_nacimiento
+			where dni = @dni
 ;
 GO
 
