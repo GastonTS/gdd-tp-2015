@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Ruta
 {
-    public partial class FormModificacionRuta : Form
+    public partial class FormModificacionRuta : Abm.FormReloaded
     {
         public FormModificacionRuta()
         {
@@ -67,15 +67,12 @@ namespace AerolineaFrba.Abm_Ruta
         {
          
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
-            
-            if(comboBoxOrigen.SelectedValue.ToString()!="")
-            camposValores.Add("id_ciudad_origen", new gdDataBase.ValorTipo(comboBoxOrigen.SelectedValue.ToString(), SqlDbType.Int));
 
-            if(comboBoxDestino.SelectedValue.ToString() != "")
-            camposValores.Add("id_ciudad_destino", new gdDataBase.ValorTipo(comboBoxDestino.SelectedValue.ToString(), SqlDbType.Int));
+            agregarValorCBADiccionario(comboBoxOrigen, camposValores, "id_ciudad_origen", SqlDbType.Int);
 
-            if (comboBoxTipoServicio.SelectedValue.ToString() != "")
-            camposValores.Add("id_tipo_servicio", new gdDataBase.ValorTipo(comboBoxTipoServicio.SelectedValue.ToString(), SqlDbType.Int));
+            agregarValorCBADiccionario(comboBoxDestino, camposValores, "id_ciudad_destino", SqlDbType.Int);
+
+            agregarValorCBADiccionario(comboBoxTipoServicio, camposValores, "id_tipo_servicio", SqlDbType.Int);
 
             var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.FiltrosModificacionRutaAerea", camposValores);
 

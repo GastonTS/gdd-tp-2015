@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba
 {
-    class gdDataBase
+    public class gdDataBase
     {
         SqlConnection miConexion = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=gd2015");
 
@@ -17,6 +17,12 @@ namespace AerolineaFrba
         {
             String valor;
             SqlDbType tipo;
+
+            public ValorTipo(object valor, SqlDbType tipo) 
+            {
+                this.valor = valor.ToString();
+                this.tipo = tipo;
+            }
 
             public ValorTipo(String valor, SqlDbType tipo)
             {
