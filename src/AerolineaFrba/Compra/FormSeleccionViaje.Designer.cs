@@ -165,6 +165,7 @@
             this.btnAgregarPasaje.TabIndex = 16;
             this.btnAgregarPasaje.Text = "Comprar Pasaje";
             this.btnAgregarPasaje.UseVisualStyleBackColor = true;
+            this.btnAgregarPasaje.Click += new System.EventHandler(this.btnAgregarPasaje_Click);
             // 
             // btnAgregarEncomienda
             // 
@@ -218,6 +219,7 @@
             this.Controls.Add(this.groupBoxPasajesEncomiendas);
             this.Name = "FormSeleccionViaje";
             this.Text = "Selección del Viaje a Comprar";
+            this.Load += new System.EventHandler(this.FormSeleccionViaje_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBoxFechaYRuta.ResumeLayout(false);
             this.groupBoxFechaYRuta.PerformLayout();

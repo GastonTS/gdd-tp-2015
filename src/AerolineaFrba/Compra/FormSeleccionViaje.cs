@@ -19,7 +19,36 @@ namespace AerolineaFrba.Compra
 
         private void btnVerDisponibles_Click(object sender, EventArgs e)
         {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
 
+            camposValores.Add("ciudad_origen", new gdDataBase.ValorTipo(comboBoxOrigen.Text, SqlDbType.VarChar));
+            camposValores.Add("ciudad_destino", new gdDataBase.ValorTipo(comboBoxDestino.Text, SqlDbType.VarChar));
+            camposValores.Add("fecha", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+
+            var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.ViajesDisponiblesPara", camposValores);
+
+            dataGridView1.DataSource = ds;
+        }
+
+        private void btnAgregarPasaje_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormSeleccionViaje_Load(object sender, EventArgs e)
+        {
+            DataRow filaExtraCiudad;
+            var dtOrigenDestino = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasCiudades", null);
+
+            filaExtraCiudad = dtOrigenDestino.NewRow();
+            filaExtraCiudad["nombre"] = "Cualquiera";
+            dtOrigenDestino.Rows.InsertAt(filaExtraCiudad, 0);
+
+            comboBoxOrigen.DataSource = dtOrigenDestino;
+            comboBoxOrigen.DisplayMember = dtOrigenDestino.Columns[0].ColumnName;
+
+            comboBoxDestino.DataSource = dtOrigenDestino;
+            comboBoxDestino.DisplayMember = dtOrigenDestino.Columns[0].ColumnName;
         }
     }
 }
