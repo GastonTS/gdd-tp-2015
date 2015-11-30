@@ -1300,6 +1300,18 @@ AS
 ;  
 GO
 
+CREATE PROCEDURE ÑUFLO.InsertRutaAerea
+@codigo_ruta numeric (18, 0),
+@id_ciudad_origen int,
+@id_ciudad_destino int,
+@precio_base_por_peso  numeric (18, 0),
+@precio_base_por_pasaje  numeric (18, 0)
+AS
+	INSERT INTO ÑUFLO.RutaAerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje)
+		VALUES (@codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso, @precio_base_por_pasaje)
+;  
+GO
+
 CREATE PROCEDURE ÑUFLO.UpdateRutaAerea
 @id_ruta int,
 @codigo_ruta numeric (18, 0),
