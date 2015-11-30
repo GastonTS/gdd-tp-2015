@@ -966,7 +966,6 @@ AS
 GO
 
 /*Viaje*/
-
 CREATE PROCEDURE ÑUFLO.ViajesDisponiblesPara
 @ciudad_origen nvarchar(255),
 @ciudad_destino nvarchar(255),
@@ -1040,6 +1039,67 @@ AS
 					and p.numero_de_butaca = b.numero_de_butaca
 					and p.cancelado = 0) b
 		where b.id_tipo_butaca = tb.id_tipo_butaca
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.RegistrarLlegada 
+@id_viaje int,
+@matricula nvarchar(255),
+@origen nvarchar (255),
+@destino nvarchar (255),
+@fecha_llegada datetime,
+@hoy datetime
+AS --XXX Tiene que pasarle el viaje o deberia "deducirlo" de alguna forma
+	IF(@matricula <> (select matricula 
+						from ÑUFLO.Aeronave a, ÑUFLO.Viaje v
+						where v.id_viaje = @id_viaje
+							and a.id_aeronave = v.id_aeronave))
+		THROW 60017,'La aeronave ingresada no coincide con la aeronave del viaje',1
+
+		
+	IF(@origen <> (select nombre
+						from ÑUFLO.Ciudad c, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r
+						where v.id_viaje = @id_viaje
+							and r.id_ruta = v.id_ruta
+							and c.id_ciudad = r.id_ciudad_origen))
+		THROW 60018,'La ciudad de origen ingresada no coincide con el origen del viaje',1
+
+	IF(@destino <> (select nombre
+						from ÑUFLO.Ciudad c, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r
+						where v.id_viaje = @id_viaje
+							and r.id_ruta = v.id_ruta
+							and c.id_ciudad = r.id_ciudad_destino))
+		THROW 60019,'La ciudad de destino ingresada no coincide con el destino del viaje',1
+
+	--XXX En caso de no coincidir algun dato deberian contabilizarse igual las millas
+	UPDATE ÑUFLO.Viaje
+		SET fecha_llegada = @fecha_llegada
+		where id_viaje = @id_viaje
+
+	DECLARE @id_cliente int, @id_pasaje int, @cantidad int
+
+	DECLARE CClientes CURSOR 
+		FOR select p.id_cliente, p.id_pasaje
+				from ÑUFLO.Pasaje p, ÑUFLO.Compra c
+				where @id_viaje = c.id_viaje
+					and p.codigo_de_compra = c.codigo_de_compra
+
+	OPEN CClientes
+	FETCH CCLientes INTO @id_cliente, @id_pasaje
+
+	WHILE(@@FETCH_STATUS = 0)
+		BEGIN
+		
+		SET @cantidad = (select convert(integer, precio/10) from ÑUFLO.Pasaje where id_pasaje = @id_pasaje)
+		
+		INSERT INTO ÑUFLO.Milla(id_cliente, fecha_de_obtencion, cantidad, cantidad_gastada, expirado)
+			values(@id_cliente, @hoy, @cantidad, 0, 0)
+
+		FETCH CCLientes INTO @id_cliente, @id_pasaje
+		END
+
+	CLOSE CClientes
+	DEALLOCATE CClientes
 ;
 GO
 
@@ -1422,32 +1482,6 @@ GO
 /*****************************************************************/
 
 /*Milla*/
-CREATE FUNCTION ÑUFLO.MillasPorClienteCarga(@Id_viaje int)
-RETURNS @MillasPorCliente TABLE
-   (
-    id_cliente int PRIMARY KEY,
-    cantidadMillas Int NOT NULL
-   )
-AS
-BEGIN
-   INSERT @MillasPorCliente
-        SELECT comp.id_cliente, ROUND(SUM(p.precio)/10,0,1) as millas-- El tercer parametro asi trunca, con cero redondea
-        FROM ÑUFLO.Compra comp, ÑUFLO.Pasaje p
-        WHERE comp.id_viaje = @Id_viaje
-			AND comp.codigo_de_compra = p.codigo_de_compra
-		GROUP BY comp.id_cliente
-		
-   INSERT @MillasPorCliente
-        SELECT comp.id_cliente, ROUND(SUM(e.precio)/10,0,1) as millas-- El tercer parametro asi trunca, con cero redondea
-        FROM ÑUFLO.Compra comp, ÑUFLO.Encomienda e
-        WHERE comp.id_viaje = @Id_viaje
-			AND comp.codigo_de_compra = e.codigo_de_compra
-		GROUP BY comp.id_cliente
-   
-   RETURN
-END
-GO
-
 CREATE FUNCTION ÑUFLO.TotalMillasDe(@dni numeric(18,0))
 RETURNS numeric(18,0)
 AS
@@ -1530,17 +1564,6 @@ GO
 /*****************************************************************/
 /*************************** Triggers ****************************/
 /*****************************************************************/
-
-CREATE TRIGGER ÑUFLO.CargaMilla
-ON ÑUFLO.Viaje FOR UPDATE
-AS
-BEGIN
-	UPDATE ÑUFLO.Milla
-	SET cantidad = mc.cantidadMillas ,fecha_de_obtencion = i.fecha_llegada
-	FROM inserted i, (SELECT * FROM ÑUFLO.MillasPorClienteCarga(1/*TODO:USAR UN CURSOR*/)) mc, ÑUFLO.Milla m
-	WHERE mc.id_cliente = m.id_cliente 
-END
-GO
 
 CREATE TRIGGER ÑUFLO.DisminiurCantidadesPorCanje
 ON ÑUFLO.Canje FOR INSERT
