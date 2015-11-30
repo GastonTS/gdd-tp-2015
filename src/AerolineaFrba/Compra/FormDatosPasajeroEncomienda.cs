@@ -45,7 +45,10 @@ namespace AerolineaFrba.Compra
             if (soloPasaje)
                 this.Text = "Ingrese datos del Pasajero";
             else
+            {
                 this.Text = "Ingrese datos del Pasajero y su Encomienda";
+                textBoxCantidadAEncomendar.Enabled = true;
+            }
         }
 
         public void setIDViaje(int idViaje)
@@ -143,6 +146,18 @@ namespace AerolineaFrba.Compra
         private void listBoxEleccionButacaVentanilla_SelectedIndexChanged(object sender, EventArgs e)
         {
             listBoxEleccionButacaPasillo.ClearSelected();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            textBoxDNI.Clear();
+            textBoxDireccion.Clear();
+            textBoxMail.Clear();
+            textBoxNombre.Clear();
+            textBoxTelefono.Clear();
+            textBoxCantidadAEncomendar.Clear();
+            textBoxApellido.Clear();
+            dateTimeFechaNacimiento.ResetText();
         }
     }
 }

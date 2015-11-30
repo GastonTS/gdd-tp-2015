@@ -233,6 +233,7 @@
             this.btnLimpiar.TabIndex = 16;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // groupBoxButacaYEncomienda
             // 
@@ -280,7 +281,7 @@
             // textBoxCantidadAEncomendar
             // 
             this.textBoxCantidadAEncomendar.Enabled = false;
-            this.textBoxCantidadAEncomendar.Location = new System.Drawing.Point(489, 36);
+            this.textBoxCantidadAEncomendar.Location = new System.Drawing.Point(518, 56);
             this.textBoxCantidadAEncomendar.Name = "textBoxCantidadAEncomendar";
             this.textBoxCantidadAEncomendar.Size = new System.Drawing.Size(78, 20);
             this.textBoxCantidadAEncomendar.TabIndex = 3;
@@ -289,7 +290,7 @@
             // labelEncomienda
             // 
             this.labelEncomienda.AutoSize = true;
-            this.labelEncomienda.Location = new System.Drawing.Point(359, 36);
+            this.labelEncomienda.Location = new System.Drawing.Point(389, 59);
             this.labelEncomienda.Name = "labelEncomienda";
             this.labelEncomienda.Size = new System.Drawing.Size(123, 13);
             this.labelEncomienda.TabIndex = 2;
