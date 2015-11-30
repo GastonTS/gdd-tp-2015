@@ -37,7 +37,7 @@ namespace AerolineaFrba.Generacion_Viaje
         private void FormSeleccionarRutaAerea_Load(object sender, EventArgs e)
         {
             DataRow filaExtraCiudad, filaExtraServicio;
-            var dtOrigenDestino = new gdDataBase().GetDataWithParameters("ÑUFLO.Ciudades", null);
+            var dtOrigenDestino = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasCiudades", null);
 
             filaExtraCiudad = dtOrigenDestino.NewRow();
             filaExtraCiudad["nombre"] = "Cualquiera";

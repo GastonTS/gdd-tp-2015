@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelFechaViaje = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.comboBoxDestino = new System.Windows.Forms.ComboBox();
@@ -44,9 +45,13 @@
             this.listBoxPasajesYEncomiendasComprados = new System.Windows.Forms.ListBox();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBoxPasajesEncomiendas = new System.Windows.Forms.GroupBox();
+            this.origenBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.destinoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBoxFechaYRuta.SuspendLayout();
             this.groupBoxPasajesEncomiendas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.origenBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // labelFechaViaje
@@ -60,6 +65,7 @@
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker1.Location = new System.Drawing.Point(118, 19);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
@@ -107,10 +113,11 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(22, 206);
+            this.dataGridView1.Location = new System.Drawing.Point(25, 203);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(451, 131);
+            this.dataGridView1.Size = new System.Drawing.Size(563, 131);
             this.dataGridView1.TabIndex = 8;
             // 
             // groupBoxFechaYRuta
@@ -124,14 +131,14 @@
             this.groupBoxFechaYRuta.Controls.Add(this.labelDestino);
             this.groupBoxFechaYRuta.Location = new System.Drawing.Point(22, 21);
             this.groupBoxFechaYRuta.Name = "groupBoxFechaYRuta";
-            this.groupBoxFechaYRuta.Size = new System.Drawing.Size(451, 139);
+            this.groupBoxFechaYRuta.Size = new System.Drawing.Size(566, 139);
             this.groupBoxFechaYRuta.TabIndex = 9;
             this.groupBoxFechaYRuta.TabStop = false;
             this.groupBoxFechaYRuta.Text = "Fecha y ruta requeridas";
             // 
             // btnVerDisponibles
             // 
-            this.btnVerDisponibles.Location = new System.Drawing.Point(320, 96);
+            this.btnVerDisponibles.Location = new System.Drawing.Point(441, 96);
             this.btnVerDisponibles.Name = "btnVerDisponibles";
             this.btnVerDisponibles.Size = new System.Drawing.Size(110, 23);
             this.btnVerDisponibles.TabIndex = 8;
@@ -159,12 +166,13 @@
             // 
             // btnAgregarPasaje
             // 
-            this.btnAgregarPasaje.Location = new System.Drawing.Point(32, 39);
+            this.btnAgregarPasaje.Location = new System.Drawing.Point(32, 38);
             this.btnAgregarPasaje.Name = "btnAgregarPasaje";
             this.btnAgregarPasaje.Size = new System.Drawing.Size(133, 23);
             this.btnAgregarPasaje.TabIndex = 16;
             this.btnAgregarPasaje.Text = "Comprar Pasaje";
             this.btnAgregarPasaje.UseVisualStyleBackColor = true;
+            this.btnAgregarPasaje.Click += new System.EventHandler(this.btnAgregarPasaje_Click);
             // 
             // btnAgregarEncomienda
             // 
@@ -178,14 +186,14 @@
             // listBoxPasajesYEncomiendasComprados
             // 
             this.listBoxPasajesYEncomiendasComprados.FormattingEnabled = true;
-            this.listBoxPasajesYEncomiendasComprados.Location = new System.Drawing.Point(243, 19);
+            this.listBoxPasajesYEncomiendasComprados.Location = new System.Drawing.Point(349, 19);
             this.listBoxPasajesYEncomiendasComprados.Name = "listBoxPasajesYEncomiendasComprados";
             this.listBoxPasajesYEncomiendasComprados.Size = new System.Drawing.Size(199, 108);
             this.listBoxPasajesYEncomiendasComprados.TabIndex = 18;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(398, 510);
+            this.button3.Location = new System.Drawing.Point(513, 510);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 19;
@@ -200,7 +208,7 @@
             this.groupBoxPasajesEncomiendas.Enabled = false;
             this.groupBoxPasajesEncomiendas.Location = new System.Drawing.Point(25, 356);
             this.groupBoxPasajesEncomiendas.Name = "groupBoxPasajesEncomiendas";
-            this.groupBoxPasajesEncomiendas.Size = new System.Drawing.Size(448, 140);
+            this.groupBoxPasajesEncomiendas.Size = new System.Drawing.Size(563, 140);
             this.groupBoxPasajesEncomiendas.TabIndex = 20;
             this.groupBoxPasajesEncomiendas.TabStop = false;
             this.groupBoxPasajesEncomiendas.Text = "Compra de Pasajes y/o Encomiendas";
@@ -209,7 +217,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(503, 545);
+            this.ClientSize = new System.Drawing.Size(612, 545);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.labelViajesDisponibles);
@@ -218,10 +226,13 @@
             this.Controls.Add(this.groupBoxPasajesEncomiendas);
             this.Name = "FormSeleccionViaje";
             this.Text = "Selección del Viaje a Comprar";
+            this.Load += new System.EventHandler(this.FormSeleccionViaje_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBoxFechaYRuta.ResumeLayout(false);
             this.groupBoxFechaYRuta.PerformLayout();
             this.groupBoxPasajesEncomiendas.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.origenBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,5 +256,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.GroupBox groupBoxPasajesEncomiendas;
         private System.Windows.Forms.Button btnVerDisponibles;
+        private System.Windows.Forms.BindingSource origenBindingSource;
+        private System.Windows.Forms.BindingSource destinoBindingSource;
     }
 }
