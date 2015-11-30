@@ -23,7 +23,7 @@ namespace AerolineaFrba.Compra
 
             camposValores.Add("ciudad_origen", new gdDataBase.ValorTipo(comboBoxOrigen.Text, SqlDbType.VarChar));
             camposValores.Add("ciudad_destino", new gdDataBase.ValorTipo(comboBoxDestino.Text, SqlDbType.VarChar));
-            camposValores.Add("fecha", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+            camposValores.Add("fecha", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
 
             var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.ViajesDisponiblesPara", camposValores);
 
@@ -39,10 +39,13 @@ namespace AerolineaFrba.Compra
         {
             var dtOrigenDestino = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasCiudades", null);
 
-            comboBoxOrigen.DataSource = dtOrigenDestino;
+            origenBindingSource.DataSource = dtOrigenDestino;
+            destinoBindingSource.DataSource = dtOrigenDestino;
+
+            comboBoxOrigen.DataSource = origenBindingSource;
             comboBoxOrigen.DisplayMember = dtOrigenDestino.Columns[0].ColumnName;
 
-            comboBoxDestino.DataSource = dtOrigenDestino;
+            comboBoxDestino.DataSource = destinoBindingSource;
             comboBoxDestino.DisplayMember = dtOrigenDestino.Columns[0].ColumnName;
         }
     }
