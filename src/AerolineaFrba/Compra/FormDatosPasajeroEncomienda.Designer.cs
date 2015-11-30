@@ -93,16 +93,16 @@
             this.checkBoxModificarDatos.TabIndex = 17;
             this.checkBoxModificarDatos.Text = "Modificar Datos";
             this.checkBoxModificarDatos.UseVisualStyleBackColor = true;
+            this.checkBoxModificarDatos.Visible = false;
             this.checkBoxModificarDatos.CheckedChanged += new System.EventHandler(this.checkBoxModificarDatos_CheckedChanged);
             // 
             // btnActualizar
             // 
-            this.btnActualizar.Enabled = false;
             this.btnActualizar.Location = new System.Drawing.Point(508, 163);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(75, 23);
             this.btnActualizar.TabIndex = 16;
-            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.Text = "Guardar";
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 

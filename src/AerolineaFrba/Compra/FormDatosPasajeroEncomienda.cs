@@ -99,9 +99,20 @@ namespace AerolineaFrba.Compra
                     textBoxTelefono.Text = fila.GetValue(3).ToString();
                     textBoxMail.Text = fila.GetValue(4).ToString();
                     dateTimeFechaNacimiento.Text = fila.GetValue(5).ToString();
+
+                    btnAceptar.Text = "Actualizar";
+                    btnAceptar.Enabled = false;
+                    checkBoxModificarDatos.Visible = true;
+                    habilitacionDatosCliente(false);
                 }
                 else
+                {
                     limpiarDatosCliente();
+                    checkBoxModificarDatos.Visible = false;
+                    btnAceptar.Enabled = true;
+                    btnAceptar.Text = "Guardar";
+                    habilitacionDatosCliente(true);
+                }
             }
         }
 
