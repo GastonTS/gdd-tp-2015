@@ -113,12 +113,14 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(25, 203);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(563, 131);
             this.dataGridView1.TabIndex = 8;
+            this.dataGridView1.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowEnter);
             // 
             // groupBoxFechaYRuta
             // 
@@ -182,6 +184,7 @@
             this.btnAgregarEncomienda.TabIndex = 17;
             this.btnAgregarEncomienda.Text = "Comprar Encomienda";
             this.btnAgregarEncomienda.UseVisualStyleBackColor = true;
+            this.btnAgregarEncomienda.Click += new System.EventHandler(this.btnAgregarEncomienda_Click);
             // 
             // listBoxPasajesYEncomiendasComprados
             // 
