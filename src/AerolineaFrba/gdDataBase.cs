@@ -200,7 +200,7 @@ namespace AerolineaFrba
             return ds;
         }
 
-        public void Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta)
+        public void Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta = null)
         {
             conectar();
             bool encontroErrorConocido = false;

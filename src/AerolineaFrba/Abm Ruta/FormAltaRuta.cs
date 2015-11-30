@@ -156,10 +156,10 @@ namespace AerolineaFrba.Abm_Ruta
             camposValores.Add("precio_base_por_pasaje", new gdDataBase.ValorTipo(textBoxPrecioPasaje.DecimalValue(), SqlDbType.Real));
             if (modificacion){
                 camposValores.Add("id_ruta", new gdDataBase.ValorTipo(id_ruta,SqlDbType.Int));
-                new gdDataBase().Exec("ÑUFLO.UpdateRutaAerea",camposValores,new Dictionary<int,string>(),"sarlomps");
+                new gdDataBase().Exec("ÑUFLO.UpdateRutaAerea",camposValores,new Dictionary<int,string>());
             }
             else
-                ;
+                new gdDataBase().Exec("ÑUFLO.InsertRutaAerea",camposValores,new Dictionary<int,string>());
         }
 
     }
