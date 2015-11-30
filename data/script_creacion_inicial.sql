@@ -573,10 +573,14 @@ CREATE PROCEDURE ÑUFLO.ModificarCliente
 @mail nvarchar(255),
 @fecha_de_nacimiento datetime
 AS
-	UPDATE ÑUFLO.Cliente
-		SET nombre = @nombre, apellido = @apellido, direccion = @direccion, 
-			telefono = @telefono, mail = @mail, fecha_de_nacimiento = @fecha_de_nacimiento
-		where dni = @dni
+	IF(NOT EXISTS (select id_cliente from ÑUFLO.Cliente where dni = @dni))
+		INSERT INTO ÑUFLO.Cliente(dni, nombre, apellido, direccion, telefono, mail, fecha_de_nacimiento)
+			values(@dni, @nombre, @apellido, @direccion, @telefono, @mail, @fecha_de_nacimiento)
+	ELSE
+		UPDATE ÑUFLO.Cliente
+			SET nombre = @nombre, apellido = @apellido, direccion = @direccion, 
+				telefono = @telefono, mail = @mail, fecha_de_nacimiento = @fecha_de_nacimiento
+			where dni = @dni
 ;
 GO
 
@@ -1043,35 +1047,27 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.RegistrarLlegada 
-@id_viaje int,
 @matricula nvarchar(255),
 @origen nvarchar (255),
 @destino nvarchar (255),
-@fecha_llegada datetime,
-@hoy datetime
-AS --XXX Tiene que pasarle el viaje o deberia "deducirlo" de alguna forma
-	IF(@matricula <> (select matricula 
-						from ÑUFLO.Aeronave a, ÑUFLO.Viaje v
-						where v.id_viaje = @id_viaje
-							and a.id_aeronave = v.id_aeronave))
-		THROW 60017,'La aeronave ingresada no coincide con la aeronave del viaje',1
+@fecha_llegada datetime
+AS 
+	DECLARE @id_viaje int
+	SET @id_viaje = (select top 1 id_viaje
+					from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad c
+					where a.matricula = @matricula
+						and v.id_aeronave = a.id_aeronave
+						and r.id_ruta = v.id_ruta
+						and r.id_ciudad_origen = c.id_ciudad
+						and c.nombre = @origen
+						and convert(date, v.fecha_llegada_estimada) = convert(date, @fecha_llegada))
+						
+	IF(@id_viaje is null)
+		THROW 60019, 'Ningun viaje coincide con los datos ingresados', 1
 
-		
-	IF(@origen <> (select nombre
-						from ÑUFLO.Ciudad c, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r
-						where v.id_viaje = @id_viaje
-							and r.id_ruta = v.id_ruta
-							and c.id_ciudad = r.id_ciudad_origen))
-		THROW 60018,'La ciudad de origen ingresada no coincide con el origen del viaje',1
+	IF((select fecha_llegada from ÑUFLO.Viaje where id_viaje = @id_viaje) is not null)
+		THROW 60020, 'Ya se ha registrado este arrivo', 1
 
-	IF(@destino <> (select nombre
-						from ÑUFLO.Ciudad c, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r
-						where v.id_viaje = @id_viaje
-							and r.id_ruta = v.id_ruta
-							and c.id_ciudad = r.id_ciudad_destino))
-		THROW 60019,'La ciudad de destino ingresada no coincide con el destino del viaje',1
-
-	--XXX En caso de no coincidir algun dato deberian contabilizarse igual las millas
 	UPDATE ÑUFLO.Viaje
 		SET fecha_llegada = @fecha_llegada
 		where id_viaje = @id_viaje
@@ -1093,13 +1089,21 @@ AS --XXX Tiene que pasarle el viaje o deberia "deducirlo" de alguna forma
 		SET @cantidad = (select convert(integer, precio/10) from ÑUFLO.Pasaje where id_pasaje = @id_pasaje)
 		
 		INSERT INTO ÑUFLO.Milla(id_cliente, fecha_de_obtencion, cantidad, cantidad_gastada, expirado)
-			values(@id_cliente, @hoy, @cantidad, 0, 0)
+			values(@id_cliente, @fecha_llegada, @cantidad, 0, 0)
 
 		FETCH CCLientes INTO @id_cliente, @id_pasaje
 		END
 
 	CLOSE CClientes
 	DEALLOCATE CClientes
+	
+	IF(@destino <> (select nombre
+						from ÑUFLO.Ciudad c, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r
+						where v.id_viaje = @id_viaje
+							and r.id_ruta = v.id_ruta
+							and c.id_ciudad = r.id_ciudad_destino))
+		THROW 60021, 'La Aeronave no arribo al destino esperado', 1
+
 ;
 GO
 
