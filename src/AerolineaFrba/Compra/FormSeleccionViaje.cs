@@ -37,12 +37,7 @@ namespace AerolineaFrba.Compra
 
         private void FormSeleccionViaje_Load(object sender, EventArgs e)
         {
-            DataRow filaExtraCiudad;
             var dtOrigenDestino = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasCiudades", null);
-
-            filaExtraCiudad = dtOrigenDestino.NewRow();
-            filaExtraCiudad["nombre"] = "Cualquiera";
-            dtOrigenDestino.Rows.InsertAt(filaExtraCiudad, 0);
 
             comboBoxOrigen.DataSource = dtOrigenDestino;
             comboBoxOrigen.DisplayMember = dtOrigenDestino.Columns[0].ColumnName;
