@@ -1280,9 +1280,10 @@ CREATE PROCEDURE ÑUFLO.FiltrosModificacionRutaAerea
 @id_ciudad_destino int = NULL,
 @id_tipo_servicio int = NULL
 AS
-	SELECT ra.codigo_ruta "Codigo de ruta", c1.nombre "Ciudad origen", c2.nombre "Ciudad destino",
-		   ra.precio_base_por_peso "Precio base por peso", ra.precio_base_por_pasaje "Precio base por pasaje",
-		   ts.tipo_servicio "Tipo de servicio"	
+	SELECT ra.id_ruta "id ruta", ra.codigo_ruta "Codigo de ruta", ra.id_ciudad_origen "id origen", c1.nombre "Ciudad origen", 
+	ra.id_ciudad_destino "id destino", c2.nombre "Ciudad destino", ra.precio_base_por_peso "Precio base por peso", 
+	ra.precio_base_por_pasaje "Precio base por pasaje",
+		   ts.id_tipo_servicio "id servicio", ts.tipo_servicio "Tipo de servicio"	
 		FROM ÑUFLO.RutaAerea ra JOIN ÑUFLO.Ciudad c1			ON ra.id_ciudad_origen = c1.id_ciudad
 								JOIN ÑUFLO.Ciudad c2			ON ra.id_ciudad_destino = c2.id_ciudad
 								JOIN ÑUFLO.ServicioPorRuta sr	ON ra.id_ruta = sr.id_ruta
