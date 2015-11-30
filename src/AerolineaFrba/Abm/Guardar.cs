@@ -25,7 +25,8 @@ namespace AerolineaFrba.Abm
         {
             if (alta().ValidateChildren(ValidationConstraints.TabStop))
             {
-                MessageBox.Show(alta().MsgExito);
+                
+                alta().guardar();
             }
             else
             {
@@ -33,7 +34,7 @@ namespace AerolineaFrba.Abm
                 {
                     unControl.Refresh();
                 }
-                MessageBox.Show(alta().MsgError);
+                
             }
         }
     }
