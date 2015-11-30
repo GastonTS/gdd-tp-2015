@@ -30,7 +30,7 @@ namespace AerolineaFrba.Abm
             //decimal d = decimal.Parse(textBox1.Text, System.Globalization.NumberStyles.Currency, MyNFI);
         }
 
-        private void formatear(){
+        public void formatear(){
     Double value;
             if (Double.TryParse(textBox1.Text, out value))
                 textBox1.Text = String.Format(new System.Globalization.CultureInfo("es-AR"), "{0:C2}", value);

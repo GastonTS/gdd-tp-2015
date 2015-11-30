@@ -53,6 +53,33 @@ namespace AerolineaFrba.Abm_Ruta
             dss = new gdDataBase().GetDataQuery("Select id_ciudad FROM ÑUFLO.Ciudad where nombre= " + "'" + datosAModificar["Ciudad Destino"].ToString() + "'");
             comboBoxDestino.SelectedIndex = dss.Tables[0].Rows[0].Field<int>(0) - 1;
         }
+
+        public void setCodRuta(String codigo)
+        {
+            textBoxCodRuta.Text = codigo;
+        }
+        public void setOrigen(int index) 
+        {
+            comboBoxOrigen.SelectedIndex = index;
+        }
+        public void setDestino(int index) 
+        {
+            comboBoxDestino.SelectedIndex = index;
+        }
+        public void setServicio(int index)
+        {
+            comboBoxTipoServicio.SelectedIndex = index;
+        }
+        public void setPrecioBasePeso(Double precio) 
+        {
+               textBoxPrecioPeso.Text = precio.ToString();
+               textBoxPrecioPeso.formatear();
+        }
+        public void setPrecioBasePasaje(double precio) 
+        {
+            textBoxPrecioPasaje.Text = precio.ToString();
+            textBoxPrecioPasaje.formatear();
+        }
         
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -93,12 +120,19 @@ namespace AerolineaFrba.Abm_Ruta
         private Decimal precioPesoFinal() { return textBoxPrecioPeso.DecimalValue() * porcentajeRecargo(); }
 
         private Decimal precioPasajeFinal() { return textBoxPrecioPasaje.DecimalValue() * porcentajeRecargo(); }
-    
+
+        public void actualizarLabels()
+        {
+            labelValorPrecioFinalPeso.Text = "$" + precioPesoFinal().ToString();
+            labelValorPrecioFinalPasaje.Text = "$" + precioPasajeFinal().ToString();
+        }
+
         private void asignarPreciosFinalesALabels(object sender, EventArgs e)
         {
-            labelValorPrecioFinalPeso.Text = "$"+precioPesoFinal().ToString() ;
-            labelValorPrecioFinalPasaje.Text = "$"+precioPasajeFinal().ToString() ;
+            actualizarLabels();   
         }
+
+
 
     }
 }
