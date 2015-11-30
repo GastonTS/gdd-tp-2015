@@ -32,7 +32,10 @@ namespace AerolineaFrba.Compra
 
         private void btnAgregarPasaje_Click(object sender, EventArgs e)
         {
+            FormDatosPasajeroEncomienda fdpe = new FormDatosPasajeroEncomienda();
 
+            fdpe.indicarPasajeOEncomienda(true);
+            fdpe.Show();
         }
 
         private void FormSeleccionViaje_Load(object sender, EventArgs e)
@@ -47,6 +50,27 @@ namespace AerolineaFrba.Compra
 
             comboBoxDestino.DataSource = destinoBindingSource;
             comboBoxDestino.DisplayMember = dtOrigenDestino.Columns[0].ColumnName;
+        }
+
+        private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 0)
+                HabilitacionDeCompra(true);
+            else
+                HabilitacionDeCompra(false);
+        }
+
+        private void HabilitacionDeCompra(bool estado)
+        {
+            groupBoxPasajesEncomiendas.Enabled = estado;
+        }
+
+        private void btnAgregarEncomienda_Click(object sender, EventArgs e)
+        {
+            FormDatosPasajeroEncomienda fdpe = new FormDatosPasajeroEncomienda();
+
+            fdpe.indicarPasajeOEncomienda(false);
+            fdpe.Show();
         }
     }
 }
