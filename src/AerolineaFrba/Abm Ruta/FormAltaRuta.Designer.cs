@@ -38,7 +38,6 @@
             this.comboBoxDestino = new System.Windows.Forms.ComboBox();
             this.destinoBinding = new System.Windows.Forms.BindingSource(this.components);
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnGuardar = new System.Windows.Forms.Button();
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.tipoServicioBinding = new System.Windows.Forms.BindingSource(this.components);
@@ -52,6 +51,7 @@
             this.labelPrecioFinalPasaje = new System.Windows.Forms.Label();
             this.textBoxPrecioPeso = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
             this.codRutaBinding = new System.Windows.Forms.BindingSource(this.components);
+            this.guardar1 = new AerolineaFrba.Abm.Guardar();
             ((System.ComponentModel.ISupportInitialize)(this.origenBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinoBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).BeginInit();
@@ -129,15 +129,6 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Location = new System.Drawing.Point(552, 288);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 11;
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            // 
             // labelTipoServicio
             // 
             this.labelTipoServicio.AutoSize = true;
@@ -187,7 +178,7 @@
             // textBoxCodRuta
             // 
             this.textBoxCodRuta.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxCodRuta.ErrorText = null;
+            this.textBoxCodRuta.ErrorText = "Debe ingresar un valor";
             this.textBoxCodRuta.Location = new System.Drawing.Point(125, 32);
             this.textBoxCodRuta.Name = "textBoxCodRuta";
             this.textBoxCodRuta.Size = new System.Drawing.Size(139, 22);
@@ -230,7 +221,7 @@
             // textBoxPrecioPasaje
             // 
             this.textBoxPrecioPasaje.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxPrecioPasaje.ErrorText = null;
+            this.textBoxPrecioPasaje.ErrorText = "Debe ingresar un valor";
             this.textBoxPrecioPasaje.Location = new System.Drawing.Point(136, 224);
             this.textBoxPrecioPasaje.Name = "textBoxPrecioPasaje";
             this.textBoxPrecioPasaje.Size = new System.Drawing.Size(135, 22);
@@ -249,19 +240,26 @@
             // textBoxPrecioPeso
             // 
             this.textBoxPrecioPeso.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxPrecioPeso.ErrorText = null;
+            this.textBoxPrecioPeso.ErrorText = "Debe ingresar un valor";
             this.textBoxPrecioPeso.Location = new System.Drawing.Point(136, 196);
             this.textBoxPrecioPeso.Name = "textBoxPrecioPeso";
             this.textBoxPrecioPeso.Size = new System.Drawing.Size(135, 22);
             this.textBoxPrecioPeso.TabIndex = 0;
             this.textBoxPrecioPeso.Leave += new System.EventHandler(this.asignarPreciosFinalesALabels);
             // 
+            // guardar1
+            // 
+            this.guardar1.Location = new System.Drawing.Point(534, 289);
+            this.guardar1.Name = "guardar1";
+            this.guardar1.Size = new System.Drawing.Size(83, 31);
+            this.guardar1.TabIndex = 13;
+            // 
             // FormAltaRuta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(648, 329);
-            this.Controls.Add(this.btnGuardar);
+            this.ClientSize = new System.Drawing.Size(727, 380);
+            this.Controls.Add(this.guardar1);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelPrecioBasePorPeso);
@@ -289,7 +287,6 @@
         private System.Windows.Forms.ComboBox comboBoxOrigen;
         private System.Windows.Forms.ComboBox comboBoxDestino;
         private System.Windows.Forms.Button btnLimpiar;
-        private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Label labelTipoServicio;
         private System.Windows.Forms.ComboBox comboBoxTipoServicio;
         private System.Windows.Forms.GroupBox groupBoxCamposAltaRuta;
@@ -305,5 +302,6 @@
         private System.Windows.Forms.Label label2;
         private Abm.TextBoxNumeros textBoxCodRuta;
         private System.Windows.Forms.BindingSource codRutaBinding;
+        private Abm.Guardar guardar1;
     }
 }

@@ -119,6 +119,7 @@ namespace AerolineaFrba.Abm_Ruta
                     formAltaRuta.setPrecioBasePeso(Double.Parse(senderGrid.CurrentRow.Cells["Precio base por peso"].Value.ToString()));
                     formAltaRuta.setPrecioBasePasaje(Double.Parse(senderGrid.CurrentRow.Cells["Precio base por pasaje"].Value.ToString()));
                     formAltaRuta.actualizarLabels();
+                    formAltaRuta.esModificacion();
                     formAltaRuta.Show();
                     //((DataRowView)rutaAereaBindingSource.Current)
                 }

@@ -61,11 +61,15 @@ namespace AerolineaFrba.Abm
             return ".+";
         }
 
+        protected virtual Boolean criterioValidacion()
+        {
+            return new Regex("^" + this.validationRegexString() + "$").IsMatch(textBox1.Text.Trim());
+        }
 
         private void textBox1_Validating_1(object sender, CancelEventArgs e)
         {
 
-            if (new Regex("^" + this.validationRegexString() + "$").IsMatch(textBox1.Text.Trim()))
+            if (criterioValidacion())
             {
                 errorProvider1.Clear();
                 e.Cancel = false;

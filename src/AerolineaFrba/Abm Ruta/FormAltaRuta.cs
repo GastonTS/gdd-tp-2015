@@ -10,8 +10,10 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Ruta
 {
-    public partial class FormAltaRuta : Form
+    public partial class FormAltaRuta : Abm.Alta
     {
+
+        Boolean modificacion = false;
         public FormAltaRuta()
         {
             InitializeComponent();
@@ -58,6 +60,12 @@ namespace AerolineaFrba.Abm_Ruta
         {
             textBoxCodRuta.Text = codigo;
         }
+
+        public void esModificacion()
+        {
+            modificacion = true;
+        }
+
         public void setOrigen(int index) 
         {
             comboBoxOrigen.SelectedIndex = index;

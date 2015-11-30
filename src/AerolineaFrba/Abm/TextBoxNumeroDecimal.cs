@@ -30,6 +30,12 @@ namespace AerolineaFrba.Abm
             //decimal d = decimal.Parse(textBox1.Text, System.Globalization.NumberStyles.Currency, MyNFI);
         }
 
+
+        override protected Boolean criterioValidacion()
+        {
+            return new Regex("^[$]" + this.validationRegexString() + "$").IsMatch(textBox1.Text.Trim());
+        }
+
         public void formatear(){
     Double value;
             if (Double.TryParse(textBox1.Text, out value))
