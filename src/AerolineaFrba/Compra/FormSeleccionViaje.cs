@@ -32,10 +32,7 @@ namespace AerolineaFrba.Compra
 
         private void btnAgregarPasaje_Click(object sender, EventArgs e)
         {
-            FormDatosPasajeroEncomienda fdpe = new FormDatosPasajeroEncomienda();
-
-            fdpe.indicarPasajeOEncomienda(true);
-            fdpe.Show();
+            irAComprar(true);
         }
 
         private void FormSeleccionViaje_Load(object sender, EventArgs e)
@@ -67,9 +64,15 @@ namespace AerolineaFrba.Compra
 
         private void btnAgregarEncomienda_Click(object sender, EventArgs e)
         {
+            irAComprar(false);
+        }
+
+        private void irAComprar(bool esSoloPasaje)
+        {
             FormDatosPasajeroEncomienda fdpe = new FormDatosPasajeroEncomienda();
 
-            fdpe.indicarPasajeOEncomienda(false);
+
+            fdpe.indicarPasajeOEncomienda(esSoloPasaje);
             fdpe.Show();
         }
     }

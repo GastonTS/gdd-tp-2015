@@ -13,6 +13,7 @@ namespace AerolineaFrba.Compra
     public partial class FormDatosPasajeroEncomienda : Abm.Alta
     {
         bool soloPasaje = true;
+        int idViaje = 16;
 
         public FormDatosPasajeroEncomienda()
         {
@@ -47,8 +48,30 @@ namespace AerolineaFrba.Compra
                 this.Text = "Ingrese datos del Pasajero y su Encomienda";
         }
 
+        public void setIDViaje(int idViaje)
+        {
+            this.idViaje = idViaje;
+        }
+
         private void FormDatosPasajeroEncomienda_Load(object sender, EventArgs e)
         {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+
+            camposValores.Add("id_viaje", new gdDataBase.ValorTipo(idViaje.ToString(), SqlDbType.Decimal));
+
+            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.ButacasDisponibles", camposValores);
+
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                object[] fila = dt.Rows[i].ItemArray;
+
+                if (fila.GetValue(1).ToString() == "Pasillo")
+                    listBoxEleccionButacaPasillo.Items.Add("Butaca N°: " + fila.GetValue(0).ToString());
+                else
+                    listBoxEleccionButacaVentanilla.Items.Add("Butaca N°: " + fila.GetValue(0).ToString());
+            }
+
 
         }
 
@@ -110,6 +133,16 @@ namespace AerolineaFrba.Compra
 
             habilitacionDatosCliente(false);
             checkBoxModificarDatos.Checked = false;
+        }
+
+        private void listBoxEleccionButacaPasillo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            listBoxEleccionButacaVentanilla.ClearSelected();
+        }
+
+        private void listBoxEleccionButacaVentanilla_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            listBoxEleccionButacaPasillo.ClearSelected();
         }
     }
 }
