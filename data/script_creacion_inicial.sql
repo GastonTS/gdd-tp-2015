@@ -1565,21 +1565,24 @@ BEGIN
 	RETURN @peso_disponible
 END
 GO
-
+--drop FUNCTION ÑUFLO.CantidadButacasDisponibles
+--go
 CREATE FUNCTION ÑUFLO.CantidadButacasDisponibles(@id_viaje int)
 RETURNS int
 AS
 BEGIN
 	DECLARE @total int, @ocupadas int, @disponibles int
 
-	SET @total = (select COUNT(numero_de_butaca)
-					from ÑUFLO.Viaje v, ÑUFLO.ButacaPorAvion b
-					where 1 = v.id_viaje
-						and v.id_aeronave = b.id_aeronave)
+	SET @total = (select a.cantidad_butacas
+					from ÑUFLO.Viaje v join ÑUFLO.Aeronave a on v.id_aeronave = a.id_aeronave
+					where v.id_viaje = @id_viaje)
+
+				--	where @id_viaje = v.id_viaje
+					--	and v.id_aeronave = b.id_aeronave)
 
 	SET @ocupadas = (select COUNT(numero_de_butaca)
 						from ÑUFLO.Viaje v, ÑUFLO.Pasaje p, ÑUFLO.Compra c
-						where 1 = v.id_viaje
+						where @id_viaje = v.id_viaje
 							and v.id_viaje = c.id_viaje
 							and c.codigo_de_compra = p.codigo_de_compra)
 
@@ -1589,6 +1592,21 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION ÑUFLO.FCantidadButacasOcupadas(@id_viaje int)
+RETURNS int
+AS
+BEGIN
+	DECLARE @ocupadas int
+
+	SET @ocupadas = (select COUNT(numero_de_butaca)
+						from ÑUFLO.Pasaje p, ÑUFLO.Compra c
+						where @id_viaje = c.id_viaje
+							and c.codigo_de_compra = p.codigo_de_compra
+							and p.cancelado = 0)
+
+	RETURN @ocupadas
+END
+GO
 /*****************************************************************/
 /*************************** Triggers ****************************/
 /*****************************************************************/
