@@ -186,8 +186,12 @@ namespace AerolineaFrba
                 {
                     for (int i = 0; i < campoValor.Count; i++)
                     {
-                        cmd.Parameters.Add("@" + campoValor.ElementAt(i).Key,
-                            campoValor.ElementAt(i).Value.getTipo()).Value = campoValor.ElementAt(i).Value.getValor();
+                        var parametro = new SqlParameter("@" + campoValor.ElementAt(i).Key,
+                            campoValor.ElementAt(i).Value.getTipo());
+                        parametro.Precision = 18;
+                        parametro.Scale = 0;
+                        parametro.Value = campoValor.ElementAt(i).Value.getValor();
+                        cmd.Parameters.Add(parametro);
                     }
                 }
 
@@ -211,8 +215,12 @@ namespace AerolineaFrba
 
                 for (int i = 0; i < campoValor.Count; i++)
                 {
-                    cmd.Parameters.Add("@" + campoValor.ElementAt(i).Key, 
-                        campoValor.ElementAt(i).Value.getTipo()).Value = campoValor.ElementAt(i).Value.getValor();
+                    var parametro = new SqlParameter("@" + campoValor.ElementAt(i).Key,
+                        campoValor.ElementAt(i).Value.getTipo());
+                    parametro.Precision = 18;
+                    parametro.Scale = 0;
+                    parametro.Value = campoValor.ElementAt(i).Value.getValor();
+                    cmd.Parameters.Add(parametro);
                 }
 
                 //para ejecutar sp que devuelven algo, creo que hay que poner ExecuteReader or algún otro tipo
@@ -261,8 +269,12 @@ namespace AerolineaFrba
 
                 for (int i = 0; i < campoValor.Count; i++)
                 {
-                    cmd.Parameters.Add("@" + campoValor.ElementAt(i).Key,
-                        campoValor.ElementAt(i).Value.getTipo()).Value = campoValor.ElementAt(i).Value.getValor();
+                    var parametro = new SqlParameter("@" + campoValor.ElementAt(i).Key,
+                        campoValor.ElementAt(i).Value.getTipo());
+                    parametro.Precision = 18;
+                    parametro.Scale = 0;
+                    parametro.Value = campoValor.ElementAt(i).Value.getValor();
+                    cmd.Parameters.Add(parametro);
                 }
 
                 try
@@ -311,8 +323,12 @@ namespace AerolineaFrba
                 {
                     for (int i = 0; i < campoValor.Count; i++)
                     {
-                        cmd.Parameters.Add("@" + campoValor.ElementAt(i).Key,
-                            campoValor.ElementAt(i).Value.getTipo()).Value = campoValor.ElementAt(i).Value.getValor();
+                        var parametro = new SqlParameter("@" + campoValor.ElementAt(i).Key,
+                            campoValor.ElementAt(i).Value.getTipo());
+                        parametro.Precision = 18;
+                        parametro.Scale = 0;
+                        parametro.Value = campoValor.ElementAt(i).Value.getValor();
+                        cmd.Parameters.Add(parametro);
                     }
                 }
 

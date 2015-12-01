@@ -152,8 +152,8 @@ namespace AerolineaFrba.Abm_Ruta
             camposValores.Add("codigo_ruta", new gdDataBase.ValorTipo(int.Parse(textBoxCodRuta.Text),SqlDbType.Int));
             camposValores.Add("id_ciudad_origen", new gdDataBase.ValorTipo(comboBoxOrigen.SelectedValue,SqlDbType.Int));
             camposValores.Add("id_ciudad_destino", new gdDataBase.ValorTipo(comboBoxDestino.SelectedValue,SqlDbType.Int));
-            camposValores.Add("precio_base_por_peso", new gdDataBase.ValorTipo(textBoxPrecioPeso.DecimalValue(),SqlDbType.Real));
-            camposValores.Add("precio_base_por_pasaje", new gdDataBase.ValorTipo(textBoxPrecioPasaje.DecimalValue(), SqlDbType.Real));
+            camposValores.Add("precio_base_por_peso", new gdDataBase.ValorTipo(textBoxPrecioPeso.DecimalValue(),SqlDbType.Decimal));
+            camposValores.Add("precio_base_por_pasaje", new gdDataBase.ValorTipo(textBoxPrecioPasaje.DecimalValue(), SqlDbType.Decimal));
             if (modificacion){
                 camposValores.Add("id_ruta", new gdDataBase.ValorTipo(id_ruta,SqlDbType.Int));
                 new gdDataBase().Exec("ÑUFLO.UpdateRutaAerea",camposValores,new Dictionary<int,string>());
