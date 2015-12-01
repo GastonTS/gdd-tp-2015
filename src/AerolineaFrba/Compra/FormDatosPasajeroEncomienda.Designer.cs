@@ -47,8 +47,8 @@
             this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBoxButacaYEncomienda = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelVentanilla = new System.Windows.Forms.Label();
+            this.labelPasillo = new System.Windows.Forms.Label();
             this.listBoxEleccionButacaVentanilla = new System.Windows.Forms.ListBox();
             this.textBoxCantidadAEncomendar = new System.Windows.Forms.TextBox();
             this.labelEncomienda = new System.Windows.Forms.Label();
@@ -237,8 +237,8 @@
             // 
             // groupBoxButacaYEncomienda
             // 
-            this.groupBoxButacaYEncomienda.Controls.Add(this.label2);
-            this.groupBoxButacaYEncomienda.Controls.Add(this.label1);
+            this.groupBoxButacaYEncomienda.Controls.Add(this.labelVentanilla);
+            this.groupBoxButacaYEncomienda.Controls.Add(this.labelPasillo);
             this.groupBoxButacaYEncomienda.Controls.Add(this.listBoxEleccionButacaVentanilla);
             this.groupBoxButacaYEncomienda.Controls.Add(this.textBoxCantidadAEncomendar);
             this.groupBoxButacaYEncomienda.Controls.Add(this.labelEncomienda);
@@ -249,25 +249,25 @@
             this.groupBoxButacaYEncomienda.Size = new System.Drawing.Size(642, 232);
             this.groupBoxButacaYEncomienda.TabIndex = 17;
             this.groupBoxButacaYEncomienda.TabStop = false;
-            this.groupBoxButacaYEncomienda.Text = "Elección Butaca (si accede desde agregar encomienda, por Y Encomienda de nombre)";
+            this.groupBoxButacaYEncomienda.Text = "Datos de compra";
             // 
-            // label2
+            // labelVentanilla
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(180, 99);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Ventanilla";
+            this.labelVentanilla.AutoSize = true;
+            this.labelVentanilla.Location = new System.Drawing.Point(180, 99);
+            this.labelVentanilla.Name = "labelVentanilla";
+            this.labelVentanilla.Size = new System.Drawing.Size(53, 13);
+            this.labelVentanilla.TabIndex = 7;
+            this.labelVentanilla.Text = "Ventanilla";
             // 
-            // label1
+            // labelPasillo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 99);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Pasillo";
+            this.labelPasillo.AutoSize = true;
+            this.labelPasillo.Location = new System.Drawing.Point(24, 99);
+            this.labelPasillo.Name = "labelPasillo";
+            this.labelPasillo.Size = new System.Drawing.Size(37, 13);
+            this.labelPasillo.TabIndex = 6;
+            this.labelPasillo.Text = "Pasillo";
             // 
             // listBoxEleccionButacaVentanilla
             // 
@@ -280,21 +280,22 @@
             // 
             // textBoxCantidadAEncomendar
             // 
-            this.textBoxCantidadAEncomendar.Enabled = false;
-            this.textBoxCantidadAEncomendar.Location = new System.Drawing.Point(518, 56);
+            this.textBoxCantidadAEncomendar.Location = new System.Drawing.Point(146, 33);
             this.textBoxCantidadAEncomendar.Name = "textBoxCantidadAEncomendar";
             this.textBoxCantidadAEncomendar.Size = new System.Drawing.Size(78, 20);
             this.textBoxCantidadAEncomendar.TabIndex = 3;
+            this.textBoxCantidadAEncomendar.Visible = false;
             this.textBoxCantidadAEncomendar.TextChanged += new System.EventHandler(this.textBoxCantidadAEncomendar_TextChanged);
             // 
             // labelEncomienda
             // 
             this.labelEncomienda.AutoSize = true;
-            this.labelEncomienda.Location = new System.Drawing.Point(389, 59);
+            this.labelEncomienda.Location = new System.Drawing.Point(17, 36);
             this.labelEncomienda.Name = "labelEncomienda";
             this.labelEncomienda.Size = new System.Drawing.Size(123, 13);
             this.labelEncomienda.TabIndex = 2;
             this.labelEncomienda.Text = "Cantidad a encomendar:";
+            this.labelEncomienda.Visible = false;
             // 
             // labelButaca
             // 
@@ -370,7 +371,7 @@
         private System.Windows.Forms.CheckBox checkBoxModificarDatos;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.ListBox listBoxEleccionButacaVentanilla;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelVentanilla;
+        private System.Windows.Forms.Label labelPasillo;
     }
 }

@@ -47,7 +47,14 @@ namespace AerolineaFrba.Compra
             else
             {
                 this.Text = "Ingrese datos del Pasajero y su Encomienda";
-                textBoxCantidadAEncomendar.Enabled = true;
+
+                textBoxCantidadAEncomendar.Visible = true;
+                labelEncomienda.Visible = true;
+                labelPasillo.Visible = false;
+                labelVentanilla.Visible = false;
+                labelButaca.Visible = false;
+                listBoxEleccionButacaPasillo.Visible = false;
+                listBoxEleccionButacaVentanilla.Visible = false;
             }
         }
 
