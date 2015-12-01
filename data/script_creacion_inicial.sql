@@ -69,6 +69,7 @@ CREATE TABLE ÑUFLO.Aeronave (
 	id_tipo_servicio int REFERENCES ÑUFLO.TipoServicio,
 	fecha_de_alta datetime NOT NULL,
 	capacidad_peso_encomiendas numeric(18,0) NOT NULL,
+	cantidad_butacas int,
 	baja_vida_utill datetime,
 	baja_por_fuera_de_servicio int 
 	)
@@ -340,6 +341,16 @@ INSERT INTO ÑUFLO.ButacaPorAvion (id_aeronave, numero_de_butaca, id_tipo_butaca
 	where Butaca_Tipo <> '0'
 	order by id_aeronave, Butaca_Nro
 GO
+
+UPDATE a
+		set cantidad_butacas = (select count(*) from ÑUFLO.ButacaPorAvion
+								where id_aeronave = a.id_aeronave)
+FROM ÑUFLO.Aeronave a
+GO
+
+ALTER TABLE ÑUFLO.Aeronave ALTER COLUMN cantidad_butacas INTEGER NOT NULL
+GO
+
 	
 /*68 Ruta Aerea - Codigos Ruta Repetidos, Escalas?*/
 INSERT INTO ÑUFLO.RutaAerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje)
