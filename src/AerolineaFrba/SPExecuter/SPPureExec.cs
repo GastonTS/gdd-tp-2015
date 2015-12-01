@@ -11,7 +11,7 @@ namespace AerolineaFrba
     {
         override protected object instanciarTipoDato(){return null;}
 
-        public SPPureExec(String spName, Dictionary<String, gdDataBase.ValorTipo> campoValor = null, Dictionary<int, String> errorMensaje = null, String msgEjecucionCorrecta = null) :base(spName,campoValor,errorMensaje,msgEjecucionCorrecta){}
+        public SPPureExec(String spName, Dictionary<String, gdDataBase.ValorTipo> campoValor = null, Dictionary<int, String> errorMensaje = null, String msgEjecucionCorrecta = null, gdDataBase db = null) :base(spName,campoValor,errorMensaje,msgEjecucionCorrecta, db){}
 
         protected override void ejecutarSP(SqlCommand cmd, object ds,SqlDataAdapter da)
         {

@@ -16,14 +16,17 @@ namespace AerolineaFrba
         protected Dictionary<int, String> errorMensaje;
         protected String msgEjecucionCorrecta;
         protected SqlException excepcionAtrapada;
+        protected gdDataBase database;
 
-        public SPExecuter(String spName, Dictionary<String, gdDataBase.ValorTipo> campoValor = null, Dictionary<int, String> errorMensaje = null, String msgEjecucionCorrecta = null) 
+        public SPExecuter(String spName, Dictionary<String, gdDataBase.ValorTipo> campoValor = null, Dictionary<int, String> errorMensaje = null, String msgEjecucionCorrecta = null, gdDataBase unDB = null) 
         {
             this.spName = spName;
             this.campoValor = campoValor;
             this.errorMensaje = errorMensaje;
             this.msgEjecucionCorrecta = msgEjecucionCorrecta;
             this.excepcionAtrapada = null;
+            this.database = unDB;
+            if (database == null) database = new gdDataBase();
         }
 
         public void agregarParametrosAComando(SqlCommand cmd)
@@ -81,6 +84,8 @@ namespace AerolineaFrba
             if (msgEjecucionCorrecta != null)
                 MessageBox.Show(msgEjecucionCorrecta);
         }
+
+        public object Exec() { return Exec(database); }
 
         public object Exec(gdDataBase unDB)
         {

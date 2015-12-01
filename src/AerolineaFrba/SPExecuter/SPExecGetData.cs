@@ -10,7 +10,7 @@ namespace AerolineaFrba
 {
     public class SPExecGetData : SPExecuter
     {
-        public SPExecGetData(String spName, Dictionary<String, gdDataBase.ValorTipo> campoValor = null, Dictionary<int, String> errorMensaje = null, String msgEjecucionCorrecta = null) :base(spName,campoValor,errorMensaje,msgEjecucionCorrecta){}
+        public SPExecGetData(String spName, Dictionary<String, gdDataBase.ValorTipo> campoValor = null, Dictionary<int, String> errorMensaje = null, String msgEjecucionCorrecta = null, gdDataBase db = null) :base(spName,campoValor,errorMensaje,msgEjecucionCorrecta, db){}
 
         protected override void ejecutarSP(System.Data.SqlClient.SqlCommand cmd, object ds, SqlDataAdapter da)
         {
