@@ -1469,7 +1469,7 @@ AS
 
 	DECLARE @id int
 
-	DECLARE CPasajes CURSOR 
+	DECLARE CRutaAerea CURSOR 
 		FOR (select p.id_pasaje id
 				from ÑUFLO.Compra c, ÑUFLO.Pasaje p
 				where c.id_viaje = @id_ruta
@@ -1493,8 +1493,8 @@ AS
 		FETCH CRutaAerea INTO @id
 	END
 
-	CLOSE CPasajes
-	DEALLOCATE CPasajes
+	CLOSE CRutaAerea
+	DEALLOCATE CRutaAerea
 ;
 GO
 --		EXEC ÑUFLO.CancelarEncomiendasRutaAerea
