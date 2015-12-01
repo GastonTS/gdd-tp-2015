@@ -15,18 +15,7 @@ namespace AerolineaFrba.Registro_de_Usuario
         public Login()
         {
             InitializeComponent();
-            ids_funcionalidades.Add(0,"ABM rol");
-            ids_funcionalidades.Add(1, "ABM ciudades");
-            ids_funcionalidades.Add(2, "ABM ruta aerea");
-            ids_funcionalidades.Add(3, "ABM aeronave");
-            ids_funcionalidades.Add(4, "generar viaje");
-            ids_funcionalidades.Add(5, "registrar llegada");
-            ids_funcionalidades.Add(6, "compra");
-            ids_funcionalidades.Add(7, "cancelacion");
-            ids_funcionalidades.Add(8, "consultar millas");
-            ids_funcionalidades.Add(9, "canjear millas");
-            ids_funcionalidades.Add(10, "listado estadistico");
-            ids_funcionalidades.Add(11, "ABM productos");
+
 
         }
 
