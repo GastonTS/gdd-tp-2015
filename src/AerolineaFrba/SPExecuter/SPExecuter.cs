@@ -60,9 +60,9 @@ namespace AerolineaFrba
                         encontroErrorConocido = true;
                     }
                 }
-                if (!encontroErrorConocido)
-                    MessageBox.Show(excepcionAtrapada.Message);
             }
+            if (!encontroErrorConocido)
+                MessageBox.Show(excepcionAtrapada.Message);
         }
 
         protected virtual object instanciarTipoDato() { return null;}
