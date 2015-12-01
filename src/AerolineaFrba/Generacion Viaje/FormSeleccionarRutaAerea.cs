@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Generacion_Viaje
 {
-    public partial class FormSeleccionarRutaAerea : Form
+    public partial class FormSeleccionarRutaAerea : Abm.FormReloaded
     {
         public FormSeleccionarRutaAerea()
         {
@@ -27,7 +27,7 @@ namespace AerolineaFrba.Generacion_Viaje
             {
                 formInterface.setCiudadOrigen(filaAeronave.Cells[3].FormattedValue.ToString());
                 formInterface.setCiudadDestino(filaAeronave.Cells[5].FormattedValue.ToString());
-                formInterface.setTipoServicio(filaAeronave.Cells[8].FormattedValue.ToString());
+                formInterface.setTipoServicio(filaAeronave.Cells[9].FormattedValue.ToString());
                 formInterface.setIdRuta(Convert.ToInt32(filaAeronave.Cells[0].FormattedValue.ToString()));
             }
 
@@ -36,46 +36,53 @@ namespace AerolineaFrba.Generacion_Viaje
 
         private void FormSeleccionarRutaAerea_Load(object sender, EventArgs e)
         {
-            DataRow filaExtraCiudad, filaExtraServicio;
-            var dtOrigenDestino = new gdDataBase().GetDataWithParameters("ÑUFLO.TodasLasCiudades", null);
+            var ds = new gdDataBase().ExecAndGetDataSet("CiudadTipoServicio");
 
-            filaExtraCiudad = dtOrigenDestino.NewRow();
-            filaExtraCiudad["nombre"] = "Cualquiera";
-            dtOrigenDestino.Rows.InsertAt(filaExtraCiudad, 0);
+            DataTable ciudades = ds.Tables[0];
+            var filaExtraCiudad = ciudades.NewRow();
+            filaExtraCiudad["Nombre"] = " Cualquiera";
+            ciudades.Rows.InsertAt(filaExtraCiudad, 0);
 
-            origenBindingSource.DataSource = dtOrigenDestino;
-            destinoBindingSource.DataSource = dtOrigenDestino;
+            DataTable servicios = ds.Tables[1];
+            var filaExtraServicios = servicios.NewRow();
+            filaExtraServicios["Tipo Servicio"] = "Cualquiera";
+            servicios.Rows.InsertAt(filaExtraServicios, 0);
 
-            comboBoxOrigen.DataSource = origenBindingSource;
-            comboBoxOrigen.DisplayMember = dtOrigenDestino.Columns[0].ColumnName;
 
-            comboBoxDestino.DataSource = destinoBindingSource;
-            comboBoxDestino.DisplayMember = dtOrigenDestino.Columns[0].ColumnName;
+            origenBindingSource.DataSource = ciudades;
+            destinoBindingSource.DataSource = ciudades;
+            tipoServicioBinding.DataSource = servicios;
 
-            var dtTipoServicio = new gdDataBase().GetDataWithParameters("ÑUFLO.TiposDeServicio", null);
+            comboBoxOrigen.DisplayMember = "Nombre";
+            comboBoxDestino.DisplayMember = "Nombre";
+            comboBoxOrigen.ValueMember = "Id ciudad";
+            comboBoxDestino.ValueMember = "Id ciudad";
+            comboBoxTipoServicio.DisplayMember = "Tipo Servicio";
+            comboBoxTipoServicio.ValueMember = "Id Tipo Servicio";
 
-            filaExtraServicio = dtTipoServicio.NewRow();
-            filaExtraServicio["Tipo Servicio"] = "Cualquiera";
-            dtTipoServicio.Rows.InsertAt(filaExtraServicio, 0);
-            
-            comboBoxTipoServicio.DataSource = dtTipoServicio;
-            comboBoxTipoServicio.DisplayMember = dtTipoServicio.Columns[0].ColumnName;
+            dataGridView1.AutoGenerateColumns = true;
+            rutaAereaBindingSource.DataSource = new gdDataBase().ExecAndGetDataSet("FiltrosModificacionRutaAerea").Tables[0];
+            dataGridView1.AutoGenerateColumns = false;
+
+            dataGridView1.Columns["id ruta"].Visible = false;
+            dataGridView1.Columns["id destino"].Visible = false;
+            dataGridView1.Columns["id origen"].Visible = false;
+            dataGridView1.Columns["id servicio"].Visible = false;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
 
-            if (comboBoxOrigen.Text.Trim() != "Cualquiera")
-                camposValores.Add("nombre_origen", new gdDataBase.ValorTipo(comboBoxOrigen.Text, SqlDbType.VarChar));
-            if (comboBoxDestino.Text.Trim() != "Cualquiera")
-                camposValores.Add("nombre_destino", new gdDataBase.ValorTipo(comboBoxDestino.Text, SqlDbType.VarChar));
-            if (comboBoxTipoServicio.Text.Trim() != "Cualquiera")
-                camposValores.Add("tipo_servicio", new gdDataBase.ValorTipo(comboBoxTipoServicio.Text, SqlDbType.VarChar));
+            agregarValorCBADiccionario(comboBoxOrigen, camposValores, "id_ciudad_origen", SqlDbType.Int);
 
-            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.FiltrosAltaRutaAerea", camposValores);
+            agregarValorCBADiccionario(comboBoxDestino, camposValores, "id_ciudad_destino", SqlDbType.Int);
 
-            dataGridView1.DataSource = dt;
+            agregarValorCBADiccionario(comboBoxTipoServicio, camposValores, "id_tipo_servicio", SqlDbType.Int);
+
+            var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.FiltrosModificacionRutaAerea", camposValores);
+
+            dataGridView1.DataSource = ds;
         }
 
         private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)

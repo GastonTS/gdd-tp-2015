@@ -41,10 +41,12 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
+            this.rutaAereaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.origenBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rutaAereaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBoxTipoServicio
@@ -106,8 +108,10 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.DataSource = this.rutaAereaBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(12, 152);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(686, 165);
@@ -156,6 +160,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.origenBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rutaAereaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,5 +180,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.BindingSource rutaAereaBindingSource;
     }
 }
