@@ -46,6 +46,12 @@
             this.lblFechaHora = new System.Windows.Forms.Label();
             this.lblOrigen = new System.Windows.Forms.Label();
             this.lblDestino = new System.Windows.Forms.Label();
+            this.lblModelo = new System.Windows.Forms.Label();
+            this.lblMatricula = new System.Windows.Forms.Label();
+            this.lblFabricante = new System.Windows.Forms.Label();
+            this.lblTipoServicio = new System.Windows.Forms.Label();
+            this.lblCapacEncomiendas = new System.Windows.Forms.Label();
+            this.lblCantButacas = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxViajeRegistrado.SuspendLayout();
@@ -53,6 +59,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblFabricante);
+            this.groupBox1.Controls.Add(this.lblMatricula);
+            this.groupBox1.Controls.Add(this.lblModelo);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.labelFabricante);
@@ -92,6 +101,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblCantButacas);
+            this.groupBox2.Controls.Add(this.lblCapacEncomiendas);
+            this.groupBox2.Controls.Add(this.lblTipoServicio);
             this.groupBox2.Controls.Add(this.labelCantidadButacas);
             this.groupBox2.Controls.Add(this.labelTipoServicio);
             this.groupBox2.Controls.Add(this.labelCapacidadEncomiendas);
@@ -221,6 +233,54 @@
             this.lblDestino.Size = new System.Drawing.Size(0, 13);
             this.lblDestino.TabIndex = 21;
             // 
+            // lblModelo
+            // 
+            this.lblModelo.AutoSize = true;
+            this.lblModelo.Location = new System.Drawing.Point(175, 25);
+            this.lblModelo.Name = "lblModelo";
+            this.lblModelo.Size = new System.Drawing.Size(0, 13);
+            this.lblModelo.TabIndex = 4;
+            // 
+            // lblMatricula
+            // 
+            this.lblMatricula.AutoSize = true;
+            this.lblMatricula.Location = new System.Drawing.Point(175, 51);
+            this.lblMatricula.Name = "lblMatricula";
+            this.lblMatricula.Size = new System.Drawing.Size(0, 13);
+            this.lblMatricula.TabIndex = 5;
+            // 
+            // lblFabricante
+            // 
+            this.lblFabricante.AutoSize = true;
+            this.lblFabricante.Location = new System.Drawing.Point(175, 77);
+            this.lblFabricante.Name = "lblFabricante";
+            this.lblFabricante.Size = new System.Drawing.Size(0, 13);
+            this.lblFabricante.TabIndex = 6;
+            // 
+            // lblTipoServicio
+            // 
+            this.lblTipoServicio.AutoSize = true;
+            this.lblTipoServicio.Location = new System.Drawing.Point(175, 26);
+            this.lblTipoServicio.Name = "lblTipoServicio";
+            this.lblTipoServicio.Size = new System.Drawing.Size(0, 13);
+            this.lblTipoServicio.TabIndex = 7;
+            // 
+            // lblCapacEncomiendas
+            // 
+            this.lblCapacEncomiendas.AutoSize = true;
+            this.lblCapacEncomiendas.Location = new System.Drawing.Point(175, 53);
+            this.lblCapacEncomiendas.Name = "lblCapacEncomiendas";
+            this.lblCapacEncomiendas.Size = new System.Drawing.Size(0, 13);
+            this.lblCapacEncomiendas.TabIndex = 14;
+            // 
+            // lblCantButacas
+            // 
+            this.lblCantButacas.AutoSize = true;
+            this.lblCantButacas.Location = new System.Drawing.Point(175, 82);
+            this.lblCantButacas.Name = "lblCantButacas";
+            this.lblCantButacas.Size = new System.Drawing.Size(0, 13);
+            this.lblCantButacas.TabIndex = 15;
+            // 
             // FormInformeYValidacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -265,6 +325,12 @@
         private System.Windows.Forms.Label lblFechaHora;
         private System.Windows.Forms.Label lblDestino;
         private System.Windows.Forms.Label lblOrigen;
+        private System.Windows.Forms.Label lblFabricante;
+        private System.Windows.Forms.Label lblMatricula;
+        private System.Windows.Forms.Label lblModelo;
+        private System.Windows.Forms.Label lblCantButacas;
+        private System.Windows.Forms.Label lblCapacEncomiendas;
+        private System.Windows.Forms.Label lblTipoServicio;
 
     }
 }
