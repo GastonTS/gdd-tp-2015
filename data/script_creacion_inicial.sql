@@ -1323,6 +1323,15 @@ AS
 ;  
 GO
 
+
+CREATE PROCEDURE ÑUFLO.DeleteRutaAerea
+@id_ruta int
+AS
+	DELETE FROM ÑUFLO.RutaAerea
+	WHERE id_ruta=@id_ruta;
+;  
+GO
+
 CREATE PROCEDURE ÑUFLO.UpdateRutaAerea
 @id_ruta int,
 @codigo_ruta numeric (18, 0),
