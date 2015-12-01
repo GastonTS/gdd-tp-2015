@@ -116,5 +116,15 @@ namespace AerolineaFrba.Compra
             else
                 habilitacionDatosCliente(false);
         }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            textBoxDNI.Clear();
+            textBoxMail.Clear();
+            textBoxNombre.Clear();
+            textBoxTelefono.Clear();
+            textBoxDireccion.Clear();
+            textBoxApellido.Clear();
+        }
     }
 }
