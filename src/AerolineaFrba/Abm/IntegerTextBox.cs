@@ -57,6 +57,8 @@ namespace AerolineaFrba.Abm
             }
         }
 
+
+
         public decimal DecimalValue
         {
             get

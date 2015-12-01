@@ -53,6 +53,8 @@ namespace AerolineaFrba.Abm
             }
         }
 
+
+
         public int IntValue
         {
             get

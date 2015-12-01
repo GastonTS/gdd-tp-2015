@@ -54,6 +54,7 @@ namespace AerolineaFrba.Abm
         public TextBoxValidado()
         {
             InitializeComponent();
+            this.AutoValidate = AutoValidate.Disable;
         }
 
         protected virtual String validationRegexString()

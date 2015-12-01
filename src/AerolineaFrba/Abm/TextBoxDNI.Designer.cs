@@ -30,12 +30,10 @@
         {
             this.SuspendLayout();
             // 
-            // textBox1
-            // 
-            // 
             // TextBoxDNI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.Name = "TextBoxDNI";
             this.ResumeLayout(false);
             this.PerformLayout();

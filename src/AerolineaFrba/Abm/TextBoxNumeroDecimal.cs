@@ -60,6 +60,8 @@ namespace AerolineaFrba.Abm
            return  textBox1.Text.Remove(0, 1);
         }
 
+
+
         public Decimal DecimalValue()
         { // HACK
             var currencytextbox = new CurrencyTextBox();
