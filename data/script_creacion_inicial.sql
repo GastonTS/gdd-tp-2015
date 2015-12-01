@@ -1854,31 +1854,35 @@ END
 GO
 
 CREATE TRIGGER ÑUFLO.BajaLogicaRutaAerea
-ON ÑUFLO.RutaAerea AFTER DELETE
+ON ÑUFLO.RutaAerea AFTER UPDATE
 AS
 BEGIN
 	DECLARE @id_ruta int, @id_ciudad_origen int, @id_ciudad_destino int
 	DECLARE @codigo_ruta numeric(18,0)
 	DECLARE @precio_base_por_peso numeric(18,2), @precio_base_por_pasaje numeric(18,2)
+	DECLARE @cancelado bit
+
 	DECLARE BRutaAerea CURSOR FOR
-		select * from deleted
+		select * from inserted
 
 	
 	OPEN BRutaAerea 
 	FETCH BRutaAerea INTO @id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso,
-		  @precio_base_por_pasaje
+		  @precio_base_por_pasaje, @cancelado
 
 	WHILE (@@FETCH_STATUS = 0)
 	BEGIN
-
+		
+		IF (@cancelado = 0)
+		BEGIN
 		INSERT INTO ÑUFLO.BajaRutaAerea (id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino,
 										 precio_base_por_peso, precio_base_por_pasaje)
 					VALUES (@id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso,
 							 @precio_base_por_pasaje)
 
 		EXEC ÑUFLO.CancelarRutaAerea @id_ruta
-
-		FETCH BRutaAerea INTO @id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso, @precio_base_por_pasaje
+		END
+		FETCH BRutaAerea INTO @id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso, @precio_base_por_pasaje, @cancelado
 
 	END
 
