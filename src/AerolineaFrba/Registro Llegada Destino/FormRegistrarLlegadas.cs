@@ -20,8 +20,10 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             destinoBindingSource.DataSource = ds;
             comboBoxOrigen.DisplayMember = "Nombre";
             comboBoxDestino.DisplayMember = "Nombre";
-            comboBoxOrigen.ValueMember = "Id ciudad";
-            comboBoxDestino.ValueMember = "Id ciudad";
+            comboBoxOrigen.ValueMember = "Nombre";//cambiar a id ciudad despues
+            comboBoxDestino.ValueMember = "Nombre";
+            fechaCoso.Format = DateTimePickerFormat.Custom;
+            fechaCoso.CustomFormat = "dd/MM/yyyy    hh:mm:ss";
         }
 
         private void FormRegistrarLlegadas_Load(object sender, EventArgs e)
@@ -29,6 +31,19 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
 
             
+        }
+
+        private void btnConfirmarLlegada_Click(object sender, EventArgs e)
+        {
+            if (ValidateChildren())
+            {
+                var camposValores = gdDataBase.newParameters();
+                camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula, SqlDbType.NVarChar));
+                camposValores.Add("origen", new gdDataBase.ValorTipo(comboBoxOrigen.SelectedValue, SqlDbType.NVarChar));
+                camposValores.Add("destino", new gdDataBase.ValorTipo(comboBoxDestino.SelectedValue, SqlDbType.NVarChar));
+                camposValores.Add("fecha_llegada", new gdDataBase.ValorTipo(fechaCoso.Value, SqlDbType.DateTime));
+                new gdDataBase().Exec("ÑUFLO.RegistrarLlegada", camposValores, new Dictionary<int, string>());
+            }
         }
     }
 }
