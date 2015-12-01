@@ -18,9 +18,9 @@ namespace AerolineaFrba.Listado_Estadistico
         public FormListadoEstadistico()
         {
             InitializeComponent();
-            upDownAnio.Minimum = DateTime.Today.Year - 100;
-            upDownAnio.Maximum = DateTime.Today.Year + 100;
-            upDownAnio.Value = DateTime.Today.Year;
+            var yearList = Enumerable.Range(DateTime.Today.Year - 15, 18).ToList();
+            yearList.Reverse();
+            comboBoxAño.DataSource = yearList;
             dataGridViewListado.DataSource = bindingSourceListado;
             mapIndicesNombresTop5.Add(0,"[ÑUFLO].TOP5DiasFueraDeServicio");
             mapIndicesNombresTop5.Add(1,"[Ñuflo].TOP5DestinoPasajesComprados");
@@ -56,7 +56,7 @@ namespace AerolineaFrba.Listado_Estadistico
         }
 
         private int anio() {
-            return Convert.ToInt32(upDownAnio.Value);
+            return Convert.ToInt32(comboBoxAño.SelectedValue);
         }
 
         private DateTime fechaInicial(){
@@ -71,8 +71,17 @@ namespace AerolineaFrba.Listado_Estadistico
         {
             var fecha_inicio = fechaInicial().Date.ToString("yyyy-MM-dd hh:mm:ss.000");
             var fecha_fin = fechaFinal().Date.ToString("yyyy-MM-dd hh:mm:ss.000");
-            var nombre_funcion = mapIndicesNombresTop5[comboBoxListado.SelectedIndex];
-            new gdDataBase().cargarListadoEstadistico(bindingSourceListado, "Select * from "+nombre_funcion+"(\'" + fecha_inicio + "\',\'" + fecha_fin + "\')");
+            var nombre_sp = mapIndicesNombresTop5[comboBoxListado.SelectedIndex];
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
+            camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(fecha_inicio, SqlDbType.DateTime));
+            camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(fecha_fin, SqlDbType.DateTime));
+
+            errorMensaje.Add(2627, "Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...");
+
+            dataGridViewListado.DataSource = new gdDataBase().ExecAndGetData(nombre_sp, camposValores, errorMensaje);
+
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)

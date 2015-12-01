@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.upDownAnio = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridViewListado = new System.Windows.Forms.DataGridView();
@@ -40,22 +39,15 @@
             this.comboBoxListado = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.bindingSourceListado = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.upDownAnio)).BeginInit();
+            this.comboBoxAño = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListado)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceListado)).BeginInit();
             this.SuspendLayout();
             // 
-            // upDownAnio
-            // 
-            this.upDownAnio.Location = new System.Drawing.Point(122, 102);
-            this.upDownAnio.Name = "upDownAnio";
-            this.upDownAnio.Size = new System.Drawing.Size(120, 20);
-            this.upDownAnio.TabIndex = 1;
-            this.upDownAnio.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboBoxAño);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.dataGridViewListado);
             this.groupBox1.Controls.Add(this.radioBtnSegundoSemestre);
@@ -64,7 +56,6 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.comboBoxListado);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.upDownAnio);
             this.groupBox1.Location = new System.Drawing.Point(40, 31);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(600, 428);
@@ -155,6 +146,14 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Año";
             // 
+            // comboBoxAño
+            // 
+            this.comboBoxAño.FormattingEnabled = true;
+            this.comboBoxAño.Location = new System.Drawing.Point(119, 101);
+            this.comboBoxAño.Name = "comboBoxAño";
+            this.comboBoxAño.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxAño.TabIndex = 10;
+            // 
             // FormListadoEstadistico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -163,7 +162,6 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "FormListadoEstadistico";
             this.Text = "Listado Estadistico";
-            ((System.ComponentModel.ISupportInitialize)(this.upDownAnio)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListado)).EndInit();
@@ -174,7 +172,6 @@
 
         #endregion
 
-        private System.Windows.Forms.NumericUpDown upDownAnio;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioBtnSegundoSemestre;
         private System.Windows.Forms.RadioButton radioBtnPrimerSemestre;
@@ -185,5 +182,6 @@
         private System.Windows.Forms.DataGridView dataGridViewListado;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.BindingSource bindingSourceListado;
+        private System.Windows.Forms.ComboBox comboBoxAño;
     }
 }
