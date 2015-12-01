@@ -39,6 +39,7 @@ CREATE TABLE ÑUFLO.RutaAerea (
 	id_ciudad_destino int REFERENCES ÑUFLO.Ciudad NOT NULL,
 	precio_base_por_peso numeric(18,2) NOT NULL,
 	precio_base_por_pasaje numeric(18,2) NOT NULL,
+	cancelado bit DEFAULT 0
 	)
 GO
 
@@ -1443,7 +1444,8 @@ AS
 		WHERE (@id_ciudad_origen IS NULL OR ra.id_ciudad_origen = @id_ciudad_origen) AND
 			  (@id_ciudad_destino IS NULL OR  ra.id_ciudad_destino = @id_ciudad_destino) AND
 			  (@id_tipo_servicio IS NULL OR sr.id_tipo_servicio = @id_tipo_servicio ) AND
-			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta )
+			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta ) AND
+			  ra.cancelado = 0
 ;  
 GO
 
@@ -1465,7 +1467,8 @@ AS
 		WHERE (@id_ciudad_origen IS NULL OR ra.id_ciudad_origen = @id_ciudad_origen) AND
 			  (@id_ciudad_destino IS NULL OR  ra.id_ciudad_destino = @id_ciudad_destino) AND
 			  (@id_tipo_servicio IS NULL OR sr.id_tipo_servicio = @id_tipo_servicio ) AND
-			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta )
+			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta) AND
+			  ra.cancelado = 0
 ;  
 GO
 
@@ -1484,11 +1487,13 @@ GO
 CREATE PROCEDURE ÑUFLO.DeleteRutaAerea
 @id_ruta int
 AS
-	DELETE FROM ÑUFLO.ServicioPorRuta
+	if(0 = (select cancelado from ÑUFLO.RutaAerea 
+			WHERE id_ruta=@id_ruta))
+	BEGIN
+	UPDATE ÑUFLO.RutaAerea
+		set cancelado = 1
 	WHERE id_ruta=@id_ruta;
-
-	DELETE FROM ÑUFLO.RutaAerea
-	WHERE id_ruta=@id_ruta;
+	END
 ;  
 GO
 
@@ -1972,31 +1977,35 @@ END
 GO
 
 CREATE TRIGGER ÑUFLO.BajaLogicaRutaAerea
-ON ÑUFLO.RutaAerea AFTER DELETE
+ON ÑUFLO.RutaAerea AFTER UPDATE
 AS
 BEGIN
 	DECLARE @id_ruta int, @id_ciudad_origen int, @id_ciudad_destino int
 	DECLARE @codigo_ruta numeric(18,0)
 	DECLARE @precio_base_por_peso numeric(18,2), @precio_base_por_pasaje numeric(18,2)
+	DECLARE @cancelado bit
+
 	DECLARE BRutaAerea CURSOR FOR
-		select * from deleted
+		select * from inserted
 
 	
 	OPEN BRutaAerea 
 	FETCH BRutaAerea INTO @id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso,
-		  @precio_base_por_pasaje
+		  @precio_base_por_pasaje, @cancelado
 
 	WHILE (@@FETCH_STATUS = 0)
 	BEGIN
-
+		
+		IF (@cancelado = 0)
+		BEGIN
 		INSERT INTO ÑUFLO.BajaRutaAerea (id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino,
 										 precio_base_por_peso, precio_base_por_pasaje)
 					VALUES (@id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso,
 							 @precio_base_por_pasaje)
 
 		EXEC ÑUFLO.CancelarRutaAerea @id_ruta
-
-		FETCH BRutaAerea INTO @id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso, @precio_base_por_pasaje
+		END
+		FETCH BRutaAerea INTO @id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso, @precio_base_por_pasaje, @cancelado
 
 	END
 
@@ -2016,7 +2025,19 @@ AS
 		from ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
 		where r.id_ciudad_origen = co.id_ciudad
 			and r.id_ciudad_destino = cd.id_ciudad
+			and r.cancelado = 0
 GO
+
+CREATE VIEW ÑUFLO.VRutaAereaCancelados
+AS
+	select r.codigo_ruta 'Código Ruta', co.nombre 'Ciudad Origen', cd.nombre 'Ciudad Destino', 
+			r.precio_base_por_peso 'Precio base x peso', r.precio_base_por_pasaje 'Precio base x pasaje'
+		from ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
+		where r.id_ciudad_origen = co.id_ciudad
+			and r.id_ciudad_destino = cd.id_ciudad
+			and r.cancelado = 1
+GO
+
 
 CREATE VIEW ÑUFLO.DetallePasajes
 AS
