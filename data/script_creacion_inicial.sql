@@ -529,7 +529,7 @@ GO
 /*****************************************************************/
 
 /*Usuario*/
-CREATE PROCEDURE ÑUFLO.LogearUsuario
+ALTER PROCEDURE ÑUFLO.LogearUsuario
 @usuario nvarchar(255),
 @password varchar(255)
 AS
@@ -545,10 +545,12 @@ BEGIN
 		BEGIN
 			UPDATE ÑUFLO.Usuario
 				SET cantidad_intentos = 0, habilitado = 1
-				WHERE nombre_usuario = @usuario;
+				WHERE nombre_usuario = @usuario
+				SELECT 1
 		END
 	ELSE
 		BEGIN
+			SELECT -1
 			UPDATE ÑUFLO.Usuario
 				SET cantidad_intentos = @intentos + 1
 				WHERE nombre_usuario = @usuario;
@@ -557,7 +559,7 @@ BEGIN
 					UPDATE ÑUFLO.Usuario
 						SET habilitado = 0
 						WHERE nombre_usuario = @usuario;
-				END;			
+				END;				
 		THROW 60000,'Usuario o Contraseña Incorrecta',1
 		END
 END
