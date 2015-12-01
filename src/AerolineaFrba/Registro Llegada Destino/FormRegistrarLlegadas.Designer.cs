@@ -125,9 +125,12 @@
             // fechaCoso
             // 
             this.fechaCoso.Location = new System.Drawing.Point(164, 35);
+            this.fechaCoso.MaxDate = new System.DateTime(2049, 12, 27, 0, 0, 0, 0);
+            this.fechaCoso.MinDate = new System.DateTime(1980, 1, 1, 0, 0, 0, 0);
             this.fechaCoso.Name = "fechaCoso";
             this.fechaCoso.Size = new System.Drawing.Size(200, 20);
             this.fechaCoso.TabIndex = 18;
+            this.fechaCoso.TabStop = false;
             // 
             // labelFechaYHoraLlegada
             // 

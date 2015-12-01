@@ -193,6 +193,7 @@
       <DependentUpon>FormSeleccionViaje.cs</DependentUpon>
     </Compile>
     <Compile Include="Compra\ICargaDatosCliente.cs" />
+    <Compile Include="Compra\IDatosCompra.cs" />
     <Compile Include="Consulta Millas\FormConsultaMillas.cs">
       <SubType>Form</SubType>
     </Compile>
