@@ -43,24 +43,6 @@ namespace AerolineaFrba.Compra
             btnAceptar.Enabled = estado;
         }
 
-        private void btnActualizar_Click(object sender, EventArgs e)
-        {
-            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
-
-            camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDNI.Text, SqlDbType.Decimal));
-            camposValores.Add("nombre", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
-            camposValores.Add("apellido", new gdDataBase.ValorTipo(textBoxApellido.Text, SqlDbType.VarChar));
-            camposValores.Add("direccion", new gdDataBase.ValorTipo(textBoxDireccion.Text, SqlDbType.VarChar));
-            camposValores.Add("telefono", new gdDataBase.ValorTipo(textBoxTelefono.Text, SqlDbType.Decimal));
-            camposValores.Add("mail", new gdDataBase.ValorTipo(textBoxMail.Text, SqlDbType.VarChar));
-            camposValores.Add("fecha_de_nacimiento", new gdDataBase.ValorTipo(dateTimeFechaNacimiento.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
-
-            new gdDataBase().Exec("ÑUFLO.ModificarCliente", camposValores, null, "Datos del cliente actualizados exitosamente");
-
-            habilitacionDatosCliente(false);
-            checkBoxModificarDatos.Checked = false;
-        }
-
         private void textBoxDNI_TextChanged(object sender, EventArgs e)
         {
             //este texto sólo debe permitir ingreso de números
@@ -125,6 +107,24 @@ namespace AerolineaFrba.Compra
             textBoxTelefono.Clear();
             textBoxDireccion.Clear();
             textBoxApellido.Clear();
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+
+            camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDNI.Text, SqlDbType.Decimal));
+            camposValores.Add("nombre", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
+            camposValores.Add("apellido", new gdDataBase.ValorTipo(textBoxApellido.Text, SqlDbType.VarChar));
+            camposValores.Add("direccion", new gdDataBase.ValorTipo(textBoxDireccion.Text, SqlDbType.VarChar));
+            camposValores.Add("telefono", new gdDataBase.ValorTipo(textBoxTelefono.Text, SqlDbType.Decimal));
+            camposValores.Add("mail", new gdDataBase.ValorTipo(textBoxMail.Text, SqlDbType.VarChar));
+            camposValores.Add("fecha_de_nacimiento", new gdDataBase.ValorTipo(dateTimeFechaNacimiento.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+
+            new gdDataBase().Exec("ÑUFLO.ModificarCliente", camposValores, null, "Datos del cliente actualizados exitosamente");
+
+            habilitacionDatosCliente(false);
+            checkBoxModificarDatos.Checked = false;
         }
     }
 }

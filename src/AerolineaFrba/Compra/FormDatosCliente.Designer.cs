@@ -95,6 +95,7 @@
             this.btnAceptar.TabIndex = 16;
             this.btnAceptar.Text = "Guardar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // dateTimeFechaNacimiento
             // 
@@ -213,6 +214,7 @@
             this.textBoxDNI.Name = "textBoxDNI";
             this.textBoxDNI.Size = new System.Drawing.Size(100, 20);
             this.textBoxDNI.TabIndex = 0;
+            this.textBoxDNI.TextChanged += new System.EventHandler(this.textBoxDNI_TextChanged);
             // 
             // button1
             // 
