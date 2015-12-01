@@ -995,9 +995,12 @@ GO
 CREATE PROCEDURE ÑUFLO.AeronavePorMatricula
 @matricula nvarchar(255)
 AS
-	select a.id_aeronave, a.id_modelo, a.id_fabricante, a.matricula, a.id_tipo_servicio,
-		   a.fecha_de_alta, a.capacidad_peso_encomiendas, a.cantidad_butacas, a.baja_vida_utill, a.baja_por_fuera_de_servicio
-	from ÑUFLO.Aeronave a
+	select a.id_aeronave, a.id_modelo, m.nombre Modelo, a.id_fabricante,f.nombre Nombre, a.matricula Matricula, a.id_tipo_servicio,
+		   ts.tipo_servicio 'Tipo de servicio', a.fecha_de_alta 'Fecha de alta', a.capacidad_peso_encomiendas 'Capacidad peso encomiendas',
+		    a.cantidad_butacas 'Butacas totales', a.baja_vida_utill 'Baja vida util', a.baja_por_fuera_de_servicio 'Baja por fuera de servicio'
+	from ÑUFLO.Aeronave a JOIN ÑUFLO.Fabricante f ON a.id_aeronave = f.id_fabricante
+						  JOIN ÑUFLO.Modelo m ON a.id_modelo = m.id_modelo
+						  JOIN ÑUFLO.TipoServicio ts ON a.id_tipo_servicio = ts.id_tipo_servicio 
 	where a.matricula = @matricula
 ;
 GO
@@ -1167,7 +1170,11 @@ AS
 						where v.id_viaje = @id_viaje
 							and r.id_ruta = v.id_ruta
 							and c.id_ciudad = r.id_ciudad_destino))
+	
 		THROW 60021, 'La Aeronave no arribo al destino esperado', 1
+	ELSE
+
+	return @destino
 ;
 GO
 
