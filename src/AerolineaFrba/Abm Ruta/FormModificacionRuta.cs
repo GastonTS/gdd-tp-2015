@@ -25,7 +25,7 @@ namespace AerolineaFrba.Abm_Ruta
         private void FormModificacionRuta_Load(object sender, EventArgs e)
         {
 
-            var ds = new gdDataBase().ExecAndGetDataSet("CiudadTipoServicio");
+            var ds = new gdDataBase().ExecAndGetDataSet("ÑUFLO.CiudadTipoServicio");
 
             DataTable ciudades = ds.Tables[0];
             var filaExtraCiudad = ciudades.NewRow();
@@ -51,7 +51,7 @@ namespace AerolineaFrba.Abm_Ruta
             
             
             dataGridView1.AutoGenerateColumns = true; 
-            rutaAereaBindingSource.DataSource = new gdDataBase().ExecAndGetDataSet("FiltrosModificacionRutaAerea").Tables[0];
+            rutaAereaBindingSource.DataSource = new gdDataBase().ExecAndGetDataSet("ÑUFLO.FiltrosModificacionRutaAerea").Tables[0];
             dataGridView1.AutoGenerateColumns = false;
 
             dataGridView1.Columns["id ruta"].Visible = false;
