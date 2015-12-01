@@ -39,7 +39,7 @@ CREATE TABLE ÑUFLO.RutaAerea (
 	id_ciudad_destino int REFERENCES ÑUFLO.Ciudad NOT NULL,
 	precio_base_por_peso numeric(18,2) NOT NULL,
 	precio_base_por_pasaje numeric(18,2) NOT NULL,
-	cancelalado bit DEFAULT 0
+	cancelado bit DEFAULT 0
 	)
 GO
 
@@ -1346,7 +1346,8 @@ AS
 		WHERE (@id_ciudad_origen IS NULL OR ra.id_ciudad_origen = @id_ciudad_origen) AND
 			  (@id_ciudad_destino IS NULL OR  ra.id_ciudad_destino = @id_ciudad_destino) AND
 			  (@id_tipo_servicio IS NULL OR sr.id_tipo_servicio = @id_tipo_servicio ) AND
-			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta )
+			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta ) AND
+			  ra.cancelado = 0
 ;  
 GO
 
@@ -1368,7 +1369,8 @@ AS
 		WHERE (@id_ciudad_origen IS NULL OR ra.id_ciudad_origen = @id_ciudad_origen) AND
 			  (@id_ciudad_destino IS NULL OR  ra.id_ciudad_destino = @id_ciudad_destino) AND
 			  (@id_tipo_servicio IS NULL OR sr.id_tipo_servicio = @id_tipo_servicio ) AND
-			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta )
+			  (@id_tipo_servicio IS NULL OR ra.id_ruta = sr.id_ruta) AND
+			  ra.cancelado = 0
 ;  
 GO
 
@@ -1905,7 +1907,19 @@ AS
 		from ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
 		where r.id_ciudad_origen = co.id_ciudad
 			and r.id_ciudad_destino = cd.id_ciudad
+			and r.cancelado = 0
 GO
+
+CREATE VIEW ÑUFLO.VRutaAereaCancelados
+AS
+	select r.codigo_ruta 'Código Ruta', co.nombre 'Ciudad Origen', cd.nombre 'Ciudad Destino', 
+			r.precio_base_por_peso 'Precio base x peso', r.precio_base_por_pasaje 'Precio base x pasaje'
+		from ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
+		where r.id_ciudad_origen = co.id_ciudad
+			and r.id_ciudad_destino = cd.id_ciudad
+			and r.cancelado = 1
+GO
+
 
 CREATE VIEW ÑUFLO.DetallePasajes
 AS
