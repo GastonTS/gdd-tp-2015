@@ -14,7 +14,7 @@ namespace AerolineaFrba.Abm
 
     {
 
-        string _MsgError="";
+        string _MsgError="Hijo de puta implementa el mensaje de error";
         [Category("Mensajes"), Description("Texto que se muestra en caso de error."), EditorBrowsable(EditorBrowsableState.Always)]
         public virtual string MsgError
         {
@@ -22,7 +22,7 @@ namespace AerolineaFrba.Abm
             set { _MsgError = value; }
         }
 
-        string _MsgExito="";
+        string _MsgExito = "Hijo de puta implementa el mensaje de exito";
         [Category("Mensajes"), Description("Texto que se muestra en caso de error."), EditorBrowsable(EditorBrowsableState.Always)]
         public virtual string MsgExito
         {
@@ -30,17 +30,19 @@ namespace AerolineaFrba.Abm
             set { _MsgExito = value; }
         }
 
+        protected virtual void guardarPosta() { throw new Exception("Implementa como guardar hijo de puta"); }
 
         public Alta()
         {
             InitializeComponent();
         }
 
-        protected void guardar()
+        public void guardar()
         {
             if (this.ValidateChildren(ValidationConstraints.TabStop))
             {
-                MessageBox.Show("Crea Rol correctamente");
+                this.guardarPosta();
+                MessageBox.Show(MsgExito);
             }
             else
             {
@@ -48,7 +50,7 @@ namespace AerolineaFrba.Abm
                 {
                     unControl.Refresh();
                 }
-                MessageBox.Show("Error al crear Rol. Ingresar los campos correctamente");
+                MessageBox.Show(MsgError);
             }
         }
 

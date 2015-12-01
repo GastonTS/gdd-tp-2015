@@ -13,6 +13,8 @@ namespace AerolineaFrba
     {
         SqlConnection miConexion = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=gd2015");
 
+        public static Dictionary<String, gdDataBase.ValorTipo> newParameters() { return new Dictionary<String, gdDataBase.ValorTipo>(); }
+
         public struct ValorTipo
         {
             String valor;
@@ -198,7 +200,7 @@ namespace AerolineaFrba
             return ds;
         }
 
-        public void Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta)
+        public void Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta = null)
         {
             conectar();
             bool encontroErrorConocido = false;

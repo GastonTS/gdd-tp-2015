@@ -112,6 +112,7 @@ namespace AerolineaFrba.Abm_Ruta
                 {
                     MessageBox.Show("Modificar columna" + senderGrid.CurrentRow.Cells["Ciudad Origen"].Value.ToString());
                     var formAltaRuta = new FormAltaRuta();
+                    formAltaRuta.setId((int)senderGrid.CurrentRow.Cells["id ruta"].Value); 
                     formAltaRuta.setCodRuta(senderGrid.CurrentRow.Cells["Codigo de ruta"].Value.ToString());
                     formAltaRuta.setOrigen((int)senderGrid.CurrentRow.Cells["id origen"].Value - 1);
                     formAltaRuta.setDestino((int)senderGrid.CurrentRow.Cells["id destino"].Value - 1);

@@ -12,7 +12,7 @@ namespace AerolineaFrba.Abm_Ruta
 {
     public partial class FormAltaRuta : Abm.Alta
     {
-
+        int id_ruta;
         Boolean modificacion = false;
         public FormAltaRuta()
         {
@@ -54,6 +54,10 @@ namespace AerolineaFrba.Abm_Ruta
             comboBoxOrigen.SelectedIndex = dss.Tables[0].Rows[0].Field<int>(0)-1;
             dss = new gdDataBase().GetDataQuery("Select id_ciudad FROM ÑUFLO.Ciudad where nombre= " + "'" + datosAModificar["Ciudad Destino"].ToString() + "'");
             comboBoxDestino.SelectedIndex = dss.Tables[0].Rows[0].Field<int>(0) - 1;
+        }
+
+        public void setId(int id){
+            id_ruta = id;
         }
 
         public void setCodRuta(String codigo)
@@ -141,6 +145,22 @@ namespace AerolineaFrba.Abm_Ruta
         }
 
 
+        protected override void guardarPosta()
+        {
+            var camposValores = gdDataBase.newParameters();
+
+            camposValores.Add("codigo_ruta", new gdDataBase.ValorTipo(int.Parse(textBoxCodRuta.Text),SqlDbType.Int));
+            camposValores.Add("id_ciudad_origen", new gdDataBase.ValorTipo(comboBoxOrigen.SelectedValue,SqlDbType.Int));
+            camposValores.Add("id_ciudad_destino", new gdDataBase.ValorTipo(comboBoxDestino.SelectedValue,SqlDbType.Int));
+            camposValores.Add("precio_base_por_peso", new gdDataBase.ValorTipo(textBoxPrecioPeso.DecimalValue(),SqlDbType.Real));
+            camposValores.Add("precio_base_por_pasaje", new gdDataBase.ValorTipo(textBoxPrecioPasaje.DecimalValue(), SqlDbType.Real));
+            if (modificacion){
+                camposValores.Add("id_ruta", new gdDataBase.ValorTipo(id_ruta,SqlDbType.Int));
+                new gdDataBase().Exec("ÑUFLO.UpdateRutaAerea",camposValores,new Dictionary<int,string>());
+            }
+            else
+                new gdDataBase().Exec("ÑUFLO.InsertRutaAerea",camposValores,new Dictionary<int,string>());
+        }
 
     }
 }
