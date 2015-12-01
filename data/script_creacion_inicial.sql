@@ -1359,6 +1359,90 @@ AS
 ;  
 GO
 
+CREATE PROCEDURE ÑUFLO.CancelarPasajeOEncomienda
+@id int,
+@motivo nvarchar(255)
+AS	
+	DECLARE @pnr int
+	DECLARE @hoy datetime
+	set  @hoy = GETDATE()
+	
+	IF (EXISTS(select * from Pasaje p 
+				where p.id_pasaje = @id ) )
+	BEGIN
+		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
+		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
+		BEGIN
+
+			INSERT INTO ÑUFLO.Cancelacion(codigo_de_compra, fecha_devolucion)
+				values(@pnr, @hoy)
+
+		END
+		
+		INSERT INTO ÑUFLO.PasajePorCancelacion(id_cancelacion, id_pasaje, motivo_cancelacion)
+			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @id, @motivo)
+			
+		UPDATE ÑUFLO.Pasaje
+			SET cancelado = 1
+			WHERE @id = id_pasaje
+	END
+	ELSE
+	BEGIN
+		set @pnr =(select e.codigo_de_compra from Encomienda e where e.id_encomienda = @id)
+		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
+		BEGIN
+
+				INSERT INTO ÑUFLO.Cancelacion(codigo_de_compra, fecha_devolucion)
+					values(@pnr, @hoy)
+
+		END
+		
+		INSERT INTO ÑUFLO.EncomiendaPorCancelacion(id_cancelacion, id_encomienda, motivo_cancelacion)
+			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @id, @motivo)
+			
+		UPDATE ÑUFLO.Encomienda
+			SET cancelado = 1
+			WHERE @id = id_encomienda
+	END
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.CancelarRutaAerea
+@id_ruta int
+AS
+
+	DECLARE @id int
+
+	DECLARE CPasajes CURSOR 
+		FOR (select p.id_pasaje id
+				from ÑUFLO.Compra c, ÑUFLO.Pasaje p
+				where c.id_viaje = @id_ruta
+					and c.codigo_de_compra = p.codigo_de_compra
+			 UNION
+			 select e.id_encomienda id
+				from ÑUFLO.Compra c, ÑUFLO.Encomienda e
+				where c.id_viaje = @id_ruta
+					and c.codigo_de_compra = e.codigo_de_compra)
+
+	
+
+	OPEN CRutaAerea
+	FETCH CRutaAerea INTO @id
+
+	WHILE (@@FETCH_STATUS = 0)
+	BEGIN	
+
+	exec ÑUFLO.CancelarPasajeOEncomienda  @id, 'Baja Ruta Aerea'
+
+		FETCH CRutaAerea INTO @id
+	END
+
+	CLOSE CPasajes
+	DEALLOCATE CPasajes
+;
+GO
+--		EXEC ÑUFLO.CancelarEncomiendasRutaAerea
+
 /*Compra*/
 CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasDe
 @codigo_compra int
@@ -1692,6 +1776,40 @@ BEGIN
 	
 	INSERT INTO ÑUFLO.RolPorUsuario
 		select * from inserted
+END
+GO
+
+CREATE TRIGGER ÑUFLO.BajaLogicaRutaAerea
+ON ÑUFLO.RutaAerea AFTER DELETE
+AS
+BEGIN
+	DECLARE @id_ruta int, @id_ciudad_origen int, @id_ciudad_destino int
+	DECLARE @codigo_ruta numeric(18,0)
+	DECLARE @precio_base_por_peso numeric(18,2), @precio_base_por_pasaje numeric(18,2)
+	DECLARE BRutaAerea CURSOR FOR
+		select * from deleted
+
+	
+	OPEN BRutaAerea 
+	FETCH BRutaAerea INTO @id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso,
+		  @precio_base_por_pasaje
+
+	WHILE (@@FETCH_STATUS = 0)
+	BEGIN
+
+		INSERT INTO ÑUFLO.BajaRutaAerea (id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino,
+										 precio_base_por_peso, precio_base_por_pasaje)
+					VALUES (@id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso,
+							 @precio_base_por_pasaje)
+
+		EXEC ÑUFLO.CancelarRutaAerea @id_ruta
+
+		FETCH BRutaAerea INTO @id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso, @precio_base_por_pasaje
+
+	END
+
+	CLOSE BRutaAerea
+	DEALLOCATE BRutaAerea
 END
 GO
 
