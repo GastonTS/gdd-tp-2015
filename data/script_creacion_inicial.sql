@@ -1178,6 +1178,104 @@ AS
 ;
 GO
 
+/*Compra*/
+CREATE PROCEDURE ÑUFLO.CrearCompra 
+@id_viaje int,
+@dni int,
+@hoy datetime
+AS
+	IF(NOT EXISTS (select id_viaje from ÑUFLO.Viaje where id_viaje = @id_viaje))
+		THROW 60031, 'El viaje indicado no existe', 1
+
+	IF(NOT EXISTS (select dni from ÑUFLO.Cliente where dni = @dni))
+		THROW 60032, 'El cliente indicado no existe', 1
+
+	INSERT INTO ÑUFLO.Compra(id_viaje, id_cliente, fecha_de_compra)
+		values(@id_viaje, (select top 1 id_cliente from ÑUFLO.Cliente where dni = @dni), @hoy)
+
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.CrearPasaje
+@codigo_compra int,
+@dni int,
+@numero_butaca int
+AS
+
+	IF(NOT EXISTS (select codigo_de_compra from ÑUFLO.Compra where codigo_de_compra = @codigo_compra))
+		THROW 60033, 'La compra indicada no existe', 1
+	
+	
+	IF(NOT EXISTS (select dni from ÑUFLO.Cliente where dni = @dni))
+		THROW 60032, 'El cliente indicado no existe', 1
+		
+	IF(@numero_butaca IN (select numero_de_butaca from ÑUFLO.Pasaje where codigo_de_compra = @codigo_compra))
+		THROW 60033, 'La butaca seleccionada no esta disponible', 1
+		
+	IF(@numero_butaca IN (select numero_de_butaca from ÑUFLO.Pasaje where codigo_de_compra = @codigo_compra))
+		THROW 60033, 'La butaca seleccionada no esta disponible', 1
+
+	DECLARE @precio numeric(18,2)
+
+	SET @precio = (select r.precio_base_por_pasaje * ts.porcentaje_recargo
+						from ÑUFLO.Compra c, ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.TipoServicio ts, ÑUFLO.RutaAerea r
+						where c.codigo_de_compra = @codigo_compra
+							and c.id_viaje = v.id_viaje 
+							and v.id_ruta = r.id_ruta
+							and v.id_aeronave = a.id_aeronave
+							and a.id_tipo_servicio = ts.id_tipo_servicio)
+
+	INSERT INTO ÑUFLO.Pasaje(id_pasaje, codigo_de_compra, id_cliente, numero_de_butaca, precio, cancelado)
+		values((select ÑUFLO.SiguientePasaje()), @codigo_compra, (select top 1 id_cliente from ÑUFLO.Cliente where dni = @dni), @numero_butaca, @precio, 0)
+
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.PesoDisponibleDe
+@id_viaje int
+AS
+	select ÑUFLO.PesoDisponible(@id_viaje)
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.CrearEncomienda
+@codigo_compra int,
+@dni int,
+@peso_encomienda numeric(18,2)
+AS
+	IF(NOT EXISTS (select codigo_de_compra from ÑUFLO.Compra where codigo_de_compra = @codigo_compra))
+		THROW 60033, 'La compra indicada no existe', 1
+	
+	
+	IF(NOT EXISTS (select dni from ÑUFLO.Cliente where dni = @dni))
+		THROW 60032, 'El cliente indicado no existe', 1
+
+	DECLARE @id_viaje int
+	SET @id_viaje = (select id_viaje from ÑUFLO.Compra where @codigo_compra = codigo_de_compra)
+	
+	IF(@peso_encomienda > (select ÑUFLO.PesoDisponible(@id_viaje)))
+		THROW 60030, 'El peso de la encomienda supera el peso disponible del viaje', 1	
+
+	DECLARE @precio numeric(18,2)
+
+	SET @precio = (select r.precio_base_por_peso * ts.porcentaje_recargo
+						from ÑUFLO.Compra c, ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.TipoServicio ts, ÑUFLO.RutaAerea r
+						where c.codigo_de_compra = @codigo_compra
+							and c.id_viaje = v.id_viaje 
+							and v.id_ruta = r.id_ruta
+							and v.id_aeronave = a.id_aeronave
+							and a.id_tipo_servicio = ts.id_tipo_servicio)
+
+	INSERT INTO ÑUFLO.Encomienda(id_encomienda, codigo_de_compra, id_cliente, peso_encomienda, precio, cancelado)
+		values((select ÑUFLO.SiguienteEncomienda()), @codigo_compra, 
+				(select top 1 id_cliente from ÑUFLO.Cliente where dni = @dni), @peso_encomienda, @precio, 0)
+
+	UPDATE ÑUFLO.Viaje
+		SET peso_ocupado = peso_ocupado + @peso_encomienda
+		where id_viaje = @id_viaje
+;
+GO
+
 /*Rol*/
 CREATE PROCEDURE ÑUFLO.CrearRol
 @nombre_rol nvarchar(255)
@@ -1784,6 +1882,26 @@ BEGIN
 							and p.cancelado = 0)
 
 	RETURN @ocupadas
+END
+GO
+
+CREATE FUNCTION ÑUFLO.SiguientePasaje()
+RETURNS int
+AS
+BEGIN
+	DECLARE @siguiente int
+	SET @siguiente = (select MAX(id_pasaje)+1 from ÑUFLO.Pasaje)
+	RETURN @siguiente
+END
+GO
+
+CREATE FUNCTION ÑUFLO.SiguienteEncomienda()
+RETURNS int
+AS
+BEGIN
+	DECLARE @siguiente int
+	SET @siguiente = (select MAX(id_encomienda)+1 from ÑUFLO.Encomienda)
+	RETURN @siguiente
 END
 GO
 /*****************************************************************/
