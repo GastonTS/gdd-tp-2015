@@ -23,7 +23,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             comboBoxOrigen.ValueMember = "Nombre";//cambiar a id ciudad despues
             comboBoxDestino.ValueMember = "Nombre";
             fechaCoso.Format = DateTimePickerFormat.Custom;
-            fechaCoso.CustomFormat = "dd/MM/yyyy    hh:mm:ss";
+            fechaCoso.CustomFormat = "dd/MM/yyyy    HH:mm:ss";
         }
 
         private void FormRegistrarLlegadas_Load(object sender, EventArgs e)
