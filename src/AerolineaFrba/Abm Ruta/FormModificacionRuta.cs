@@ -94,18 +94,15 @@ namespace AerolineaFrba.Abm_Ruta
         {
             var senderGrid = (DataGridView)sender;
             var index = e.ColumnIndex;
-            var camposValores = new Dictionary<String, gdDataBase.ValorTipo>();
-            camposValores.Add("nombre_origen",new gdDataBase.ValorTipo(senderGrid.CurrentRow.Cells["Ciudad origen"].Value, SqlDbType.NVarChar));
-            camposValores.Add("nombre_destino",new gdDataBase.ValorTipo(senderGrid.CurrentRow.Cells["Ciudad destino"].Value, SqlDbType.NVarChar));
-            camposValores.Add("tipo_servicio",new gdDataBase.ValorTipo(senderGrid.CurrentRow.Cells["Tipo de servicio"].Value, SqlDbType.NVarChar));
-            var selectedRowData = new gdDataBase().GetDataWithParameters("ÑUFLO.FiltrosAltaRutaAerea", camposValores);
 
             if (senderGrid.Columns[index] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
                 if (index == senderGrid.Columns["Eliminar"].Index)
                 {
-                    MessageBox.Show("Eliminar columna" + senderGrid.CurrentRow.Cells["Ciudad Origen"].Value.ToString());
+                    var camposValores = gdDataBase.newParameters();
+                    camposValores.Add("id_ruta",new gdDataBase.ValorTipo(senderGrid.CurrentRow.Cells["id ruta"].Value,SqlDbType.Int));
+                    new gdDataBase().Exec("ÑUFLO.DeleteRutaAerea",camposValores,new Dictionary<int,String>(),"El registro ha sido eliminado correctamente");
                 }
 
                 else if (index == senderGrid.Columns["Modificar"].Index)
