@@ -29,16 +29,16 @@ namespace AerolineaFrba.Registro_de_Usuario
 
         private void habilitarFunciones() {
             var camposValores = gdDataBase.newParameters();
-            camposValores.Add("usuario", new gdDataBase.ValorTipo(textBoxUsername.Text, SqlDbType.NVarChar));
-            var funciones = new gdDataBase().ExecAndGetData("ÑUFLO.FuncionesDeUsuario", camposValores, new Dictionary<int, String>()).Rows;
+            camposValores.Add("nombre_usuario", new gdDataBase.ValorTipo(textBoxUsername.Text, SqlDbType.NVarChar));
+            var funciones = new gdDataBase().ExecAndGetData("ÑUFLO.FuncionalidadesPorUsuario", camposValores, new Dictionary<int, String>()).Rows;
             padre.resetearFuncionalidades();
-            foreach (var funcion in funciones) {
+            foreach (DataRow funcion in funciones) {
                 padre.activarFuncionalidad(idFuncion(funcion));
             }
         }
 
-        public int idFuncion(object funcion) {
-            return 1; //
+        public int idFuncion(DataRow funcion) {
+            return (int)funcion["id_funcionalidad"];
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

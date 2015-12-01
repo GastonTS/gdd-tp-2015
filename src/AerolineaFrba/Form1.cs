@@ -30,7 +30,8 @@ namespace AerolineaFrba
             ids_funcionalidades.Add(8, btnConsultaMillas);
             ids_funcionalidades.Add(9, btnCanjeMillas);
             ids_funcionalidades.Add(10, btnListadoEstadistico);
-            //ids_funcionalidades.Add(11, "ABM productos");
+            ids_funcionalidades.Add(11, btnBajaPasajeEncomienda);
+            ids_funcionalidades.Add(12, btnLogin);
         }
 
         public void resetearFuncionalidades() 

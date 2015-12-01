@@ -581,7 +581,7 @@ GO
 CREATE PROCEDURE ÑUFLO.FuncionalidadesPorUsuario
 @nombre_usuario nvarchar(255)
 AS
-select distinct f.descripcion
+select distinct f.id_funcionalidad, f.descripcion
 	from ÑUFLO.Funcionalidad f, ÑUFLO.FuncionalidadPorRol fr, ÑUFLO.RolPorUsuario ru
 	where f.id_funcionalidad = fr.id_funcionalidad
 		and fr.id_rol = ru.id_rol
