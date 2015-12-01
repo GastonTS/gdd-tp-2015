@@ -57,6 +57,7 @@ namespace AerolineaFrba.Abm_Ruta
             dataGridView1.Columns["id ruta"].Visible = false;
             dataGridView1.Columns["id destino"].Visible = false;
             dataGridView1.Columns["id origen"].Visible = false;
+            dataGridView1.Columns["id servicio"].Visible = false;
 
 
             new List<String> { "Eliminar", "Modificar" }.ForEach(column =>

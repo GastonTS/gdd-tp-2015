@@ -529,7 +529,7 @@ GO
 /*****************************************************************/
 
 /*Usuario*/
-ALTER PROCEDURE ÑUFLO.LogearUsuario
+CREATE PROCEDURE ÑUFLO.LogearUsuario
 @usuario nvarchar(255),
 @password varchar(255)
 AS
