@@ -1357,6 +1357,54 @@ AS
 ;  
 GO
 
+CREATE PROCEDURE ÑUFLO.CancelarPasajeOEncomienda
+@id int,
+@motivo nvarchar(255)
+AS	
+	DECLARE @pnr int
+	DECLARE @hoy datetime
+	set  @hoy = GETDATE()
+	
+	IF (EXISTS(select * from Pasaje p 
+				where p.id_pasaje = @id ) )
+	BEGIN
+		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
+		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
+		BEGIN
+
+			INSERT INTO ÑUFLO.Cancelacion(codigo_de_compra, fecha_devolucion)
+				values(@pnr, @hoy)
+
+		END
+		
+		INSERT INTO ÑUFLO.PasajePorCancelacion(id_cancelacion, id_pasaje, motivo_cancelacion)
+			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @id, @motivo)
+			
+		UPDATE ÑUFLO.Pasaje
+			SET cancelado = 1
+			WHERE @id = id_pasaje
+	END
+	ELSE
+	BEGIN
+		set @pnr =(select e.codigo_de_compra from Encomienda e where e.id_encomienda = @id)
+		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
+		BEGIN
+
+				INSERT INTO ÑUFLO.Cancelacion(codigo_de_compra, fecha_devolucion)
+					values(@pnr, @hoy)
+
+		END
+		
+		INSERT INTO ÑUFLO.EncomiendaPorCancelacion(id_cancelacion, id_encomienda, motivo_cancelacion)
+			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @id, @motivo)
+			
+		UPDATE ÑUFLO.Encomienda
+			SET cancelado = 1
+			WHERE @id = id_encomienda
+	END
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.CancelarRutaAerea
 @id_ruta int
 AS
@@ -1382,7 +1430,7 @@ AS
 	WHILE (@@FETCH_STATUS = 0)
 	BEGIN	
 
-	exec ÑUFLO.CancelarPasajeOEncomienda  @id
+	exec ÑUFLO.CancelarPasajeOEncomienda  @id, 'Baja Ruta Aerea'
 
 		FETCH CRutaAerea INTO @id
 	END
