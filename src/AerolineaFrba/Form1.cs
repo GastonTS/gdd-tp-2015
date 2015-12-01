@@ -23,14 +23,14 @@ namespace AerolineaFrba
             ids_funcionalidades.Add(1, btnAltaCiudad);
             ids_funcionalidades.Add(2, btnAltaRuta);
             ids_funcionalidades.Add(3, btnAltaNave);
-            ids_funcionalidades.Add(4, "generar viaje");
-            ids_funcionalidades.Add(5, "registrar llegada");
-            ids_funcionalidades.Add(6, "compra");
-            ids_funcionalidades.Add(7, "cancelacion");
-            ids_funcionalidades.Add(8, "consultar millas");
-            ids_funcionalidades.Add(9, "canjear millas");
-            ids_funcionalidades.Add(10, "listado estadistico");
-            ids_funcionalidades.Add(11, "ABM productos");
+            ids_funcionalidades.Add(4, btnGenerarViaje);
+            ids_funcionalidades.Add(5, btnRegistroLlegada);
+            ids_funcionalidades.Add(6, btnCompraEfectiva);
+            ids_funcionalidades.Add(7, btnDevolucion);
+            ids_funcionalidades.Add(8, btnConsultaMillas);
+            ids_funcionalidades.Add(9, btnCanjeMillas);
+            ids_funcionalidades.Add(10, btnListadoEstadistico);
+            //ids_funcionalidades.Add(11, "ABM productos");
         }
 
         private void btnAltaRol_Click(object sender, EventArgs e)
