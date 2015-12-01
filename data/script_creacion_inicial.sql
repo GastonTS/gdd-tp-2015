@@ -1357,6 +1357,42 @@ AS
 ;  
 GO
 
+CREATE PROCEDURE ÑUFLO.CancelarRutaAerea
+@id_ruta int
+AS
+
+	DECLARE @id int
+
+	DECLARE CPasajes CURSOR 
+		FOR (select p.id_pasaje id
+				from ÑUFLO.Compra c, ÑUFLO.Pasaje p
+				where c.id_viaje = @id_ruta
+					and c.codigo_de_compra = p.codigo_de_compra
+			 UNION
+			 select e.id_encomienda id
+				from ÑUFLO.Compra c, ÑUFLO.Encomienda e
+				where c.id_viaje = @id_ruta
+					and c.codigo_de_compra = e.codigo_de_compra)
+
+	
+
+	OPEN CRutaAerea
+	FETCH CRutaAerea INTO @id
+
+	WHILE (@@FETCH_STATUS = 0)
+	BEGIN	
+
+	exec ÑUFLO.CancelarPasajeOEncomienda  @id
+
+		FETCH CRutaAerea INTO @id
+	END
+
+	CLOSE CPasajes
+	DEALLOCATE CPasajes
+;
+GO
+--		EXEC ÑUFLO.CancelarEncomiendasRutaAerea
+
 /*Compra*/
 CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasDe
 @codigo_compra int
@@ -1716,8 +1752,7 @@ BEGIN
 					VALUES (@id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso,
 							 @precio_base_por_pasaje)
 
-		EXEC ÑUFLO.CancelarPasajesRutaAerea @id_ruta
-		EXEC ÑUFLO.CancelarEncomiendasRutaAerea @id_ruta
+		EXEC ÑUFLO.CancelarRutaAerea @id_ruta
 
 		FETCH BRutaAerea INTO @id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso, @precio_base_por_pasaje
 
