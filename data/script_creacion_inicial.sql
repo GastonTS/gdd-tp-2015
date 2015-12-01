@@ -1387,10 +1387,13 @@ GO
 CREATE PROCEDURE ÑUFLO.DeleteRutaAerea
 @id_ruta int
 AS
-
+	if(0 = (select cancelado from ÑUFLO.RutaAerea 
+			WHERE id_ruta=@id_ruta))
+	BEGIN
 	UPDATE ÑUFLO.RutaAerea
 		set cancelado = 1
 	WHERE id_ruta=@id_ruta;
+	END
 ;  
 GO
 
