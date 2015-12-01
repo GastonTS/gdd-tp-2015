@@ -255,7 +255,10 @@ namespace AerolineaFrba
         //lo que hago acá es feo. Repito lógica con respecto a métodos anteriores. Pero lo hago para separar
         //los distintos casos de Stored Procedures que pueden haber y así saber que estoy haciendo en cada caso
         //al ejecutarlos y esas cosas.
+
         public DataTable ExecAndGetData(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta=null)
+
+
         {
             conectar();
 
