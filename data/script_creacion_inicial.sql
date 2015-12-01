@@ -578,6 +578,17 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.FuncionalidadesPorUsuario
+@nombre_usuario nvarchar(255)
+AS
+select distinct f.descripcion
+	from ÑUFLO.Funcionalidad f, ÑUFLO.FuncionalidadPorRol fr, ÑUFLO.RolPorUsuario ru
+	where f.id_funcionalidad = fr.id_funcionalidad
+		and fr.id_rol = ru.id_rol
+		and ru.nombre_usuario = @nombre_usuario
+;
+GO
+
 /*Cliente*/
 CREATE PROCEDURE ÑUFLO.ConsultaCliente
 @dni numeric(18,0)
