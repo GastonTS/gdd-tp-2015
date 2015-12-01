@@ -28,84 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Baja = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pasajesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.textBoxPNR = new AerolineaFrba.Abm.TextBoxNumeros();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pasajesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxPNR);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.button3);
+            this.groupBox1.Controls.Add(this.btnBuscar);
             this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnCancelar);
+            this.groupBox1.Controls.Add(this.btnAceptar);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(443, 315);
+            this.groupBox1.Size = new System.Drawing.Size(810, 484);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la compra a cancelar";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "PNR";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(61, 33);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(338, 273);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Aceptar";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(19, 273);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(19, 107);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(394, 150);
-            this.dataGridView1.TabIndex = 6;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(181, 31);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "Buscar";
-            this.button3.UseVisualStyleBackColor = true;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // label2
             // 
@@ -116,17 +70,89 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "Seleccione los pasajes/encomiendas a agregar:";
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(239, 33);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.TabIndex = 7;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Baja});
+            this.dataGridView1.Location = new System.Drawing.Point(19, 107);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(703, 297);
+            this.dataGridView1.TabIndex = 6;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // Baja
+            // 
+            this.Baja.FalseValue = "false";
+            this.Baja.HeaderText = "Dar de baja";
+            this.Baja.Name = "Baja";
+            this.Baja.ReadOnly = true;
+            this.Baja.TrueValue = "true";
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(19, 427);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.TabIndex = 5;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Location = new System.Drawing.Point(647, 427);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptar.TabIndex = 4;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(16, 36);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "PNR";
+            // 
+            // textBoxPNR
+            // 
+            this.textBoxPNR.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxPNR.ErrorText = "Debe ingresar un código de compra.";
+            this.textBoxPNR.Location = new System.Drawing.Point(50, 33);
+            this.textBoxPNR.Name = "textBoxPNR";
+            this.textBoxPNR.Size = new System.Drawing.Size(168, 22);
+            this.textBoxPNR.TabIndex = 9;
+            // 
             // FormBajaPasajeEncomienda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(490, 363);
+            this.ClientSize = new System.Drawing.Size(948, 553);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormBajaPasajeEncomienda";
             this.Text = "FormBajaPasajeEncomienda";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pasajesBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -135,11 +161,13 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.BindingSource pasajesBindingSource;
+        private Abm.TextBoxNumeros textBoxPNR;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Baja;
     }
 }
