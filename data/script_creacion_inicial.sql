@@ -992,6 +992,16 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.AeronavePorMatricula
+@matricula nvarchar(255)
+AS
+	select a.id_aeronave, a.id_modelo, a.id_fabricante, a.matricula, a.id_tipo_servicio,
+		   a.fecha_de_alta, a.capacidad_peso_encomiendas, a.cantidad_butacas, a.baja_vida_utill, a.baja_por_fuera_de_servicio
+	from ÑUFLO.Aeronave a
+	where a.matricula = @matricula
+;
+GO
+
 /*Viaje*/
 CREATE PROCEDURE ÑUFLO.ViajesDisponiblesPara
 @ciudad_origen nvarchar(255),
@@ -1127,6 +1137,37 @@ AS
 							and c.id_ciudad = r.id_ciudad_destino))
 		THROW 60021, 'La Aeronave no arribo al destino esperado', 1
 
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.ValidarRegistroLlegada 
+@matricula nvarchar(255),
+@origen nvarchar (255),
+@destino nvarchar (255),
+@fecha_llegada datetime
+AS 
+	DECLARE @id_viaje int
+	SET @id_viaje = (select top 1 id_viaje
+					from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad c
+					where a.matricula = @matricula
+						and v.id_aeronave = a.id_aeronave
+						and r.id_ruta = v.id_ruta
+						and r.id_ciudad_origen = c.id_ciudad
+						and c.nombre = @origen
+						and convert(date, v.fecha_llegada_estimada) = convert(date, @fecha_llegada))
+							
+	IF(@id_viaje is null)
+				THROW 60019, 'Ningun viaje coincide con los datos ingresados', 1
+
+	IF((select fecha_llegada from ÑUFLO.Viaje where id_viaje = @id_viaje) is not null)
+		THROW 60020, 'Ya se ha registrado este arrivo', 1
+
+	IF(@destino <> (select nombre
+						from ÑUFLO.Ciudad c, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r
+						where v.id_viaje = @id_viaje
+							and r.id_ruta = v.id_ruta
+							and c.id_ciudad = r.id_ciudad_destino))
+		THROW 60021, 'La Aeronave no arribo al destino esperado', 1
 ;
 GO
 
