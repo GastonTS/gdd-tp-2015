@@ -35,7 +35,9 @@ namespace AerolineaFrba.Registro_de_Usuario
             var camposValores = gdDataBase.newParameters();
             camposValores.Add("usuario", new gdDataBase.ValorTipo(textBoxUsername.Text,SqlDbType.NVarChar));
             camposValores.Add("password", new gdDataBase.ValorTipo(textBoxPassword.Text,SqlDbType.NVarChar));
-            if (! (new gdDataBase().Exec("ÑUFLO.LogearUsuario", camposValores, new Dictionary<int, String>()).huboError()))
+            var spExec = new SPPureExec("ÑUFLO.LogearUsuario", camposValores);
+            spExec.Exec();
+            if (! spExec.huboError())
                 habilitarFunciones();//SP QUE DEVUELVA FUNCIONES DADO NOMBRE DE USUARIO
         }
     }
