@@ -28,23 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.comboBoxDestino = new System.Windows.Forms.ComboBox();
+            this.destinoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.comboBoxOrigen = new System.Windows.Forms.ComboBox();
+            this.origenBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelDestino = new System.Windows.Forms.Label();
             this.labelOrigen = new System.Windows.Forms.Label();
             this.groupBoxDatosViaje = new System.Windows.Forms.GroupBox();
-            this.labelFechaYHoraLlegada = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.labelMatricula = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.labelFechaYHoraLlegada = new System.Windows.Forms.Label();
             this.btnConfirmarLlegada = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.textBoxMatricula = new AerolineaFrba.Abm.TextBoxValidado();
+            ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.origenBindingSource)).BeginInit();
             this.groupBoxDatosViaje.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBoxDestino
             // 
-            this.comboBoxDestino.DisplayMember = "nombre";
+            this.comboBoxDestino.DataSource = this.destinoBindingSource;
+            this.comboBoxDestino.DisplayMember = "id_ciudad";
             this.comboBoxDestino.FormattingEnabled = true;
             this.comboBoxDestino.Location = new System.Drawing.Point(164, 163);
             this.comboBoxDestino.Name = "comboBoxDestino";
@@ -54,7 +60,8 @@
             // 
             // comboBoxOrigen
             // 
-            this.comboBoxOrigen.DisplayMember = "nombre";
+            this.comboBoxOrigen.DataSource = this.origenBindingSource;
+            this.comboBoxOrigen.DisplayMember = "id_ciudad";
             this.comboBoxOrigen.FormattingEnabled = true;
             this.comboBoxOrigen.Location = new System.Drawing.Point(164, 124);
             this.comboBoxOrigen.Name = "comboBoxOrigen";
@@ -82,7 +89,7 @@
             // 
             // groupBoxDatosViaje
             // 
-            this.groupBoxDatosViaje.Controls.Add(this.textBox1);
+            this.groupBoxDatosViaje.Controls.Add(this.textBoxMatricula);
             this.groupBoxDatosViaje.Controls.Add(this.labelMatricula);
             this.groupBoxDatosViaje.Controls.Add(this.dateTimePicker1);
             this.groupBoxDatosViaje.Controls.Add(this.labelFechaYHoraLlegada);
@@ -97,23 +104,6 @@
             this.groupBoxDatosViaje.TabStop = false;
             this.groupBoxDatosViaje.Text = "Campos Viaje a Registrar Llegada";
             // 
-            // labelFechaYHoraLlegada
-            // 
-            this.labelFechaYHoraLlegada.AutoSize = true;
-            this.labelFechaYHoraLlegada.Location = new System.Drawing.Point(26, 41);
-            this.labelFechaYHoraLlegada.Name = "labelFechaYHoraLlegada";
-            this.labelFechaYHoraLlegada.Size = new System.Drawing.Size(119, 13);
-            this.labelFechaYHoraLlegada.TabIndex = 17;
-            this.labelFechaYHoraLlegada.Text = "Fecha y Hora de Arribo:";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker1.Location = new System.Drawing.Point(164, 35);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 18;
-            // 
             // labelMatricula
             // 
             this.labelMatricula.AutoSize = true;
@@ -123,12 +113,22 @@
             this.labelMatricula.TabIndex = 19;
             this.labelMatricula.Text = "Matrícula:";
             // 
-            // textBox1
+            // dateTimePicker1
             // 
-            this.textBox1.Location = new System.Drawing.Point(164, 87);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(91, 20);
-            this.textBox1.TabIndex = 20;
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePicker1.Location = new System.Drawing.Point(164, 35);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker1.TabIndex = 18;
+            // 
+            // labelFechaYHoraLlegada
+            // 
+            this.labelFechaYHoraLlegada.AutoSize = true;
+            this.labelFechaYHoraLlegada.Location = new System.Drawing.Point(26, 41);
+            this.labelFechaYHoraLlegada.Name = "labelFechaYHoraLlegada";
+            this.labelFechaYHoraLlegada.Size = new System.Drawing.Size(119, 13);
+            this.labelFechaYHoraLlegada.TabIndex = 17;
+            this.labelFechaYHoraLlegada.Text = "Fecha y Hora de Arribo:";
             // 
             // btnConfirmarLlegada
             // 
@@ -148,6 +148,15 @@
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             // 
+            // textBoxMatricula
+            // 
+            this.textBoxMatricula.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxMatricula.ErrorText = "Debe ingresar la matricula";
+            this.textBoxMatricula.Location = new System.Drawing.Point(164, 87);
+            this.textBoxMatricula.Name = "textBoxMatricula";
+            this.textBoxMatricula.Size = new System.Drawing.Size(211, 22);
+            this.textBoxMatricula.TabIndex = 21;
+            // 
             // FormRegistrarLlegadas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -158,6 +167,8 @@
             this.Controls.Add(this.groupBoxDatosViaje);
             this.Name = "FormRegistrarLlegadas";
             this.Text = "Registro de viajes realizados";
+            ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.origenBindingSource)).EndInit();
             this.groupBoxDatosViaje.ResumeLayout(false);
             this.groupBoxDatosViaje.PerformLayout();
             this.ResumeLayout(false);
@@ -171,11 +182,13 @@
         private System.Windows.Forms.Label labelDestino;
         private System.Windows.Forms.Label labelOrigen;
         private System.Windows.Forms.GroupBox groupBoxDatosViaje;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label labelMatricula;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label labelFechaYHoraLlegada;
         private System.Windows.Forms.Button btnConfirmarLlegada;
         private System.Windows.Forms.Button btnLimpiar;
+        private Abm.TextBoxValidado textBoxMatricula;
+        private System.Windows.Forms.BindingSource origenBindingSource;
+        private System.Windows.Forms.BindingSource destinoBindingSource;
     }
 }
