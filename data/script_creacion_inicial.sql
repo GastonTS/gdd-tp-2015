@@ -992,6 +992,16 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.AeronavePorMatricula
+@matricula nvarchar(255)
+AS
+	select a.id_aeronave, a.id_modelo, a.id_fabricante, a.matricula, a.id_tipo_servicio,
+		   a.fecha_de_alta, a.capacidad_peso_encomiendas, a.cantidad_butacas, a.baja_vida_utill, a.baja_por_fuera_de_servicio
+	from ÑUFLO.Aeronave a
+	where a.matricula = @matricula
+;
+GO
+
 /*Viaje*/
 CREATE PROCEDURE ÑUFLO.ViajesDisponiblesPara
 @ciudad_origen nvarchar(255),
