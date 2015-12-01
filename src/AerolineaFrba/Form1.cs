@@ -124,7 +124,19 @@ namespace AerolineaFrba
 
         private void textBoxValidado1_Load(object sender, EventArgs e)
         {
-
+            
         }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            new Devolucion.FormDevolucion().Show(); 
+        }
+
+              private void button15_Click(object sender, EventArgs e)
+        {
+            new Devolucion.FormBajaPasajeEncomienda().Show();
+        }
+
     }
+
 }
