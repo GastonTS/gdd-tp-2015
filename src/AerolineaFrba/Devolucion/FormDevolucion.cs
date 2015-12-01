@@ -15,14 +15,14 @@ namespace AerolineaFrba.Devolucion
         public FormDevolucion()
         {
             InitializeComponent();
-            dataGridView1.Columns.Add("1", "");
-            dataGridView1.Columns.Add("2", "");
-            dataGridView1.Columns.Add("3", "");
-            dataGridView1.Columns.Add("4", "");
-            dataGridView1.Columns.Add("5", "");
-            dataGridView1.Columns.Add("6", "");
-            dataGridView1.Columns.Add("7", "");
-            dataGridView1.Columns.Add("8", "");
+            dataGridView1.Columns.Add("Codigo", "Codigo");
+            dataGridView1.Columns.Add("Tipo", "Tipo");
+            dataGridView1.Columns.Add("DNI", "DNI");
+            dataGridView1.Columns.Add("Nombre", "Nombre");
+            dataGridView1.Columns.Add("Apellido", "Apellido");
+            dataGridView1.Columns.Add("Peso_Encomienda", "Peso_Encomienda");
+            dataGridView1.Columns.Add("Butaca_numero", "Butaca_numero");
+            dataGridView1.Columns.Add("Precio", "Precio");
         }
 
         private void FormSeleccionCompra_Load(object sender, EventArgs e)
@@ -54,6 +54,12 @@ namespace AerolineaFrba.Devolucion
         public void adaptarTabla(DataTable grilla) 
         {
             dataGridView1.DataSource = grilla;
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Clear();
+            dataGridView1.Rows.Clear();
         }
 
     }
