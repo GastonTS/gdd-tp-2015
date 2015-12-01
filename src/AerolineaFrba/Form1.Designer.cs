@@ -36,22 +36,22 @@
             this.btnBajaRol = new System.Windows.Forms.Button();
             this.btnAltaNave = new System.Windows.Forms.Button();
             this.btnAltaCiudad = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
-            this.button15 = new System.Windows.Forms.Button();
-            this.login = new System.Windows.Forms.Button();
+            this.btnSeleccionCiudades = new System.Windows.Forms.Button();
+            this.btnSeleccionRuta = new System.Windows.Forms.Button();
+            this.btnSeleccionAeronave = new System.Windows.Forms.Button();
+            this.btnCanjeMillas = new System.Windows.Forms.Button();
+            this.btnConsultaMillas = new System.Windows.Forms.Button();
+            this.btnSeleccionViaje = new System.Windows.Forms.Button();
+            this.btnCompraEfectiva = new System.Windows.Forms.Button();
+            this.btnIngresarDatosPasajero = new System.Windows.Forms.Button();
+            this.btnRegistroLlegada = new System.Windows.Forms.Button();
+            this.btnInformeRegistro = new System.Windows.Forms.Button();
+            this.btnGenerarViaje = new System.Windows.Forms.Button();
+            this.btnIngresoPasajeEncomienda = new System.Windows.Forms.Button();
+            this.btnListadoEstadistico = new System.Windows.Forms.Button();
+            this.btnDevolucion = new System.Windows.Forms.Button();
+            this.btnBajaPasajeEncomienda = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAltaRol
@@ -132,187 +132,187 @@
             this.btnAltaCiudad.UseVisualStyleBackColor = true;
             this.btnAltaCiudad.Click += new System.EventHandler(this.btnAltaCiudad_Click);
             // 
-            // button1
+            // btnSeleccionCiudades
             // 
-            this.button1.Location = new System.Drawing.Point(217, 134);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Ir seleccion ciudades";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSeleccionCiudades.Location = new System.Drawing.Point(217, 134);
+            this.btnSeleccionCiudades.Name = "btnSeleccionCiudades";
+            this.btnSeleccionCiudades.Size = new System.Drawing.Size(123, 23);
+            this.btnSeleccionCiudades.TabIndex = 8;
+            this.btnSeleccionCiudades.Text = "Ir seleccion ciudades";
+            this.btnSeleccionCiudades.UseVisualStyleBackColor = true;
+            this.btnSeleccionCiudades.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // btnSeleccionRuta
             // 
-            this.button2.Location = new System.Drawing.Point(217, 294);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 23);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Ir Modificacion Rutas";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnSeleccionRuta.Location = new System.Drawing.Point(217, 294);
+            this.btnSeleccionRuta.Name = "btnSeleccionRuta";
+            this.btnSeleccionRuta.Size = new System.Drawing.Size(123, 23);
+            this.btnSeleccionRuta.TabIndex = 9;
+            this.btnSeleccionRuta.Text = "Ir Modificacion Rutas";
+            this.btnSeleccionRuta.UseVisualStyleBackColor = true;
+            this.btnSeleccionRuta.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
+            // btnSeleccionAeronave
             // 
-            this.button3.Location = new System.Drawing.Point(217, 215);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(142, 23);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Ir seleccion aeronave";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnSeleccionAeronave.Location = new System.Drawing.Point(217, 215);
+            this.btnSeleccionAeronave.Name = "btnSeleccionAeronave";
+            this.btnSeleccionAeronave.Size = new System.Drawing.Size(142, 23);
+            this.btnSeleccionAeronave.TabIndex = 10;
+            this.btnSeleccionAeronave.Text = "Ir seleccion aeronave";
+            this.btnSeleccionAeronave.UseVisualStyleBackColor = true;
+            this.btnSeleccionAeronave.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button4
+            // btnCanjeMillas
             // 
-            this.button4.Location = new System.Drawing.Point(26, 255);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(105, 23);
-            this.button4.TabIndex = 11;
-            this.button4.Text = "Ir Canje de Millas";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnCanjeMillas.Location = new System.Drawing.Point(26, 255);
+            this.btnCanjeMillas.Name = "btnCanjeMillas";
+            this.btnCanjeMillas.Size = new System.Drawing.Size(105, 23);
+            this.btnCanjeMillas.TabIndex = 11;
+            this.btnCanjeMillas.Text = "Ir Canje de Millas";
+            this.btnCanjeMillas.UseVisualStyleBackColor = true;
+            this.btnCanjeMillas.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button5
+            // btnConsultaMillas
             // 
-            this.button5.Location = new System.Drawing.Point(26, 284);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(122, 23);
-            this.button5.TabIndex = 12;
-            this.button5.Text = "Ir Consulta de Millas";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btnConsultaMillas.Location = new System.Drawing.Point(26, 284);
+            this.btnConsultaMillas.Name = "btnConsultaMillas";
+            this.btnConsultaMillas.Size = new System.Drawing.Size(122, 23);
+            this.btnConsultaMillas.TabIndex = 12;
+            this.btnConsultaMillas.Text = "Ir Consulta de Millas";
+            this.btnConsultaMillas.UseVisualStyleBackColor = true;
+            this.btnConsultaMillas.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button6
+            // btnSeleccionViaje
             // 
-            this.button6.Location = new System.Drawing.Point(26, 373);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(112, 49);
-            this.button6.TabIndex = 13;
-            this.button6.Text = "Ir selección de Viaje a Compar";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.btnSeleccionViaje.Location = new System.Drawing.Point(26, 373);
+            this.btnSeleccionViaje.Name = "btnSeleccionViaje";
+            this.btnSeleccionViaje.Size = new System.Drawing.Size(112, 49);
+            this.btnSeleccionViaje.TabIndex = 13;
+            this.btnSeleccionViaje.Text = "Ir selección de Viaje a Compar";
+            this.btnSeleccionViaje.UseVisualStyleBackColor = true;
+            this.btnSeleccionViaje.Click += new System.EventHandler(this.button6_Click);
             // 
-            // button7
+            // btnCompraEfectiva
             // 
-            this.button7.Location = new System.Drawing.Point(26, 344);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(105, 23);
-            this.button7.TabIndex = 14;
-            this.button7.Text = "Ir Compra Efectiva";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.btnCompraEfectiva.Location = new System.Drawing.Point(26, 344);
+            this.btnCompraEfectiva.Name = "btnCompraEfectiva";
+            this.btnCompraEfectiva.Size = new System.Drawing.Size(105, 23);
+            this.btnCompraEfectiva.TabIndex = 14;
+            this.btnCompraEfectiva.Text = "Ir Compra Efectiva";
+            this.btnCompraEfectiva.UseVisualStyleBackColor = true;
+            this.btnCompraEfectiva.Click += new System.EventHandler(this.button7_Click);
             // 
-            // button8
+            // btnIngresarDatosPasajero
             // 
-            this.button8.Location = new System.Drawing.Point(418, 120);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(105, 37);
-            this.button8.TabIndex = 15;
-            this.button8.Text = "Ir a Ingresar Datos Pasajero";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.btnIngresarDatosPasajero.Location = new System.Drawing.Point(418, 120);
+            this.btnIngresarDatosPasajero.Name = "btnIngresarDatosPasajero";
+            this.btnIngresarDatosPasajero.Size = new System.Drawing.Size(105, 37);
+            this.btnIngresarDatosPasajero.TabIndex = 15;
+            this.btnIngresarDatosPasajero.Text = "Ir a Ingresar Datos Pasajero";
+            this.btnIngresarDatosPasajero.UseVisualStyleBackColor = true;
+            this.btnIngresarDatosPasajero.Click += new System.EventHandler(this.button8_Click);
             // 
-            // button9
+            // btnRegistroLlegada
             // 
-            this.button9.Location = new System.Drawing.Point(217, 373);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(204, 23);
-            this.button9.TabIndex = 16;
-            this.button9.Text = "Ir Registro de llegada";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.btnRegistroLlegada.Location = new System.Drawing.Point(217, 373);
+            this.btnRegistroLlegada.Name = "btnRegistroLlegada";
+            this.btnRegistroLlegada.Size = new System.Drawing.Size(204, 23);
+            this.btnRegistroLlegada.TabIndex = 16;
+            this.btnRegistroLlegada.Text = "Ir Registro de llegada";
+            this.btnRegistroLlegada.UseVisualStyleBackColor = true;
+            this.btnRegistroLlegada.Click += new System.EventHandler(this.button9_Click);
             // 
-            // button10
+            // btnInformeRegistro
             // 
-            this.button10.Location = new System.Drawing.Point(217, 402);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(204, 23);
-            this.button10.TabIndex = 17;
-            this.button10.Text = "Ir Informe y validacion REgistro Lkegada";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.btnInformeRegistro.Location = new System.Drawing.Point(217, 402);
+            this.btnInformeRegistro.Name = "btnInformeRegistro";
+            this.btnInformeRegistro.Size = new System.Drawing.Size(204, 23);
+            this.btnInformeRegistro.TabIndex = 17;
+            this.btnInformeRegistro.Text = "Ir Informe y validacion REgistro Lkegada";
+            this.btnInformeRegistro.UseVisualStyleBackColor = true;
+            this.btnInformeRegistro.Click += new System.EventHandler(this.button10_Click);
             // 
-            // button11
+            // btnGenerarViaje
             // 
-            this.button11.Location = new System.Drawing.Point(418, 214);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(105, 23);
-            this.button11.TabIndex = 18;
-            this.button11.Text = "Ir Generar Viaje";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
+            this.btnGenerarViaje.Location = new System.Drawing.Point(418, 214);
+            this.btnGenerarViaje.Name = "btnGenerarViaje";
+            this.btnGenerarViaje.Size = new System.Drawing.Size(105, 23);
+            this.btnGenerarViaje.TabIndex = 18;
+            this.btnGenerarViaje.Text = "Ir Generar Viaje";
+            this.btnGenerarViaje.UseVisualStyleBackColor = true;
+            this.btnGenerarViaje.Click += new System.EventHandler(this.button11_Click);
             // 
-            // button12
+            // btnIngresoPasajeEncomienda
             // 
-            this.button12.Location = new System.Drawing.Point(26, 429);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(112, 38);
-            this.button12.TabIndex = 19;
-            this.button12.Text = "Ir Ingreso Pasaje/Encomienda";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
+            this.btnIngresoPasajeEncomienda.Location = new System.Drawing.Point(26, 429);
+            this.btnIngresoPasajeEncomienda.Name = "btnIngresoPasajeEncomienda";
+            this.btnIngresoPasajeEncomienda.Size = new System.Drawing.Size(112, 38);
+            this.btnIngresoPasajeEncomienda.TabIndex = 19;
+            this.btnIngresoPasajeEncomienda.Text = "Ir Ingreso Pasaje/Encomienda";
+            this.btnIngresoPasajeEncomienda.UseVisualStyleBackColor = true;
+            this.btnIngresoPasajeEncomienda.Click += new System.EventHandler(this.button12_Click);
             // 
-            // button13
+            // btnListadoEstadistico
             // 
-            this.button13.Location = new System.Drawing.Point(411, 279);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(112, 38);
-            this.button13.TabIndex = 20;
-            this.button13.Text = "Ir a Listado Estadistico";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
+            this.btnListadoEstadistico.Location = new System.Drawing.Point(411, 279);
+            this.btnListadoEstadistico.Name = "btnListadoEstadistico";
+            this.btnListadoEstadistico.Size = new System.Drawing.Size(112, 38);
+            this.btnListadoEstadistico.TabIndex = 20;
+            this.btnListadoEstadistico.Text = "Ir a Listado Estadistico";
+            this.btnListadoEstadistico.UseVisualStyleBackColor = true;
+            this.btnListadoEstadistico.Click += new System.EventHandler(this.button13_Click);
             // 
-            // button14
+            // btnDevolucion
             // 
-            this.button14.Location = new System.Drawing.Point(439, 373);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(105, 37);
-            this.button14.TabIndex = 21;
-            this.button14.Text = "Ir a Devolucion";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
+            this.btnDevolucion.Location = new System.Drawing.Point(439, 373);
+            this.btnDevolucion.Name = "btnDevolucion";
+            this.btnDevolucion.Size = new System.Drawing.Size(105, 37);
+            this.btnDevolucion.TabIndex = 21;
+            this.btnDevolucion.Text = "Ir a Devolucion";
+            this.btnDevolucion.UseVisualStyleBackColor = true;
+            this.btnDevolucion.Click += new System.EventHandler(this.button14_Click);
             // 
-            // button15
+            // btnBajaPasajeEncomienda
             // 
-            this.button15.Location = new System.Drawing.Point(439, 429);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(105, 37);
-            this.button15.TabIndex = 22;
-            this.button15.Text = "Ir a baja pasaje encomienda";
-            this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.button15_Click);
+            this.btnBajaPasajeEncomienda.Location = new System.Drawing.Point(439, 429);
+            this.btnBajaPasajeEncomienda.Name = "btnBajaPasajeEncomienda";
+            this.btnBajaPasajeEncomienda.Size = new System.Drawing.Size(105, 37);
+            this.btnBajaPasajeEncomienda.TabIndex = 22;
+            this.btnBajaPasajeEncomienda.Text = "Ir a baja pasaje encomienda";
+            this.btnBajaPasajeEncomienda.UseVisualStyleBackColor = true;
+            this.btnBajaPasajeEncomienda.Click += new System.EventHandler(this.button15_Click);
             // 
-            // login
+            // btnLogin
             // 
-            this.login.Location = new System.Drawing.Point(411, 31);
-            this.login.Name = "login";
-            this.login.Size = new System.Drawing.Size(105, 37);
-            this.login.TabIndex = 23;
-            this.login.Text = "Login";
-            this.login.UseVisualStyleBackColor = true;
-            this.login.Click += new System.EventHandler(this.login_Click);
+            this.btnLogin.Location = new System.Drawing.Point(411, 31);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(105, 37);
+            this.btnLogin.TabIndex = 23;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.login_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(565, 491);
-            this.Controls.Add(this.login);
-            this.Controls.Add(this.button15);
-            this.Controls.Add(this.button14);
-            this.Controls.Add(this.button13);
-            this.Controls.Add(this.button12);
-            this.Controls.Add(this.button11);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnLogin);
+            this.Controls.Add(this.btnBajaPasajeEncomienda);
+            this.Controls.Add(this.btnDevolucion);
+            this.Controls.Add(this.btnListadoEstadistico);
+            this.Controls.Add(this.btnIngresoPasajeEncomienda);
+            this.Controls.Add(this.btnGenerarViaje);
+            this.Controls.Add(this.btnInformeRegistro);
+            this.Controls.Add(this.btnRegistroLlegada);
+            this.Controls.Add(this.btnIngresarDatosPasajero);
+            this.Controls.Add(this.btnCompraEfectiva);
+            this.Controls.Add(this.btnSeleccionViaje);
+            this.Controls.Add(this.btnConsultaMillas);
+            this.Controls.Add(this.btnCanjeMillas);
+            this.Controls.Add(this.btnSeleccionAeronave);
+            this.Controls.Add(this.btnSeleccionRuta);
+            this.Controls.Add(this.btnSeleccionCiudades);
             this.Controls.Add(this.btnAltaCiudad);
             this.Controls.Add(this.btnAltaNave);
             this.Controls.Add(this.btnBajaRol);
@@ -339,22 +339,22 @@
         private System.Windows.Forms.Button btnBajaRol;
         private System.Windows.Forms.Button btnAltaNave;
         private System.Windows.Forms.Button btnAltaCiudad;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Button button15;
-        private System.Windows.Forms.Button login;
+        private System.Windows.Forms.Button btnSeleccionCiudades;
+        private System.Windows.Forms.Button btnSeleccionRuta;
+        private System.Windows.Forms.Button btnSeleccionAeronave;
+        private System.Windows.Forms.Button btnCanjeMillas;
+        private System.Windows.Forms.Button btnConsultaMillas;
+        private System.Windows.Forms.Button btnSeleccionViaje;
+        private System.Windows.Forms.Button btnCompraEfectiva;
+        private System.Windows.Forms.Button btnIngresarDatosPasajero;
+        private System.Windows.Forms.Button btnRegistroLlegada;
+        private System.Windows.Forms.Button btnInformeRegistro;
+        private System.Windows.Forms.Button btnGenerarViaje;
+        private System.Windows.Forms.Button btnIngresoPasajeEncomienda;
+        private System.Windows.Forms.Button btnListadoEstadistico;
+        private System.Windows.Forms.Button btnDevolucion;
+        private System.Windows.Forms.Button btnBajaPasajeEncomienda;
+        private System.Windows.Forms.Button btnLogin;
     }
 }
 

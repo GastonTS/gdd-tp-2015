@@ -12,9 +12,25 @@ namespace AerolineaFrba
 {
     public partial class Form1 : Form
     {
+
+        public Dictionary<int, Object> ids_funcionalidades = new Dictionary<int, Object>();
+
+
         public Form1()
         {
             InitializeComponent();
+            ids_funcionalidades.Add(0,btnAltaRol);
+            ids_funcionalidades.Add(1, btnAltaCiudad);
+            ids_funcionalidades.Add(2, btnAltaRuta);
+            ids_funcionalidades.Add(3, btnAltaNave);
+            ids_funcionalidades.Add(4, "generar viaje");
+            ids_funcionalidades.Add(5, "registrar llegada");
+            ids_funcionalidades.Add(6, "compra");
+            ids_funcionalidades.Add(7, "cancelacion");
+            ids_funcionalidades.Add(8, "consultar millas");
+            ids_funcionalidades.Add(9, "canjear millas");
+            ids_funcionalidades.Add(10, "listado estadistico");
+            ids_funcionalidades.Add(11, "ABM productos");
         }
 
         private void btnAltaRol_Click(object sender, EventArgs e)
