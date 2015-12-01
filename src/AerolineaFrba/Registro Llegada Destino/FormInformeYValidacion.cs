@@ -25,9 +25,9 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             lblModelo.Text = aeronave["Modelo"].ToString();
             lblMatricula.Text = aeronave["Matricula"].ToString();
             lblFabricante.Text = aeronave["Fabricante"].ToString();
-            lblTipoServicio.Text = aeronave["Tipo servicio"].ToString();
-            lblCantButacas.Text = aeronave["Cantidad butacas"].ToString();
-            lblCapacEncomiendas.Text = aeronave["Capacidad encomiendas"].ToString();
+            lblTipoServicio.Text = aeronave["Tipo de servicio"].ToString();
+            lblCantButacas.Text = aeronave["Butacas totales"].ToString();
+            lblCapacEncomiendas.Text = aeronave["Capacidad peso encomiendas"].ToString();
         }
 
         public void setFecha(DateTime fecha)
