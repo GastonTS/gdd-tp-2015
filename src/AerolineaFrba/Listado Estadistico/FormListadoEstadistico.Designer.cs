@@ -124,6 +124,7 @@
             // 
             // comboBoxListado
             // 
+            this.comboBoxListado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxListado.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.comboBoxListado.Items.AddRange(new object[] {
             "Aeronaves con mayor cantidad de días fuera de servicio.",
@@ -148,6 +149,7 @@
             // 
             // comboBoxAño
             // 
+            this.comboBoxAño.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAño.FormattingEnabled = true;
             this.comboBoxAño.Location = new System.Drawing.Point(119, 101);
             this.comboBoxAño.Name = "comboBoxAño";
