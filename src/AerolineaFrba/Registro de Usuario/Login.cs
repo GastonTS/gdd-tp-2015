@@ -12,7 +12,7 @@ namespace AerolineaFrba.Registro_de_Usuario
 {
      public partial class Login : Form
     {
-         Form padre;
+         Form1 padre;
         public Login()
         {
             InitializeComponent();
@@ -20,7 +20,7 @@ namespace AerolineaFrba.Registro_de_Usuario
 
         }
 
-        public void setPadre(Form unForm)
+        public void setPadre(Form1 unForm)
         {
             padre= unForm;
         }
@@ -35,6 +35,10 @@ namespace AerolineaFrba.Registro_de_Usuario
             foreach (var funcion in funciones) {
                 padre.activarFuncionalidad(idFuncion(funcion));
             }
+        }
+
+        public int idFuncion(object funcion) {
+            return 1; //
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
