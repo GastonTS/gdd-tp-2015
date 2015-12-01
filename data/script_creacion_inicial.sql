@@ -42,6 +42,16 @@ CREATE TABLE ÑUFLO.RutaAerea (
 	)
 GO
 
+CREATE TABLE ÑUFLO.BajaRutaAerea (
+	id_ruta int PRIMARY KEY,
+	codigo_ruta numeric(18,0) NOT NULL,
+	id_ciudad_origen int REFERENCES ÑUFLO.Ciudad NOT NULL,
+	id_ciudad_destino int REFERENCES ÑUFLO.Ciudad NOT NULL,
+	precio_base_por_peso numeric(18,2) NOT NULL,
+	precio_base_por_pasaje numeric(18,2) NOT NULL,
+	)
+GO
+
 CREATE TABLE ÑUFLO.ServicioPorRuta (
 	id_ruta int REFERENCES ÑUFLO.RutaAerea,
 	id_tipo_servicio int REFERENCES ÑUFLO.TipoServicio,
@@ -1320,6 +1330,15 @@ CREATE PROCEDURE ÑUFLO.InsertRutaAerea
 AS
 	INSERT INTO ÑUFLO.RutaAerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje)
 		VALUES (@codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso, @precio_base_por_pasaje)
+;  
+GO
+
+
+CREATE PROCEDURE ÑUFLO.DeleteRutaAerea
+@id_ruta int
+AS
+	DELETE FROM ÑUFLO.RutaAerea
+	WHERE id_ruta=@id_ruta;
 ;  
 GO
 
