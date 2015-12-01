@@ -39,6 +39,7 @@ CREATE TABLE ÑUFLO.RutaAerea (
 	id_ciudad_destino int REFERENCES ÑUFLO.Ciudad NOT NULL,
 	precio_base_por_peso numeric(18,2) NOT NULL,
 	precio_base_por_pasaje numeric(18,2) NOT NULL,
+	cancelalado bit DEFAULT 0
 	)
 GO
 
@@ -1386,10 +1387,9 @@ GO
 CREATE PROCEDURE ÑUFLO.DeleteRutaAerea
 @id_ruta int
 AS
-	DELETE FROM ÑUFLO.ServicioPorRuta
-	WHERE id_ruta=@id_ruta;
 
-	DELETE FROM ÑUFLO.RutaAerea
+	UPDATE ÑUFLO.RutaAerea
+		set cancelado = 1
 	WHERE id_ruta=@id_ruta;
 ;  
 GO
