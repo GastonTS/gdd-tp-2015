@@ -56,9 +56,11 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
         private void btnLimpiar_Click_1(object sender, EventArgs e)
         {
-            textBoxMatricula.Text = "";
-            comboBoxDestino.Text = "";
-            comboBoxOrigen.Text = "";
+         
+            
+            textBoxMatricula.Clear();
+            comboBoxDestino.SelectedIndex = 0;
+            comboBoxOrigen.SelectedIndex = 0;
             fechaCoso.ResetText();
         }
     }
