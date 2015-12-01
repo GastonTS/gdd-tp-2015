@@ -1339,8 +1339,12 @@ GO
 CREATE PROCEDURE ÑUFLO.DeleteRutaAerea
 @id_ruta int
 AS
-	DELETE FROM ÑUFLO.RutaAerea
-	WHERE id_ruta=@id_ruta;
+	EXEC sp_msforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT all"
+	BEGIN
+		DELETE FROM ÑUFLO.RutaAerea
+		WHERE id_ruta=@id_ruta;
+	END
+	exec sp_msforeachtable @command1="ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
 ;  
 GO
 
@@ -1368,7 +1372,8 @@ AS
 	set  @hoy = GETDATE()
 	
 	IF (EXISTS(select * from Pasaje p 
-				where p.id_pasaje = @id ) )
+				where p.id_pasaje = @id and
+					  p.cancelado = 0))
 	BEGIN
 		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
@@ -1386,7 +1391,10 @@ AS
 			SET cancelado = 1
 			WHERE @id = id_pasaje
 	END
-	ELSE
+	
+	IF (EXISTS(select * from Encomienda e 
+				where e.id_encomienda = @id and
+					  e.cancelado = 0) )
 	BEGIN
 		set @pnr =(select e.codigo_de_compra from Encomienda e where e.id_encomienda = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
@@ -1459,6 +1467,26 @@ AS
 			  p.codigo_de_compra = @codigo_compra
 ;
 GO
+
+CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasNoCanceladosDe
+@codigo_compra int
+AS
+	select p.id_pasaje Codigo, 'Pasaje' Tipo, c.dni DNI, c.nombre Nombre, c.apellido Apellido,
+		 '-' Peso_Encomienda, cast(p.numero_de_butaca AS nvarchar(255)) Butaca_Numero, p.precio Precio
+		from ÑUFLO.Pasaje p, ÑUFLO.Cliente c
+		where p.id_cliente = c.id_cliente and
+			  p.codigo_de_compra = @codigo_compra and
+			  p.cancelado = 0
+	UNION
+	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
+		from ÑUFLO.Encomienda p, ÑUFLO.Cliente c
+		where p.id_cliente = c.id_cliente and
+			  p.codigo_de_compra = @codigo_compra and
+			   p.cancelado = 0
+;
+GO
+
+
 		
 /*Detalles para listados*/
 CREATE PROCEDURE ÑUFLO.DetallePasajePara
