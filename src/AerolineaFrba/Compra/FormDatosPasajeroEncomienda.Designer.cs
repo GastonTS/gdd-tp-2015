@@ -29,21 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBoxModificarDatos = new System.Windows.Forms.CheckBox();
-            this.btnActualizar = new System.Windows.Forms.Button();
-            this.dateTimeFechaNacimiento = new System.Windows.Forms.DateTimePicker();
-            this.labelFechaDeNacimiento = new System.Windows.Forms.Label();
-            this.labelMail = new System.Windows.Forms.Label();
-            this.textBoxMail = new System.Windows.Forms.TextBox();
-            this.labelTelefono = new System.Windows.Forms.Label();
-            this.textBoxTelefono = new System.Windows.Forms.TextBox();
-            this.labelDireccion = new System.Windows.Forms.Label();
-            this.textBoxDireccion = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.labelDNI = new System.Windows.Forms.Label();
-            this.textBoxApellido = new System.Windows.Forms.TextBox();
-            this.labelApellido = new System.Windows.Forms.Label();
-            this.textBoxNombre = new System.Windows.Forms.TextBox();
-            this.labelNombre = new System.Windows.Forms.Label();
             this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBoxButacaYEncomienda = new System.Windows.Forms.GroupBox();
@@ -61,173 +48,46 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBoxModificarDatos);
-            this.groupBox1.Controls.Add(this.btnActualizar);
-            this.groupBox1.Controls.Add(this.dateTimeFechaNacimiento);
-            this.groupBox1.Controls.Add(this.labelFechaDeNacimiento);
-            this.groupBox1.Controls.Add(this.labelMail);
-            this.groupBox1.Controls.Add(this.textBoxMail);
-            this.groupBox1.Controls.Add(this.labelTelefono);
-            this.groupBox1.Controls.Add(this.textBoxTelefono);
-            this.groupBox1.Controls.Add(this.labelDireccion);
-            this.groupBox1.Controls.Add(this.textBoxDireccion);
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.labelDNI);
-            this.groupBox1.Controls.Add(this.textBoxApellido);
-            this.groupBox1.Controls.Add(this.labelApellido);
-            this.groupBox1.Controls.Add(this.textBoxNombre);
-            this.groupBox1.Controls.Add(this.labelNombre);
             this.groupBox1.Controls.Add(this.textBoxDNI);
             this.groupBox1.Location = new System.Drawing.Point(24, 14);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(642, 192);
+            this.groupBox1.Size = new System.Drawing.Size(458, 87);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del pasajero";
             // 
-            // checkBoxModificarDatos
+            // button1
             // 
-            this.checkBoxModificarDatos.AutoSize = true;
-            this.checkBoxModificarDatos.Location = new System.Drawing.Point(374, 167);
-            this.checkBoxModificarDatos.Name = "checkBoxModificarDatos";
-            this.checkBoxModificarDatos.Size = new System.Drawing.Size(100, 17);
-            this.checkBoxModificarDatos.TabIndex = 17;
-            this.checkBoxModificarDatos.Text = "Modificar Datos";
-            this.checkBoxModificarDatos.UseVisualStyleBackColor = true;
-            this.checkBoxModificarDatos.Visible = false;
-            this.checkBoxModificarDatos.CheckedChanged += new System.EventHandler(this.checkBoxModificarDatos_CheckedChanged);
-            // 
-            // btnActualizar
-            // 
-            this.btnActualizar.Location = new System.Drawing.Point(508, 163);
-            this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(75, 23);
-            this.btnActualizar.TabIndex = 16;
-            this.btnActualizar.Text = "Guardar";
-            this.btnActualizar.UseVisualStyleBackColor = true;
-            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
-            // 
-            // dateTimeFechaNacimiento
-            // 
-            this.dateTimeFechaNacimiento.Enabled = false;
-            this.dateTimeFechaNacimiento.Location = new System.Drawing.Point(392, 112);
-            this.dateTimeFechaNacimiento.Name = "dateTimeFechaNacimiento";
-            this.dateTimeFechaNacimiento.Size = new System.Drawing.Size(195, 20);
-            this.dateTimeFechaNacimiento.TabIndex = 14;
-            // 
-            // labelFechaDeNacimiento
-            // 
-            this.labelFechaDeNacimiento.AutoSize = true;
-            this.labelFechaDeNacimiento.Location = new System.Drawing.Point(264, 118);
-            this.labelFechaDeNacimiento.Name = "labelFechaDeNacimiento";
-            this.labelFechaDeNacimiento.Size = new System.Drawing.Size(108, 13);
-            this.labelFechaDeNacimiento.TabIndex = 13;
-            this.labelFechaDeNacimiento.Text = "Fecha de Nacimiento";
-            // 
-            // labelMail
-            // 
-            this.labelMail.AutoSize = true;
-            this.labelMail.Location = new System.Drawing.Point(264, 82);
-            this.labelMail.Name = "labelMail";
-            this.labelMail.Size = new System.Drawing.Size(75, 13);
-            this.labelMail.TabIndex = 11;
-            this.labelMail.Text = "Mail (opcional)";
-            // 
-            // textBoxMail
-            // 
-            this.textBoxMail.Enabled = false;
-            this.textBoxMail.Location = new System.Drawing.Point(392, 79);
-            this.textBoxMail.Name = "textBoxMail";
-            this.textBoxMail.Size = new System.Drawing.Size(195, 20);
-            this.textBoxMail.TabIndex = 10;
-            // 
-            // labelTelefono
-            // 
-            this.labelTelefono.AutoSize = true;
-            this.labelTelefono.Location = new System.Drawing.Point(264, 47);
-            this.labelTelefono.Name = "labelTelefono";
-            this.labelTelefono.Size = new System.Drawing.Size(49, 13);
-            this.labelTelefono.TabIndex = 9;
-            this.labelTelefono.Text = "Teléfono";
-            // 
-            // textBoxTelefono
-            // 
-            this.textBoxTelefono.Enabled = false;
-            this.textBoxTelefono.Location = new System.Drawing.Point(392, 43);
-            this.textBoxTelefono.Name = "textBoxTelefono";
-            this.textBoxTelefono.Size = new System.Drawing.Size(100, 20);
-            this.textBoxTelefono.TabIndex = 8;
-            // 
-            // labelDireccion
-            // 
-            this.labelDireccion.AutoSize = true;
-            this.labelDireccion.Location = new System.Drawing.Point(17, 152);
-            this.labelDireccion.Name = "labelDireccion";
-            this.labelDireccion.Size = new System.Drawing.Size(52, 13);
-            this.labelDireccion.TabIndex = 7;
-            this.labelDireccion.Text = "Dirección";
-            // 
-            // textBoxDireccion
-            // 
-            this.textBoxDireccion.Enabled = false;
-            this.textBoxDireccion.Location = new System.Drawing.Point(92, 149);
-            this.textBoxDireccion.Name = "textBoxDireccion";
-            this.textBoxDireccion.Size = new System.Drawing.Size(151, 20);
-            this.textBoxDireccion.TabIndex = 6;
+            this.button1.Location = new System.Drawing.Point(183, 30);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(167, 30);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Ingresar Datos del Pasajero";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // labelDNI
             // 
             this.labelDNI.AutoSize = true;
-            this.labelDNI.Location = new System.Drawing.Point(17, 46);
+            this.labelDNI.Location = new System.Drawing.Point(12, 39);
             this.labelDNI.Name = "labelDNI";
             this.labelDNI.Size = new System.Drawing.Size(26, 13);
             this.labelDNI.TabIndex = 5;
             this.labelDNI.Text = "DNI";
             // 
-            // textBoxApellido
-            // 
-            this.textBoxApellido.Enabled = false;
-            this.textBoxApellido.Location = new System.Drawing.Point(92, 115);
-            this.textBoxApellido.Name = "textBoxApellido";
-            this.textBoxApellido.Size = new System.Drawing.Size(148, 20);
-            this.textBoxApellido.TabIndex = 4;
-            // 
-            // labelApellido
-            // 
-            this.labelApellido.AutoSize = true;
-            this.labelApellido.Location = new System.Drawing.Point(17, 118);
-            this.labelApellido.Name = "labelApellido";
-            this.labelApellido.Size = new System.Drawing.Size(44, 13);
-            this.labelApellido.TabIndex = 3;
-            this.labelApellido.Text = "Apellido";
-            // 
-            // textBoxNombre
-            // 
-            this.textBoxNombre.Enabled = false;
-            this.textBoxNombre.Location = new System.Drawing.Point(92, 79);
-            this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(148, 20);
-            this.textBoxNombre.TabIndex = 2;
-            // 
-            // labelNombre
-            // 
-            this.labelNombre.AutoSize = true;
-            this.labelNombre.Location = new System.Drawing.Point(17, 82);
-            this.labelNombre.Name = "labelNombre";
-            this.labelNombre.Size = new System.Drawing.Size(44, 13);
-            this.labelNombre.TabIndex = 1;
-            this.labelNombre.Text = "Nombre";
-            // 
             // textBoxDNI
             // 
-            this.textBoxDNI.Location = new System.Drawing.Point(92, 43);
+            this.textBoxDNI.Enabled = false;
+            this.textBoxDNI.Location = new System.Drawing.Point(54, 36);
             this.textBoxDNI.Name = "textBoxDNI";
             this.textBoxDNI.Size = new System.Drawing.Size(100, 20);
             this.textBoxDNI.TabIndex = 0;
-            this.textBoxDNI.TextChanged += new System.EventHandler(this.textBoxDNI_TextChanged);
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(24, 470);
+            this.btnLimpiar.Location = new System.Drawing.Point(24, 374);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(83, 31);
             this.btnLimpiar.TabIndex = 16;
@@ -244,9 +104,9 @@
             this.groupBoxButacaYEncomienda.Controls.Add(this.labelEncomienda);
             this.groupBoxButacaYEncomienda.Controls.Add(this.labelButaca);
             this.groupBoxButacaYEncomienda.Controls.Add(this.listBoxEleccionButacaPasillo);
-            this.groupBoxButacaYEncomienda.Location = new System.Drawing.Point(24, 232);
+            this.groupBoxButacaYEncomienda.Location = new System.Drawing.Point(24, 116);
             this.groupBoxButacaYEncomienda.Name = "groupBoxButacaYEncomienda";
-            this.groupBoxButacaYEncomienda.Size = new System.Drawing.Size(642, 232);
+            this.groupBoxButacaYEncomienda.Size = new System.Drawing.Size(458, 232);
             this.groupBoxButacaYEncomienda.TabIndex = 17;
             this.groupBoxButacaYEncomienda.TabStop = false;
             this.groupBoxButacaYEncomienda.Text = "Datos de compra";
@@ -254,7 +114,7 @@
             // labelVentanilla
             // 
             this.labelVentanilla.AutoSize = true;
-            this.labelVentanilla.Location = new System.Drawing.Point(180, 99);
+            this.labelVentanilla.Location = new System.Drawing.Point(250, 99);
             this.labelVentanilla.Name = "labelVentanilla";
             this.labelVentanilla.Size = new System.Drawing.Size(53, 13);
             this.labelVentanilla.TabIndex = 7;
@@ -263,7 +123,7 @@
             // labelPasillo
             // 
             this.labelPasillo.AutoSize = true;
-            this.labelPasillo.Location = new System.Drawing.Point(24, 99);
+            this.labelPasillo.Location = new System.Drawing.Point(51, 99);
             this.labelPasillo.Name = "labelPasillo";
             this.labelPasillo.Size = new System.Drawing.Size(37, 13);
             this.labelPasillo.TabIndex = 6;
@@ -272,7 +132,7 @@
             // listBoxEleccionButacaVentanilla
             // 
             this.listBoxEleccionButacaVentanilla.FormattingEnabled = true;
-            this.listBoxEleccionButacaVentanilla.Location = new System.Drawing.Point(183, 118);
+            this.listBoxEleccionButacaVentanilla.Location = new System.Drawing.Point(253, 118);
             this.listBoxEleccionButacaVentanilla.Name = "listBoxEleccionButacaVentanilla";
             this.listBoxEleccionButacaVentanilla.Size = new System.Drawing.Size(127, 95);
             this.listBoxEleccionButacaVentanilla.TabIndex = 5;
@@ -309,7 +169,7 @@
             // listBoxEleccionButacaPasillo
             // 
             this.listBoxEleccionButacaPasillo.FormattingEnabled = true;
-            this.listBoxEleccionButacaPasillo.Location = new System.Drawing.Point(27, 118);
+            this.listBoxEleccionButacaPasillo.Location = new System.Drawing.Point(54, 118);
             this.listBoxEleccionButacaPasillo.Name = "listBoxEleccionButacaPasillo";
             this.listBoxEleccionButacaPasillo.Size = new System.Drawing.Size(127, 95);
             this.listBoxEleccionButacaPasillo.TabIndex = 0;
@@ -317,7 +177,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(583, 470);
+            this.btnAceptar.Location = new System.Drawing.Point(399, 374);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(83, 31);
             this.btnAceptar.TabIndex = 18;
@@ -328,7 +188,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(687, 513);
+            this.ClientSize = new System.Drawing.Size(507, 425);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.groupBoxButacaYEncomienda);
             this.Controls.Add(this.btnLimpiar);
@@ -347,20 +207,8 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label labelFechaDeNacimiento;
-        private System.Windows.Forms.Label labelMail;
-        private System.Windows.Forms.TextBox textBoxMail;
-        private System.Windows.Forms.Label labelTelefono;
-        private System.Windows.Forms.TextBox textBoxTelefono;
-        private System.Windows.Forms.Label labelDireccion;
-        private System.Windows.Forms.TextBox textBoxDireccion;
         private System.Windows.Forms.Label labelDNI;
-        private System.Windows.Forms.TextBox textBoxApellido;
-        private System.Windows.Forms.Label labelApellido;
-        private System.Windows.Forms.TextBox textBoxNombre;
-        private System.Windows.Forms.Label labelNombre;
         private System.Windows.Forms.TextBox textBoxDNI;
-        private System.Windows.Forms.DateTimePicker dateTimeFechaNacimiento;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.GroupBox groupBoxButacaYEncomienda;
         private System.Windows.Forms.TextBox textBoxCantidadAEncomendar;
@@ -368,10 +216,9 @@
         private System.Windows.Forms.Label labelButaca;
         private System.Windows.Forms.ListBox listBoxEleccionButacaPasillo;
         private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.CheckBox checkBoxModificarDatos;
-        private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.ListBox listBoxEleccionButacaVentanilla;
         private System.Windows.Forms.Label labelVentanilla;
         private System.Windows.Forms.Label labelPasillo;
+        private System.Windows.Forms.Button button1;
     }
 }
