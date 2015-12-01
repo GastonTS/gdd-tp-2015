@@ -39,7 +39,7 @@ namespace AerolineaFrba.Devolucion
             {
                 var camposValores = gdDataBase.newParameters();
                 camposValores.Add("codigo_compra",new gdDataBase.ValorTipo(textBoxPNR.Text,SqlDbType.Int));
-                var resultadoBusqueda = new gdDataBase().ExecAndGetData("ÑUFLO.PasajesYEncomiendasDe",camposValores, new Dictionary<int,string>());
+                var resultadoBusqueda = new gdDataBase().ExecAndGetData("ÑUFLO.PasajesYEncomiendasNoCanceladosDe",camposValores, new Dictionary<int,string>());
                 if (resultadoBusqueda.Rows.Count == 0)
                     MessageBox.Show("No se encontraron resultados que satisfagan la búsqueda");
                 else
@@ -60,12 +60,7 @@ namespace AerolineaFrba.Devolucion
         {
             var senderGrid = (DataGridView)sender;
             var index = e.ColumnIndex;
-          
-            /*
-            camposValores.Add("nombre_destino",new gdDataBase.ValorTipo(senderGrid.CurrentRow.Cells["Ciudad destino"].Value, SqlDbType.NVarChar));
-            camposValores.Add("tipo_servicio",new gdDataBase.ValorTipo(senderGrid.CurrentRow.Cells["Tipo de servicio"].Value, SqlDbType.NVarChar));
-            var selectedRowData = new gdDataBase().GetDataWithParameters("ÑUFLO.FiltrosAltaRutaAerea", camposValores);
-            */
+
             if (senderGrid.Columns[index] is DataGridViewCheckBoxColumn &&
                 e.RowIndex >= 0)
             {
@@ -75,25 +70,10 @@ namespace AerolineaFrba.Devolucion
                         senderGrid.CurrentCell.Value = false;
                     else
                         senderGrid.CurrentCell.Value = true;
-                  //  MessageBox.Show("Eliminar columna" + senderGrid.CurrentRow.Cells["Ciudad Origen"].Value.ToString());
+
                 }
 
-                /*else if (index == senderGrid.Columns["Modificar"].Index)
-                {
-                    MessageBox.Show("Modificar columna" + senderGrid.CurrentRow.Cells["Ciudad Origen"].Value.ToString());
-                    var formAltaRuta = new FormAltaRuta();
-                    formAltaRuta.setId((int)senderGrid.CurrentRow.Cells["id ruta"].Value); 
-                    formAltaRuta.setCodRuta(senderGrid.CurrentRow.Cells["Codigo de ruta"].Value.ToString());
-                    formAltaRuta.setOrigen((int)senderGrid.CurrentRow.Cells["id origen"].Value - 1);
-                    formAltaRuta.setDestino((int)senderGrid.CurrentRow.Cells["id destino"].Value - 1);
-                    formAltaRuta.setServicio((int)senderGrid.CurrentRow.Cells["id servicio"].Value - 1);
-                    formAltaRuta.setPrecioBasePeso(Double.Parse(senderGrid.CurrentRow.Cells["Precio base por peso"].Value.ToString()));
-                    formAltaRuta.setPrecioBasePasaje(Double.Parse(senderGrid.CurrentRow.Cells["Precio base por pasaje"].Value.ToString()));
-                    formAltaRuta.actualizarLabels();
-                    formAltaRuta.esModificacion();
-                    formAltaRuta.Show();
-                    //((DataRowView)rutaAereaBindingSource.Current)
-                }*/
+
                 else ;
             
         }
@@ -115,10 +95,6 @@ namespace AerolineaFrba.Devolucion
         }
 
         private void cancelarPasajes() {
-           /* var camposValores = gdDataBase.newParameters();
-            camposValores.Add("codigos_validos", new gdDataBase.ValorTipo(filasCheckBoxMarcados(), SqlDbType.Structured));
-            camposValores.Add("codigo_de_compra", new gdDataBase.ValorTipo(textBoxPNR.Text, SqlDbType.NVarChar));
-            new gdDataBase().Exec("Sarlomps", camposValores, new Dictionary<int, string>());*/
 
             foreach (DataGridViewRow fila in filasCheckBoxMarcados())
             {
