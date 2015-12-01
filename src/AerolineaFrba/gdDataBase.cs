@@ -204,8 +204,9 @@ namespace AerolineaFrba
             return ds;
         }
 
-        public void Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta = null)
+        public Boolean Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta = null)
         {
+            Boolean exito = true;
             conectar();
             bool encontroErrorConocido = false;
 
@@ -233,6 +234,7 @@ namespace AerolineaFrba
                 }
                 catch (SqlException exception)
                 {
+                    exito = false;
                     if (errorMensaje != null)
                     {
                         for (int i = 0; i < errorMensaje.Count; i++)
@@ -250,6 +252,7 @@ namespace AerolineaFrba
             }
 
             desconectar();
+            return exito;
         }
 
         //lo que hago acá es feo. Repito lógica con respecto a métodos anteriores. Pero lo hago para separar

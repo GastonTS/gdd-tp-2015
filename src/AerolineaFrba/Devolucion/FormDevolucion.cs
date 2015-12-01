@@ -62,5 +62,11 @@ namespace AerolineaFrba.Devolucion
             dataGridView1.Rows.Clear();
         }
 
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
     }
 }

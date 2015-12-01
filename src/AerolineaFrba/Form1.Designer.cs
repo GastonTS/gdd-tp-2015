@@ -51,6 +51,7 @@
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
+            this.login = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAltaRol
@@ -281,11 +282,22 @@
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
+            // login
+            // 
+            this.login.Location = new System.Drawing.Point(411, 31);
+            this.login.Name = "login";
+            this.login.Size = new System.Drawing.Size(105, 37);
+            this.login.TabIndex = 23;
+            this.login.Text = "Login";
+            this.login.UseVisualStyleBackColor = true;
+            this.login.Click += new System.EventHandler(this.login_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(565, 491);
+            this.Controls.Add(this.login);
             this.Controls.Add(this.button15);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.button13);
@@ -342,6 +354,7 @@
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button login;
     }
 }
 

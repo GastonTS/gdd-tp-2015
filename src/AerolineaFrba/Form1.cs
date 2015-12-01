@@ -137,6 +137,11 @@ namespace AerolineaFrba
             new Devolucion.FormBajaPasajeEncomienda().Show();
         }
 
+        private void login_Click(object sender, EventArgs e)
+        {
+            new Registro_de_Usuario.Login().Show();
+        }
+
     }
 
 }
