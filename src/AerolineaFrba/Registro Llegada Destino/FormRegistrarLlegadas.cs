@@ -38,7 +38,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                        if (ValidateChildren())
             {
                 var camposValores = gdDataBase.newParameters();
-                camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula, SqlDbType.NVarChar));
+                camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.NVarChar));
                 camposValores.Add("origen", new gdDataBase.ValorTipo(comboBoxOrigen.SelectedValue, SqlDbType.NVarChar));
                 camposValores.Add("destino", new gdDataBase.ValorTipo(comboBoxDestino.SelectedValue, SqlDbType.NVarChar));
                 camposValores.Add("fecha_llegada", new gdDataBase.ValorTipo(fechaCoso.Value, SqlDbType.DateTime));

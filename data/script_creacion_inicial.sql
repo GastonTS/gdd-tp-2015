@@ -996,7 +996,7 @@ GO
 CREATE PROCEDURE ÑUFLO.AeronavePorMatricula
 @matricula nvarchar(255)
 AS
-	select a.id_aeronave, a.id_modelo, m.nombre Modelo, a.id_fabricante,f.nombre Nombre, a.matricula Matricula, a.id_tipo_servicio,
+	select a.id_aeronave, a.id_modelo, m.nombre Modelo, a.id_fabricante,f.nombre Fabricante, a.matricula Matricula, a.id_tipo_servicio,
 		   ts.tipo_servicio 'Tipo de servicio', a.fecha_de_alta 'Fecha de alta', a.capacidad_peso_encomiendas 'Capacidad peso encomiendas',
 		    a.cantidad_butacas 'Butacas totales', a.baja_vida_utill 'Baja vida util', a.baja_por_fuera_de_servicio 'Baja por fuera de servicio'
 	from ÑUFLO.Aeronave a JOIN ÑUFLO.Fabricante f ON a.id_aeronave = f.id_fabricante
@@ -1082,7 +1082,8 @@ AS
 		where b.id_tipo_butaca = tb.id_tipo_butaca
 ;
 GO
-
+--DROP PROCEDURE ÑUFLO.RegistrarLlegada 
+--GO
 CREATE PROCEDURE ÑUFLO.RegistrarLlegada 
 @matricula nvarchar(255),
 @origen nvarchar (255),
@@ -1090,14 +1091,18 @@ CREATE PROCEDURE ÑUFLO.RegistrarLlegada
 @fecha_llegada datetime
 AS 
 	DECLARE @id_viaje int
-	SET @id_viaje = (select top 1 id_viaje
-					from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad c
+	SET @id_viaje = (select id_viaje
+					from ÑUFLO.Viaje v JOIN ÑUFLO.Aeronave a ON v.id_aeronave = a.id_aeronave
+									   JOIN ÑUFLO.RutaAerea r ON r.id_ruta = v.id_ruta
+									   JOIN ÑUFLO.Ciudad c1 ON r.id_ciudad_origen = c1.id_ciudad
+																
+									   JOIN ÑUFLO.Ciudad c2 ON r.id_ciudad_destino = c2.id_ciudad
 					where a.matricula = @matricula
-						and v.id_aeronave = a.id_aeronave
-						and r.id_ruta = v.id_ruta
-						and r.id_ciudad_origen = c.id_ciudad
-						and c.nombre = @origen
-						and convert(date, v.fecha_llegada_estimada) = convert(date, @fecha_llegada))
+						  and v.fecha_llegada IS NULL
+						  and c1.nombre LIKE @origen
+						  and c2.nombre LIKE @destino
+						  and v.fecha_salida <  @fecha_llegada
+					GROUP BY  id_viaje,c1.nombre ,c2.nombre, a.matricula, v.fecha_salida )
 						
 	IF(@id_viaje is null)
 		THROW 60019, 'Ningun viaje coincide con los datos ingresados', 1
@@ -1134,11 +1139,18 @@ AS
 	CLOSE CClientes
 	DEALLOCATE CClientes
 	
-	IF(@destino <> (select nombre
-						from ÑUFLO.Ciudad c, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r
-						where v.id_viaje = @id_viaje
-							and r.id_ruta = v.id_ruta
-							and c.id_ciudad = r.id_ciudad_destino))
+	IF(@destino <> (select c2.nombre
+					from ÑUFLO.Viaje v JOIN ÑUFLO.Aeronave a ON v.id_aeronave = a.id_aeronave
+									   JOIN ÑUFLO.RutaAerea r ON r.id_ruta = v.id_ruta
+									   JOIN ÑUFLO.Ciudad c1 ON r.id_ciudad_origen = c1.id_ciudad
+																
+									   JOIN ÑUFLO.Ciudad c2 ON r.id_ciudad_destino = c2.id_ciudad
+					where a.matricula = @matricula
+						  and v.fecha_llegada IS NULL
+						  and c1.nombre LIKE @origen
+						  and c2.nombre LIKE @destino
+						  and v.fecha_salida <  @fecha_llegada
+					GROUP BY  id_viaje,c1.nombre ,c2.nombre, a.matricula, v.fecha_salida ))
 		THROW 60021, 'La Aeronave no arribo al destino esperado', 1
 
 ;
@@ -1146,19 +1158,23 @@ GO
 
 CREATE PROCEDURE ÑUFLO.ValidarRegistroLlegada 
 @matricula nvarchar(255),
-@origen nvarchar (255),
-@destino nvarchar (255),
+@origen nvarchar(255),
+@destino nvarchar(255),
 @fecha_llegada datetime
 AS 
 	DECLARE @id_viaje int
-	SET @id_viaje = (select top 1 id_viaje
-					from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad c
+	SET @id_viaje = (select id_viaje
+					from ÑUFLO.Viaje v JOIN ÑUFLO.Aeronave a ON v.id_aeronave = a.id_aeronave
+									   JOIN ÑUFLO.RutaAerea r ON r.id_ruta = v.id_ruta
+									   JOIN ÑUFLO.Ciudad c1 ON r.id_ciudad_origen = c1.id_ciudad
+																
+									   JOIN ÑUFLO.Ciudad c2 ON r.id_ciudad_destino = c2.id_ciudad
 					where a.matricula = @matricula
-						and v.id_aeronave = a.id_aeronave
-						and r.id_ruta = v.id_ruta
-						and r.id_ciudad_origen = c.id_ciudad
-						and c.nombre = @origen
-						and convert(date, v.fecha_llegada_estimada) = convert(date, @fecha_llegada))
+						  and v.fecha_llegada IS NULL
+						  and c1.nombre LIKE @origen
+						 and c2.nombre LIKE @destino
+						  and v.fecha_salida <  @fecha_llegada
+					GROUP BY  id_viaje,c1.nombre ,c2.nombre, a.matricula, v.fecha_salida)
 							
 	IF(@id_viaje is null)
 				THROW 60019, 'Ningun viaje coincide con los datos ingresados', 1
@@ -1166,16 +1182,20 @@ AS
 	IF((select fecha_llegada from ÑUFLO.Viaje where id_viaje = @id_viaje) is not null)
 		THROW 60020, 'Ya se ha registrado este arrivo', 1
 
-	IF(@destino <> (select nombre
-						from ÑUFLO.Ciudad c, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r
-						where v.id_viaje = @id_viaje
-							and r.id_ruta = v.id_ruta
-							and c.id_ciudad = r.id_ciudad_destino))
-	
+	IF(@destino <> (select c2.nombre
+					from ÑUFLO.Viaje v JOIN ÑUFLO.Aeronave a ON v.id_aeronave = a.id_aeronave
+									   JOIN ÑUFLO.RutaAerea r ON r.id_ruta = v.id_ruta
+									   JOIN ÑUFLO.Ciudad c1 ON r.id_ciudad_origen = c1.id_ciudad
+																
+									   JOIN ÑUFLO.Ciudad c2 ON r.id_ciudad_destino = c2.id_ciudad
+					where a.matricula = @matricula
+						  and v.fecha_llegada IS NULL
+						  and c1.nombre LIKE @origen
+						  and c2.nombre LIKE @destino
+						  and v.fecha_salida <  @fecha_llegada
+					GROUP BY  id_viaje,c1.nombre ,c2.nombre, a.matricula, v.fecha_salida ))
 		THROW 60021, 'La Aeronave no arribo al destino esperado', 1
-	ELSE
 
-	return @destino
 ;
 GO
 
