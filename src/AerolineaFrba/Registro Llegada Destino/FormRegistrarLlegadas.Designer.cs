@@ -51,6 +51,7 @@
             // 
             this.comboBoxDestino.DataSource = this.destinoBindingSource;
             this.comboBoxDestino.DisplayMember = "id_ciudad";
+            this.comboBoxDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDestino.FormattingEnabled = true;
             this.comboBoxDestino.Location = new System.Drawing.Point(164, 163);
             this.comboBoxDestino.Name = "comboBoxDestino";
@@ -62,6 +63,7 @@
             // 
             this.comboBoxOrigen.DataSource = this.origenBindingSource;
             this.comboBoxOrigen.DisplayMember = "id_ciudad";
+            this.comboBoxOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxOrigen.FormattingEnabled = true;
             this.comboBoxOrigen.Location = new System.Drawing.Point(164, 124);
             this.comboBoxOrigen.Name = "comboBoxOrigen";
