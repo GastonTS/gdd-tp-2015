@@ -1693,6 +1693,41 @@ BEGIN
 END
 GO
 
+CREATE TRIGGER ÑUFLO.BajaLogicaRutaAerea
+ON ÑUFLO.RutaAerea AFTER DELETE
+AS
+BEGIN
+	DECLARE @id_ruta int, @id_ciudad_origen int, @id_ciudad_destino int
+	DECLARE @codigo_ruta numeric(18,0)
+	DECLARE @precio_base_por_peso numeric(18,2), @precio_base_por_pasaje numeric(18,2)
+	DECLARE BRutaAerea CURSOR FOR
+		select * from deleted
+
+	
+	OPEN BRutaAerea 
+	FETCH BRutaAerea INTO @id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso,
+		  @precio_base_por_pasaje
+
+	WHILE (@@FETCH_STATUS = 0)
+	BEGIN
+
+		INSERT INTO ÑUFLO.BajaRutaAerea (id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino,
+										 precio_base_por_peso, precio_base_por_pasaje)
+					VALUES (@id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso,
+							 @precio_base_por_pasaje)
+
+		EXEC ÑUFLO.CancelarPasajesRutaAerea @id_ruta
+		EXEC ÑUFLO.CancelarEncomiendasRutaAerea @id_ruta
+
+		FETCH BRutaAerea INTO @id_ruta, @codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso, @precio_base_por_pasaje
+
+	END
+
+	CLOSE BRutaAerea
+	DEALLOCATE BRutaAerea
+END
+GO
+
 /*****************************************************************/
 /**************************** Views ******************************/
 /*****************************************************************/
