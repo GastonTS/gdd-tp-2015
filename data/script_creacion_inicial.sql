@@ -1170,7 +1170,11 @@ AS
 						where v.id_viaje = @id_viaje
 							and r.id_ruta = v.id_ruta
 							and c.id_ciudad = r.id_ciudad_destino))
+	
 		THROW 60021, 'La Aeronave no arribo al destino esperado', 1
+	ELSE
+
+	return @destino
 ;
 GO
 
