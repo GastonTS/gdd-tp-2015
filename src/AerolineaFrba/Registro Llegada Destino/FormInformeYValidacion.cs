@@ -17,19 +17,25 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        public void setAeronave(String matricula) 
         {
-
+            MessageBox.Show("QUIERO UN SP QUE DADA UNA MATRICULA ME DE LOS DATOS DE UN AVION");
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        public void setFecha(DateTime fecha)
         {
-
+            lblFechaHora.Text = fecha.ToString();
         }
 
-        private void labelFabricante_Click(object sender, EventArgs e)
+        public void setOrigen(String ciudad)
         {
-
+            lblOrigen.Text = ciudad;
         }
+
+        public void setDestino(String ciudad)
+        {
+            lblDestino.Text = ciudad;
+        }
+
     }
 }

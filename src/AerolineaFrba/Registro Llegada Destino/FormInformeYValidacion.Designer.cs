@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.labelFabricante = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelCantidadButacas = new System.Windows.Forms.Label();
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.labelCapacidadEncomiendas = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.labelOrigen = new System.Windows.Forms.Label();
             this.labelDestino = new System.Windows.Forms.Label();
@@ -43,6 +43,9 @@
             this.groupBoxViajeRegistrado = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
+            this.lblFechaHora = new System.Windows.Forms.Label();
+            this.lblOrigen = new System.Windows.Forms.Label();
+            this.lblDestino = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxViajeRegistrado.SuspendLayout();
@@ -60,6 +63,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Identificación de Aeronave";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(23, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Modelo:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 51);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Matrícula:";
+            // 
             // labelFabricante
             // 
             this.labelFabricante.AutoSize = true;
@@ -68,7 +89,6 @@
             this.labelFabricante.Size = new System.Drawing.Size(60, 13);
             this.labelFabricante.TabIndex = 3;
             this.labelFabricante.Text = "Fabricante:";
-            this.labelFabricante.Click += new System.EventHandler(this.labelFabricante_Click);
             // 
             // groupBox2
             // 
@@ -109,26 +129,6 @@
             this.labelCapacidadEncomiendas.TabIndex = 6;
             this.labelCapacidadEncomiendas.Text = "Capacidad de Encomiendas:";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Matrícula:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 25);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Modelo:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -166,6 +166,9 @@
             // 
             // groupBoxViajeRegistrado
             // 
+            this.groupBoxViajeRegistrado.Controls.Add(this.lblDestino);
+            this.groupBoxViajeRegistrado.Controls.Add(this.lblOrigen);
+            this.groupBoxViajeRegistrado.Controls.Add(this.lblFechaHora);
             this.groupBoxViajeRegistrado.Controls.Add(this.labelFechaYHoraLlegada);
             this.groupBoxViajeRegistrado.Controls.Add(this.labelOrigen);
             this.groupBoxViajeRegistrado.Controls.Add(this.labelDestino);
@@ -193,6 +196,30 @@
             this.btnAceptar.TabIndex = 21;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            // 
+            // lblFechaHora
+            // 
+            this.lblFechaHora.AutoSize = true;
+            this.lblFechaHora.Location = new System.Drawing.Point(175, 25);
+            this.lblFechaHora.Name = "lblFechaHora";
+            this.lblFechaHora.Size = new System.Drawing.Size(0, 13);
+            this.lblFechaHora.TabIndex = 19;
+            // 
+            // lblOrigen
+            // 
+            this.lblOrigen.AutoSize = true;
+            this.lblOrigen.Location = new System.Drawing.Point(175, 53);
+            this.lblOrigen.Name = "lblOrigen";
+            this.lblOrigen.Size = new System.Drawing.Size(0, 13);
+            this.lblOrigen.TabIndex = 20;
+            // 
+            // lblDestino
+            // 
+            this.lblDestino.AutoSize = true;
+            this.lblDestino.Location = new System.Drawing.Point(175, 80);
+            this.lblDestino.Name = "lblDestino";
+            this.lblDestino.Size = new System.Drawing.Size(0, 13);
+            this.lblDestino.TabIndex = 21;
             // 
             // FormInformeYValidacion
             // 
@@ -235,6 +262,9 @@
         private System.Windows.Forms.GroupBox groupBoxViajeRegistrado;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Label lblFechaHora;
+        private System.Windows.Forms.Label lblDestino;
+        private System.Windows.Forms.Label lblOrigen;
 
     }
 }
