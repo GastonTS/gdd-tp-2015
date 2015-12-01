@@ -1463,6 +1463,26 @@ AS
 			  p.codigo_de_compra = @codigo_compra
 ;
 GO
+
+CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasNoCanceladosDe
+@codigo_compra int
+AS
+	select p.id_pasaje Codigo, 'Pasaje' Tipo, c.dni DNI, c.nombre Nombre, c.apellido Apellido,
+		 '-' Peso_Encomienda, cast(p.numero_de_butaca AS nvarchar(255)) Butaca_Numero, p.precio Precio
+		from ÑUFLO.Pasaje p, ÑUFLO.Cliente c
+		where p.id_cliente = c.id_cliente and
+			  p.codigo_de_compra = @codigo_compra and
+			  p.cancelado = 0
+	UNION
+	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
+		from ÑUFLO.Encomienda p, ÑUFLO.Cliente c
+		where p.id_cliente = c.id_cliente and
+			  p.codigo_de_compra = @codigo_compra and
+			   p.cancelado = 0
+;
+GO
+
+
 		
 /*Detalles para listados*/
 CREATE PROCEDURE ÑUFLO.DetallePasajePara
