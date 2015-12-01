@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class FormCompraEfectiva : Form
+    public partial class FormCompraEfectiva : Form, ICargaDatosCliente
     {
         public FormCompraEfectiva()
         {
@@ -27,7 +27,12 @@ namespace AerolineaFrba.Compra
             FormDatosCliente fdc = new FormDatosCliente();
 
             fdc.indicarSiEsPasajero(false);
-            fdc.Show();
+            fdc.Show(this);
+        }
+
+        public void setDNI(String dni)
+        {
+            textBoxDNI.Text = dni;
         }
     }
 }

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnIngresarDatosPasajero = new System.Windows.Forms.Button();
             this.labelDNI = new System.Windows.Forms.Label();
             this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -48,7 +48,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnIngresarDatosPasajero);
             this.groupBox1.Controls.Add(this.labelDNI);
             this.groupBox1.Controls.Add(this.textBoxDNI);
             this.groupBox1.Location = new System.Drawing.Point(24, 14);
@@ -58,15 +58,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del pasajero";
             // 
-            // button1
+            // btnIngresarDatosPasajero
             // 
-            this.button1.Location = new System.Drawing.Point(183, 30);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(167, 30);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Ingresar Datos del Pasajero";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnIngresarDatosPasajero.Location = new System.Drawing.Point(183, 30);
+            this.btnIngresarDatosPasajero.Name = "btnIngresarDatosPasajero";
+            this.btnIngresarDatosPasajero.Size = new System.Drawing.Size(167, 30);
+            this.btnIngresarDatosPasajero.TabIndex = 6;
+            this.btnIngresarDatosPasajero.Text = "Ingresar Datos del Pasajero";
+            this.btnIngresarDatosPasajero.UseVisualStyleBackColor = true;
+            this.btnIngresarDatosPasajero.Click += new System.EventHandler(this.button1_Click);
             // 
             // labelDNI
             // 
@@ -219,6 +219,6 @@
         private System.Windows.Forms.ListBox listBoxEleccionButacaVentanilla;
         private System.Windows.Forms.Label labelVentanilla;
         private System.Windows.Forms.Label labelPasillo;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnIngresarDatosPasajero;
     }
 }

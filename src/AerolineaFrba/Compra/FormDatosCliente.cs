@@ -126,5 +126,15 @@ namespace AerolineaFrba.Compra
             habilitacionDatosCliente(false);
             checkBoxModificarDatos.Checked = false;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ICargaDatosCliente formInterface = this.Owner as ICargaDatosCliente;
+
+            if (formInterface != null)
+                formInterface.setDNI(textBoxDNI.Text);
+
+            this.Close();
+        }
     }
 }

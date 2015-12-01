@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class FormDatosPasajeroEncomienda : Abm.Alta
+    public partial class FormDatosPasajeroEncomienda : Abm.Alta, ICargaDatosCliente
     {
         bool soloPasaje = true;
         int idViaje = 16;
@@ -90,10 +90,16 @@ namespace AerolineaFrba.Compra
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Previo, de debe validar que se acepta un cliente que existe
             FormDatosCliente fdc = new FormDatosCliente();
 
             fdc.indicarSiEsPasajero(true);
-            fdc.Show();
+            fdc.Show(this);
+        }
+
+        public void setDNI(String dni)
+        {
+            textBoxDNI.Text = dni;
         }
     }
 }

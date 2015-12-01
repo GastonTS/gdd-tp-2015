@@ -31,7 +31,7 @@
             this.labelMedioDePago = new System.Windows.Forms.Label();
             this.comboBoxMedioDePago = new System.Windows.Forms.ComboBox();
             this.labelDNIComprador = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelNumeroTarjeta = new System.Windows.Forms.Label();
             this.textBoxNumeroTarjeta = new System.Windows.Forms.TextBox();
@@ -77,17 +77,18 @@
             this.labelDNIComprador.TabIndex = 2;
             this.labelDNIComprador.Text = "DNI del Comprador:";
             // 
-            // textBox1
+            // textBoxDNI
             // 
-            this.textBox1.Location = new System.Drawing.Point(121, 89);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 3;
+            this.textBoxDNI.Enabled = false;
+            this.textBoxDNI.Location = new System.Drawing.Point(121, 86);
+            this.textBoxDNI.Name = "textBoxDNI";
+            this.textBoxDNI.Size = new System.Drawing.Size(100, 20);
+            this.textBoxDNI.TabIndex = 3;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.textBoxDNI);
             this.groupBox1.Controls.Add(this.labelMedioDePago);
             this.groupBox1.Controls.Add(this.labelDNIComprador);
             this.groupBox1.Controls.Add(this.comboBoxMedioDePago);
@@ -212,7 +213,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(244, 83);
+            this.button1.Location = new System.Drawing.Point(244, 80);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(167, 30);
             this.button1.TabIndex = 7;
@@ -244,7 +245,7 @@
         private System.Windows.Forms.Label labelMedioDePago;
         private System.Windows.Forms.ComboBox comboBoxMedioDePago;
         private System.Windows.Forms.Label labelDNIComprador;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxDNI;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelNumeroTarjeta;
         private System.Windows.Forms.TextBox textBoxNumeroTarjeta;
