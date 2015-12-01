@@ -101,5 +101,10 @@ namespace AerolineaFrba.Compra
         {
             textBoxDNI.Text = dni;
         }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
