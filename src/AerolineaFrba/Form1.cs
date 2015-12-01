@@ -13,7 +13,7 @@ namespace AerolineaFrba
     public partial class Form1 : Form
     {
 
-        public Dictionary<int, Object> ids_funcionalidades = new Dictionary<int, Object>();
+        public Dictionary<int, Button> ids_funcionalidades = new Dictionary<int, Button>();
 
 
         public Form1()
@@ -31,6 +31,20 @@ namespace AerolineaFrba
             ids_funcionalidades.Add(9, btnCanjeMillas);
             ids_funcionalidades.Add(10, btnListadoEstadistico);
             //ids_funcionalidades.Add(11, "ABM productos");
+        }
+
+        public void resetearFuncionalidades() 
+        {
+            foreach (var funcionalidad in ids_funcionalidades) 
+            {
+                Button botonFuncion = funcionalidad.Value;
+                botonFuncion.Visible = false;
+            }
+        }
+
+        public void activarFuncionalidad(int idFuncion) 
+        {
+            ids_funcionalidades[idFuncion].Visible = true;
         }
 
         private void btnAltaRol_Click(object sender, EventArgs e)
@@ -155,7 +169,10 @@ namespace AerolineaFrba
 
         private void login_Click(object sender, EventArgs e)
         {
-            new Registro_de_Usuario.Login().Show();
+            var login = new Registro_de_Usuario.Login();
+            login.setPadre(this);
+            login.Show();
+
         }
 
     }
