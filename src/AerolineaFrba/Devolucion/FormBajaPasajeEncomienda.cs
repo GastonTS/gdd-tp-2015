@@ -12,6 +12,13 @@ namespace AerolineaFrba.Devolucion
 {
     public partial class FormBajaPasajeEncomienda : Form
     {
+        FormDevolucion padre;
+
+        public void setPadre(FormDevolucion unForm)
+        {
+            padre=unForm;
+        }
+
         public FormBajaPasajeEncomienda()
         {
             InitializeComponent();
@@ -107,11 +114,19 @@ namespace AerolineaFrba.Devolucion
             return filasCheckBoxMarcados().Count;
         }
 
-        private void cancelarEncomiendas() {
-            var camposValores = gdDataBase.newParameters();
+        private void cancelarPasajes() {
+           /* var camposValores = gdDataBase.newParameters();
             camposValores.Add("codigos_validos", new gdDataBase.ValorTipo(filasCheckBoxMarcados(), SqlDbType.Structured));
             camposValores.Add("codigo_de_compra", new gdDataBase.ValorTipo(textBoxPNR.Text, SqlDbType.NVarChar));
-            new gdDataBase().Exec("Sarlomps", camposValores, new Dictionary<int, string>());
+            new gdDataBase().Exec("Sarlomps", camposValores, new Dictionary<int, string>());*/
+
+            foreach (DataGridViewRow fila in filasCheckBoxMarcados())
+            {
+                padre.agregarPasaje(fila);
+
+                
+            }
+            Close();
         }
 
 
@@ -123,7 +138,7 @@ namespace AerolineaFrba.Devolucion
             {
                 var resultado = MessageBox.Show("Dar de baja los pasajes/encomiendas",
                         "¿Está seguro que quiere dar de baja los elementos seleccionados?", MessageBoxButtons.YesNo);
-                if (resultado.CompareTo(DialogResult.Yes)==0) cancelarEncomiendas();
+                if (resultado.CompareTo(DialogResult.Yes)==0) cancelarPasajes();
             }
                 
         }
