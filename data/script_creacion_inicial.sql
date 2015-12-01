@@ -475,6 +475,7 @@ INSERT INTO #CompraPasaje(numero_butaca, pasaje_precio, id_pasaje, fecha_compra,
 					and v.fecha_salida = m.FechaSalida
 					and v.fecha_llegada_estimada = m.Fecha_LLegada_Estimada) id_viaje
 		from gd_esquema.Maestra m
+		where Pasaje_Codigo != 0
 GO
 
 INSERT INTO #CompraEncomienda(paquete_kg, paquete_precio, id_encomienda, fecha_compra, id_cliente, id_viaje)
@@ -498,6 +499,7 @@ INSERT INTO #CompraEncomienda(paquete_kg, paquete_precio, id_encomienda, fecha_c
 					and v.fecha_salida = m.FechaSalida
 					and v.fecha_llegada_estimada = m.Fecha_LLegada_Estimada) id_viaje
 		from gd_esquema.Maestra m
+		where Paquete_Codigo != 0
 GO
 
 /*401304 Compra - Consideramos como que las compras eran de a uno, no varios pasajes ni encomiendas juntas por no poder diferenciarlas*/
@@ -515,13 +517,11 @@ GO
 INSERT INTO ÑUFLO.Pasaje (id_pasaje, codigo_de_compra, id_cliente, numero_de_butaca, precio)
 	select id_pasaje, codigo_compra, id_cliente, numero_butaca, pasaje_precio
 		from #CompraPasaje
-		where id_pasaje != 0
 GO
 
 INSERT INTO ÑUFLO.Encomienda (id_encomienda, codigo_de_compra, id_cliente, peso_encomienda, precio)
 	select id_encomienda, codigo_compra, id_cliente, paquete_kg, paquete_precio
 		from #CompraEncomienda
-		where id_encomienda != 0
 GO
 	
 /*****************************************************************/
