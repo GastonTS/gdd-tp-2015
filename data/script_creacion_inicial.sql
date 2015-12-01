@@ -1339,8 +1339,12 @@ GO
 CREATE PROCEDURE ÑUFLO.DeleteRutaAerea
 @id_ruta int
 AS
-	DELETE FROM ÑUFLO.RutaAerea
-	WHERE id_ruta=@id_ruta;
+	EXEC sp_msforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT all"
+	BEGIN
+		DELETE FROM ÑUFLO.RutaAerea
+		WHERE id_ruta=@id_ruta;
+	END
+	exec sp_msforeachtable @command1="ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
 ;  
 GO
 
