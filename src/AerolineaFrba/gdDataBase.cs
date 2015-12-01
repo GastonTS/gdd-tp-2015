@@ -11,7 +11,7 @@ namespace AerolineaFrba
 {
     public class gdDataBase
     {
-        SqlConnection miConexion = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=gd2015");
+        public SqlConnection miConexion = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=gd2015");
 
         public static Dictionary<String, gdDataBase.ValorTipo> newParameters() { return new Dictionary<String, gdDataBase.ValorTipo>(); }
 
@@ -193,6 +193,7 @@ namespace AerolineaFrba
                         parametro.Value = campoValor.ElementAt(i).Value.getValor();
                         cmd.Parameters.Add(parametro);
                     }
+
                 }
 
                 da.SelectCommand = cmd;
@@ -204,55 +205,15 @@ namespace AerolineaFrba
             return ds;
         }
 
-        public Boolean Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta = null)
+
+
+
+
+        public SPPureExec Exec(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta = null)
         {
-            Boolean exito = true;
-            conectar();
-            bool encontroErrorConocido = false;
-
-            using (var cmd = new SqlCommand(spName, miConexion))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                for (int i = 0; i < campoValor.Count; i++)
-                {
-                    var parametro = new SqlParameter("@" + campoValor.ElementAt(i).Key,
-                        campoValor.ElementAt(i).Value.getTipo());
-                    parametro.Precision = 18;
-                    parametro.Scale = 0;
-                    parametro.Value = campoValor.ElementAt(i).Value.getValor();
-                    cmd.Parameters.Add(parametro);
-                }
-
-                //para ejecutar sp que devuelven algo, creo que hay que poner ExecuteReader or algún otro tipo
-
-                try
-                {
-                    cmd.ExecuteNonQuery();
-                    if (ejecucionCorrecta != null)
-                        MessageBox.Show(ejecucionCorrecta);
-                }
-                catch (SqlException exception)
-                {
-                    exito = false;
-                    if (errorMensaje != null)
-                    {
-                        for (int i = 0; i < errorMensaje.Count; i++)
-                        {
-                            if (exception.Number == errorMensaje.ElementAt(i).Key)
-                            {
-                                MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                encontroErrorConocido = true;
-                            }
-                        }
-                        if(!encontroErrorConocido)
-                            MessageBox.Show(exception.Message);
-                    }
-                }
-            }
-
-            desconectar();
-            return exito;
+            var spExec = new SPPureExec(spName, campoValor, errorMensaje, ejecucionCorrecta);
+            spExec.Exec(this);
+            return spExec;
         }
 
         //lo que hago acá es feo. Repito lógica con respecto a métodos anteriores. Pero lo hago para separar
@@ -263,111 +224,14 @@ namespace AerolineaFrba
 
 
         {
-            conectar();
-
-            bool encontroErrorConocido = false;
-            DataTable ds = new DataTable();
-
-            using (var cmd = new SqlCommand(spName, miConexion))
-            using (var da = new SqlDataAdapter(cmd))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                for (int i = 0; i < campoValor.Count; i++)
-                {
-                    var parametro = new SqlParameter("@" + campoValor.ElementAt(i).Key,
-                        campoValor.ElementAt(i).Value.getTipo());
-                    parametro.Precision = 18;
-                    parametro.Scale = 0;
-                    parametro.Value = campoValor.ElementAt(i).Value.getValor();
-                    cmd.Parameters.Add(parametro);
-                }
-
-                try
-                {
-
-                    da.SelectCommand = cmd;
-                    da.Fill(ds);
-                    if (ejecucionCorrecta != null)
-                        MessageBox.Show(ejecucionCorrecta);
-                }
-                catch (SqlException exception)
-                {
-                    for (int i = 0; i < errorMensaje.Count; i++)
-                    {
-                        if (exception.Number == errorMensaje.ElementAt(i).Key)
-                        {
-                            MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            encontroErrorConocido = true;
-                        }
-                    }
-                    if(!encontroErrorConocido)
-                        MessageBox.Show(exception.Message);
-                }
-            }
-
-            desconectar();
-
-            return ds;
+            return (DataTable) new SPExecGetData(spName, campoValor, errorMensaje, ejecucionCorrecta).Exec(this);
         }
 
 
         public DataSet ExecAndGetDataSet(String spName, Dictionary<String, ValorTipo> campoValor = null,
                                         Dictionary<int, String> errorMensaje = null, String ejecucionCorrecta = null)
         {
-            conectar();
-
-            bool encontroErrorConocido = false;
-            DataSet ds = new DataSet();
-
-            using (var cmd = new SqlCommand("ÑUFLO."+spName, miConexion))
-            using (var da = new SqlDataAdapter(cmd))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                if (campoValor != null)
-                {
-                    for (int i = 0; i < campoValor.Count; i++)
-                    {
-                        var parametro = new SqlParameter("@" + campoValor.ElementAt(i).Key,
-                            campoValor.ElementAt(i).Value.getTipo());
-                        parametro.Precision = 18;
-                        parametro.Scale = 0;
-                        parametro.Value = campoValor.ElementAt(i).Value.getValor();
-                        cmd.Parameters.Add(parametro);
-                    }
-                }
-
-                try
-                {
-
-                    da.SelectCommand = cmd;
-                    da.Fill(ds);
-                    if (ejecucionCorrecta != null)
-                        MessageBox.Show(ejecucionCorrecta);
-                }
-                catch (SqlException exception)
-                {
-                    if (errorMensaje != null)
-                    {
-                        for (int i = 0; i < errorMensaje.Count; i++)
-                        {
-                            if (exception.Number == errorMensaje.ElementAt(i).Key)
-                            {
-                                MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            encontroErrorConocido = true;
-                            }
-                        }
-                        if(!encontroErrorConocido)
-                            MessageBox.Show(exception.Message);
-                    }
-                    else MessageBox.Show("The impossible has happened");
-                }
-            }
-
-            desconectar();
-
-            return ds;
+            return (DataSet)new SPExecGetDataSet(spName, campoValor, errorMensaje, ejecucionCorrecta).Exec(this);
         }
 
     }

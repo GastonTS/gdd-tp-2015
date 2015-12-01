@@ -13,7 +13,7 @@ namespace AerolineaFrba.Compra
     public partial class FormDatosPasajeroEncomienda : Abm.Alta, ICargaDatosCliente
     {
         bool soloPasaje = true;
-        int idViaje = 16;
+        int idViaje = 16, numeroDeButacaSeleccionada;
 
         public FormDatosPasajeroEncomienda()
         {
@@ -58,9 +58,9 @@ namespace AerolineaFrba.Compra
                 object[] fila = dt.Rows[i].ItemArray;
 
                 if (fila.GetValue(1).ToString() == "Pasillo")
-                    listBoxEleccionButacaPasillo.Items.Add("Butaca N°: " + fila.GetValue(0).ToString());
+                    listBoxEleccionButacaPasillo.Items.Add(fila.GetValue(0).ToString());
                 else
-                    listBoxEleccionButacaVentanilla.Items.Add("Butaca N°: " + fila.GetValue(0).ToString());
+                    listBoxEleccionButacaVentanilla.Items.Add(fila.GetValue(0).ToString());
             }
 
 
@@ -74,11 +74,15 @@ namespace AerolineaFrba.Compra
 
         private void listBoxEleccionButacaPasillo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            numeroDeButacaSeleccionada = Convert.ToInt32(listBoxEleccionButacaPasillo.SelectedItem);
+
             listBoxEleccionButacaVentanilla.ClearSelected();
         }
 
         private void listBoxEleccionButacaVentanilla_SelectedIndexChanged(object sender, EventArgs e)
         {
+            numeroDeButacaSeleccionada = Convert.ToInt32(listBoxEleccionButacaVentanilla.SelectedItem);
+
             listBoxEleccionButacaPasillo.ClearSelected();
         }
 
@@ -104,7 +108,18 @@ namespace AerolineaFrba.Compra
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            IDatosCompra formInterface = this.Owner as IDatosCompra;
 
+            if (formInterface != null)
+            {
+                if (soloPasaje)
+                    formInterface.setPasaje(Convert.ToInt32(textBoxDNI.Text), numeroDeButacaSeleccionada);
+                else
+                    formInterface.setEncomienda(Convert.ToInt32(textBoxDNI.Text), 
+                        Convert.ToDecimal(textBoxCantidadAEncomendar.Text));
+            }
+
+            this.Close();
         }
     }
 }

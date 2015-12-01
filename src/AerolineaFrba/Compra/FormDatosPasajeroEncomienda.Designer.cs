@@ -134,7 +134,7 @@
             this.listBoxEleccionButacaVentanilla.FormattingEnabled = true;
             this.listBoxEleccionButacaVentanilla.Location = new System.Drawing.Point(253, 118);
             this.listBoxEleccionButacaVentanilla.Name = "listBoxEleccionButacaVentanilla";
-            this.listBoxEleccionButacaVentanilla.Size = new System.Drawing.Size(127, 95);
+            this.listBoxEleccionButacaVentanilla.Size = new System.Drawing.Size(86, 95);
             this.listBoxEleccionButacaVentanilla.TabIndex = 5;
             this.listBoxEleccionButacaVentanilla.SelectedIndexChanged += new System.EventHandler(this.listBoxEleccionButacaVentanilla_SelectedIndexChanged);
             // 
@@ -160,18 +160,18 @@
             // labelButaca
             // 
             this.labelButaca.AutoSize = true;
-            this.labelButaca.Location = new System.Drawing.Point(17, 59);
+            this.labelButaca.Location = new System.Drawing.Point(17, 71);
             this.labelButaca.Name = "labelButaca";
-            this.labelButaca.Size = new System.Drawing.Size(106, 13);
+            this.labelButaca.Size = new System.Drawing.Size(152, 13);
             this.labelButaca.TabIndex = 1;
-            this.labelButaca.Text = "Butacas Disponibles:";
+            this.labelButaca.Text = "N° de las Butacas Disponibles:";
             // 
             // listBoxEleccionButacaPasillo
             // 
             this.listBoxEleccionButacaPasillo.FormattingEnabled = true;
             this.listBoxEleccionButacaPasillo.Location = new System.Drawing.Point(54, 118);
             this.listBoxEleccionButacaPasillo.Name = "listBoxEleccionButacaPasillo";
-            this.listBoxEleccionButacaPasillo.Size = new System.Drawing.Size(127, 95);
+            this.listBoxEleccionButacaPasillo.Size = new System.Drawing.Size(86, 95);
             this.listBoxEleccionButacaPasillo.TabIndex = 0;
             this.listBoxEleccionButacaPasillo.SelectedIndexChanged += new System.EventHandler(this.listBoxEleccionButacaPasillo_SelectedIndexChanged);
             // 

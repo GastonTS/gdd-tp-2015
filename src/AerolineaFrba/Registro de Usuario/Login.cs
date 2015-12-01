@@ -12,11 +12,17 @@ namespace AerolineaFrba.Registro_de_Usuario
 {
      public partial class Login : Form
     {
+         Form1 padre;
         public Login()
         {
             InitializeComponent();
 
 
+        }
+
+        public void setPadre(Form1 unForm)
+        {
+            padre= unForm;
         }
 
         public Dictionary<int, Object> ids_funcionalidades = new Dictionary<int, Object>();
@@ -25,9 +31,14 @@ namespace AerolineaFrba.Registro_de_Usuario
             var camposValores = gdDataBase.newParameters();
             camposValores.Add("usuario", new gdDataBase.ValorTipo(textBoxUsername.Text, SqlDbType.NVarChar));
             var funciones = new gdDataBase().ExecAndGetData("ÑUFLO.FuncionesDeUsuario", camposValores, new Dictionary<int, String>()).Rows;
+            padre.resetearFuncionalidades();
             foreach (var funcion in funciones) {
-                MessageBox.Show(funcion.ToString());
+                padre.activarFuncionalidad(idFuncion(funcion));
             }
+        }
+
+        public int idFuncion(object funcion) {
+            return 1; //
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -35,7 +46,9 @@ namespace AerolineaFrba.Registro_de_Usuario
             var camposValores = gdDataBase.newParameters();
             camposValores.Add("usuario", new gdDataBase.ValorTipo(textBoxUsername.Text,SqlDbType.NVarChar));
             camposValores.Add("password", new gdDataBase.ValorTipo(textBoxPassword.Text,SqlDbType.NVarChar));
-            if (new gdDataBase().Exec("ÑUFLO.LogearUsuario", camposValores, new Dictionary<int, String>()))
+            var spExec = new SPPureExec("ÑUFLO.LogearUsuario", camposValores);
+            spExec.Exec();
+            if (! spExec.huboError())
                 habilitarFunciones();//SP QUE DEVUELVA FUNCIONES DADO NOMBRE DE USUARIO
         }
     }

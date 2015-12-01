@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class FormSeleccionViaje : Form
+    public partial class FormSeleccionViaje : Form, IDatosCompra
     {
         public struct Compra
         {
@@ -57,6 +57,16 @@ namespace AerolineaFrba.Compra
         public FormSeleccionViaje()
         {
             InitializeComponent();
+        }
+
+        public void setPasaje(int dni, int numeroDeButaca) 
+        {
+ 
+        }
+
+        public void setEncomienda(int dni, decimal pesoEncomienda)
+        {
+ 
         }
 
         private void btnVerDisponibles_Click(object sender, EventArgs e)
@@ -113,9 +123,8 @@ namespace AerolineaFrba.Compra
         {
             FormDatosPasajeroEncomienda fdpe = new FormDatosPasajeroEncomienda();
 
-
             fdpe.indicarPasajeOEncomienda(esSoloPasaje);
-            fdpe.Show();
+            fdpe.Show(this);
         }
     }
 }
