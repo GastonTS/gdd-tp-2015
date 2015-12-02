@@ -118,7 +118,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(25, 203);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(563, 44);
+            this.dataGridView1.Size = new System.Drawing.Size(563, 154);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowEnter);
             // 
@@ -159,7 +159,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(25, 446);
+            this.btnLimpiar.Location = new System.Drawing.Point(25, 509);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 15;
@@ -196,7 +196,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(513, 446);
+            this.btnAceptar.Location = new System.Drawing.Point(513, 509);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 19;
@@ -210,7 +210,7 @@
             this.groupBoxPasajesEncomiendas.Controls.Add(this.listBoxPasajesYEncomiendasComprados);
             this.groupBoxPasajesEncomiendas.Controls.Add(this.btnAgregarEncomienda);
             this.groupBoxPasajesEncomiendas.Enabled = false;
-            this.groupBoxPasajesEncomiendas.Location = new System.Drawing.Point(25, 286);
+            this.groupBoxPasajesEncomiendas.Location = new System.Drawing.Point(25, 363);
             this.groupBoxPasajesEncomiendas.Name = "groupBoxPasajesEncomiendas";
             this.groupBoxPasajesEncomiendas.Size = new System.Drawing.Size(563, 140);
             this.groupBoxPasajesEncomiendas.TabIndex = 20;
@@ -221,7 +221,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(612, 477);
+            this.ClientSize = new System.Drawing.Size(612, 544);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.labelViajesDisponibles);

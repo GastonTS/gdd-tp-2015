@@ -134,6 +134,7 @@ namespace AerolineaFrba.Compra
         private void irAComprar(bool esSoloPasaje)
         {
             FormDatosPasajeroEncomienda fdpe = new FormDatosPasajeroEncomienda();
+            DataGridViewRow filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
 
             fdpe.indicarPasajeOEncomienda(esSoloPasaje);
 
@@ -146,6 +147,8 @@ namespace AerolineaFrba.Compra
 
                 fdpe.setButacasEnCompra(butacasEnCompra);
             }
+
+            fdpe.setIDViaje(Convert.ToInt32(filaSeleccionada.Cells[0].FormattedValue.ToString()));
 
             fdpe.Show(this);
         }
