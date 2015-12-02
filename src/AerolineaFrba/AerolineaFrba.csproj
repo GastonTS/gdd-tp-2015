@@ -39,6 +39,7 @@
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
@@ -194,6 +195,7 @@
     </Compile>
     <Compile Include="Compra\ICargaDatosCliente.cs" />
     <Compile Include="Compra\IDatosCompra.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Consulta Millas\FormConsultaMillas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -402,7 +404,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
