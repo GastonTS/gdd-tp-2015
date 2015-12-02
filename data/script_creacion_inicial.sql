@@ -730,8 +730,8 @@ AS
 
 	set @id_fabricante = (select id_fabricante from ÑUFLO.Fabricante where @fabricante = nombre)
 	
-	INSERT INTO ÑUFLO.Aeronave(matricula, id_modelo, id_fabricante, id_tipo_servicio, capacidad_peso_encomiendas, fecha_de_alta)
-		values(@matricula, @id_modelo, @id_fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy ))
+	INSERT INTO ÑUFLO.Aeronave(matricula, id_modelo, id_fabricante, id_tipo_servicio, capacidad_peso_encomiendas, fecha_de_alta, cantidad_butacas)
+		values(@matricula, @id_modelo, @id_fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy, 0))
 ;
 GO
 
@@ -745,6 +745,10 @@ AS
 
 	INSERT INTO ÑUFLO.ButacaPorAvion(id_aeronave, numero_de_butaca, id_tipo_butaca)
 		values(@id_aeronave, @numeroButaca, @tipoButaca)
+		
+	UPDATE ÑUFLO.Aeronave
+		SET cantidad_butacas = cantidad_butacas + 1
+		
 ;
 GO
 
