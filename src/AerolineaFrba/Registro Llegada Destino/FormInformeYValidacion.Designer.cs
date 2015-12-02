@@ -29,10 +29,16 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblFabricante = new System.Windows.Forms.Label();
+            this.lblMatricula = new System.Windows.Forms.Label();
+            this.lblModelo = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.labelFabricante = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblCantButacas = new System.Windows.Forms.Label();
+            this.lblCapacEncomiendas = new System.Windows.Forms.Label();
+            this.lblTipoServicio = new System.Windows.Forms.Label();
             this.labelCantidadButacas = new System.Windows.Forms.Label();
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.labelCapacidadEncomiendas = new System.Windows.Forms.Label();
@@ -41,17 +47,10 @@
             this.labelDestino = new System.Windows.Forms.Label();
             this.labelFechaYHoraLlegada = new System.Windows.Forms.Label();
             this.groupBoxViajeRegistrado = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnAceptar = new System.Windows.Forms.Button();
-            this.lblFechaHora = new System.Windows.Forms.Label();
-            this.lblOrigen = new System.Windows.Forms.Label();
             this.lblDestino = new System.Windows.Forms.Label();
-            this.lblModelo = new System.Windows.Forms.Label();
-            this.lblMatricula = new System.Windows.Forms.Label();
-            this.lblFabricante = new System.Windows.Forms.Label();
-            this.lblTipoServicio = new System.Windows.Forms.Label();
-            this.lblCapacEncomiendas = new System.Windows.Forms.Label();
-            this.lblCantButacas = new System.Windows.Forms.Label();
+            this.lblOrigen = new System.Windows.Forms.Label();
+            this.lblFechaHora = new System.Windows.Forms.Label();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxViajeRegistrado.SuspendLayout();
@@ -71,6 +70,30 @@
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Identificación de Aeronave";
+            // 
+            // lblFabricante
+            // 
+            this.lblFabricante.AutoSize = true;
+            this.lblFabricante.Location = new System.Drawing.Point(175, 77);
+            this.lblFabricante.Name = "lblFabricante";
+            this.lblFabricante.Size = new System.Drawing.Size(0, 13);
+            this.lblFabricante.TabIndex = 6;
+            // 
+            // lblMatricula
+            // 
+            this.lblMatricula.AutoSize = true;
+            this.lblMatricula.Location = new System.Drawing.Point(175, 51);
+            this.lblMatricula.Name = "lblMatricula";
+            this.lblMatricula.Size = new System.Drawing.Size(0, 13);
+            this.lblMatricula.TabIndex = 5;
+            // 
+            // lblModelo
+            // 
+            this.lblModelo.AutoSize = true;
+            this.lblModelo.Location = new System.Drawing.Point(175, 25);
+            this.lblModelo.Name = "lblModelo";
+            this.lblModelo.Size = new System.Drawing.Size(0, 13);
+            this.lblModelo.TabIndex = 4;
             // 
             // label2
             // 
@@ -113,6 +136,30 @@
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Características de la Aeronave";
+            // 
+            // lblCantButacas
+            // 
+            this.lblCantButacas.AutoSize = true;
+            this.lblCantButacas.Location = new System.Drawing.Point(175, 82);
+            this.lblCantButacas.Name = "lblCantButacas";
+            this.lblCantButacas.Size = new System.Drawing.Size(0, 13);
+            this.lblCantButacas.TabIndex = 15;
+            // 
+            // lblCapacEncomiendas
+            // 
+            this.lblCapacEncomiendas.AutoSize = true;
+            this.lblCapacEncomiendas.Location = new System.Drawing.Point(175, 53);
+            this.lblCapacEncomiendas.Name = "lblCapacEncomiendas";
+            this.lblCapacEncomiendas.Size = new System.Drawing.Size(0, 13);
+            this.lblCapacEncomiendas.TabIndex = 14;
+            // 
+            // lblTipoServicio
+            // 
+            this.lblTipoServicio.AutoSize = true;
+            this.lblTipoServicio.Location = new System.Drawing.Point(175, 26);
+            this.lblTipoServicio.Name = "lblTipoServicio";
+            this.lblTipoServicio.Size = new System.Drawing.Size(0, 13);
+            this.lblTipoServicio.TabIndex = 7;
             // 
             // labelCantidadButacas
             // 
@@ -191,31 +238,13 @@
             this.groupBoxViajeRegistrado.TabStop = false;
             this.groupBoxViajeRegistrado.Text = "Viaje Registrado";
             // 
-            // label4
+            // lblDestino
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 422);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(334, 13);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "Esta aeronave a arriba a ... (Poner si era su destino programado o no)";
-            // 
-            // btnAceptar
-            // 
-            this.btnAceptar.Location = new System.Drawing.Point(134, 457);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
-            this.btnAceptar.TabIndex = 21;
-            this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
-            // 
-            // lblFechaHora
-            // 
-            this.lblFechaHora.AutoSize = true;
-            this.lblFechaHora.Location = new System.Drawing.Point(175, 25);
-            this.lblFechaHora.Name = "lblFechaHora";
-            this.lblFechaHora.Size = new System.Drawing.Size(0, 13);
-            this.lblFechaHora.TabIndex = 19;
+            this.lblDestino.AutoSize = true;
+            this.lblDestino.Location = new System.Drawing.Point(175, 80);
+            this.lblDestino.Name = "lblDestino";
+            this.lblDestino.Size = new System.Drawing.Size(0, 13);
+            this.lblDestino.TabIndex = 21;
             // 
             // lblOrigen
             // 
@@ -225,69 +254,30 @@
             this.lblOrigen.Size = new System.Drawing.Size(0, 13);
             this.lblOrigen.TabIndex = 20;
             // 
-            // lblDestino
+            // lblFechaHora
             // 
-            this.lblDestino.AutoSize = true;
-            this.lblDestino.Location = new System.Drawing.Point(175, 80);
-            this.lblDestino.Name = "lblDestino";
-            this.lblDestino.Size = new System.Drawing.Size(0, 13);
-            this.lblDestino.TabIndex = 21;
+            this.lblFechaHora.AutoSize = true;
+            this.lblFechaHora.Location = new System.Drawing.Point(175, 25);
+            this.lblFechaHora.Name = "lblFechaHora";
+            this.lblFechaHora.Size = new System.Drawing.Size(0, 13);
+            this.lblFechaHora.TabIndex = 19;
             // 
-            // lblModelo
+            // btnAceptar
             // 
-            this.lblModelo.AutoSize = true;
-            this.lblModelo.Location = new System.Drawing.Point(175, 25);
-            this.lblModelo.Name = "lblModelo";
-            this.lblModelo.Size = new System.Drawing.Size(0, 13);
-            this.lblModelo.TabIndex = 4;
-            // 
-            // lblMatricula
-            // 
-            this.lblMatricula.AutoSize = true;
-            this.lblMatricula.Location = new System.Drawing.Point(175, 51);
-            this.lblMatricula.Name = "lblMatricula";
-            this.lblMatricula.Size = new System.Drawing.Size(0, 13);
-            this.lblMatricula.TabIndex = 5;
-            // 
-            // lblFabricante
-            // 
-            this.lblFabricante.AutoSize = true;
-            this.lblFabricante.Location = new System.Drawing.Point(175, 77);
-            this.lblFabricante.Name = "lblFabricante";
-            this.lblFabricante.Size = new System.Drawing.Size(0, 13);
-            this.lblFabricante.TabIndex = 6;
-            // 
-            // lblTipoServicio
-            // 
-            this.lblTipoServicio.AutoSize = true;
-            this.lblTipoServicio.Location = new System.Drawing.Point(175, 26);
-            this.lblTipoServicio.Name = "lblTipoServicio";
-            this.lblTipoServicio.Size = new System.Drawing.Size(0, 13);
-            this.lblTipoServicio.TabIndex = 7;
-            // 
-            // lblCapacEncomiendas
-            // 
-            this.lblCapacEncomiendas.AutoSize = true;
-            this.lblCapacEncomiendas.Location = new System.Drawing.Point(175, 53);
-            this.lblCapacEncomiendas.Name = "lblCapacEncomiendas";
-            this.lblCapacEncomiendas.Size = new System.Drawing.Size(0, 13);
-            this.lblCapacEncomiendas.TabIndex = 14;
-            // 
-            // lblCantButacas
-            // 
-            this.lblCantButacas.AutoSize = true;
-            this.lblCantButacas.Location = new System.Drawing.Point(175, 82);
-            this.lblCantButacas.Name = "lblCantButacas";
-            this.lblCantButacas.Size = new System.Drawing.Size(0, 13);
-            this.lblCantButacas.TabIndex = 15;
+            this.btnAceptar.Location = new System.Drawing.Point(130, 409);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptar.TabIndex = 21;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // FormInformeYValidacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(361, 501);
+            this.ClientSize = new System.Drawing.Size(361, 444);
             this.Controls.Add(this.btnAceptar);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -320,7 +310,6 @@
         private System.Windows.Forms.Label labelDestino;
         private System.Windows.Forms.Label labelFechaYHoraLlegada;
         private System.Windows.Forms.GroupBox groupBoxViajeRegistrado;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label lblFechaHora;
         private System.Windows.Forms.Label lblDestino;

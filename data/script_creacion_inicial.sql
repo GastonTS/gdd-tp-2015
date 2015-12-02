@@ -1000,7 +1000,7 @@ AS
 	select a.id_aeronave, a.id_modelo, m.nombre Modelo, a.id_fabricante,f.nombre Fabricante, a.matricula Matricula, a.id_tipo_servicio,
 		   ts.tipo_servicio 'Tipo de servicio', a.fecha_de_alta 'Fecha de alta', a.capacidad_peso_encomiendas 'Capacidad peso encomiendas',
 		    a.cantidad_butacas 'Butacas totales', a.baja_vida_utill 'Baja vida util', a.baja_por_fuera_de_servicio 'Baja por fuera de servicio'
-	from ÑUFLO.Aeronave a JOIN ÑUFLO.Fabricante f ON a.id_aeronave = f.id_fabricante
+	from ÑUFLO.Aeronave a JOIN ÑUFLO.Fabricante f ON a.id_fabricante = f.id_fabricante
 						  JOIN ÑUFLO.Modelo m ON a.id_modelo = m.id_modelo
 						  JOIN ÑUFLO.TipoServicio ts ON a.id_tipo_servicio = ts.id_tipo_servicio 
 	where a.matricula = @matricula
@@ -1144,18 +1144,10 @@ AS
 		where id_viaje = @id_viaje
 
 	EXEC ÑUFLO.CargarMillasDe @id_viaje, @fecha_llegada
-
-	IF(@destino <> (select nombre
-						from ÑUFLO.Ciudad c, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r
-						where v.id_viaje = @id_viaje
-							and r.id_ruta = v.id_ruta
-							and c.id_ciudad = r.id_ciudad_destino))
-		THROW 60021, 'La Aeronave no arribo al destino esperado', 1
-
 ;
 GO
 
-CREATE PROCEDURE ÑUFLO.ValidarRegistroLlegada 
+CREATE PROCEDURE ÑUFLO.ValidarDestinoLlegada 
 @matricula nvarchar(255),
 @origen nvarchar(255),
 @destino nvarchar(255),
@@ -1172,9 +1164,6 @@ AS
 						and v.fecha_llegada is null
 						and v.fecha_salida < @fecha_llegada
 					order by v.fecha_salida)
-
-	IF(@id_viaje is null)
-		THROW 60019, 'Ningun viaje no registrado coincide con los datos ingresados', 1
 
 	IF(@destino <> (select nombre
 						from ÑUFLO.Ciudad c, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r
