@@ -33,6 +33,7 @@
             this.labelDNIComprador = new System.Windows.Forms.Label();
             this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.labelNumeroTarjeta = new System.Windows.Forms.Label();
             this.textBoxNumeroTarjeta = new System.Windows.Forms.TextBox();
             this.labelCodigoSeguridad = new System.Windows.Forms.Label();
@@ -45,7 +46,6 @@
             this.labelTipoTarjeta = new System.Windows.Forms.Label();
             this.btnFinalizarCarga = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -98,6 +98,16 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Medio de Pago y Comprador";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(244, 80);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(167, 30);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Ingresar Datos del Comprador";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // labelNumeroTarjeta
             // 
@@ -201,6 +211,7 @@
             this.btnFinalizarCarga.TabIndex = 11;
             this.btnFinalizarCarga.Text = "Finalizar Carga";
             this.btnFinalizarCarga.UseVisualStyleBackColor = true;
+            this.btnFinalizarCarga.Click += new System.EventHandler(this.btnFinalizarCarga_Click);
             // 
             // btnLimpiar
             // 
@@ -210,16 +221,6 @@
             this.btnLimpiar.TabIndex = 12;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(244, 80);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(167, 30);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Ingresar Datos del Comprador";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FormCompraEfectiva
             // 

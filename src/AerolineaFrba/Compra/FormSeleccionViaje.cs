@@ -12,7 +12,6 @@ namespace AerolineaFrba.Compra
 {
     public partial class FormSeleccionViaje : Form, IDatosCompra
     {
-        Compra compraActual;
         List<Pasaje> pasajes = new List<Pasaje>();
         List<Encomienda> encomiendas = new List<Encomienda>();
         decimal pesoDisponible = 0;
@@ -20,14 +19,12 @@ namespace AerolineaFrba.Compra
         public struct Compra
         {
             public int idViaje, dni, codigoDeCompra;
-            public decimal pesoDisponible;
 
-            public Compra(int idViaje, int dni, int codigoDeCompra, decimal pesoDisponible)
+            public Compra(int idViaje, int dni, int codigoDeCompra)
             {
                 this.idViaje = idViaje;
                 this.dni = dni;
                 this.codigoDeCompra = codigoDeCompra;
-                this.pesoDisponible = pesoDisponible;
             }
         }
 
@@ -156,8 +153,11 @@ namespace AerolineaFrba.Compra
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             FormCompraEfectiva fce = new FormCompraEfectiva();
+            
+            DataGridViewRow filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
 
-            fce.setCompras(compraActual, pasajes, encomiendas);
+            fce.setCompras(new Compra(Convert.ToInt32(filaSeleccionada.Cells[0].FormattedValue.ToString()),
+                -1, -1), pasajes, encomiendas);
 
             fce.Show();
         }

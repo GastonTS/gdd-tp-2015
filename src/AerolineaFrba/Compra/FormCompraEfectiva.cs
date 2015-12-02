@@ -46,5 +46,26 @@ namespace AerolineaFrba.Compra
             pasajesAComprar = pasajes;
             encomiendasAComprar = encomiendas;
         }
+
+        private void btnFinalizarCarga_Click(object sender, EventArgs e)
+        {
+            generarCompra();
+
+        }
+
+        private void generarCompra()
+        {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
+            camposValores.Add("id_viaje", new gdDataBase.ValorTipo(compraARealizar.idViaje.ToString(), SqlDbType.VarChar));
+            camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDNI.Text, SqlDbType.VarChar));
+            camposValores.Add("hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+
+            var dt = new gdDataBase().ExecAndGetData("ÑUFLO.CrearCompra", camposValores, null);
+
+            compraARealizar = new FormSeleccionViaje.Compra(compraARealizar.idViaje,
+                Convert.ToInt32(textBoxDNI.Text), Convert.ToInt32(dt.Rows[0].ItemArray[0]));
+        }
     }
 }
