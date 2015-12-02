@@ -1093,8 +1093,7 @@ AS
 		where b.id_tipo_butaca = tb.id_tipo_butaca
 ;
 GO
---DROP PROCEDURE ÑUFLO.RegistrarLlegada 
---GO
+
 CREATE PROCEDURE ÑUFLO.RegistrarLlegada 
 @matricula nvarchar(255),
 @origen nvarchar (255),
@@ -1544,6 +1543,7 @@ GO
 
 CREATE PROCEDURE ÑUFLO.CancelarPasajeOEncomienda
 @id int,
+@tipo nvarchar(64),
 @motivo nvarchar(255)
 AS	
 	DECLARE @pnr int
@@ -1552,7 +1552,9 @@ AS
 	
 	IF (EXISTS(select * from Pasaje p 
 				where p.id_pasaje = @id and
-					  p.cancelado = 0))
+					  p.cancelado = 0)
+		and (@tipo = 'Pasaje' 
+			 or @tipo = 'Ambos'))
 	BEGIN
 		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
@@ -1573,7 +1575,9 @@ AS
 	
 	IF (EXISTS(select * from Encomienda e 
 				where e.id_encomienda = @id and
-					  e.cancelado = 0) )
+					  e.cancelado = 0) 
+     	and (@tipo = 'Encomienda'
+			 or @tipo = 'Ambos'))
 	BEGIN
 		set @pnr =(select e.codigo_de_compra from Encomienda e where e.id_encomienda = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
