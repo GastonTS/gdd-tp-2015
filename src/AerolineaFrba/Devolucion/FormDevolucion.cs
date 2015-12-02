@@ -70,6 +70,7 @@ namespace AerolineaFrba.Devolucion
                 camposValores.Add("id",new gdDataBase.ValorTipo(fila.Cells["Codigo"].Value,SqlDbType.Int));
                 camposValores.Add("tipo", new gdDataBase.ValorTipo(fila.Cells["Tipo"].Value, SqlDbType.NVarChar));
                 camposValores.Add("motivo",new gdDataBase.ValorTipo(richTextBox1.Text,SqlDbType.NVarChar));
+                camposValores.Add("hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
                 new gdDataBase().Exec("ÑUFLO.CancelarPasajeOEncomienda",camposValores,new Dictionary<int,string>(),"Cancelación de "+fila.Cells["Tipo"].Value+" con código "+fila.Cells["Codigo"].Value+" fue exitosa.");
             }            
             dataGridView1.Rows.Clear();
