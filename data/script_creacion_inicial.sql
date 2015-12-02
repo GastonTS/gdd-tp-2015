@@ -1603,14 +1603,15 @@ CREATE PROCEDURE ÑUFLO.CancelarRutaAerea
 AS
 
 	DECLARE @id int
+	DECLARE @Tipo nvarchar(64)
 
 	DECLARE CRutaAerea CURSOR 
-		FOR (select p.id_pasaje id
+		FOR (select p.id_pasaje id, 'Pasaje' as tipo
 				from ÑUFLO.Compra c, ÑUFLO.Pasaje p
 				where c.id_viaje = @id_ruta
 					and c.codigo_de_compra = p.codigo_de_compra
 			 UNION
-			 select e.id_encomienda id
+			 select e.id_encomienda id, 'Encomienda' as tipo
 				from ÑUFLO.Compra c, ÑUFLO.Encomienda e
 				where c.id_viaje = @id_ruta
 					and c.codigo_de_compra = e.codigo_de_compra)
@@ -1618,21 +1619,21 @@ AS
 	
 
 	OPEN CRutaAerea
-	FETCH CRutaAerea INTO @id
+	FETCH CRutaAerea INTO @id, @tipo
 
 	WHILE (@@FETCH_STATUS = 0)
 	BEGIN	
 
-	exec ÑUFLO.CancelarPasajeOEncomienda  @id, 'Baja Ruta Aerea'
+	exec ÑUFLO.CancelarPasajeOEncomienda  @id, @tipo, 'Baja Ruta Aerea'
 
-		FETCH CRutaAerea INTO @id
+		FETCH CRutaAerea INTO @id, @tipo
 	END
 
 	CLOSE CRutaAerea
 	DEALLOCATE CRutaAerea
 ;
 GO
---		EXEC ÑUFLO.CancelarEncomiendasRutaAerea
+
 
 /*Compra*/
 CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasDe
