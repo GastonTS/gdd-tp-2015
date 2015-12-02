@@ -60,8 +60,13 @@ namespace AerolineaFrba.Compra
 
         public void setPasaje(int dni, int numeroDeButaca) 
         {
-            pasajes.Add(new Pasaje(-1, dni, numeroDeButaca));
-            listBoxPasajesYEncomiendasComprados.Items.Add("Pasaje -> DNI:" + dni + ". Butaca n°: " + numeroDeButaca);
+            if (pasajes.Any(unPasaje => unPasaje.dni == dni))
+                MessageBox.Show("Esta persona ya tiene asignado un pasaje en este viaje");
+            else
+            {
+                pasajes.Add(new Pasaje(-1, dni, numeroDeButaca));
+                listBoxPasajesYEncomiendasComprados.Items.Add("Pasaje -> DNI:" + dni + ". Butaca n°: " + numeroDeButaca);
+            }
         }
 
         public void setEncomienda(int dni, decimal pesoEncomienda)
