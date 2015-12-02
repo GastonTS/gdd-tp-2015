@@ -1094,6 +1094,40 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.CargarMillasDe
+@id_viaje int,
+@fecha_obtencion datetime
+AS
+	DECLARE @id_cliente int, @id_pasaje int, @cantidad int
+
+	DECLARE CClientes CURSOR 
+		FOR (select p.id_cliente, p.id_pasaje, convert(integer, p.precio/10)
+				from ÑUFLO.Pasaje p, ÑUFLO.Compra c
+				where @id_viaje = c.id_viaje
+					and p.codigo_de_compra = c.codigo_de_compra
+			UNION ALL
+			select e.id_cliente, e.id_encomienda, convert(integer, e.precio/10)
+				from ÑUFLO.Encomienda e, ÑUFLO.Compra c
+				where @id_viaje = c.id_viaje
+					and e.codigo_de_compra = c.codigo_de_compra)
+
+	OPEN CClientes
+	FETCH CCLientes INTO @id_cliente, @id_pasaje, @cantidad
+
+	WHILE(@@FETCH_STATUS = 0)
+		BEGIN
+		
+		INSERT INTO ÑUFLO.Milla(id_cliente, fecha_de_obtencion, cantidad, cantidad_gastada, expirado)
+			values(@id_cliente, @fecha_obtencion, @cantidad, 0, 0)
+
+		FETCH CCLientes INTO @id_cliente, @id_pasaje, @cantidad
+		END
+
+	CLOSE CClientes
+	DEALLOCATE CClientes
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.RegistrarLlegada 
 @matricula nvarchar(255),
 @origen nvarchar (255),
@@ -1128,40 +1162,6 @@ AS
 							and c.id_ciudad = r.id_ciudad_destino))
 		THROW 60021, 'La Aeronave no arribo al destino esperado', 1
 
-;
-GO
-
-CREATE PROCEDURE ÑUFLO.CargarMillasDe
-@id_viaje int,
-@fecha_obtencion datetime
-AS
-	DECLARE @id_cliente int, @id_pasaje int, @cantidad int
-
-	DECLARE CClientes CURSOR 
-		FOR (select p.id_cliente, p.id_pasaje, convert(integer, p.precio/10)
-				from ÑUFLO.Pasaje p, ÑUFLO.Compra c
-				where @id_viaje = c.id_viaje
-					and p.codigo_de_compra = c.codigo_de_compra
-			UNION ALL
-			select e.id_cliente, e.id_encomienda, convert(integer, e.precio/10)
-				from ÑUFLO.Encomienda e, ÑUFLO.Compra c
-				where @id_viaje = c.id_viaje
-					and e.codigo_de_compra = c.codigo_de_compra)
-
-	OPEN CClientes
-	FETCH CCLientes INTO @id_cliente, @id_pasaje, @cantidad
-
-	WHILE(@@FETCH_STATUS = 0)
-		BEGIN
-		
-		INSERT INTO ÑUFLO.Milla(id_cliente, fecha_de_obtencion, cantidad, cantidad_gastada, expirado)
-			values(@id_cliente, @fecha_obtencion, @cantidad, 0, 0)
-
-		FETCH CCLientes INTO @id_cliente, @id_pasaje, @cantidad
-		END
-
-	CLOSE CClientes
-	DEALLOCATE CClientes
 ;
 GO
 
@@ -1213,6 +1213,21 @@ AS
 	SELECT top 1 codigo_de_compra FROM ÑUFLO.Compra 
 		where id_viaje = @id_viaje and id_cliente = (select top 1 id_cliente from ÑUFLO.Cliente where dni = @dni)
 			and fecha_de_compra = @hoy
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.ClienteNoEstaEnVuelo
+@dni numeric(18,0),
+@fecha_vuelo datetime,
+@fecha_estimada datetime
+AS
+	IF(EXISTS (select p.id_cliente
+					from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
+					where (v.fecha_salida between @fecha_vuelo and @fecha_estimada
+						or v.fecha_llegada_estimada between @fecha_vuelo and @fecha_estimada)
+						and v.id_viaje = c.id_viaje
+						and c.codigo_de_compra = p.codigo_de_compra))
+		THROW 60034, 'El pasajero se encuentra volando en esas fechas', 1
 ;
 GO
 
