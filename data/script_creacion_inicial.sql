@@ -1553,8 +1553,7 @@ AS
 	IF (EXISTS(select * from Pasaje p 
 				where p.id_pasaje = @id and
 					  p.cancelado = 0)
-		and (@tipo = 'Pasaje' 
-			 or @tipo = 'Ambos'))
+		and @tipo = 'Pasaje')
 	BEGIN
 		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
@@ -1576,8 +1575,7 @@ AS
 	IF (EXISTS(select * from Encomienda e 
 				where e.id_encomienda = @id and
 					  e.cancelado = 0) 
-     	and (@tipo = 'Encomienda'
-			 or @tipo = 'Ambos'))
+     	and @tipo = 'Encomienda')
 	BEGIN
 		set @pnr =(select e.codigo_de_compra from Encomienda e where e.id_encomienda = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
