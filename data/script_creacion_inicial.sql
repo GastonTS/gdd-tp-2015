@@ -1786,11 +1786,19 @@ CREATE PROCEDURE ÑUFLO.TOP5DestinoAeronavesVacias
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
-	select top 5 Destino, COUNT(*) Aeronaves_Vacias
-		from ÑUFLO.DetalleAeronavesVacias
-		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
-		group by Destino
-		order by COUNT(*) desc
+	select top 5 c.nombre, (SUM(a.cantidad_butacas)-SUM(usados)) 'Butacas libres'
+		from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad c,
+			(select v.id_viaje, COUNT(p.id_pasaje) usados
+				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
+				where v.id_viaje = c.id_viaje
+					and c.codigo_de_compra = p.codigo_de_compra
+				group by v.id_viaje) bm
+		where c.id_ciudad = r.id_ciudad_destino
+			and r.id_ruta = v.id_ruta
+			and v.id_aeronave = a.id_aeronave
+			and v.id_viaje = bm.id_viaje
+		group by c.nombre
+		order by 2 desc
 ;
 GO
 
