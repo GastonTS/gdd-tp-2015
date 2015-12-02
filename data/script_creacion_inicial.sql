@@ -1094,6 +1094,40 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.CargarMillasDe
+@id_viaje int,
+@fecha_obtencion datetime
+AS
+	DECLARE @id_cliente int, @id_pasaje int, @cantidad int
+
+	DECLARE CClientes CURSOR 
+		FOR (select p.id_cliente, p.id_pasaje, convert(integer, p.precio/10)
+				from ÑUFLO.Pasaje p, ÑUFLO.Compra c
+				where @id_viaje = c.id_viaje
+					and p.codigo_de_compra = c.codigo_de_compra
+			UNION ALL
+			select e.id_cliente, e.id_encomienda, convert(integer, e.precio/10)
+				from ÑUFLO.Encomienda e, ÑUFLO.Compra c
+				where @id_viaje = c.id_viaje
+					and e.codigo_de_compra = c.codigo_de_compra)
+
+	OPEN CClientes
+	FETCH CCLientes INTO @id_cliente, @id_pasaje, @cantidad
+
+	WHILE(@@FETCH_STATUS = 0)
+		BEGIN
+		
+		INSERT INTO ÑUFLO.Milla(id_cliente, fecha_de_obtencion, cantidad, cantidad_gastada, expirado)
+			values(@id_cliente, @fecha_obtencion, @cantidad, 0, 0)
+
+		FETCH CCLientes INTO @id_cliente, @id_pasaje, @cantidad
+		END
+
+	CLOSE CClientes
+	DEALLOCATE CClientes
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.RegistrarLlegada 
 @matricula nvarchar(255),
 @origen nvarchar (255),
@@ -1128,40 +1162,6 @@ AS
 							and c.id_ciudad = r.id_ciudad_destino))
 		THROW 60021, 'La Aeronave no arribo al destino esperado', 1
 
-;
-GO
-
-CREATE PROCEDURE ÑUFLO.CargarMillasDe
-@id_viaje int,
-@fecha_obtencion datetime
-AS
-	DECLARE @id_cliente int, @id_pasaje int, @cantidad int
-
-	DECLARE CClientes CURSOR 
-		FOR (select p.id_cliente, p.id_pasaje, convert(integer, p.precio/10)
-				from ÑUFLO.Pasaje p, ÑUFLO.Compra c
-				where @id_viaje = c.id_viaje
-					and p.codigo_de_compra = c.codigo_de_compra
-			UNION ALL
-			select e.id_cliente, e.id_encomienda, convert(integer, e.precio/10)
-				from ÑUFLO.Encomienda e, ÑUFLO.Compra c
-				where @id_viaje = c.id_viaje
-					and e.codigo_de_compra = c.codigo_de_compra)
-
-	OPEN CClientes
-	FETCH CCLientes INTO @id_cliente, @id_pasaje, @cantidad
-
-	WHILE(@@FETCH_STATUS = 0)
-		BEGIN
-		
-		INSERT INTO ÑUFLO.Milla(id_cliente, fecha_de_obtencion, cantidad, cantidad_gastada, expirado)
-			values(@id_cliente, @fecha_obtencion, @cantidad, 0, 0)
-
-		FETCH CCLientes INTO @id_cliente, @id_pasaje, @cantidad
-		END
-
-	CLOSE CClientes
-	DEALLOCATE CClientes
 ;
 GO
 
