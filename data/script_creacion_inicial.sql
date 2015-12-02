@@ -1093,8 +1093,7 @@ AS
 		where b.id_tipo_butaca = tb.id_tipo_butaca
 ;
 GO
---DROP PROCEDURE ÑUFLO.RegistrarLlegada 
---GO
+
 CREATE PROCEDURE ÑUFLO.RegistrarLlegada 
 @matricula nvarchar(255),
 @origen nvarchar (255),
@@ -1547,6 +1546,7 @@ GO
 
 CREATE PROCEDURE ÑUFLO.CancelarPasajeOEncomienda
 @id int,
+@tipo nvarchar(64),
 @motivo nvarchar(255)
 AS	
 	DECLARE @pnr int
@@ -1555,7 +1555,8 @@ AS
 	
 	IF (EXISTS(select * from Pasaje p 
 				where p.id_pasaje = @id and
-					  p.cancelado = 0))
+					  p.cancelado = 0)
+		and @tipo = 'Pasaje')
 	BEGIN
 		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
@@ -1576,7 +1577,8 @@ AS
 	
 	IF (EXISTS(select * from Encomienda e 
 				where e.id_encomienda = @id and
-					  e.cancelado = 0) )
+					  e.cancelado = 0) 
+     	and @tipo = 'Encomienda')
 	BEGIN
 		set @pnr =(select e.codigo_de_compra from Encomienda e where e.id_encomienda = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
@@ -1602,14 +1604,15 @@ CREATE PROCEDURE ÑUFLO.CancelarRutaAerea
 AS
 
 	DECLARE @id int
+	DECLARE @Tipo nvarchar(64)
 
 	DECLARE CRutaAerea CURSOR 
-		FOR (select p.id_pasaje id
+		FOR (select p.id_pasaje id, 'Pasaje' as tipo
 				from ÑUFLO.Compra c, ÑUFLO.Pasaje p
 				where c.id_viaje = @id_ruta
 					and c.codigo_de_compra = p.codigo_de_compra
 			 UNION
-			 select e.id_encomienda id
+			 select e.id_encomienda id, 'Encomienda' as tipo
 				from ÑUFLO.Compra c, ÑUFLO.Encomienda e
 				where c.id_viaje = @id_ruta
 					and c.codigo_de_compra = e.codigo_de_compra)
@@ -1617,21 +1620,21 @@ AS
 	
 
 	OPEN CRutaAerea
-	FETCH CRutaAerea INTO @id
+	FETCH CRutaAerea INTO @id, @tipo
 
 	WHILE (@@FETCH_STATUS = 0)
 	BEGIN	
 
-	exec ÑUFLO.CancelarPasajeOEncomienda  @id, 'Baja Ruta Aerea'
+	exec ÑUFLO.CancelarPasajeOEncomienda  @id, @tipo, 'Baja Ruta Aerea'
 
-		FETCH CRutaAerea INTO @id
+		FETCH CRutaAerea INTO @id, @tipo
 	END
 
 	CLOSE CRutaAerea
 	DEALLOCATE CRutaAerea
 ;
 GO
---		EXEC ÑUFLO.CancelarEncomiendasRutaAerea
+
 
 /*Compra*/
 CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasDe
