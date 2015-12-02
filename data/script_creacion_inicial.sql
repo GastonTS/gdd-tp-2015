@@ -925,7 +925,7 @@ GO
 CREATE PROCEDURE ÑUFLO.CancelarPasajesYEncomiendasDe
 @id_aeronave int,
 @fecha_hoy nvarchar(255),
-@fecha_fin nvarchar(255)
+@fecha_fin nvarchar(255) = null
 AS
 
 	EXEC ÑUFLO.CancelarPasajesDe @id_aeronave, @fecha_hoy, @fecha_fin
