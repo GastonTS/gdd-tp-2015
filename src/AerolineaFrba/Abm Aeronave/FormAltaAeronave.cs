@@ -93,17 +93,6 @@ namespace AerolineaFrba.Abm_Aeronave
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (!esModificacion)
-            {
-                darDeAltaAeronave();
-                agregarButacas();
-            }
-            else
-                actualizarAeronave();
-        }
-
         private void darDeAltaAeronave()
         {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
@@ -161,5 +150,15 @@ namespace AerolineaFrba.Abm_Aeronave
             }
         }
 
+        protected override void guardarPosta()
+        {
+            if (!esModificacion)
+            {
+                darDeAltaAeronave();
+                agregarButacas();
+            }
+            else
+                actualizarAeronave();
+        }
     }
 }

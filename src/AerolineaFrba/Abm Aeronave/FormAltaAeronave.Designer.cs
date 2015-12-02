@@ -51,7 +51,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -252,23 +251,12 @@ namespace AerolineaFrba.Abm_Aeronave
             this.gD2C2015DataSet.DataSetName = "GD2C2015DataSet";
             this.gD2C2015DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(301, 451);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FormAltaAeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(533, 517);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.guardar1);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox1);
@@ -310,6 +298,5 @@ namespace AerolineaFrba.Abm_Aeronave
         private Abm.TextBoxNumeros textBoxCantidadButacas;
         private System.Windows.Forms.BindingSource bindingSourceTipoServicio;
         private GD2C2015DataSet gD2C2015DataSet;
-        private System.Windows.Forms.Button button1;
     }
 }
