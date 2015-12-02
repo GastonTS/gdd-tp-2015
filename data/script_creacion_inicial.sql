@@ -730,8 +730,8 @@ AS
 
 	set @id_fabricante = (select id_fabricante from ÑUFLO.Fabricante where @fabricante = nombre)
 	
-	INSERT INTO ÑUFLO.Aeronave(matricula, id_modelo, id_fabricante, id_tipo_servicio, capacidad_peso_encomiendas, fecha_de_alta)
-		values(@matricula, @id_modelo, @id_fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy ))
+	INSERT INTO ÑUFLO.Aeronave(matricula, id_modelo, id_fabricante, id_tipo_servicio, capacidad_peso_encomiendas, fecha_de_alta, cantidad_butacas)
+		values(@matricula, @id_modelo, @id_fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy, 0))
 ;
 GO
 
@@ -745,6 +745,10 @@ AS
 
 	INSERT INTO ÑUFLO.ButacaPorAvion(id_aeronave, numero_de_butaca, id_tipo_butaca)
 		values(@id_aeronave, @numeroButaca, @tipoButaca)
+		
+	UPDATE ÑUFLO.Aeronave
+		SET cantidad_butacas = cantidad_butacas + 1
+		
 ;
 GO
 
@@ -1781,11 +1785,13 @@ AS
 				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
 				where v.id_viaje = c.id_viaje
 					and c.codigo_de_compra = p.codigo_de_compra
+					and p.cancelado = 0
 				group by v.id_viaje) bm
 		where c.id_ciudad = r.id_ciudad_destino
 			and r.id_ruta = v.id_ruta
 			and v.id_aeronave = a.id_aeronave
 			and v.id_viaje = bm.id_viaje
+			and v.fecha_llegada between @fecha_inicio and @fecha_fin
 		group by c.nombre
 		order by 2 desc
 ;
