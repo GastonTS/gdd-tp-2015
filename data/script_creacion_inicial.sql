@@ -1106,7 +1106,6 @@ AS
 					from ÑUFLO.Viaje v JOIN ÑUFLO.Aeronave a ON v.id_aeronave = a.id_aeronave
 									   JOIN ÑUFLO.RutaAerea r ON r.id_ruta = v.id_ruta
 									   JOIN ÑUFLO.Ciudad c1 ON r.id_ciudad_origen = c1.id_ciudad
-																
 									   JOIN ÑUFLO.Ciudad c2 ON r.id_ciudad_destino = c2.id_ciudad
 					where a.matricula = @matricula
 						  and v.fecha_llegada IS NULL
@@ -1788,14 +1787,14 @@ CREATE PROCEDURE ÑUFLO.TOP5DestinoCancelaciones
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
-	select top 5 p.Destino, COUNT(*) Cancelaciones
+	select top 5 p.Destino, COUNT(pc.id_pasaje) Cancelaciones
 		from ÑUFLO.DetallePasajes p,
-			ÑUFLO.Cancelacion c,
 			ÑUFLO.PasajePorCancelacion pc
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
 			and p.pasaje = pc.id_pasaje
-			and p.Codigo_de_Compra = c.codigo_de_compra
 		group by p.Destino
+		order by COUNT(pc.id_pasaje) desc 
+	
 ;
 GO
 
