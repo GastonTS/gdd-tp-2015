@@ -15,11 +15,12 @@ namespace AerolineaFrba.Compra
         Compra compraActual;
         List<Pasaje> pasajes = new List<Pasaje>();
         List<Encomienda> encomiendas = new List<Encomienda>();
+        decimal pesoDisponible = 0;
 
         public struct Compra
         {
-            int idViaje, dni, codigoDeCompra;
-            decimal pesoDisponible;
+            public int idViaje, dni, codigoDeCompra;
+            public decimal pesoDisponible;
 
             public Compra(int idViaje, int dni, int codigoDeCompra, decimal pesoDisponible)
             {
@@ -32,29 +33,26 @@ namespace AerolineaFrba.Compra
 
         public struct Pasaje
         {
-            int codigoDeCompra, dni, numeroDeButaca;
-            decimal precio;
+            public int codigoDeCompra, dni, numeroDeButaca;
 
-            public Pasaje(int codigoDeCompra, int dni, int numeroDeButaca, decimal precio)
+            public Pasaje(int codigoDeCompra, int dni, int numeroDeButaca)
             {
                 this.codigoDeCompra = codigoDeCompra;
                 this.dni = dni;
                 this.numeroDeButaca = numeroDeButaca;
-                this.precio = precio;
             }
         }
 
         public struct Encomienda
         {
-            int codigoDeCompra, dni;
-            decimal pesoEncomienda, precio;
+            public int codigoDeCompra, dni;
+            public decimal pesoEncomienda;
 
-            public Encomienda(int codigoDeCompra, int dni, decimal pesoEncomienda, decimal precio)
+            public Encomienda(int codigoDeCompra, int dni, decimal pesoEncomienda)
             {
                 this.codigoDeCompra = codigoDeCompra;
                 this.dni = dni;
                 this.pesoEncomienda = pesoEncomienda;
-                this.precio = precio;
             }
         }
 
@@ -65,12 +63,20 @@ namespace AerolineaFrba.Compra
 
         public void setPasaje(int dni, int numeroDeButaca) 
         {
-
+            pasajes.Add(new Pasaje(-1, dni, numeroDeButaca));
+            listBoxPasajesYEncomiendasComprados.Items.Add("Pasaje -> DNI:" + dni + ". Butaca n°: " + numeroDeButaca);
         }
 
         public void setEncomienda(int dni, decimal pesoEncomienda)
         {
-
+            if (pesoDisponible - pesoEncomienda < 0)
+                MessageBox.Show("El peso encomendado es mayor al disponible en la aeronave");
+            else
+            {
+                pesoDisponible = pesoDisponible - pesoEncomienda;
+                encomiendas.Add(new Encomienda(-1, dni, pesoEncomienda));
+                listBoxPasajesYEncomiendasComprados.Items.Add("Encomienda -> DNI:" + dni + ". Peso: " + pesoEncomienda);
+            }
         }
 
         private void btnVerDisponibles_Click(object sender, EventArgs e)
@@ -108,7 +114,12 @@ namespace AerolineaFrba.Compra
         private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.SelectedRows.Count == 0)
+            {
+                DataGridViewRow filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
+                pesoDisponible = Convert.ToInt32(filaSeleccionada.Cells[5].FormattedValue.ToString());
+
                 HabilitacionDeCompra(true);
+            }
             else
                 HabilitacionDeCompra(false);
         }
@@ -128,6 +139,17 @@ namespace AerolineaFrba.Compra
             FormDatosPasajeroEncomienda fdpe = new FormDatosPasajeroEncomienda();
 
             fdpe.indicarPasajeOEncomienda(esSoloPasaje);
+
+            if(esSoloPasaje)
+            {
+                List<int> butacasEnCompra = new List<int>();
+
+                for (int i = 0; i < pasajes.Count; i++)
+                    butacasEnCompra.Add(pasajes[i].numeroDeButaca);
+
+                fdpe.setButacasEnCompra(butacasEnCompra);
+            }
+
             fdpe.Show(this);
         }
     }

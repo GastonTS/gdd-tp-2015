@@ -189,9 +189,9 @@
             // listBoxPasajesYEncomiendasComprados
             // 
             this.listBoxPasajesYEncomiendasComprados.FormattingEnabled = true;
-            this.listBoxPasajesYEncomiendasComprados.Location = new System.Drawing.Point(349, 19);
+            this.listBoxPasajesYEncomiendasComprados.Location = new System.Drawing.Point(278, 19);
             this.listBoxPasajesYEncomiendasComprados.Name = "listBoxPasajesYEncomiendasComprados";
-            this.listBoxPasajesYEncomiendasComprados.Size = new System.Drawing.Size(199, 108);
+            this.listBoxPasajesYEncomiendasComprados.Size = new System.Drawing.Size(270, 108);
             this.listBoxPasajesYEncomiendasComprados.TabIndex = 18;
             // 
             // button3

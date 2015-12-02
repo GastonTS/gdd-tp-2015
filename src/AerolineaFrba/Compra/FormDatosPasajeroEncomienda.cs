@@ -14,6 +14,7 @@ namespace AerolineaFrba.Compra
     {
         bool soloPasaje = true;
         int idViaje = 16, numeroDeButacaSeleccionada;
+        List<int> butacasEnCompra = new List<int>();
 
         public FormDatosPasajeroEncomienda()
         {
@@ -63,7 +64,17 @@ namespace AerolineaFrba.Compra
                     listBoxEleccionButacaVentanilla.Items.Add(fila.GetValue(0).ToString());
             }
 
+            eliminarEnCompra(listBoxEleccionButacaPasillo);
+            eliminarEnCompra(listBoxEleccionButacaVentanilla);
+        }
 
+        private void eliminarEnCompra(ListBox listadoButacas)
+        {
+            for (int i = 0; i < listadoButacas.Items.Count; i++)
+            {
+                if (butacasEnCompra.Contains(Convert.ToInt32(listadoButacas.Items[i])))
+                    listadoButacas.Items.RemoveAt(i);
+            }
         }
 
         private void textBoxCantidadAEncomendar_TextChanged(object sender, EventArgs e)
@@ -104,6 +115,11 @@ namespace AerolineaFrba.Compra
         public void setDNI(String dni)
         {
             textBoxDNI.Text = dni;
+        }
+
+        public void setButacasEnCompra(List<int> butacasEnCompra)
+        {
+            this.butacasEnCompra = butacasEnCompra;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
