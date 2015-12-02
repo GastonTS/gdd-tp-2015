@@ -110,7 +110,14 @@ namespace AerolineaFrba.Compra
 
         private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count == 0)
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                DataGridViewRow filaSeleccionada = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index];
+                pesoDisponible = Convert.ToInt32(filaSeleccionada.Cells[5].FormattedValue.ToString());
+
+                HabilitacionDeCompra(true);
+            }
+            else if (dataGridView1.Rows.Count == 1)
             {
                 DataGridViewRow filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
                 pesoDisponible = Convert.ToInt32(filaSeleccionada.Cells[5].FormattedValue.ToString());
@@ -134,11 +141,16 @@ namespace AerolineaFrba.Compra
         private void irAComprar(bool esSoloPasaje)
         {
             FormDatosPasajeroEncomienda fdpe = new FormDatosPasajeroEncomienda();
-            DataGridViewRow filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
+            DataGridViewRow filaSeleccionada;
+
+            if (dataGridView1.Rows.Count > 1)
+                filaSeleccionada = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index];
+            else
+                filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
 
             fdpe.indicarPasajeOEncomienda(esSoloPasaje);
 
-            if(esSoloPasaje)
+            if (esSoloPasaje)
             {
                 List<int> butacasEnCompra = new List<int>();
 
@@ -156,13 +168,25 @@ namespace AerolineaFrba.Compra
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             FormCompraEfectiva fce = new FormCompraEfectiva();
-            
-            DataGridViewRow filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
+
+            DataGridViewRow filaSeleccionada;
+
+            if (dataGridView1.Rows.Count > 1)
+                filaSeleccionada = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index];
+            else
+                filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
 
             fce.setCompras(new Compra(Convert.ToInt32(filaSeleccionada.Cells[0].FormattedValue.ToString()),
                 -1, -1), pasajes, encomiendas);
 
             fce.Show();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            dateTimePicker1.ResetText();
+            comboBoxDestino.SelectedIndex = 0;
+            comboBoxOrigen.SelectedIndex = 0;
         }
     }
 }
