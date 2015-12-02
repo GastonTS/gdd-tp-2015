@@ -15,7 +15,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         public FormRegistrarLlegadas()
         {
             InitializeComponent();
-            var ds = new gdDataBase().ExecAndGetDataSet("CiudadTipoServicio").Tables[0];
+            var ds = new gdDataBase().ExecAndGetDataSet("ÑUFLO.CiudadTipoServicio").Tables[0];
             origenBindingSource.DataSource = ds;
             destinoBindingSource.DataSource = ds;
             comboBoxOrigen.DisplayMember = "Nombre";
@@ -38,11 +38,11 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                        if (ValidateChildren())
             {
                 var camposValores = gdDataBase.newParameters();
-                camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula, SqlDbType.NVarChar));
+                camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.NVarChar));
                 camposValores.Add("origen", new gdDataBase.ValorTipo(comboBoxOrigen.SelectedValue, SqlDbType.NVarChar));
                 camposValores.Add("destino", new gdDataBase.ValorTipo(comboBoxDestino.SelectedValue, SqlDbType.NVarChar));
                 camposValores.Add("fecha_llegada", new gdDataBase.ValorTipo(fechaCoso.Value, SqlDbType.DateTime));
-                if (new gdDataBase().Exec("ÑUFLO.ValidarRegistroLlegada", camposValores, new Dictionary<int, string>()))
+                if (!(new gdDataBase().Exec("ÑUFLO.ValidarRegistroLlegada", camposValores, new Dictionary<int, string>()).huboError()))
                 {
                     var informeYValidacion = new FormInformeYValidacion();
                     informeYValidacion.setAeronave(textBoxMatricula.Text);
@@ -52,6 +52,16 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                     informeYValidacion.Show();                    
                 }
             }
+        }
+
+        private void btnLimpiar_Click_1(object sender, EventArgs e)
+        {
+         
+            
+            textBoxMatricula.Clear();
+            comboBoxDestino.SelectedIndex = 0;
+            comboBoxOrigen.SelectedIndex = 0;
+            fechaCoso.ResetText();
         }
     }
 }

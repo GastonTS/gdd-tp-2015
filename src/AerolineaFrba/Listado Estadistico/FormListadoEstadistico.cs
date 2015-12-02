@@ -27,6 +27,7 @@ namespace AerolineaFrba.Listado_Estadistico
             mapIndicesNombresTop5.Add(2,"[ÑUFLO].TOP5DestinoAeronavesVacias");
             mapIndicesNombresTop5.Add(3,"[ÑUFLO].TOP5DestinoCancelaciones");
             mapIndicesNombresTop5.Add(4, "[ÑUFLO].TOP5MillasDeClientes");
+            comboBoxListado.SelectedIndex = 0;
         }
 
         private void toolStripContainer1_TopToolStripPanel_Click(object sender, EventArgs e)

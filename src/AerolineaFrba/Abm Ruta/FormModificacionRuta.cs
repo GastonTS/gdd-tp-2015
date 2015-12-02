@@ -25,7 +25,7 @@ namespace AerolineaFrba.Abm_Ruta
         private void FormModificacionRuta_Load(object sender, EventArgs e)
         {
 
-            var ds = new gdDataBase().ExecAndGetDataSet("CiudadTipoServicio");
+            var ds = new gdDataBase().ExecAndGetDataSet("ÑUFLO.CiudadTipoServicio");
 
             DataTable ciudades = ds.Tables[0];
             var filaExtraCiudad = ciudades.NewRow();
@@ -51,7 +51,7 @@ namespace AerolineaFrba.Abm_Ruta
             
             
             dataGridView1.AutoGenerateColumns = true; 
-            rutaAereaBindingSource.DataSource = new gdDataBase().ExecAndGetDataSet("FiltrosModificacionRutaAerea").Tables[0];
+            rutaAereaBindingSource.DataSource = new gdDataBase().ExecAndGetDataSet("ÑUFLO.FiltrosModificacionRutaAerea").Tables[0];
             dataGridView1.AutoGenerateColumns = false;
 
             dataGridView1.Columns["id ruta"].Visible = false;
@@ -104,6 +104,7 @@ namespace AerolineaFrba.Abm_Ruta
                     var camposValores = gdDataBase.newParameters();
                     camposValores.Add("id_ruta",new gdDataBase.ValorTipo(senderGrid.CurrentRow.Cells["id ruta"].Value,SqlDbType.Int));
                     new gdDataBase().Exec("ÑUFLO.DeleteRutaAerea",camposValores,new Dictionary<int,String>(),"El registro ha sido eliminado correctamente");
+                    consultarConFiltro();//dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
                 }
 
                 else if (index == senderGrid.Columns["Modificar"].Index)
