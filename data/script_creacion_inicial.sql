@@ -1224,6 +1224,9 @@ AS
 	INSERT INTO ÑUFLO.Compra(id_viaje, id_cliente, fecha_de_compra)
 		values(@id_viaje, (select top 1 id_cliente from ÑUFLO.Cliente where dni = @dni), @hoy)
 
+	SELECT top 1 codigo_de_compra FROM ÑUFLO.Compra 
+		where id_viaje = @id_viaje and id_cliente = (select top 1 id_cliente from ÑUFLO.Cliente where dni = @dni)
+			and fecha_de_compra = @hoy
 ;
 GO
 
