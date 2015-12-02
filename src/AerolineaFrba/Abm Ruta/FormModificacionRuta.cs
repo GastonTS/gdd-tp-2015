@@ -103,6 +103,7 @@ namespace AerolineaFrba.Abm_Ruta
                 {
                     var camposValores = gdDataBase.newParameters();
                     camposValores.Add("id_ruta",new gdDataBase.ValorTipo(senderGrid.CurrentRow.Cells["id ruta"].Value,SqlDbType.Int));
+                    camposValores.Add("hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
                     new gdDataBase().Exec("ÑUFLO.DeleteRutaAerea",camposValores,new Dictionary<int,String>(),"El registro ha sido eliminado correctamente");
                     consultarConFiltro();//dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
                 }
