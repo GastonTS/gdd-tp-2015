@@ -433,6 +433,7 @@ CREATE TABLE #CompraPasaje (
 	id_viaje int
 	)
 GO
+
 CREATE TABLE #CompraEncomienda (
 	codigo_compra int IDENTITY(1,1),
 	paquete_kg numeric(18,0),
@@ -510,7 +511,7 @@ INSERT INTO ÑUFLO.Pasaje (id_pasaje, codigo_de_compra, id_cliente, numero_de_bu
 GO
 
 INSERT INTO ÑUFLO.Encomienda (id_encomienda, codigo_de_compra, id_cliente, peso_encomienda, precio)
-	select id_encomienda, codigo_compra, id_cliente, paquete_kg, paquete_precio
+	select id_encomienda, (select MAX(codigo_compra) from #CompraPasaje) + codigo_compra, id_cliente, paquete_kg, paquete_precio
 		from #CompraEncomienda
 GO
 	
