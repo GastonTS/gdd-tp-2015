@@ -13,7 +13,7 @@ namespace AerolineaFrba.Compra
     public partial class FormDatosPasajeroEncomienda : Abm.Alta, ICargaDatosCliente
     {
         bool soloPasaje = true;
-        int idViaje = 16, numeroDeButacaSeleccionada;
+        int idViaje, numeroDeButacaSeleccionada;
         List<int> butacasEnCompra = new List<int>();
 
         public FormDatosPasajeroEncomienda()
