@@ -433,6 +433,7 @@ CREATE TABLE #CompraPasaje (
 	id_viaje int
 	)
 GO
+
 CREATE TABLE #CompraEncomienda (
 	codigo_compra int IDENTITY(1,1),
 	paquete_kg numeric(18,0),
@@ -510,7 +511,7 @@ INSERT INTO ÑUFLO.Pasaje (id_pasaje, codigo_de_compra, id_cliente, numero_de_bu
 GO
 
 INSERT INTO ÑUFLO.Encomienda (id_encomienda, codigo_de_compra, id_cliente, peso_encomienda, precio)
-	select id_encomienda, codigo_compra, id_cliente, paquete_kg, paquete_precio
+	select id_encomienda, (select MAX(codigo_compra) from #CompraPasaje) + codigo_compra, id_cliente, paquete_kg, paquete_precio
 		from #CompraEncomienda
 GO
 	
@@ -845,7 +846,9 @@ AS
 					or v.fecha_salida between @hoy and @fecha_f)
 					and v.id_viaje = c.id_viaje
 					and c.codigo_de_compra = p.codigo_de_compra
-
+					and p.cancelado = 0
+					and v.fecha_llegada is null
+					
 	DECLARE @pnr int, @pasaje int, @cod_anterior int
 	SET @cod_anterior = -1
 	OPEN CPasajes
@@ -892,7 +895,9 @@ AS
 					or v.fecha_salida between @hoy and @fecha_f)
 					and v.id_viaje = c.id_viaje
 					and c.codigo_de_compra = e.codigo_de_compra
-
+					and e.cancelado = 0
+					and v.fecha_llegada is null
+					
 	DECLARE @pnr int, @pasaje int, @cod_anterior int
 	SET @cod_anterior = -1
 	OPEN CPasajes
@@ -1296,13 +1301,21 @@ CREATE PROCEDURE ÑUFLO.CancelarPasajeOEncomienda
 @motivo nvarchar(255),
 @hoy datetime
 AS	
-	DECLARE @pnr int
+	DECLARE @pnr int, @msg nvarchar(255)
 	
-	IF (EXISTS(select * from Pasaje p 
+	IF (EXISTS(select * from ÑUFLO.Pasaje p 
 				where p.id_pasaje = @id and
 					  p.cancelado = 0)
 		and @tipo = 'Pasaje')
 	BEGIN
+		IF(EXISTS(select id_pasaje
+					from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
+					where p.id_pasaje = @id
+						and p.codigo_de_compra = c.codigo_de_compra
+						and c.id_viaje = v.id_viaje))
+			SET @msg = 'El vuelo del pasaje ' + convert(nvarchar(255), @id) + ' ya fue realizado, no se pueden cancelar passajes de vuelos ya realizadas, porfavor vuelva a realizar la seleccion';
+			THROW 60035, @msg, 1
+	
 		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
 		BEGIN
@@ -1320,11 +1333,19 @@ AS
 			WHERE @id = id_pasaje
 	END
 	
-	IF (EXISTS(select * from Encomienda e 
+	IF (EXISTS(select * from ÑUFLO.Encomienda e 
 				where e.id_encomienda = @id and
 					  e.cancelado = 0) 
      	and @tipo = 'Encomienda')
 	BEGIN
+		IF(EXISTS(select id_encomienda
+					from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Encomienda e
+					where e.id_encomienda = @id
+						and e.codigo_de_compra = c.codigo_de_compra
+						and c.id_viaje = v.id_viaje))
+			SET @msg = 'La encomienda ' + convert(nvarchar(255), @id) + ' ya fue realizada, no se pueden cancelar encomiendas ya realizadas, porfavor vuelva a realizar la seleccion';
+			THROW 60035, @msg, 1
+		
 		set @pnr =(select e.codigo_de_compra from Encomienda e where e.id_encomienda = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
 		BEGIN
