@@ -111,6 +111,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // textBoxFabricante
             // 
+            this.textBoxFabricante.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.textBoxFabricante.ErrorText = "Debe ingresar el fabricante";
             this.textBoxFabricante.Location = new System.Drawing.Point(105, 94);
             this.textBoxFabricante.Name = "textBoxFabricante";
@@ -119,6 +120,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // textBoxMatricula
             // 
+            this.textBoxMatricula.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.textBoxMatricula.ErrorText = "Debe ingresar la matrícula";
             this.textBoxMatricula.Location = new System.Drawing.Point(105, 62);
             this.textBoxMatricula.Name = "textBoxMatricula";
@@ -127,6 +129,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // textBoxModelo
             // 
+            this.textBoxModelo.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.textBoxModelo.ErrorText = "Debe ingresar el modelo";
             this.textBoxModelo.Location = new System.Drawing.Point(105, 30);
             this.textBoxModelo.Name = "textBoxModelo";
@@ -172,6 +175,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // textBoxCantidadButacas
             // 
+            this.textBoxCantidadButacas.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.textBoxCantidadButacas.ErrorText = "Debe ingresar una cantidad de butacas";
             this.textBoxCantidadButacas.Location = new System.Drawing.Point(120, 149);
             this.textBoxCantidadButacas.Name = "textBoxCantidadButacas";
@@ -181,6 +185,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // textBoxCapacidadEncomiendas
             // 
+            this.textBoxCapacidadEncomiendas.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.textBoxCapacidadEncomiendas.ErrorText = "Debe ingresar la cantidad de encomiendas";
             this.textBoxCapacidadEncomiendas.Location = new System.Drawing.Point(105, 59);
             this.textBoxCapacidadEncomiendas.Name = "textBoxCapacidadEncomiendas";
@@ -241,7 +246,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.guardar1.Name = "guardar1";
             this.guardar1.Size = new System.Drawing.Size(83, 31);
             this.guardar1.TabIndex = 15;
-            this.guardar1.Click += new System.EventHandler(this.guardar1_Click);
             // 
             // gD2C2015DataSet
             // 
