@@ -152,5 +152,14 @@ namespace AerolineaFrba.Compra
 
             fdpe.Show(this);
         }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            FormCompraEfectiva fce = new FormCompraEfectiva();
+
+            fce.setCompras(compraActual, pasajes, encomiendas);
+
+            fce.Show();
+        }
     }
 }

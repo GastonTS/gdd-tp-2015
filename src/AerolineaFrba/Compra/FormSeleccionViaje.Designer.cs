@@ -43,7 +43,7 @@
             this.btnAgregarPasaje = new System.Windows.Forms.Button();
             this.btnAgregarEncomienda = new System.Windows.Forms.Button();
             this.listBoxPasajesYEncomiendasComprados = new System.Windows.Forms.ListBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.groupBoxPasajesEncomiendas = new System.Windows.Forms.GroupBox();
             this.origenBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.destinoBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -194,14 +194,15 @@
             this.listBoxPasajesYEncomiendasComprados.Size = new System.Drawing.Size(270, 108);
             this.listBoxPasajesYEncomiendasComprados.TabIndex = 18;
             // 
-            // button3
+            // btnAceptar
             // 
-            this.button3.Location = new System.Drawing.Point(513, 446);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 19;
-            this.button3.Text = "Aceptar";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnAceptar.Location = new System.Drawing.Point(513, 446);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptar.TabIndex = 19;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // groupBoxPasajesEncomiendas
             // 
@@ -221,7 +222,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(612, 477);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.labelViajesDisponibles);
             this.Controls.Add(this.dataGridView1);
@@ -256,7 +257,7 @@
         private System.Windows.Forms.Button btnAgregarPasaje;
         private System.Windows.Forms.Button btnAgregarEncomienda;
         private System.Windows.Forms.ListBox listBoxPasajesYEncomiendasComprados;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.GroupBox groupBoxPasajesEncomiendas;
         private System.Windows.Forms.Button btnVerDisponibles;
         private System.Windows.Forms.BindingSource origenBindingSource;
