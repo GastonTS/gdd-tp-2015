@@ -12,6 +12,10 @@ namespace AerolineaFrba.Compra
 {
     public partial class FormSeleccionViaje : Form, IDatosCompra
     {
+        Compra compraActual;
+        List<Pasaje> pasajes = new List<Pasaje>();
+        List<Encomienda> encomiendas = new List<Encomienda>();
+
         public struct Compra
         {
             int idViaje, dni, codigoDeCompra;
@@ -61,12 +65,12 @@ namespace AerolineaFrba.Compra
 
         public void setPasaje(int dni, int numeroDeButaca) 
         {
- 
+
         }
 
         public void setEncomienda(int dni, decimal pesoEncomienda)
         {
- 
+
         }
 
         private void btnVerDisponibles_Click(object sender, EventArgs e)
