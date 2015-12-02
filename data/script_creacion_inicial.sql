@@ -731,7 +731,7 @@ AS
 	set @id_fabricante = (select id_fabricante from ÑUFLO.Fabricante where @fabricante = nombre)
 	
 	INSERT INTO ÑUFLO.Aeronave(matricula, id_modelo, id_fabricante, id_tipo_servicio, capacidad_peso_encomiendas, fecha_de_alta, cantidad_butacas)
-		values(@matricula, @id_modelo, @id_fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy, 0))
+		values(@matricula, @id_modelo, @id_fabricante, @tipo_de_servicio, @capacidad_de_encomiendas, convert(datetime, @fecha_hoy), 0)
 ;
 GO
 

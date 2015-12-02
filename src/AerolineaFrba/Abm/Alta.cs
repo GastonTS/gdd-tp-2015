@@ -42,7 +42,6 @@ namespace AerolineaFrba.Abm
             if (this.ValidateChildren(ValidationConstraints.TabStop))
             {
                 this.guardarPosta();
-                MessageBox.Show(MsgExito);
             }
             else
             {
