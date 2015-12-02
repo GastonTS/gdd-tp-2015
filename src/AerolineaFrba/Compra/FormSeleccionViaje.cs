@@ -60,6 +60,7 @@ namespace AerolineaFrba.Compra
 
         public void setPasaje(int dni, int numeroDeButaca) 
         {
+
             if (pasajes.Any(unPasaje => unPasaje.dni == dni))
                 MessageBox.Show("Esta persona ya tiene asignado un pasaje en este viaje");
             else
@@ -71,6 +72,8 @@ namespace AerolineaFrba.Compra
 
         public void setEncomienda(int dni, decimal pesoEncomienda)
         {
+            validarQueNoEsteEnElVuelo(dni);
+
             if (pesoDisponible - pesoEncomienda < 0)
                 MessageBox.Show("El peso encomendado es mayor al disponible en la aeronave");
             else
@@ -207,6 +210,28 @@ namespace AerolineaFrba.Compra
                     dataGridView1.ClearSelection();
                 }
             }
+        }
+
+        private void validarQueNoEsteEnElVuelo(int dni)
+        {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+            DataGridViewRow filaSeleccionada;
+
+            if (dataGridView1.Rows.Count > 1)
+                filaSeleccionada = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index];
+            else
+                filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
+
+            camposValores.Add("dni", new gdDataBase.ValorTipo(dni.ToString(), SqlDbType.Int));
+            camposValores.Add("fecha_vuelo",
+                new gdDataBase.ValorTipo(filaSeleccionada.Cells[2].FormattedValue.ToString(), SqlDbType.VarChar));
+            camposValores.Add("fecha_estimada",
+                new gdDataBase.ValorTipo(filaSeleccionada.Cells[3].FormattedValue.ToString(), SqlDbType.VarChar));
+
+            errorMensaje.Add(60034, "EL pasajero se encuentra volando en esas fechas");
+
+            new gdDataBase().Exec("ÑUFLO.ClienteNoEstaEnVuelo", camposValores, errorMensaje);
         }
     }
 }
