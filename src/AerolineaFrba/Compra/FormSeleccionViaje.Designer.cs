@@ -165,7 +165,7 @@
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(104, 46);
             this.btnLimpiar.TabIndex = 15;
-            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.Text = "Cancelar Compra";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 

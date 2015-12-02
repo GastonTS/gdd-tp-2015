@@ -184,9 +184,24 @@ namespace AerolineaFrba.Compra
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            dateTimePicker1.ResetText();
-            comboBoxDestino.SelectedIndex = 0;
-            comboBoxOrigen.SelectedIndex = 0;
+            if (pasajes.Count > 0 || encomiendas.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Está seguro que desea cancelar las compras registradas hasta el momento",
+                    "ASD", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    dateTimePicker1.ResetText();
+                    comboBoxDestino.SelectedIndex = 0;
+                    comboBoxOrigen.SelectedIndex = 0;
+
+                    pasajes.Clear();
+                    encomiendas.Clear();
+                    pesoDisponible = 0;
+                    listBoxPasajesYEncomiendasComprados.Items.Clear();
+                    dataGridView1.ClearSelection();
+                }
+            }
         }
     }
 }
