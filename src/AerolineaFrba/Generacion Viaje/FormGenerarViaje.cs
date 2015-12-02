@@ -53,7 +53,7 @@ namespace AerolineaFrba.Generacion_Viaje
 
                 camposValores.Add("fecha_salida", new gdDataBase.ValorTipo(dateTimePickerSalida.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
                 camposValores.Add("fecha_llegada_estimada", new gdDataBase.ValorTipo(dateTimePickerEstimada.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
-                camposValores.Add("hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
+                camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
                 camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.VarChar));
                 camposValores.Add("id_ruta", new gdDataBase.ValorTipo(idRuta.ToString(), SqlDbType.VarChar));
 
@@ -68,8 +68,8 @@ namespace AerolineaFrba.Generacion_Viaje
 
         private void FormGenerarViaje_Load(object sender, EventArgs e)
         {
-            dateTimePickerSalida.MinDate = DateTime.Now.Date;
-            dateTimePickerEstimada.MinDate = DateTime.Now.Date;
+            dateTimePickerSalida.MinDate = Config.fecha;
+            dateTimePickerEstimada.MinDate = Config.fecha;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)

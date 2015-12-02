@@ -63,7 +63,7 @@ namespace AerolineaFrba.Compra
 
             camposValores.Add("id_viaje", new gdDataBase.ValorTipo(compraARealizar.idViaje.ToString(), SqlDbType.Int));
             camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDNI.Text, SqlDbType.Int));
-            camposValores.Add("hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+            camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
             var dt = new gdDataBase().ExecAndGetData("ÑUFLO.CrearCompra", camposValores, null);
 

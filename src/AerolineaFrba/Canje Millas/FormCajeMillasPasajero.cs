@@ -36,7 +36,7 @@ namespace AerolineaFrba.Canje_Millas
             camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDni.Text, SqlDbType.Decimal));
             camposValores.Add("cantidad", new gdDataBase.ValorTipo(textBoxCantidadProducto.Text, SqlDbType.Int));
             camposValores.Add("descripcion", new gdDataBase.ValorTipo(comboBoxProducto.Text, SqlDbType.VarChar));
-            camposValores.Add("hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+            camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
             errorMensaje.Add(60008, "El cliente no posee suficientes millas para realizar el canje");
             errorMensaje.Add(60009, "No hay suficiente stock del producto deseado para realizar el canje");

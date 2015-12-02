@@ -21,7 +21,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         {
             var camposValores = gdDataBase.newParameters();
             camposValores.Add("matricula",new gdDataBase.ValorTipo(matricula,SqlDbType.NVarChar));
-            DataRow aeronave = new gdDataBase().ExecAndGetData("ÑUFLO.AeronavePorMatricula",camposValores, new Dictionary<int,string>()).Rows[0];
+            DataRow aeronave = new gdDataBase().ExecAndGetData("ÑUFLO.AeronavePorMatricula",camposValores, null).Rows[0];
             lblModelo.Text = aeronave["Modelo"].ToString();
             lblMatricula.Text = aeronave["Matricula"].ToString();
             lblFabricante.Text = aeronave["Fabricante"].ToString();
@@ -43,6 +43,11 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         public void setDestino(String ciudad)
         {
             lblDestino.Text = ciudad;
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
     }

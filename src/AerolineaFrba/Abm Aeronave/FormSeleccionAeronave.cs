@@ -115,7 +115,7 @@ namespace AerolineaFrba.Abm_Aeronave
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
             camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
-            camposValores.Add("fecha", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+            camposValores.Add("fecha", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
             errorMensaje.Add(60004, "La Aeronave ya está fuera por vida útil");
 
@@ -135,7 +135,7 @@ namespace AerolineaFrba.Abm_Aeronave
                     // fecha inicio la considero como la fecha actual
                     camposValores.Clear();
                     camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
-                    camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+                    camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
                     
                     errorMensaje.Clear();
                     errorMensaje.Add(60005, "No se pudieron reemplazar todos los viajes");
@@ -148,8 +148,7 @@ namespace AerolineaFrba.Abm_Aeronave
                     // fecha inicio la considero como la fecha actual
                     camposValores.Clear();
                     camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
-                    camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
-                    camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+                    camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
                     new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null,
                         "Pasajes de aronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " cancelados correctamente");
@@ -167,7 +166,7 @@ namespace AerolineaFrba.Abm_Aeronave
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
             camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
-            camposValores.Add("fecha_fuera", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+            camposValores.Add("fecha_fuera", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
             camposValores.Add("fecha_rein", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
 
             errorMensaje.Add(60003, "La Aeronave ya se encuentra en mantenimiento");
@@ -189,7 +188,7 @@ namespace AerolineaFrba.Abm_Aeronave
                     // fecha inicio la considero como la fecha actual
                     camposValores.Clear();
                     camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
-                    camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+                    camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
                     camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
 
                     errorMensaje.Clear();
@@ -203,7 +202,7 @@ namespace AerolineaFrba.Abm_Aeronave
                     // fecha inicio la considero como la fecha actual
                     camposValores.Clear();
                     camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
-                    camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+                    camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
                     camposValores.Add("fecha_rein", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
 
                     new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null,

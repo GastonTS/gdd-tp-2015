@@ -24,12 +24,13 @@ namespace AerolineaFrba.Consulta_Millas
                 var camposValores = gdDataBase.newParameters();
                 if (textBoxDni.Text.Trim() != "")
                     camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDni.Text, SqlDbType.Int));
-                camposValores.Add("hoy", new gdDataBase.ValorTipo(DateTime.Now.Date.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
-                
+                camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
+
                 var historialMillas = new gdDataBase().ExecAndGetData("ÑUFLO.DetalleMillasDe", camposValores, new Dictionary<int, String>());
                 if (historialMillas.Rows.Count == 0)
                     MessageBox.Show("No hay resultados que satisfagan la búsqueda");
-                else{
+                else
+                {
                     dataGridViewDetalleAcumulacion.DataSource = historialMillas;
                     textBoxMillasAcumuladas.Text = new gdDataBase().ExecAndGetData("ÑUFLO.MillasTotalesDe", camposValores, new Dictionary<int, String>()).Rows[0].ItemArray[0].ToString();
                 }
