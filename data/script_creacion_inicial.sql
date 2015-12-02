@@ -1216,6 +1216,21 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.ClienteNoEstaEnVuelo
+@dni numeric(18,0),
+@fecha_vuelo datetime,
+@fecha_estimada datetime
+AS
+	IF(EXISTS (select p.id_cliente
+					from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
+					where (v.fecha_salida between @fecha_vuelo and @fecha_estimada
+						or v.fecha_llegada_estimada between @fecha_vuelo and @fecha_estimada)
+						and v.id_viaje = c.id_viaje
+						and c.codigo_de_compra = p.codigo_de_compra))
+		THROW 60034, 'El pasajero se encuentra volando en esas fechas', 1
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.CrearPasaje
 @codigo_compra int,
 @dni int,
