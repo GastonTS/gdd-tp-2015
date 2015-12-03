@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Canje_Millas
 {
-    public partial class FormCajeMillasPasajero : Form
+    public partial class FormCajeMillasPasajero : Abm.Alta
     {
         public FormCajeMillasPasajero()
         {
@@ -44,7 +44,7 @@ namespace AerolineaFrba.Canje_Millas
             new gdDataBase().Exec("ÑUFLO.CanjearProductoA", camposValores, errorMensaje, "Canje realizado con éxito");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        protected override void guardarPosta()
         {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
 
