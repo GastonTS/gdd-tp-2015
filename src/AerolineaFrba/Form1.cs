@@ -12,14 +12,12 @@ namespace AerolineaFrba
 {
     public partial class Form1 : Form
     {
-
         public Dictionary<int, Button> ids_funcionalidades = new Dictionary<int, Button>();
-
 
         public Form1()
         {
             InitializeComponent();
-            ids_funcionalidades.Add(0,btnAltaRol);
+            ids_funcionalidades.Add(0, btnAltaRol);
             ids_funcionalidades.Add(1, btnAltaCiudad);
             ids_funcionalidades.Add(2, btnAltaRuta);
             ids_funcionalidades.Add(3, btnAltaNave);
@@ -171,9 +169,9 @@ namespace AerolineaFrba
         private void login_Click(object sender, EventArgs e)
         {
             var login = new Registro_de_Usuario.Login();
+
             login.setPadre(this);
             login.Show();
-
         }
 
     }

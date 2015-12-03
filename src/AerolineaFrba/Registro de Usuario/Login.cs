@@ -12,26 +12,28 @@ namespace AerolineaFrba.Registro_de_Usuario
 {
      public partial class Login : Form
     {
-         Form1 padre;
+        Form1 padre;
+
         public Login()
         {
             InitializeComponent();
-
-
         }
 
         public void setPadre(Form1 unForm)
         {
-            padre= unForm;
+            padre = unForm;
         }
 
         public Dictionary<int, Object> ids_funcionalidades = new Dictionary<int, Object>();
 
         private void habilitarFunciones() {
             var camposValores = gdDataBase.newParameters();
+
             camposValores.Add("nombre_usuario", new gdDataBase.ValorTipo(textBoxUsername.Text, SqlDbType.NVarChar));
+
             var funciones = new gdDataBase().ExecAndGetData("ÑUFLO.FuncionalidadesPorUsuario", camposValores, new Dictionary<int, String>()).Rows;
             padre.resetearFuncionalidades();
+
             foreach (DataRow funcion in funciones) {
                 padre.activarFuncionalidad(idFuncion(funcion));
             }
@@ -44,12 +46,19 @@ namespace AerolineaFrba.Registro_de_Usuario
         private void btnLogin_Click(object sender, EventArgs e)
         {
             var camposValores = gdDataBase.newParameters();
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
             camposValores.Add("usuario", new gdDataBase.ValorTipo(textBoxUsername.Text,SqlDbType.NVarChar));
             camposValores.Add("password", new gdDataBase.ValorTipo(textBoxPassword.Text,SqlDbType.NVarChar));
-            var spExec = new SPPureExec("ÑUFLO.LogearUsuario", camposValores);
+
+            errorMensaje.Add(60000, "Usuario o contraseña incorrecta");
+            errorMensaje.Add(60001, "Usuario no habilitado");
+
+            var spExec = new SPPureExec("ÑUFLO.LogearUsuario", camposValores, errorMensaje);
             spExec.Exec();
+
             if (! spExec.huboError())
-                habilitarFunciones();//SP QUE DEVUELVA FUNCIONES DADO NOMBRE DE USUARIO
+                habilitarFunciones();
         }
     }
 }
