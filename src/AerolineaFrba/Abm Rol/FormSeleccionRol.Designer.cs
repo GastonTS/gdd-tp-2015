@@ -31,11 +31,11 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.btnSeleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ColumnaHabilitacion = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.labelNombre = new System.Windows.Forms.Label();
-            this.btnSeleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ColumnaHabilitacion = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBoxFiltros.SuspendLayout();
             this.SuspendLayout();
@@ -62,6 +62,7 @@
             // 
             // dataGridView
             // 
+            this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AllowUserToDeleteRows = false;
             this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -74,6 +75,18 @@
             this.dataGridView.Size = new System.Drawing.Size(412, 181);
             this.dataGridView.TabIndex = 8;
             this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellContentClick);
+            // 
+            // btnSeleccionar
+            // 
+            this.btnSeleccionar.HeaderText = "Modificar Rol";
+            this.btnSeleccionar.Name = "btnSeleccionar";
+            this.btnSeleccionar.ReadOnly = true;
+            // 
+            // ColumnaHabilitacion
+            // 
+            this.ColumnaHabilitacion.HeaderText = "Habilitar/Deshabilitar";
+            this.ColumnaHabilitacion.Name = "ColumnaHabilitacion";
+            this.ColumnaHabilitacion.ReadOnly = true;
             // 
             // groupBoxFiltros
             // 
@@ -101,18 +114,6 @@
             this.labelNombre.Size = new System.Drawing.Size(47, 13);
             this.labelNombre.TabIndex = 1;
             this.labelNombre.Text = "Nombre:";
-            // 
-            // btnSeleccionar
-            // 
-            this.btnSeleccionar.HeaderText = "Modificar Rol";
-            this.btnSeleccionar.Name = "btnSeleccionar";
-            this.btnSeleccionar.ReadOnly = true;
-            // 
-            // ColumnaHabilitacion
-            // 
-            this.ColumnaHabilitacion.HeaderText = "Habilitar/Deshabilitar";
-            this.ColumnaHabilitacion.Name = "ColumnaHabilitacion";
-            this.ColumnaHabilitacion.ReadOnly = true;
             // 
             // FormSeleccionRol
             // 

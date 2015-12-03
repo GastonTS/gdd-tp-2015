@@ -60,6 +60,7 @@ namespace AerolineaFrba.Devolucion
         {
             richTextBox1.Clear();
             dataGridView1.Rows.Clear();
+            dateTimePicker1.ResetText();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

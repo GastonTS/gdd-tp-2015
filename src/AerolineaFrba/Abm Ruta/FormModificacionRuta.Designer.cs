@@ -122,6 +122,7 @@
             this.dataGridView1.DataSource = this.rutaAereaBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(25, 175);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(572, 165);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -130,6 +131,7 @@
             // 
             this.Eliminar.HeaderText = "";
             this.Eliminar.Name = "Eliminar";
+            this.Eliminar.ReadOnly = true;
             this.Eliminar.Text = "Eliminar";
             this.Eliminar.UseColumnTextForButtonValue = true;
             // 
@@ -137,6 +139,7 @@
             // 
             this.Modificar.HeaderText = "";
             this.Modificar.Name = "Modificar";
+            this.Modificar.ReadOnly = true;
             this.Modificar.Text = "Modificar";
             this.Modificar.UseColumnTextForButtonValue = true;
             // 
