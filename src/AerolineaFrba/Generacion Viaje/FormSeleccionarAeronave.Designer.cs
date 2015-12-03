@@ -58,6 +58,7 @@
             // 
             // dataGridViewAeronave
             // 
+            this.dataGridViewAeronave.AllowUserToAddRows = false;
             this.dataGridViewAeronave.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewAeronave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAeronave.Location = new System.Drawing.Point(21, 237);
