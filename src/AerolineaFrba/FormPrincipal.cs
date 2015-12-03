@@ -16,32 +16,21 @@ namespace AerolineaFrba
 
         public FormPrincipal()
         {
-            //Con esto tengo líos. No se bien cómo y cuáles funcionalidades le corresponden a qué rol
             InitializeComponent();
-            ids_funcionalidades.Add(0, altaRolToolStripMenuItem);
-            //ids_funcionalidades.Add(1, null);
-            ids_funcionalidades.Add(2, altaRutaToolStripMenuItem);
-            ids_funcionalidades.Add(3, altaAeronaveToolStripMenuItem);
+            ids_funcionalidades.Add(1, aBMRolToolStripMenuItem);
+            ids_funcionalidades.Add(2, aBMRutaToolStripMenuItem);
+            ids_funcionalidades.Add(3, aBMAeronaveToolStripMenuItem);
             ids_funcionalidades.Add(4, generarViajeToolStripMenuItem);
             ids_funcionalidades.Add(5, registroDeLlegadaToolStripMenuItem);
-            //ids_funcionalidades.Add(6, null);
+            ids_funcionalidades.Add(6, comprarViajeToolStripMenuItem);
             ids_funcionalidades.Add(7, devoluciónToolStripMenuItem);
             ids_funcionalidades.Add(8, consultaMillasToolStripMenuItem);
             ids_funcionalidades.Add(9, canjeToolStripMenuItem);
             ids_funcionalidades.Add(10, listadoEstadísticoToolStripMenuItem);
-            ids_funcionalidades.Add(11, bajaPasajeEncomiendaToolStripMenuItem);
-            ids_funcionalidades.Add(12, loginToolStripMenuItem);
-            ids_funcionalidades.Add(13, bajaModifAeronaveToolStripMenuItem);
-            ids_funcionalidades.Add(14, BajaModifRolToolStripMenuItem);
-            ids_funcionalidades.Add(15, BajaModifRutaToolStripMenuItem);
-            ids_funcionalidades.Add(16, aBMAeronaveToolStripMenuItem);
-            ids_funcionalidades.Add(17, aBMRolToolStripMenuItem);
-            ids_funcionalidades.Add(18, aBMRutaToolStripMenuItem);
         }
 
         public void resetearFuncionalidades() 
         {
-            //Falla con administrador porque sobran funcionalidades. Arreglar esto Urgente
             foreach (var funcionalidad in ids_funcionalidades) 
             {
                 ToolStripMenuItem menuFuncion = funcionalidad.Value;
@@ -54,18 +43,45 @@ namespace AerolineaFrba
             ids_funcionalidades[idFuncion].Visible = true;
         }
 
+        private void activarFuncionalidadesDeKiosco()
+        {
+            foreach (var funcionalidad in ids_funcionalidades)
+            {
+                if (funcionalidad.Key == 6 || funcionalidad.Key == 8 || funcionalidad.Key == 9)
+                {
+                    ToolStripMenuItem menuFuncion = funcionalidad.Value;
+                    menuFuncion.Visible = true;
+                }
+            }
+        }
+
+        public void habilitarFormulario()
+        {
+            menuStrip1.Enabled = true;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             this.MaximizeBox = false;
-
-            if (Config.terminal == "administrativa")
+            if (Config.terminal != "desarrollo")
             {
-                var login = new Registro_de_Usuario.Login();
+                if (Config.terminal == "administrativa")
+                {
+                    var login = new Registro_de_Usuario.Login();
 
-                login.MdiParent = this;
+                    menuStrip1.Enabled = false;
 
-                login.setPadre(this);
-                login.Show();
+                    login.MdiParent = this;
+
+                    login.setPadre(this);
+                    login.Show();
+                }
+                else
+                {
+                    //funcionalidades de kiosco o autoservicio
+                    resetearFuncionalidades();
+                    activarFuncionalidadesDeKiosco();
+                }
             }
         }
 

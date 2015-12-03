@@ -37,6 +37,8 @@ namespace AerolineaFrba.Registro_de_Usuario
             foreach (DataRow funcion in funciones) {
                 padre.activarFuncionalidad(idFuncion(funcion));
             }
+
+            padre.habilitarFormulario();
         }
 
         public int idFuncion(DataRow funcion) {
@@ -57,8 +59,11 @@ namespace AerolineaFrba.Registro_de_Usuario
             var spExec = new SPPureExec("ÑUFLO.LogearUsuario", camposValores, errorMensaje);
             spExec.Exec();
 
-            if (! spExec.huboError())
+            if (!spExec.huboError())
+            {
                 habilitarFunciones();
+                this.Close();
+            }
         }
     }
 }

@@ -214,17 +214,15 @@ CREATE TABLE ÑUFLO.Funcionalidad (
 GO
 
 INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('ABM Rol')
-INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('ABM Ciudades')
 INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('ABM Ruta Aerea')
 INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('ABM Aeronave')
 INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Generar Viaje')
 INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Registrar Llegada')
-INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Compra Pasaje/Encomienda')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Compra Pasaje/Encomienda') --cliente
 INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Cancelacion Pasaje/Encomienda')
-INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Consultar Millas')
-INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Canjear Millas')
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Consultar Millas') --cliente
+INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Canjear Millas') --cliente
 INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('Listados Estadisticos')
-INSERT INTO ÑUFLO.Funcionalidad (descripcion) values ('ABM Productos')
 GO
 
 CREATE TABLE ÑUFLO.Rol (
@@ -256,12 +254,10 @@ INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,7)
 INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,8)
 INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,9)
 INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,10)
-INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,11)
-INSERT INTO ÑUFLO.FuncionalidadPorRol values (1,12)
 
-INSERT INTO ÑUFLO.FuncionalidadPorRol values (2,7)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (2,6)
+INSERT INTO ÑUFLO.FuncionalidadPorRol values (2,8)
 INSERT INTO ÑUFLO.FuncionalidadPorRol values (2,9)
-INSERT INTO ÑUFLO.FuncionalidadPorRol values (2,10)
 GO
 
 CREATE TABLE ÑUFLO.Usuario (

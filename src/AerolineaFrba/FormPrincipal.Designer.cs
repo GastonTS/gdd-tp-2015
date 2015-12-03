@@ -45,7 +45,6 @@
             this.generarViajeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registroDeLlegadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devoluciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bajaPasajeEncomiendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listadoEstadísticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
@@ -62,7 +61,6 @@
             this.generarViajeToolStripMenuItem,
             this.registroDeLlegadaToolStripMenuItem,
             this.devoluciónToolStripMenuItem,
-            this.bajaPasajeEncomiendaToolStripMenuItem,
             this.listadoEstadísticoToolStripMenuItem,
             this.loginToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -191,13 +189,6 @@
             this.devoluciónToolStripMenuItem.Text = "Devolución";
             this.devoluciónToolStripMenuItem.Click += new System.EventHandler(this.devoluciónToolStripMenuItem_Click);
             // 
-            // bajaPasajeEncomiendaToolStripMenuItem
-            // 
-            this.bajaPasajeEncomiendaToolStripMenuItem.Name = "bajaPasajeEncomiendaToolStripMenuItem";
-            this.bajaPasajeEncomiendaToolStripMenuItem.Size = new System.Drawing.Size(148, 20);
-            this.bajaPasajeEncomiendaToolStripMenuItem.Text = "Baja Pasaje/Encomienda";
-            this.bajaPasajeEncomiendaToolStripMenuItem.Click += new System.EventHandler(this.bajaPasajeEncomiendaToolStripMenuItem_Click);
-            // 
             // listadoEstadísticoToolStripMenuItem
             // 
             this.listadoEstadísticoToolStripMenuItem.Name = "listadoEstadísticoToolStripMenuItem";
@@ -250,7 +241,6 @@
         private System.Windows.Forms.ToolStripMenuItem generarViajeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registroDeLlegadaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem devoluciónToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bajaPasajeEncomiendaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listadoEstadísticoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem;
     }
