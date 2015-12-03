@@ -163,6 +163,18 @@ CREATE TABLE ÑUFLO.Compra (
 	fecha_de_compra datetime NOT NULL
 	)
 GO
+
+CREATE TABLE ÑUFLO.TarjetaDeCredito (
+	id_tarjeta int IDENTITY(1,1) PRIMARY KEY,
+	nombre nvarchar(255) UNIQUE,
+	cantidad_de_cuotas int
+)
+GO
+
+INSERT INTO ÑUFLO.TarjetaDeCredito(nombre, cantidad_de_cuotas) values('American Express', 6)
+INSERT INTO ÑUFLO.TarjetaDeCredito(nombre, cantidad_de_cuotas) values('Master Card', 12)
+INSERT INTO ÑUFLO.TarjetaDeCredito(nombre, cantidad_de_cuotas) values('Cabal', 3)
+GO
 	
 CREATE TABLE ÑUFLO.Pasaje (
 	id_pasaje int PRIMARY KEY,
@@ -527,7 +539,7 @@ AS
 DECLARE @intentos smallint, @habilitado bit
 SET @intentos = (select cantidad_intentos from ÑUFLO.Usuario where nombre_usuario = @usuario)
 SET @habilitado = (select habilitado from ÑUFLO.Usuario where nombre_usuario = @usuario)
-IF (@habilitado = 1)
+IF (@habilitado = 1 or @habilitado is null)
 BEGIN
 	DECLARE @hash varbinary(255)
 	SET @hash = (select password from ÑUFLO.Usuario where nombre_usuario = @usuario)
@@ -1680,8 +1692,12 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.TarjetasDeCredito
+AS
+	select * from ÑUFLO.TarjetaDeCredito
+;
+GO
 
-		
 /*Detalles para listados*/
 CREATE PROCEDURE ÑUFLO.DetallePasajePara
 @ciudad nvarchar(255),
