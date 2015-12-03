@@ -23,19 +23,7 @@ namespace AerolineaFrba.Abm
         
         private void guardarBtn_Click(object sender, EventArgs e)
         {
-            if (alta().ValidateChildren(ValidationConstraints.TabStop))
-            {
-                
                 alta().guardar();
-            }
-            else
-            {
-                foreach (Control unControl in Controls)
-                {
-                    unControl.Refresh();
-                }
-                
-            }
         }
     }
 }
