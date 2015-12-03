@@ -56,9 +56,13 @@ namespace AerolineaFrba
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.MaximizeBox = false;
+
             if (Config.terminal == "administrativa")
             {
                 var login = new Registro_de_Usuario.Login();
+
+                login.MdiParent = this;
 
                 login.setPadre(this);
                 login.Show();
@@ -194,6 +198,8 @@ namespace AerolineaFrba
         private void loginToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var login = new Registro_de_Usuario.Login();
+
+            login.MdiParent = this;
 
             login.setPadre(this);
             login.Show();

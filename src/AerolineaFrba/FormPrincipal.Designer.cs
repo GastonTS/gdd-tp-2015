@@ -159,14 +159,14 @@
             // consultaMillasToolStripMenuItem
             // 
             this.consultaMillasToolStripMenuItem.Name = "consultaMillasToolStripMenuItem";
-            this.consultaMillasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.consultaMillasToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.consultaMillasToolStripMenuItem.Text = "Consulta";
             this.consultaMillasToolStripMenuItem.Click += new System.EventHandler(this.consultaToolStripMenuItem_Click);
             // 
             // canjeToolStripMenuItem
             // 
             this.canjeToolStripMenuItem.Name = "canjeToolStripMenuItem";
-            this.canjeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.canjeToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.canjeToolStripMenuItem.Text = "Canje";
             this.canjeToolStripMenuItem.Click += new System.EventHandler(this.canjeToolStripMenuItem_Click);
             // 
@@ -222,6 +222,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormPrincipal";
             this.Text = "Página Principal";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
