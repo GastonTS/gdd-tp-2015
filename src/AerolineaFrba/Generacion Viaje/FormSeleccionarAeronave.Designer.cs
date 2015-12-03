@@ -33,10 +33,10 @@
             this.btnSeleccionar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBoxCantidadButacas = new System.Windows.Forms.TextBox();
+            this.textBoxCantidadButacas = new AerolineaFrba.Abm.TextBoxNumeros();
             this.labelCantidadButacas = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxCapacidadEncomiendas = new System.Windows.Forms.TextBox();
+            this.textBoxCapacidadEncomiendas = new AerolineaFrba.Abm.TextBoxNumeros();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
             this.labelCapacidadEncomiendas = new System.Windows.Forms.Label();
@@ -104,9 +104,11 @@
             // 
             // textBoxCantidadButacas
             // 
+            this.textBoxCantidadButacas.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCantidadButacas.ErrorText = "Debe ingresar cantidad de butacas";
             this.textBoxCantidadButacas.Location = new System.Drawing.Point(171, 86);
             this.textBoxCantidadButacas.Name = "textBoxCantidadButacas";
-            this.textBoxCantidadButacas.Size = new System.Drawing.Size(90, 20);
+            this.textBoxCantidadButacas.Size = new System.Drawing.Size(99, 20);
             this.textBoxCantidadButacas.TabIndex = 2;
             // 
             // labelCantidadButacas
@@ -129,9 +131,11 @@
             // 
             // textBoxCapacidadEncomiendas
             // 
+            this.textBoxCapacidadEncomiendas.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCapacidadEncomiendas.ErrorText = "Debe ingresar la capacidad de encomiendas";
             this.textBoxCapacidadEncomiendas.Location = new System.Drawing.Point(171, 60);
             this.textBoxCapacidadEncomiendas.Name = "textBoxCapacidadEncomiendas";
-            this.textBoxCapacidadEncomiendas.Size = new System.Drawing.Size(90, 20);
+            this.textBoxCapacidadEncomiendas.Size = new System.Drawing.Size(99, 20);
             this.textBoxCapacidadEncomiendas.TabIndex = 1;
             // 
             // comboBoxTipoServicio
@@ -257,10 +261,10 @@
         private System.Windows.Forms.Button btnSeleccionar;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBoxCantidadButacas;
+        private Abm.TextBoxNumeros textBoxCantidadButacas;
         private System.Windows.Forms.Label labelCantidadButacas;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxCapacidadEncomiendas;
+        private Abm.TextBoxNumeros textBoxCapacidadEncomiendas;
         private System.Windows.Forms.ComboBox comboBoxTipoServicio;
         private System.Windows.Forms.Label labelCapacidadEncomiendas;
         private System.Windows.Forms.GroupBox groupBox1;
