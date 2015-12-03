@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnAceptar = new AerolineaFrba.Abm.Guardar();
+            this.textBoxMail = new AerolineaFrba.Abm.TextBoxMail();
+            this.textBoxTelefono = new AerolineaFrba.Abm.TextBoxNumeros();
+            this.textBoxDireccion = new AerolineaFrba.Abm.TextBoxValidado();
+            this.textBoxApellido = new AerolineaFrba.Abm.TextBoxLetras();
+            this.textBoxNombre = new AerolineaFrba.Abm.TextBoxLetras();
+            this.textBoxDNI = new AerolineaFrba.Abm.TextBoxDNI();
             this.checkBoxModificarDatos = new System.Windows.Forms.CheckBox();
-            this.btnAceptar = new System.Windows.Forms.Button();
             this.dateTimeFechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.labelFechaDeNacimiento = new System.Windows.Forms.Label();
             this.labelMail = new System.Windows.Forms.Label();
-            this.textBoxMail = new System.Windows.Forms.TextBox();
             this.labelTelefono = new System.Windows.Forms.Label();
-            this.textBoxTelefono = new System.Windows.Forms.TextBox();
             this.labelDireccion = new System.Windows.Forms.Label();
-            this.textBoxDireccion = new System.Windows.Forms.TextBox();
             this.labelDNI = new System.Windows.Forms.Label();
-            this.textBoxApellido = new System.Windows.Forms.TextBox();
             this.labelApellido = new System.Windows.Forms.Label();
-            this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.labelNombre = new System.Windows.Forms.Label();
-            this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
@@ -52,28 +52,96 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.checkBoxModificarDatos);
             this.groupBox3.Controls.Add(this.btnAceptar);
+            this.groupBox3.Controls.Add(this.textBoxMail);
+            this.groupBox3.Controls.Add(this.textBoxTelefono);
+            this.groupBox3.Controls.Add(this.textBoxDireccion);
+            this.groupBox3.Controls.Add(this.textBoxApellido);
+            this.groupBox3.Controls.Add(this.textBoxNombre);
+            this.groupBox3.Controls.Add(this.textBoxDNI);
+            this.groupBox3.Controls.Add(this.checkBoxModificarDatos);
             this.groupBox3.Controls.Add(this.dateTimeFechaNacimiento);
             this.groupBox3.Controls.Add(this.labelFechaDeNacimiento);
             this.groupBox3.Controls.Add(this.labelMail);
-            this.groupBox3.Controls.Add(this.textBoxMail);
             this.groupBox3.Controls.Add(this.labelTelefono);
-            this.groupBox3.Controls.Add(this.textBoxTelefono);
             this.groupBox3.Controls.Add(this.labelDireccion);
-            this.groupBox3.Controls.Add(this.textBoxDireccion);
             this.groupBox3.Controls.Add(this.labelDNI);
-            this.groupBox3.Controls.Add(this.textBoxApellido);
             this.groupBox3.Controls.Add(this.labelApellido);
-            this.groupBox3.Controls.Add(this.textBoxNombre);
             this.groupBox3.Controls.Add(this.labelNombre);
-            this.groupBox3.Controls.Add(this.textBoxDNI);
             this.groupBox3.Location = new System.Drawing.Point(12, 12);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(618, 192);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Datos del pasajero";
+            // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Enabled = false;
+            this.btnAceptar.Location = new System.Drawing.Point(504, 153);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(83, 31);
+            this.btnAceptar.TabIndex = 21;
+            // 
+            // textBoxMail
+            // 
+            this.textBoxMail.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxMail.Enabled = false;
+            this.textBoxMail.ErrorText = "El mail debe ser vacio o con el formato \"ejemplo@ejemplo.dominio\"";
+            this.textBoxMail.Location = new System.Drawing.Point(392, 80);
+            this.textBoxMail.Name = "textBoxMail";
+            this.textBoxMail.Size = new System.Drawing.Size(211, 22);
+            this.textBoxMail.TabIndex = 24;
+            // 
+            // textBoxTelefono
+            // 
+            this.textBoxTelefono.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxTelefono.Enabled = false;
+            this.textBoxTelefono.ErrorText = "Debe ingresar el Telefono (solo numeros)";
+            this.textBoxTelefono.Location = new System.Drawing.Point(392, 43);
+            this.textBoxTelefono.Name = "textBoxTelefono";
+            this.textBoxTelefono.Size = new System.Drawing.Size(161, 22);
+            this.textBoxTelefono.TabIndex = 21;
+            // 
+            // textBoxDireccion
+            // 
+            this.textBoxDireccion.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxDireccion.Enabled = false;
+            this.textBoxDireccion.ErrorText = "Debe ingresar la Direccion";
+            this.textBoxDireccion.Location = new System.Drawing.Point(92, 143);
+            this.textBoxDireccion.Name = "textBoxDireccion";
+            this.textBoxDireccion.Size = new System.Drawing.Size(164, 22);
+            this.textBoxDireccion.TabIndex = 23;
+            // 
+            // textBoxApellido
+            // 
+            this.textBoxApellido.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxApellido.Enabled = false;
+            this.textBoxApellido.ErrorText = "Debe ingresar el Apellido";
+            this.textBoxApellido.Location = new System.Drawing.Point(92, 112);
+            this.textBoxApellido.Name = "textBoxApellido";
+            this.textBoxApellido.Size = new System.Drawing.Size(151, 22);
+            this.textBoxApellido.TabIndex = 22;
+            // 
+            // textBoxNombre
+            // 
+            this.textBoxNombre.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxNombre.Enabled = false;
+            this.textBoxNombre.ErrorText = "Debe ingresar el Nombre";
+            this.textBoxNombre.Location = new System.Drawing.Point(92, 79);
+            this.textBoxNombre.Name = "textBoxNombre";
+            this.textBoxNombre.Size = new System.Drawing.Size(151, 22);
+            this.textBoxNombre.TabIndex = 21;
+            // 
+            // textBoxDNI
+            // 
+            this.textBoxDNI.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxDNI.ErrorText = "Debe ingresar un DNI valido (entre 7 y 8 digitos)";
+            this.textBoxDNI.Location = new System.Drawing.Point(92, 43);
+            this.textBoxDNI.Name = "textBoxDNI";
+            this.textBoxDNI.Size = new System.Drawing.Size(135, 22);
+            this.textBoxDNI.TabIndex = 18;
+            this.textBoxDNI.TextboxTextChanged += new System.EventHandler(this.textBoxDNI_TextChanged);
             // 
             // checkBoxModificarDatos
             // 
@@ -85,17 +153,6 @@
             this.checkBoxModificarDatos.Text = "Modificar Datos";
             this.checkBoxModificarDatos.UseVisualStyleBackColor = true;
             this.checkBoxModificarDatos.CheckedChanged += new System.EventHandler(this.checkBoxModificarDatos_CheckedChanged_1);
-            // 
-            // btnAceptar
-            // 
-            this.btnAceptar.Enabled = false;
-            this.btnAceptar.Location = new System.Drawing.Point(508, 163);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
-            this.btnAceptar.TabIndex = 16;
-            this.btnAceptar.Text = "Guardar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // dateTimeFechaNacimiento
             // 
@@ -123,14 +180,6 @@
             this.labelMail.TabIndex = 11;
             this.labelMail.Text = "Mail (opcional)";
             // 
-            // textBoxMail
-            // 
-            this.textBoxMail.Enabled = false;
-            this.textBoxMail.Location = new System.Drawing.Point(392, 79);
-            this.textBoxMail.Name = "textBoxMail";
-            this.textBoxMail.Size = new System.Drawing.Size(195, 20);
-            this.textBoxMail.TabIndex = 10;
-            // 
             // labelTelefono
             // 
             this.labelTelefono.AutoSize = true;
@@ -140,30 +189,14 @@
             this.labelTelefono.TabIndex = 9;
             this.labelTelefono.Text = "Teléfono";
             // 
-            // textBoxTelefono
-            // 
-            this.textBoxTelefono.Enabled = false;
-            this.textBoxTelefono.Location = new System.Drawing.Point(392, 43);
-            this.textBoxTelefono.Name = "textBoxTelefono";
-            this.textBoxTelefono.Size = new System.Drawing.Size(100, 20);
-            this.textBoxTelefono.TabIndex = 8;
-            // 
             // labelDireccion
             // 
             this.labelDireccion.AutoSize = true;
-            this.labelDireccion.Location = new System.Drawing.Point(17, 152);
+            this.labelDireccion.Location = new System.Drawing.Point(17, 146);
             this.labelDireccion.Name = "labelDireccion";
             this.labelDireccion.Size = new System.Drawing.Size(52, 13);
             this.labelDireccion.TabIndex = 7;
             this.labelDireccion.Text = "Dirección";
-            // 
-            // textBoxDireccion
-            // 
-            this.textBoxDireccion.Enabled = false;
-            this.textBoxDireccion.Location = new System.Drawing.Point(92, 149);
-            this.textBoxDireccion.Name = "textBoxDireccion";
-            this.textBoxDireccion.Size = new System.Drawing.Size(151, 20);
-            this.textBoxDireccion.TabIndex = 6;
             // 
             // labelDNI
             // 
@@ -174,47 +207,23 @@
             this.labelDNI.TabIndex = 5;
             this.labelDNI.Text = "DNI";
             // 
-            // textBoxApellido
-            // 
-            this.textBoxApellido.Enabled = false;
-            this.textBoxApellido.Location = new System.Drawing.Point(92, 115);
-            this.textBoxApellido.Name = "textBoxApellido";
-            this.textBoxApellido.Size = new System.Drawing.Size(148, 20);
-            this.textBoxApellido.TabIndex = 4;
-            // 
             // labelApellido
             // 
             this.labelApellido.AutoSize = true;
-            this.labelApellido.Location = new System.Drawing.Point(17, 118);
+            this.labelApellido.Location = new System.Drawing.Point(17, 116);
             this.labelApellido.Name = "labelApellido";
             this.labelApellido.Size = new System.Drawing.Size(44, 13);
             this.labelApellido.TabIndex = 3;
             this.labelApellido.Text = "Apellido";
             // 
-            // textBoxNombre
-            // 
-            this.textBoxNombre.Enabled = false;
-            this.textBoxNombre.Location = new System.Drawing.Point(92, 79);
-            this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(148, 20);
-            this.textBoxNombre.TabIndex = 2;
-            // 
             // labelNombre
             // 
             this.labelNombre.AutoSize = true;
-            this.labelNombre.Location = new System.Drawing.Point(17, 82);
+            this.labelNombre.Location = new System.Drawing.Point(17, 80);
             this.labelNombre.Name = "labelNombre";
             this.labelNombre.Size = new System.Drawing.Size(44, 13);
             this.labelNombre.TabIndex = 1;
             this.labelNombre.Text = "Nombre";
-            // 
-            // textBoxDNI
-            // 
-            this.textBoxDNI.Location = new System.Drawing.Point(92, 43);
-            this.textBoxDNI.Name = "textBoxDNI";
-            this.textBoxDNI.Size = new System.Drawing.Size(100, 20);
-            this.textBoxDNI.TabIndex = 0;
-            this.textBoxDNI.TextChanged += new System.EventHandler(this.textBoxDNI_TextChanged);
             // 
             // button1
             // 
@@ -258,22 +267,22 @@
 
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox checkBoxModificarDatos;
-        private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.DateTimePicker dateTimeFechaNacimiento;
         private System.Windows.Forms.Label labelFechaDeNacimiento;
         private System.Windows.Forms.Label labelMail;
-        private System.Windows.Forms.TextBox textBoxMail;
         private System.Windows.Forms.Label labelTelefono;
-        private System.Windows.Forms.TextBox textBoxTelefono;
         private System.Windows.Forms.Label labelDireccion;
-        private System.Windows.Forms.TextBox textBoxDireccion;
         private System.Windows.Forms.Label labelDNI;
-        private System.Windows.Forms.TextBox textBoxApellido;
         private System.Windows.Forms.Label labelApellido;
-        private System.Windows.Forms.TextBox textBoxNombre;
         private System.Windows.Forms.Label labelNombre;
-        private System.Windows.Forms.TextBox textBoxDNI;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnLimpiar;
+        private Abm.TextBoxDNI textBoxDNI;
+        private Abm.TextBoxLetras textBoxNombre;
+        private Abm.TextBoxValidado textBoxDireccion;
+        private Abm.TextBoxLetras textBoxApellido;
+        private Abm.TextBoxMail textBoxMail;
+        private Abm.TextBoxNumeros textBoxTelefono;
+        private Abm.Guardar btnAceptar;
     }
 }
