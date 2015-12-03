@@ -51,7 +51,7 @@ namespace AerolineaFrba.Abm_Rol
             btnQuitar.Enabled = false;
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        protected override void guardarPosta()
         {
             if (!modificacion)
             {
@@ -60,8 +60,6 @@ namespace AerolineaFrba.Abm_Rol
             }
             else
                 actualizarRol();
-
-            //this.guardar(); No estaría funcionando esto como uno espera. Pero es una buena idea
         }
 
         private void btnAñadir_Click(object sender, EventArgs e)

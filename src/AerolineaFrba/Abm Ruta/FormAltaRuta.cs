@@ -97,9 +97,9 @@ namespace AerolineaFrba.Abm_Ruta
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             textBoxCodRuta.ResetText();
-            comboBoxOrigen.ResetText();
-            comboBoxDestino.ResetText();
-            comboBoxTipoServicio.ResetText();
+            comboBoxOrigen.SelectedIndex = 0;
+            comboBoxDestino.SelectedIndex = 0;
+            comboBoxTipoServicio.SelectedIndex = 0;
             textBoxPrecioPasaje.Clear();
             textBoxPrecioPeso.Clear();
         }

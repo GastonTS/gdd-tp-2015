@@ -98,6 +98,7 @@
             // comboBoxOrigen
             // 
             this.comboBoxOrigen.DataSource = this.origenBinding;
+            this.comboBoxOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxOrigen.FormattingEnabled = true;
             this.comboBoxOrigen.Location = new System.Drawing.Point(125, 65);
             this.comboBoxOrigen.Name = "comboBoxOrigen";
@@ -109,6 +110,7 @@
             // 
             this.comboBoxDestino.DataSource = this.destinoBinding;
             this.comboBoxDestino.DisplayMember = "N";
+            this.comboBoxDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDestino.FormattingEnabled = true;
             this.comboBoxDestino.Location = new System.Drawing.Point(125, 104);
             this.comboBoxDestino.Name = "comboBoxDestino";
@@ -141,6 +143,7 @@
             // comboBoxTipoServicio
             // 
             this.comboBoxTipoServicio.DataSource = this.tipoServicioBinding;
+            this.comboBoxTipoServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipoServicio.FormattingEnabled = true;
             this.comboBoxTipoServicio.Location = new System.Drawing.Point(125, 145);
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";

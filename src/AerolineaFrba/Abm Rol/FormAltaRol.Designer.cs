@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnGuardar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnQuitar = new System.Windows.Forms.Button();
@@ -38,26 +37,16 @@
             this.labelFuncionalidades = new System.Windows.Forms.Label();
             this.labelNombre = new System.Windows.Forms.Label();
             this.comboBoxFuncionalidades = new System.Windows.Forms.ComboBox();
-            this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
+            this.textBoxNombre = new AerolineaFrba.Abm.TextBoxValidado();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Location = new System.Drawing.Point(516, 292);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 2;
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(12, 292);
+            this.btnLimpiar.Location = new System.Drawing.Point(32, 278);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.btnLimpiar.Size = new System.Drawing.Size(81, 28);
             this.btnLimpiar.TabIndex = 1;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -65,6 +54,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxNombre);
             this.groupBox1.Controls.Add(this.btnQuitar);
             this.groupBox1.Controls.Add(this.btnAñadir);
             this.groupBox1.Controls.Add(this.listBoxFuncionalidades);
@@ -72,7 +62,6 @@
             this.groupBox1.Controls.Add(this.labelFuncionalidades);
             this.groupBox1.Controls.Add(this.labelNombre);
             this.groupBox1.Controls.Add(this.comboBoxFuncionalidades);
-            this.groupBox1.Controls.Add(this.textBoxNombre);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(579, 260);
@@ -146,30 +135,29 @@
             this.comboBoxFuncionalidades.Size = new System.Drawing.Size(163, 21);
             this.comboBoxFuncionalidades.TabIndex = 3;
             // 
-            // textBoxNombre
-            // 
-            this.textBoxNombre.Location = new System.Drawing.Point(123, 43);
-            this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(100, 20);
-            this.textBoxNombre.TabIndex = 1;
-            this.textBoxNombre.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxNombre_Validating);
-            // 
             // guardar1
             // 
-            this.guardar1.Location = new System.Drawing.Point(319, 292);
+            this.guardar1.Location = new System.Drawing.Point(483, 278);
             this.guardar1.Name = "guardar1";
-            this.guardar1.Size = new System.Drawing.Size(83, 31);
+            this.guardar1.Size = new System.Drawing.Size(81, 28);
             this.guardar1.TabIndex = 4;
+            // 
+            // textBoxNombre
+            // 
+            this.textBoxNombre.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxNombre.ErrorText = "Debe ingresar un rol";
+            this.textBoxNombre.Location = new System.Drawing.Point(123, 43);
+            this.textBoxNombre.Name = "textBoxNombre";
+            this.textBoxNombre.Size = new System.Drawing.Size(211, 22);
+            this.textBoxNombre.TabIndex = 1;
             // 
             // FormAltaRol
             // 
-            this.AcceptButton = this.btnGuardar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.ClientSize = new System.Drawing.Size(603, 332);
+            this.ClientSize = new System.Drawing.Size(603, 322);
             this.Controls.Add(this.guardar1);
-            this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox1);
             this.MsgError = "Error al crear Rol. Ingresar los campos correctamente";
@@ -186,16 +174,15 @@
         #endregion
 
         private System.Windows.Forms.Label labelNombre;
-        private System.Windows.Forms.TextBox textBoxNombre;
         private System.Windows.Forms.Label labelFuncionalidades;
         private System.Windows.Forms.ComboBox comboBoxFuncionalidades;
         private System.Windows.Forms.Button btnLimpiar;
-        private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.GroupBox groupBox1;
         private Abm.Guardar guardar1;
         private System.Windows.Forms.Button btnQuitar;
         private System.Windows.Forms.Button btnAñadir;
         private System.Windows.Forms.ListBox listBoxFuncionalidades;
         private System.Windows.Forms.Label label1;
+        private Abm.TextBoxValidado textBoxNombre;
     }
 }

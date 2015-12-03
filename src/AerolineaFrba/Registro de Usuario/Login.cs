@@ -43,7 +43,7 @@ namespace AerolineaFrba.Registro_de_Usuario
             return (int)funcion["id_funcionalidad"];
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)//Esto debería ser guardar posta?
         {
             var camposValores = gdDataBase.newParameters();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
