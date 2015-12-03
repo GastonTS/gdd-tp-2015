@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.labelDni = new System.Windows.Forms.Label();
-            this.textBoxDni = new System.Windows.Forms.TextBox();
+            this.textBoxDni = new AerolineaFrba.Abm.TextBoxDNI();
             this.labelProducto = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxProducto = new System.Windows.Forms.ComboBox();
@@ -59,6 +59,8 @@
             // 
             // textBoxDni
             // 
+            this.textBoxDni.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxDni.ErrorText = "I";
             this.textBoxDni.Location = new System.Drawing.Point(54, 30);
             this.textBoxDni.Name = "textBoxDni";
             this.textBoxDni.Size = new System.Drawing.Size(104, 20);
@@ -219,7 +221,7 @@
         #endregion
 
         private System.Windows.Forms.Label labelDni;
-        private System.Windows.Forms.TextBox textBoxDni;
+        private Abm.TextBoxDNI textBoxDni;
         private System.Windows.Forms.Label labelProducto;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxProducto;
