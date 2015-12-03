@@ -198,6 +198,15 @@ namespace AerolineaFrba
             login.setPadre(this);
             login.Show();
         }
+
+        private void altaAeronaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Abm_Aeronave.FormAltaAeronave formularioAltaAeronave = new Abm_Aeronave.FormAltaAeronave();
+
+            formularioAltaAeronave.MdiParent = this;
+
+            formularioAltaAeronave.Show();
+        }
     }
 
 }

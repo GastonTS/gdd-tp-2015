@@ -85,7 +85,7 @@
             this.altaAeronaveToolStripMenuItem.Name = "altaAeronaveToolStripMenuItem";
             this.altaAeronaveToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.altaAeronaveToolStripMenuItem.Text = "Alta";
-            this.altaAeronaveToolStripMenuItem.Click += new System.EventHandler(this.altaToolStripMenuItem_Click);
+            this.altaAeronaveToolStripMenuItem.Click += new System.EventHandler(this.altaAeronaveToolStripMenuItem_Click);
             // 
             // bajaModifAeronaveToolStripMenuItem
             // 
