@@ -30,6 +30,7 @@
         {
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxNombre = new AerolineaFrba.Abm.TextBoxValidado();
             this.btnQuitar = new System.Windows.Forms.Button();
             this.btnAñadir = new System.Windows.Forms.Button();
             this.listBoxFuncionalidades = new System.Windows.Forms.ListBox();
@@ -38,7 +39,6 @@
             this.labelNombre = new System.Windows.Forms.Label();
             this.comboBoxFuncionalidades = new System.Windows.Forms.ComboBox();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
-            this.textBoxNombre = new AerolineaFrba.Abm.TextBoxValidado();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,6 +68,15 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Campos de Rol";
+            // 
+            // textBoxNombre
+            // 
+            this.textBoxNombre.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxNombre.ErrorText = "Debe ingresar un rol";
+            this.textBoxNombre.Location = new System.Drawing.Point(123, 43);
+            this.textBoxNombre.Name = "textBoxNombre";
+            this.textBoxNombre.Size = new System.Drawing.Size(211, 22);
+            this.textBoxNombre.TabIndex = 1;
             // 
             // btnQuitar
             // 
@@ -142,15 +151,6 @@
             this.guardar1.Size = new System.Drawing.Size(81, 28);
             this.guardar1.TabIndex = 4;
             // 
-            // textBoxNombre
-            // 
-            this.textBoxNombre.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxNombre.ErrorText = "Debe ingresar un rol";
-            this.textBoxNombre.Location = new System.Drawing.Point(123, 43);
-            this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(211, 22);
-            this.textBoxNombre.TabIndex = 1;
-            // 
             // FormAltaRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -163,6 +163,7 @@
             this.MsgError = "Error al crear Rol. Ingresar los campos correctamente";
             this.MsgExito = "Crea Rol correctamente";
             this.Name = "FormAltaRol";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta Rol";
             this.Load += new System.EventHandler(this.FormAltaRol_Load);
             this.groupBox1.ResumeLayout(false);

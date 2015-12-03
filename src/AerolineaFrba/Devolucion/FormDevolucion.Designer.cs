@@ -141,6 +141,7 @@
             this.ClientSize = new System.Drawing.Size(935, 603);
             this.Controls.Add(this.groupBox2);
             this.Name = "FormDevolucion";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormSeleccionPasajeEncomienda";
             this.Load += new System.EventHandler(this.FormSeleccionCompra_Load);
             this.groupBox2.ResumeLayout(false);

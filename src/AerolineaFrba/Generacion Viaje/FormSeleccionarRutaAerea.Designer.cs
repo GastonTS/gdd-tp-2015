@@ -39,9 +39,9 @@
             this.labelDestino = new System.Windows.Forms.Label();
             this.labelOrigen = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.rutaAereaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.rutaAereaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.origenBindingSource)).BeginInit();
@@ -154,6 +154,7 @@
             this.Controls.Add(this.labelDestino);
             this.Controls.Add(this.labelOrigen);
             this.Name = "FormSeleccionarRutaAerea";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormSeleccionarRutaAerea";
             this.Load += new System.EventHandler(this.FormSeleccionarRutaAerea_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).EndInit();

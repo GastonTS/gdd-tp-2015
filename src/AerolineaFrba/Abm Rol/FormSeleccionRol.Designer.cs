@@ -125,6 +125,7 @@
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.groupBoxFiltros);
             this.Name = "FormSeleccionRol";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Listado de Selección de Rol a Modificar";
             this.Load += new System.EventHandler(this.FormSeleccionRol_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();

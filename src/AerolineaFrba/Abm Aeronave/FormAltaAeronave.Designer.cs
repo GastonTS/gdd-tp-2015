@@ -264,6 +264,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.MsgError = "Error al dar de alta aeronave, compruebe los campos ingresados";
             this.MsgExito = "Aeronave cargada exitosamente";
             this.Name = "FormAltaAeronave";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta Aeronave";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

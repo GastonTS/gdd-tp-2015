@@ -195,6 +195,7 @@
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormDatosPasajeroEncomienda";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ingrese los datos de un Pasajero y/o Encomienda";
             this.Load += new System.EventHandler(this.FormDatosPasajeroEncomienda_Load);
             this.groupBox1.ResumeLayout(false);

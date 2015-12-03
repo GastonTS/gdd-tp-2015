@@ -237,6 +237,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormSeleccionarAeronave";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Selección de Aeronave para Viaje";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAeronave)).EndInit();
             this.groupBox2.ResumeLayout(false);
