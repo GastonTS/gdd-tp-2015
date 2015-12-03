@@ -232,6 +232,7 @@
             this.Controls.Add(this.groupBoxFechaYRuta);
             this.Controls.Add(this.groupBoxPasajesEncomiendas);
             this.Name = "FormSeleccionViaje";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Selección del Viaje a Comprar";
             this.Load += new System.EventHandler(this.FormSeleccionViaje_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

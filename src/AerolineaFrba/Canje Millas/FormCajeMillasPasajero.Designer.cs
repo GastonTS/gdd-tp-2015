@@ -203,6 +203,7 @@
             this.Controls.Add(this.groupBoxProducto);
             this.Controls.Add(this.groupBoxFecha);
             this.Name = "FormCajeMillasPasajero";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Canje de Millas de Pasajero Frecuente";
             this.groupBoxInfoCliente.ResumeLayout(false);
             this.groupBoxInfoCliente.PerformLayout();

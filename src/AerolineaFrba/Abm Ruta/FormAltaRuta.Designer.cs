@@ -268,6 +268,7 @@
             this.Controls.Add(this.labelPrecioBasePorPeso);
             this.Controls.Add(this.groupBoxCamposAltaRuta);
             this.Name = "FormAltaRuta";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta Ruta Aérea";
             this.Load += new System.EventHandler(this.FormAltaRuta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.origenBinding)).EndInit();

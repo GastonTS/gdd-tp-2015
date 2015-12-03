@@ -232,6 +232,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormCompraEfectiva";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ingreso de datos para la compra efectiva";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -172,6 +172,7 @@
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBoxDatosViaje);
             this.Name = "FormRegistrarLlegadas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registro de viajes realizados";
             ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.origenBindingSource)).EndInit();

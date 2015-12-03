@@ -245,6 +245,7 @@
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox3);
             this.Name = "FormDatosCliente";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ingrese los Datos del Pasajero";
             this.Load += new System.EventHandler(this.FormDatosCliente_Load);
             this.groupBox3.ResumeLayout(false);
