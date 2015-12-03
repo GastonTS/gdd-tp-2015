@@ -10,9 +10,13 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class FormDatosCliente : Form
+    public partial class FormDatosCliente : Abm.Alta
     {
         bool esPasajero;
+        public override string MsgError
+        {
+            get { return "Porfavor revise que todos los datos sean correctos"; }
+        }
 
         public FormDatosCliente()
         {
@@ -41,6 +45,7 @@ namespace AerolineaFrba.Compra
             dateTimeFechaNacimiento.Enabled = estado;
             textBoxDireccion.Enabled = estado;
             btnAceptar.Enabled = estado;
+            button1.Enabled = !estado;
         }
 
         private void textBoxDNI_TextChanged(object sender, EventArgs e)
@@ -66,7 +71,6 @@ namespace AerolineaFrba.Compra
                     dateTimeFechaNacimiento.Text = fila.GetValue(5).ToString();
 
                     btnAceptar.Text = "Actualizar";
-                    btnAceptar.Enabled = false;
                     checkBoxModificarDatos.Visible = true;
                     habilitacionDatosCliente(false);
                 }
@@ -74,7 +78,6 @@ namespace AerolineaFrba.Compra
                 {
                     limpiarDatosCliente();
                     checkBoxModificarDatos.Visible = false;
-                    btnAceptar.Enabled = true;
                     btnAceptar.Text = "Guardar";
                     habilitacionDatosCliente(true);
                 }
@@ -109,7 +112,7 @@ namespace AerolineaFrba.Compra
             textBoxApellido.Clear();
         }
 
-        private void btnAceptar_Click(object sender, EventArgs e)
+        protected override void guardarPosta()
         {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
 
@@ -129,12 +132,17 @@ namespace AerolineaFrba.Compra
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ICargaDatosCliente formInterface = this.Owner as ICargaDatosCliente;
+            if (this.ValidateChildren(ValidationConstraints.TabStop))
+            {
+                ICargaDatosCliente formInterface = this.Owner as ICargaDatosCliente;
 
-            if (formInterface != null)
-                formInterface.setDNI(textBoxDNI.Text);
+                if (formInterface != null)
+                    formInterface.setDNI(textBoxDNI.Text);
 
-            this.Close();
+                this.Close();
+            }
+
         }
+
     }
 }

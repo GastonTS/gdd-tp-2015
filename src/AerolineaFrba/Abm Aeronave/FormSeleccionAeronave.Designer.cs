@@ -323,6 +323,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormSeleccionAeronave";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Selección de Aeronave";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

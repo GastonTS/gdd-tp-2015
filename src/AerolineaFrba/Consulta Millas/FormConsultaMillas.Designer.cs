@@ -128,6 +128,7 @@
             this.Controls.Add(this.labelMillasAcumuladas);
             this.Controls.Add(this.groupBoxInfoCliente);
             this.Name = "FormConsultaMillas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Consulta de Millas";
             this.groupBoxInfoCliente.ResumeLayout(false);
             this.groupBoxInfoCliente.PerformLayout();

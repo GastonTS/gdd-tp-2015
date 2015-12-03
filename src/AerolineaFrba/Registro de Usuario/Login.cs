@@ -12,14 +12,14 @@ namespace AerolineaFrba.Registro_de_Usuario
 {
      public partial class Login : Form
     {
-        Form1 padre;
+        FormPrincipal padre;
 
         public Login()
         {
             InitializeComponent();
         }
 
-        public void setPadre(Form1 unForm)
+        public void setPadre(FormPrincipal unForm)
         {
             padre = unForm;
         }

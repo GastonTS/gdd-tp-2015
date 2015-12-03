@@ -254,6 +254,7 @@
             this.Controls.Add(this.groupBoxAeronave);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormGenerarViaje";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Creación de un Nuevo Viaje";
             this.Load += new System.EventHandler(this.FormGenerarViaje_Load);
             this.groupBoxFechasYHorarios.ResumeLayout(false);

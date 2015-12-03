@@ -164,6 +164,7 @@
             this.ClientSize = new System.Drawing.Size(694, 505);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormListadoEstadistico";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Listado Estadistico";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
