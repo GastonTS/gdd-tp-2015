@@ -18,6 +18,10 @@ namespace AerolineaFrba.Generacion_Viaje
         public FormGenerarViaje()
         {
             InitializeComponent();
+            dateTimePickerEstimada.Format = DateTimePickerFormat.Custom;
+            dateTimePickerSalida.Format = DateTimePickerFormat.Custom;
+            dateTimePickerEstimada.CustomFormat = "dd/MM/yyyy    HH:mm:ss";
+            dateTimePickerSalida.CustomFormat = "dd/MM/yyyy    HH:mm:ss";
         }
 
         private void btnSeleccionAeronave_Click(object sender, EventArgs e)
