@@ -13,6 +13,8 @@ namespace AerolineaFrba.Compra
     public partial class FormDatosCliente : Abm.Alta
     {
         bool esPasajero;
+        FormDatosPasajeroEncomienda miPadre;
+
         public override string MsgError
         {
             get { return "Porfavor revise que todos los datos sean correctos"; }
@@ -130,14 +132,17 @@ namespace AerolineaFrba.Compra
             checkBoxModificarDatos.Checked = false;
         }
 
+        public void setPadre(FormDatosPasajeroEncomienda padre)
+        {
+            miPadre = padre;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (this.ValidateChildren(ValidationConstraints.TabStop))
             {
-                ICargaDatosCliente formInterface = this.Owner as ICargaDatosCliente;
-
-                if (formInterface != null)
-                    formInterface.setDNI(textBoxDNI.Text);
+                if (miPadre != null)
+                    miPadre.setDNI(textBoxDNI.Text);
 
                 this.Close();
             }

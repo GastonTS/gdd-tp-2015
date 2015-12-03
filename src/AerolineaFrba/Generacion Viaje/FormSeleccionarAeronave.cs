@@ -12,6 +12,8 @@ namespace AerolineaFrba.Generacion_Viaje
 {
     public partial class FormSeleccionarAeronave : Form
     {
+        FormGenerarViaje miPadre;
+
         public FormSeleccionarAeronave()
         {
             InitializeComponent();
@@ -65,14 +67,17 @@ namespace AerolineaFrba.Generacion_Viaje
             comboBoxTipoServicio.Text = "";
         }
 
+        public void setPadre(FormGenerarViaje padre)
+        {
+            miPadre = padre;
+        }
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             DataGridViewRow filaAeronave = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
 
-            ISeleccionAeronave formInterface = this.Owner as ISeleccionAeronave;
-
-            if (formInterface != null)
-                formInterface.setMatricula(filaAeronave.Cells[2].FormattedValue.ToString());
+            if (miPadre != null)
+                miPadre.setMatricula(filaAeronave.Cells[2].FormattedValue.ToString());
 
             this.Close();
         }

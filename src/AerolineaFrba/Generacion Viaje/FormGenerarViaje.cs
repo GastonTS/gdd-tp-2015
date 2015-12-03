@@ -27,12 +27,14 @@ namespace AerolineaFrba.Generacion_Viaje
         private void btnSeleccionAeronave_Click(object sender, EventArgs e)
         {
             FormSeleccionarAeronave fsa = new FormSeleccionarAeronave();
+            fsa.setPadre(this);
             fsa.Show(this);
         }
 
         private void btnSeleccionRuta_Click(object sender, EventArgs e)
         {
             FormSeleccionarRutaAerea fra = new FormSeleccionarRutaAerea();
+            fra.setPadre(this);
             fra.Show(this);
         }
 

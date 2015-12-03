@@ -12,23 +12,28 @@ namespace AerolineaFrba.Generacion_Viaje
 {
     public partial class FormSeleccionarRutaAerea : Abm.FormReloaded
     {
+        FormGenerarViaje miPadre;
+
         public FormSeleccionarRutaAerea()
         {
             InitializeComponent();
+        }
+
+        public void setPadre(FormGenerarViaje padre)
+        {
+            miPadre = padre;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             DataGridViewRow filaAeronave = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index];
 
-            ISeleccionRuta formInterface = this.Owner as ISeleccionRuta;
-
-            if (formInterface != null)
+            if (miPadre != null)
             {
-                formInterface.setCiudadOrigen(filaAeronave.Cells[3].FormattedValue.ToString());
-                formInterface.setCiudadDestino(filaAeronave.Cells[5].FormattedValue.ToString());
-                formInterface.setTipoServicio(filaAeronave.Cells[9].FormattedValue.ToString());
-                formInterface.setIdRuta(Convert.ToInt32(filaAeronave.Cells[0].FormattedValue.ToString()));
+                miPadre.setCiudadOrigen(filaAeronave.Cells[3].FormattedValue.ToString());
+                miPadre.setCiudadDestino(filaAeronave.Cells[5].FormattedValue.ToString());
+                miPadre.setTipoServicio(filaAeronave.Cells[9].FormattedValue.ToString());
+                miPadre.setIdRuta(Convert.ToInt32(filaAeronave.Cells[0].FormattedValue.ToString()));
             }
 
             this.Close();
