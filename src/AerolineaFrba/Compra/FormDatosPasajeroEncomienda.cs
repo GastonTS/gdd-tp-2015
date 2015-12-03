@@ -115,6 +115,7 @@ namespace AerolineaFrba.Compra
             FormDatosCliente fdc = new FormDatosCliente();
 
             fdc.indicarSiEsPasajero(true);
+            fdc.setPadre(this);
             fdc.Show(this);
         }
 

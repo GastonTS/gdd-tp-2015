@@ -44,8 +44,8 @@
             this.labelTipoTarjeta = new System.Windows.Forms.Label();
             this.btnFinalizarCarga = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.textBoxNumeroTarjeta = new AerolineaFrba.Abm.TextBoxNumeros();
             this.textBoxCodigoSeguridad = new AerolineaFrba.Abm.TextBoxNumeros();
+            this.textBoxNumeroTarjeta = new AerolineaFrba.Abm.TextBoxNumeros();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -208,15 +208,6 @@
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             // 
-            // textBoxNumeroTarjeta
-            // 
-            this.textBoxNumeroTarjeta.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxNumeroTarjeta.ErrorText = "Debe ingresarse un numero valido";
-            this.textBoxNumeroTarjeta.Location = new System.Drawing.Point(144, 31);
-            this.textBoxNumeroTarjeta.Name = "textBoxNumeroTarjeta";
-            this.textBoxNumeroTarjeta.Size = new System.Drawing.Size(211, 22);
-            this.textBoxNumeroTarjeta.TabIndex = 13;
-            // 
             // textBoxCodigoSeguridad
             // 
             this.textBoxCodigoSeguridad.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
@@ -225,6 +216,15 @@
             this.textBoxCodigoSeguridad.Name = "textBoxCodigoSeguridad";
             this.textBoxCodigoSeguridad.Size = new System.Drawing.Size(211, 22);
             this.textBoxCodigoSeguridad.TabIndex = 14;
+            // 
+            // textBoxNumeroTarjeta
+            // 
+            this.textBoxNumeroTarjeta.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxNumeroTarjeta.ErrorText = "Debe ingresarse un numero valido";
+            this.textBoxNumeroTarjeta.Location = new System.Drawing.Point(144, 31);
+            this.textBoxNumeroTarjeta.Name = "textBoxNumeroTarjeta";
+            this.textBoxNumeroTarjeta.Size = new System.Drawing.Size(211, 22);
+            this.textBoxNumeroTarjeta.TabIndex = 13;
             // 
             // FormCompraEfectiva
             // 

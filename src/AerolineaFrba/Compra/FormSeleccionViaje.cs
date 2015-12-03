@@ -66,6 +66,7 @@ namespace AerolineaFrba.Compra
             {
                 pasajes.Add(new Pasaje(-1, dni, numeroDeButaca));
                 listBoxPasajesYEncomiendasComprados.Items.Add("Pasaje -> DNI:" + dni + ". Butaca n°: " + numeroDeButaca);
+                btnAceptar.Enabled = true;
             }
         }
 
@@ -207,6 +208,7 @@ namespace AerolineaFrba.Compra
                     pesoDisponible = 0;
                     listBoxPasajesYEncomiendasComprados.Items.Clear();
                     dataGridView1.ClearSelection();
+                    btnAceptar.Enabled = false;
                 }
             }
         }
