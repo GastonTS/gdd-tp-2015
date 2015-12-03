@@ -60,7 +60,6 @@ namespace AerolineaFrba.Compra
 
         public void setPasaje(int dni, int numeroDeButaca) 
         {
-
             if (pasajes.Any(unPasaje => unPasaje.dni == dni))
                 MessageBox.Show("Esta persona ya tiene asignado un pasaje en este viaje");
             else
@@ -169,7 +168,7 @@ namespace AerolineaFrba.Compra
             }
 
             fdpe.setIDViaje(Convert.ToInt32(filaSeleccionada.Cells[0].FormattedValue.ToString()));
-
+            fdpe.setPadre(this);
             fdpe.Show(this);
         }
 
@@ -187,7 +186,7 @@ namespace AerolineaFrba.Compra
             fce.setCompras(new Compra(Convert.ToInt32(filaSeleccionada.Cells[0].FormattedValue.ToString()),
                 -1, -1), pasajes, encomiendas);
 
-            fce.Show();
+            fce.Show(this);
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)

@@ -15,6 +15,7 @@ namespace AerolineaFrba.Compra
         bool soloPasaje = true;
         int idViaje, numeroDeButacaSeleccionada;
         List<int> butacasEnCompra = new List<int>();
+        public FormSeleccionViaje miPadre;
 
         public FormDatosPasajeroEncomienda()
         {
@@ -43,6 +44,11 @@ namespace AerolineaFrba.Compra
         public void setIDViaje(int idViaje)
         {
             this.idViaje = idViaje;
+        }
+
+        public void setPadre(FormSeleccionViaje padre)
+        {
+            miPadre = padre;
         }
 
         private void FormDatosPasajeroEncomienda_Load(object sender, EventArgs e)
@@ -124,14 +130,12 @@ namespace AerolineaFrba.Compra
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            IDatosCompra formInterface = this.Owner as IDatosCompra;
-
-            if (formInterface != null)
+            if (miPadre != null)
             {
                 if (soloPasaje)
-                    formInterface.setPasaje(Convert.ToInt32(textBoxDNI.Text), numeroDeButacaSeleccionada);
+                    miPadre.setPasaje(Convert.ToInt32(textBoxDNI.Text), numeroDeButacaSeleccionada);
                 else
-                    formInterface.setEncomienda(Convert.ToInt32(textBoxDNI.Text), 
+                    miPadre.setEncomienda(Convert.ToInt32(textBoxDNI.Text), 
                         Convert.ToDecimal(textBoxCantidadAEncomendar.Text));
             }
 
