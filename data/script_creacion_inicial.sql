@@ -1696,8 +1696,12 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.TarjetasDeCredito
+AS
+	select * from ÑUFLO.TarjetaDeCredito
+;
+GO
 
-		
 /*Detalles para listados*/
 CREATE PROCEDURE ÑUFLO.DetallePasajePara
 @ciudad nvarchar(255),
