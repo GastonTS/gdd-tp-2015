@@ -60,6 +60,8 @@ namespace AerolineaFrba.Compra
 
         public void setPasaje(int dni, int numeroDeButaca) 
         {
+            validarQueNoEsteEnElVuelo(dni);
+
             if (pasajes.Any(unPasaje => unPasaje.dni == dni))
                 MessageBox.Show("Esta persona ya tiene asignado un pasaje en este viaje");
             else
@@ -72,8 +74,6 @@ namespace AerolineaFrba.Compra
 
         public void setEncomienda(int dni, decimal pesoEncomienda)
         {
-            validarQueNoEsteEnElVuelo(dni);
-
             if (pesoDisponible - pesoEncomienda < 0)
                 MessageBox.Show("El peso encomendado es mayor al disponible en la aeronave");
             else
@@ -90,7 +90,7 @@ namespace AerolineaFrba.Compra
 
             camposValores.Add("ciudad_origen", new gdDataBase.ValorTipo(comboBoxOrigen.Text, SqlDbType.VarChar));
             camposValores.Add("ciudad_destino", new gdDataBase.ValorTipo(comboBoxDestino.Text, SqlDbType.VarChar));
-            camposValores.Add("fecha", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+            camposValores.Add("fecha", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
 
             var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.ViajesDisponiblesPara", camposValores);
 
@@ -195,7 +195,7 @@ namespace AerolineaFrba.Compra
             if (pasajes.Count > 0 || encomiendas.Count > 0)
             {
                 DialogResult dialogResult = MessageBox.Show("Está seguro que desea cancelar las compras registradas hasta el momento",
-                    "ASD", MessageBoxButtons.YesNo);
+                    "Cancelar Compras", MessageBoxButtons.YesNo);
 
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -226,9 +226,11 @@ namespace AerolineaFrba.Compra
 
             camposValores.Add("dni", new gdDataBase.ValorTipo(dni.ToString(), SqlDbType.Int));
             camposValores.Add("fecha_vuelo",
-                new gdDataBase.ValorTipo(filaSeleccionada.Cells[2].FormattedValue.ToString(), SqlDbType.VarChar));
+                new gdDataBase.ValorTipo(Convert.ToDateTime(filaSeleccionada.Cells[2].FormattedValue).ToString("yyyy-MM-dd hh:mm:ss.000"), 
+                    SqlDbType.DateTime));
             camposValores.Add("fecha_estimada",
-                new gdDataBase.ValorTipo(filaSeleccionada.Cells[3].FormattedValue.ToString(), SqlDbType.VarChar));
+                new gdDataBase.ValorTipo(Convert.ToDateTime(filaSeleccionada.Cells[3].FormattedValue).ToString("yyyy-MM-dd hh:mm:ss.000"), 
+                    SqlDbType.DateTime));
 
             errorMensaje.Add(60034, "EL pasajero se encuentra volando en esas fechas");
 
