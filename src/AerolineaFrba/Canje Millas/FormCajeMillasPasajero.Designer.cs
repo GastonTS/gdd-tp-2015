@@ -138,7 +138,6 @@
             this.btnVerProductos.TabIndex = 2;
             this.btnVerProductos.Text = "Ver sus Productos";
             this.btnVerProductos.UseVisualStyleBackColor = true;
-            this.btnVerProductos.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBoxProducto
             // 
