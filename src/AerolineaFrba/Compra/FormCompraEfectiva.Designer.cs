@@ -35,9 +35,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.labelNumeroTarjeta = new System.Windows.Forms.Label();
-            this.textBoxNumeroTarjeta = new System.Windows.Forms.TextBox();
             this.labelCodigoSeguridad = new System.Windows.Forms.Label();
-            this.textBoxCodigoSeguridad = new System.Windows.Forms.TextBox();
             this.labelFechaVencimiento = new System.Windows.Forms.Label();
             this.dateTimePickerFechaVencimiento = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -46,6 +44,8 @@
             this.labelTipoTarjeta = new System.Windows.Forms.Label();
             this.btnFinalizarCarga = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.textBoxNumeroTarjeta = new AerolineaFrba.Abm.TextBoxNumeros();
+            this.textBoxCodigoSeguridad = new AerolineaFrba.Abm.TextBoxNumeros();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -118,13 +118,6 @@
             this.labelNumeroTarjeta.TabIndex = 4;
             this.labelNumeroTarjeta.Text = "Número de Tarjeta:";
             // 
-            // textBoxNumeroTarjeta
-            // 
-            this.textBoxNumeroTarjeta.Location = new System.Drawing.Point(144, 31);
-            this.textBoxNumeroTarjeta.Name = "textBoxNumeroTarjeta";
-            this.textBoxNumeroTarjeta.Size = new System.Drawing.Size(100, 20);
-            this.textBoxNumeroTarjeta.TabIndex = 5;
-            // 
             // labelCodigoSeguridad
             // 
             this.labelCodigoSeguridad.AutoSize = true;
@@ -133,13 +126,6 @@
             this.labelCodigoSeguridad.Size = new System.Drawing.Size(112, 13);
             this.labelCodigoSeguridad.TabIndex = 6;
             this.labelCodigoSeguridad.Text = "Código de Serguridad:";
-            // 
-            // textBoxCodigoSeguridad
-            // 
-            this.textBoxCodigoSeguridad.Location = new System.Drawing.Point(144, 67);
-            this.textBoxCodigoSeguridad.Name = "textBoxCodigoSeguridad";
-            this.textBoxCodigoSeguridad.Size = new System.Drawing.Size(100, 20);
-            this.textBoxCodigoSeguridad.TabIndex = 7;
             // 
             // labelFechaVencimiento
             // 
@@ -159,15 +145,15 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBoxCodigoSeguridad);
+            this.groupBox2.Controls.Add(this.textBoxNumeroTarjeta);
             this.groupBox2.Controls.Add(this.checkBoxCompraCoutas);
             this.groupBox2.Controls.Add(this.comboBoxTipoTarjeta);
             this.groupBox2.Controls.Add(this.labelTipoTarjeta);
             this.groupBox2.Controls.Add(this.labelCodigoSeguridad);
             this.groupBox2.Controls.Add(this.dateTimePickerFechaVencimiento);
-            this.groupBox2.Controls.Add(this.textBoxNumeroTarjeta);
             this.groupBox2.Controls.Add(this.labelNumeroTarjeta);
             this.groupBox2.Controls.Add(this.labelFechaVencimiento);
-            this.groupBox2.Controls.Add(this.textBoxCodigoSeguridad);
             this.groupBox2.Enabled = false;
             this.groupBox2.Location = new System.Drawing.Point(24, 182);
             this.groupBox2.Name = "groupBox2";
@@ -222,6 +208,24 @@
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             // 
+            // textBoxNumeroTarjeta
+            // 
+            this.textBoxNumeroTarjeta.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxNumeroTarjeta.ErrorText = "Debe ingresarse un numero valido";
+            this.textBoxNumeroTarjeta.Location = new System.Drawing.Point(144, 31);
+            this.textBoxNumeroTarjeta.Name = "textBoxNumeroTarjeta";
+            this.textBoxNumeroTarjeta.Size = new System.Drawing.Size(211, 22);
+            this.textBoxNumeroTarjeta.TabIndex = 13;
+            // 
+            // textBoxCodigoSeguridad
+            // 
+            this.textBoxCodigoSeguridad.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCodigoSeguridad.ErrorText = "El codigo de seguridad debe ser un numero";
+            this.textBoxCodigoSeguridad.Location = new System.Drawing.Point(144, 67);
+            this.textBoxCodigoSeguridad.Name = "textBoxCodigoSeguridad";
+            this.textBoxCodigoSeguridad.Size = new System.Drawing.Size(211, 22);
+            this.textBoxCodigoSeguridad.TabIndex = 14;
+            // 
             // FormCompraEfectiva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -249,9 +253,7 @@
         private System.Windows.Forms.TextBox textBoxDNI;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelNumeroTarjeta;
-        private System.Windows.Forms.TextBox textBoxNumeroTarjeta;
         private System.Windows.Forms.Label labelCodigoSeguridad;
-        private System.Windows.Forms.TextBox textBoxCodigoSeguridad;
         private System.Windows.Forms.Label labelFechaVencimiento;
         private System.Windows.Forms.DateTimePicker dateTimePickerFechaVencimiento;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -261,5 +263,7 @@
         private System.Windows.Forms.Button btnFinalizarCarga;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button button1;
+        private Abm.TextBoxNumeros textBoxCodigoSeguridad;
+        private Abm.TextBoxNumeros textBoxNumeroTarjeta;
     }
 }

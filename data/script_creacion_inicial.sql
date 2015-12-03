@@ -163,6 +163,18 @@ CREATE TABLE ÑUFLO.Compra (
 	fecha_de_compra datetime NOT NULL
 	)
 GO
+
+CREATE TABLE ÑUFLO.TarjetaDeCredito (
+	id_tarjeta int IDENTITY(1,1) PRIMARY KEY,
+	nombre nvarchar(255) UNIQUE,
+	cantidad_de_cuotas int
+)
+GO
+
+INSERT INTO ÑUFLO.TarjetaDeCredito(nombre, cantidad_de_cuotas) values('American Express', 6)
+INSERT INTO ÑUFLO.TarjetaDeCredito(nombre, cantidad_de_cuotas) values('Master Card', 12)
+INSERT INTO ÑUFLO.TarjetaDeCredito(nombre, cantidad_de_cuotas) values('Cabal', 3)
+GO
 	
 CREATE TABLE ÑUFLO.Pasaje (
 	id_pasaje int PRIMARY KEY,
