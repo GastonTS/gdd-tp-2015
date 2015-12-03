@@ -248,10 +248,13 @@
             // 
             // dataGridViewAeronave
             // 
+            this.dataGridViewAeronave.AllowUserToAddRows = false;
+            this.dataGridViewAeronave.AllowUserToDeleteRows = false;
             this.dataGridViewAeronave.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewAeronave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAeronave.Location = new System.Drawing.Point(27, 332);
             this.dataGridViewAeronave.Name = "dataGridViewAeronave";
+            this.dataGridViewAeronave.ReadOnly = true;
             this.dataGridViewAeronave.Size = new System.Drawing.Size(718, 179);
             this.dataGridViewAeronave.TabIndex = 18;
             this.dataGridViewAeronave.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAeronave_RowEnter);
