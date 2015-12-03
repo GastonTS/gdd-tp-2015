@@ -41,7 +41,7 @@ namespace AerolineaFrba.Registro_de_Usuario
             return (int)funcion["id_funcionalidad"];
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)//Esto debería ser guardar posta?
         {
             var camposValores = gdDataBase.newParameters();
             camposValores.Add("usuario", new gdDataBase.ValorTipo(textBoxUsername.Text,SqlDbType.NVarChar));
