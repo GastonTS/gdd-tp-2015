@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBoxAño = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridViewListado = new System.Windows.Forms.DataGridView();
             this.radioBtnSegundoSemestre = new System.Windows.Forms.RadioButton();
@@ -39,7 +40,6 @@
             this.comboBoxListado = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.bindingSourceListado = new System.Windows.Forms.BindingSource(this.components);
-            this.comboBoxAño = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListado)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceListado)).BeginInit();
@@ -64,6 +64,15 @@
             this.groupBox1.Text = "Top 5 Estadisticos";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // comboBoxAño
+            // 
+            this.comboBoxAño.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAño.FormattingEnabled = true;
+            this.comboBoxAño.Location = new System.Drawing.Point(119, 101);
+            this.comboBoxAño.Name = "comboBoxAño";
+            this.comboBoxAño.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxAño.TabIndex = 10;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(25, 366);
@@ -76,6 +85,7 @@
             // 
             // dataGridViewListado
             // 
+            this.dataGridViewListado.AllowUserToAddRows = false;
             this.dataGridViewListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewListado.Location = new System.Drawing.Point(25, 175);
             this.dataGridViewListado.Name = "dataGridViewListado";
@@ -146,15 +156,6 @@
             this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Año";
-            // 
-            // comboBoxAño
-            // 
-            this.comboBoxAño.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAño.FormattingEnabled = true;
-            this.comboBoxAño.Location = new System.Drawing.Point(119, 101);
-            this.comboBoxAño.Name = "comboBoxAño";
-            this.comboBoxAño.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxAño.TabIndex = 10;
             // 
             // FormListadoEstadistico
             // 
