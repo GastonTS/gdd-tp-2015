@@ -17,7 +17,7 @@ namespace AerolineaFrba.Abm
 
         protected override String validationRegexString()
         {
-            return ".+@.+[.].+";
+            return "(.+@.+[.].+)?";
         }
     }
 }

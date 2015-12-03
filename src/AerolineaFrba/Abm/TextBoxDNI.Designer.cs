@@ -40,6 +40,11 @@
 
         }
 
+        override protected System.Windows.Forms.TextBox newTextBox()
+        {
+            return new IntegerTextBox();
+        }
+
         #endregion
     }
 }
