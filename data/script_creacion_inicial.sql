@@ -1347,11 +1347,13 @@ AS
 		IF(EXISTS(select id_pasaje
 					from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
 					where p.id_pasaje = @id
+						and v.fecha_llegada is not null
 						and p.codigo_de_compra = c.codigo_de_compra
 						and c.id_viaje = v.id_viaje))
+		BEGIN
 			SET @msg = 'El vuelo del pasaje ' + convert(nvarchar(255), @id) + ' ya fue realizado, no se pueden cancelar passajes de vuelos ya realizadas, porfavor vuelva a realizar la seleccion';
 			THROW 60035, @msg, 1
-	
+		END
 		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
 		BEGIN
