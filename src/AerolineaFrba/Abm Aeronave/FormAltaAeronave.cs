@@ -170,6 +170,11 @@ namespace AerolineaFrba.Abm_Aeronave
                     MessageBox.Show("Aeronave registrada correctamente");
                     limpiar();
                 }
+                if (miPadre != null)
+                {
+                    this.Close();
+                    miPadre.podesDarDeBaja(esVidaUtil);
+                }
             }
             else
             {
@@ -177,14 +182,11 @@ namespace AerolineaFrba.Abm_Aeronave
                 actualizar.Exec();
                 if (!(actualizar.huboError()))
                     limpiar();
+                miPadre.consultarConFiltro();
                 this.Close();
             }
 
-            if (miPadre != null)
-            {
-                this.Close();
-                miPadre.podesDarDeBaja(esVidaUtil);
-            }
+
         }
     }
 }

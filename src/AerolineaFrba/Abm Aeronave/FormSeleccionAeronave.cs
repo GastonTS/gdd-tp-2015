@@ -32,7 +32,7 @@ namespace AerolineaFrba.Abm_Aeronave
             consultarConFiltro();
         }
 
-        private void consultarConFiltro()
+        public void consultarConFiltro()
         {
             Boolean bajaVidaUtil = false, bajaFueraServicio = false;
 
@@ -90,10 +90,6 @@ namespace AerolineaFrba.Abm_Aeronave
                 btnBajaFueraServicio.Enabled = true;
                 btnBajaVidaUtil.Enabled = true;
                 dateTimePicker1.Enabled = true;
-                if (dataGridViewAeronave.SelectedRows[0].Cells[7].Value.ToString() != "")
-                    btnBajaFueraServicio.Enabled = false;
-                if (dataGridViewAeronave.SelectedRows[0].Cells[8].Value.ToString() != "0")
-                    btnBajaVidaUtil.Enabled = false;
             }
             else if (dataGridViewAeronave.Rows.Count == 1)
             {
@@ -101,10 +97,6 @@ namespace AerolineaFrba.Abm_Aeronave
                 btnBajaFueraServicio.Enabled = true;
                 btnBajaVidaUtil.Enabled = true;
                 dateTimePicker1.Enabled = true;
-                if (dataGridViewAeronave.Rows[0].Cells[7].Value.ToString() != "")
-                    btnBajaFueraServicio.Enabled = false;
-                if (dataGridViewAeronave.Rows[0].Cells[8].Value.ToString() != "0")
-                    btnBajaVidaUtil.Enabled = false;
             }
             else
             {
@@ -139,6 +131,8 @@ namespace AerolineaFrba.Abm_Aeronave
 
             FormAltaAeronave faa = new FormAltaAeronave();
             faa.Show();
+            faa.setPadre(this);
+            
             faa.setFilaDeAeronaveSeleccionada(filaSeleccionada);
         }
 
@@ -152,7 +146,9 @@ namespace AerolineaFrba.Abm_Aeronave
             camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
             camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
+            errorMensaje.Add(60003, "La nave ya se encuentra en mantenimiento");
             errorMensaje.Add(60004, "La nave ya se encuentra fuera de su vida util");
+            errorMensaje.Add(62004, "La fecha de reincorporacion debe ser mayor a la fecha de hoy");
 
             var ejecucion = new SPExecGetData("ÑUFLO.ValidarAeronaveActiva", camposValores, errorMensaje);
 
@@ -264,8 +260,9 @@ namespace AerolineaFrba.Abm_Aeronave
             camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
             camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
 
-            errorMensaje.Add(62004, "La fecha de reincorporacion debe ser mayor a la fecha de hoy");
             errorMensaje.Add(60003, "La nave ya se encuentra en mantenimiento");
+            errorMensaje.Add(60004, "La nave ya se encuentra fuera de su vida util");
+            errorMensaje.Add(62004, "La fecha de reincorporacion debe ser mayor a la fecha de hoy");
 
             var ejecucion = new SPExecGetData("ÑUFLO.ValidarAeronaveActiva", camposValores, errorMensaje);
 
