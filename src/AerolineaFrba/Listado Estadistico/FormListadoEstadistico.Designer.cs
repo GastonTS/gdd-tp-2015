@@ -63,7 +63,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(40, 31);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1073, 503);
+            this.groupBox1.Size = new System.Drawing.Size(1073, 460);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Top 5 Estadisticos";
@@ -72,7 +72,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(27, 232);
+            this.label4.Location = new System.Drawing.Point(27, 217);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(169, 13);
             this.label4.TabIndex = 12;
@@ -84,7 +84,7 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(28, 267);
+            this.dataGridView1.Location = new System.Drawing.Point(28, 252);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(988, 150);
@@ -94,14 +94,14 @@
             // 
             this.comboBoxAño.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAño.FormattingEnabled = true;
-            this.comboBoxAño.Location = new System.Drawing.Point(119, 101);
+            this.comboBoxAño.Location = new System.Drawing.Point(131, 116);
             this.comboBoxAño.Name = "comboBoxAño";
             this.comboBoxAño.Size = new System.Drawing.Size(121, 21);
             this.comboBoxAño.TabIndex = 10;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(28, 444);
+            this.button1.Location = new System.Drawing.Point(929, 419);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(87, 29);
             this.button1.TabIndex = 9;
@@ -118,14 +118,14 @@
             this.dataGridViewListado.Location = new System.Drawing.Point(522, 59);
             this.dataGridViewListado.Name = "dataGridViewListado";
             this.dataGridViewListado.ReadOnly = true;
-            this.dataGridViewListado.Size = new System.Drawing.Size(494, 159);
+            this.dataGridViewListado.Size = new System.Drawing.Size(494, 132);
             this.dataGridViewListado.TabIndex = 8;
             this.dataGridViewListado.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewListado_RowEnter);
             // 
             // radioBtnSegundoSemestre
             // 
             this.radioBtnSegundoSemestre.AutoSize = true;
-            this.radioBtnSegundoSemestre.Location = new System.Drawing.Point(188, 144);
+            this.radioBtnSegundoSemestre.Location = new System.Drawing.Point(200, 159);
             this.radioBtnSegundoSemestre.Name = "radioBtnSegundoSemestre";
             this.radioBtnSegundoSemestre.Size = new System.Drawing.Size(68, 17);
             this.radioBtnSegundoSemestre.TabIndex = 7;
@@ -136,7 +136,7 @@
             // 
             this.radioBtnPrimerSemestre.AutoSize = true;
             this.radioBtnPrimerSemestre.Checked = true;
-            this.radioBtnPrimerSemestre.Location = new System.Drawing.Point(122, 144);
+            this.radioBtnPrimerSemestre.Location = new System.Drawing.Point(134, 159);
             this.radioBtnPrimerSemestre.Name = "radioBtnPrimerSemestre";
             this.radioBtnPrimerSemestre.Size = new System.Drawing.Size(60, 17);
             this.radioBtnPrimerSemestre.TabIndex = 6;
@@ -147,7 +147,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(25, 146);
+            this.label3.Location = new System.Drawing.Point(37, 161);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 13);
             this.label3.TabIndex = 5;
@@ -156,7 +156,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 62);
+            this.label2.Location = new System.Drawing.Point(37, 77);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 13);
             this.label2.TabIndex = 4;
@@ -172,7 +172,7 @@
             "Destinos con más aeronaves vacías.",
             "Destinos con más pasajes cancelados.",
             "Clientes con más puntos acumulados."});
-            this.comboBoxListado.Location = new System.Drawing.Point(119, 59);
+            this.comboBoxListado.Location = new System.Drawing.Point(131, 74);
             this.comboBoxListado.Name = "comboBoxListado";
             this.comboBoxListado.Size = new System.Drawing.Size(371, 21);
             this.comboBoxListado.TabIndex = 3;
@@ -182,7 +182,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 104);
+            this.label1.Location = new System.Drawing.Point(37, 119);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 2;
@@ -192,7 +192,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1170, 604);
+            this.ClientSize = new System.Drawing.Size(1151, 520);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormListadoEstadistico";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

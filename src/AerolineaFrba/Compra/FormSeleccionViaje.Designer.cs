@@ -161,9 +161,9 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(25, 509);
+            this.btnLimpiar.Location = new System.Drawing.Point(25, 498);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(104, 46);
+            this.btnLimpiar.Size = new System.Drawing.Size(104, 32);
             this.btnLimpiar.TabIndex = 1;
             this.btnLimpiar.Text = "Cancelar Compra";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -194,15 +194,15 @@
             this.listBoxPasajesYEncomiendasComprados.FormattingEnabled = true;
             this.listBoxPasajesYEncomiendasComprados.Location = new System.Drawing.Point(278, 19);
             this.listBoxPasajesYEncomiendasComprados.Name = "listBoxPasajesYEncomiendasComprados";
-            this.listBoxPasajesYEncomiendasComprados.Size = new System.Drawing.Size(270, 108);
+            this.listBoxPasajesYEncomiendasComprados.Size = new System.Drawing.Size(270, 95);
             this.listBoxPasajesYEncomiendasComprados.TabIndex = 18;
             // 
             // btnAceptar
             // 
             this.btnAceptar.Enabled = false;
-            this.btnAceptar.Location = new System.Drawing.Point(484, 509);
+            this.btnAceptar.Location = new System.Drawing.Point(484, 498);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(104, 46);
+            this.btnAceptar.Size = new System.Drawing.Size(104, 32);
             this.btnAceptar.TabIndex = 0;
             this.btnAceptar.Text = "Confirmar Compra";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -216,7 +216,7 @@
             this.groupBoxPasajesEncomiendas.Enabled = false;
             this.groupBoxPasajesEncomiendas.Location = new System.Drawing.Point(25, 363);
             this.groupBoxPasajesEncomiendas.Name = "groupBoxPasajesEncomiendas";
-            this.groupBoxPasajesEncomiendas.Size = new System.Drawing.Size(563, 140);
+            this.groupBoxPasajesEncomiendas.Size = new System.Drawing.Size(563, 129);
             this.groupBoxPasajesEncomiendas.TabIndex = 20;
             this.groupBoxPasajesEncomiendas.TabStop = false;
             this.groupBoxPasajesEncomiendas.Text = "Compra de Pasajes y/o Encomiendas";
@@ -225,7 +225,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(612, 567);
+            this.ClientSize = new System.Drawing.Size(612, 542);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.labelViajesDisponibles);

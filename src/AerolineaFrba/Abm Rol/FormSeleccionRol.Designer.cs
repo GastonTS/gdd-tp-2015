@@ -42,7 +42,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(322, 111);
+            this.btnBuscar.Location = new System.Drawing.Point(363, 111);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 10;
@@ -52,7 +52,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(61, 111);
+            this.btnLimpiar.Location = new System.Drawing.Point(26, 111);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 9;
@@ -101,7 +101,7 @@
             // 
             // textBoxNombre
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(85, 32);
+            this.textBoxNombre.Location = new System.Drawing.Point(85, 27);
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(100, 20);
             this.textBoxNombre.TabIndex = 2;
@@ -109,7 +109,7 @@
             // labelNombre
             // 
             this.labelNombre.AutoSize = true;
-            this.labelNombre.Location = new System.Drawing.Point(32, 35);
+            this.labelNombre.Location = new System.Drawing.Point(32, 30);
             this.labelNombre.Name = "labelNombre";
             this.labelNombre.Size = new System.Drawing.Size(47, 13);
             this.labelNombre.TabIndex = 1;

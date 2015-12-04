@@ -34,6 +34,7 @@
             this.labelDNI = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBoxButacaYEncomienda = new System.Windows.Forms.GroupBox();
+            this.textBoxCantidadAEncomendar = new AerolineaFrba.Abm.TextBoxDecimal();
             this.labelVentanilla = new System.Windows.Forms.Label();
             this.labelPasillo = new System.Windows.Forms.Label();
             this.listBoxEleccionButacaVentanilla = new System.Windows.Forms.ListBox();
@@ -41,7 +42,6 @@
             this.labelButaca = new System.Windows.Forms.Label();
             this.listBoxEleccionButacaPasillo = new System.Windows.Forms.ListBox();
             this.btnAceptar = new AerolineaFrba.Abm.Guardar();
-            this.textBoxCantidadAEncomendar = new AerolineaFrba.Abm.TextBoxDecimal();
             this.groupBox1.SuspendLayout();
             this.groupBoxButacaYEncomienda.SuspendLayout();
             this.SuspendLayout();
@@ -53,7 +53,7 @@
             this.groupBox1.Controls.Add(this.labelDNI);
             this.groupBox1.Location = new System.Drawing.Point(24, 14);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(458, 87);
+            this.groupBox1.Size = new System.Drawing.Size(440, 87);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del pasajero";
@@ -70,9 +70,9 @@
             // 
             // btnIngresarDatosPasajero
             // 
-            this.btnIngresarDatosPasajero.Location = new System.Drawing.Point(183, 30);
+            this.btnIngresarDatosPasajero.Location = new System.Drawing.Point(201, 34);
             this.btnIngresarDatosPasajero.Name = "btnIngresarDatosPasajero";
-            this.btnIngresarDatosPasajero.Size = new System.Drawing.Size(167, 30);
+            this.btnIngresarDatosPasajero.Size = new System.Drawing.Size(167, 22);
             this.btnIngresarDatosPasajero.TabIndex = 1;
             this.btnIngresarDatosPasajero.Text = "Ingresar Datos del Pasajero";
             this.btnIngresarDatosPasajero.UseVisualStyleBackColor = true;
@@ -89,9 +89,9 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(24, 374);
+            this.btnLimpiar.Location = new System.Drawing.Point(24, 354);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(83, 31);
+            this.btnLimpiar.Size = new System.Drawing.Size(83, 24);
             this.btnLimpiar.TabIndex = 1;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -108,15 +108,25 @@
             this.groupBoxButacaYEncomienda.Controls.Add(this.listBoxEleccionButacaPasillo);
             this.groupBoxButacaYEncomienda.Location = new System.Drawing.Point(24, 116);
             this.groupBoxButacaYEncomienda.Name = "groupBoxButacaYEncomienda";
-            this.groupBoxButacaYEncomienda.Size = new System.Drawing.Size(458, 232);
+            this.groupBoxButacaYEncomienda.Size = new System.Drawing.Size(440, 232);
             this.groupBoxButacaYEncomienda.TabIndex = 17;
             this.groupBoxButacaYEncomienda.TabStop = false;
             this.groupBoxButacaYEncomienda.Text = "Datos de compra";
             // 
+            // textBoxCantidadAEncomendar
+            // 
+            this.textBoxCantidadAEncomendar.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCantidadAEncomendar.ErrorText = "Debe indicarse un peso de encomienda";
+            this.textBoxCantidadAEncomendar.Location = new System.Drawing.Point(152, 32);
+            this.textBoxCantidadAEncomendar.Name = "textBoxCantidadAEncomendar";
+            this.textBoxCantidadAEncomendar.Size = new System.Drawing.Size(142, 22);
+            this.textBoxCantidadAEncomendar.TabIndex = 8;
+            this.textBoxCantidadAEncomendar.Visible = false;
+            // 
             // labelVentanilla
             // 
             this.labelVentanilla.AutoSize = true;
-            this.labelVentanilla.Location = new System.Drawing.Point(250, 99);
+            this.labelVentanilla.Location = new System.Drawing.Point(270, 99);
             this.labelVentanilla.Name = "labelVentanilla";
             this.labelVentanilla.Size = new System.Drawing.Size(53, 13);
             this.labelVentanilla.TabIndex = 7;
@@ -125,7 +135,7 @@
             // labelPasillo
             // 
             this.labelPasillo.AutoSize = true;
-            this.labelPasillo.Location = new System.Drawing.Point(51, 99);
+            this.labelPasillo.Location = new System.Drawing.Point(71, 99);
             this.labelPasillo.Name = "labelPasillo";
             this.labelPasillo.Size = new System.Drawing.Size(37, 13);
             this.labelPasillo.TabIndex = 6;
@@ -134,7 +144,7 @@
             // listBoxEleccionButacaVentanilla
             // 
             this.listBoxEleccionButacaVentanilla.FormattingEnabled = true;
-            this.listBoxEleccionButacaVentanilla.Location = new System.Drawing.Point(253, 118);
+            this.listBoxEleccionButacaVentanilla.Location = new System.Drawing.Point(273, 118);
             this.listBoxEleccionButacaVentanilla.Name = "listBoxEleccionButacaVentanilla";
             this.listBoxEleccionButacaVentanilla.Size = new System.Drawing.Size(86, 95);
             this.listBoxEleccionButacaVentanilla.TabIndex = 5;
@@ -162,7 +172,7 @@
             // listBoxEleccionButacaPasillo
             // 
             this.listBoxEleccionButacaPasillo.FormattingEnabled = true;
-            this.listBoxEleccionButacaPasillo.Location = new System.Drawing.Point(54, 118);
+            this.listBoxEleccionButacaPasillo.Location = new System.Drawing.Point(74, 118);
             this.listBoxEleccionButacaPasillo.Name = "listBoxEleccionButacaPasillo";
             this.listBoxEleccionButacaPasillo.Size = new System.Drawing.Size(86, 95);
             this.listBoxEleccionButacaPasillo.TabIndex = 0;
@@ -170,27 +180,17 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(399, 374);
+            this.btnAceptar.Location = new System.Drawing.Point(381, 354);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(83, 31);
+            this.btnAceptar.Size = new System.Drawing.Size(83, 24);
             this.btnAceptar.TabIndex = 0;
             this.btnAceptar.TextBtn = "Aceptar";
-            // 
-            // textBoxCantidadAEncomendar
-            // 
-            this.textBoxCantidadAEncomendar.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxCantidadAEncomendar.ErrorText = "Debe indicarse un peso de encomienda";
-            this.textBoxCantidadAEncomendar.Location = new System.Drawing.Point(152, 32);
-            this.textBoxCantidadAEncomendar.Name = "textBoxCantidadAEncomendar";
-            this.textBoxCantidadAEncomendar.Size = new System.Drawing.Size(142, 22);
-            this.textBoxCantidadAEncomendar.TabIndex = 8;
-            this.textBoxCantidadAEncomendar.Visible = false;
             // 
             // FormDatosPasajeroEncomienda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 425);
+            this.ClientSize = new System.Drawing.Size(476, 393);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.groupBoxButacaYEncomienda);
             this.Controls.Add(this.btnLimpiar);

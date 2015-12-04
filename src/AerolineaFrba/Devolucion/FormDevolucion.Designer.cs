@@ -53,14 +53,14 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(21, 19);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(791, 533);
+            this.groupBox2.Size = new System.Drawing.Size(889, 345);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de la devolución";
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(648, 399);
+            this.btnAceptar.Location = new System.Drawing.Point(790, 297);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 11;
@@ -70,7 +70,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(19, 399);
+            this.btnLimpiar.Location = new System.Drawing.Point(19, 297);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 10;
@@ -84,15 +84,15 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(19, 221);
+            this.dataGridView1.Location = new System.Drawing.Point(19, 131);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(766, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(846, 150);
             this.dataGridView1.TabIndex = 9;
             // 
             // btnAgregarPasaje
             // 
-            this.btnAgregarPasaje.Location = new System.Drawing.Point(19, 180);
+            this.btnAgregarPasaje.Location = new System.Drawing.Point(183, 80);
             this.btnAgregarPasaje.Name = "btnAgregarPasaje";
             this.btnAgregarPasaje.Size = new System.Drawing.Size(175, 23);
             this.btnAgregarPasaje.TabIndex = 8;
@@ -102,24 +102,24 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(182, 65);
+            this.richTextBox1.Location = new System.Drawing.Point(442, 49);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(541, 96);
+            this.richTextBox1.Size = new System.Drawing.Size(308, 54);
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
             // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(182, 33);
+            this.dateTimePicker1.Location = new System.Drawing.Point(183, 49);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(541, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(219, 20);
             this.dateTimePicker1.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 66);
+            this.label3.Location = new System.Drawing.Point(439, 33);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(115, 13);
             this.label3.TabIndex = 5;
@@ -128,7 +128,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 33);
+            this.label4.Location = new System.Drawing.Point(106, 52);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 4;
@@ -138,7 +138,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(935, 603);
+            this.ClientSize = new System.Drawing.Size(935, 389);
             this.Controls.Add(this.groupBox2);
             this.Name = "FormDevolucion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

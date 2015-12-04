@@ -98,7 +98,7 @@
             this.groupBoxFechasYHorarios.Controls.Add(this.labelFechaEstimada);
             this.groupBoxFechasYHorarios.Location = new System.Drawing.Point(34, 17);
             this.groupBoxFechasYHorarios.Name = "groupBoxFechasYHorarios";
-            this.groupBoxFechasYHorarios.Size = new System.Drawing.Size(475, 106);
+            this.groupBoxFechasYHorarios.Size = new System.Drawing.Size(427, 106);
             this.groupBoxFechasYHorarios.TabIndex = 8;
             this.groupBoxFechasYHorarios.TabStop = false;
             this.groupBoxFechasYHorarios.Text = "Fechas y Horarios Programados";
@@ -110,14 +110,14 @@
             this.groupBoxAeronave.Controls.Add(this.labelMatricula);
             this.groupBoxAeronave.Location = new System.Drawing.Point(34, 141);
             this.groupBoxAeronave.Name = "groupBoxAeronave";
-            this.groupBoxAeronave.Size = new System.Drawing.Size(475, 73);
+            this.groupBoxAeronave.Size = new System.Drawing.Size(427, 73);
             this.groupBoxAeronave.TabIndex = 9;
             this.groupBoxAeronave.TabStop = false;
             this.groupBoxAeronave.Text = "Selección de Aeronave";
             // 
             // btnSeleccionAeronave
             // 
-            this.btnSeleccionAeronave.Location = new System.Drawing.Point(214, 28);
+            this.btnSeleccionAeronave.Location = new System.Drawing.Point(264, 28);
             this.btnSeleccionAeronave.Name = "btnSeleccionAeronave";
             this.btnSeleccionAeronave.Size = new System.Drawing.Size(75, 23);
             this.btnSeleccionAeronave.TabIndex = 2;
@@ -128,7 +128,7 @@
             // textBoxMatricula
             // 
             this.textBoxMatricula.Enabled = false;
-            this.textBoxMatricula.Location = new System.Drawing.Point(90, 30);
+            this.textBoxMatricula.Location = new System.Drawing.Point(125, 30);
             this.textBoxMatricula.Name = "textBoxMatricula";
             this.textBoxMatricula.Size = new System.Drawing.Size(100, 20);
             this.textBoxMatricula.TabIndex = 1;
@@ -153,7 +153,7 @@
             this.groupBox1.Controls.Add(this.labelOrigen);
             this.groupBox1.Location = new System.Drawing.Point(34, 232);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(475, 132);
+            this.groupBox1.Size = new System.Drawing.Size(427, 132);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Selección de Ruta Aérea";
@@ -221,7 +221,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(434, 395);
+            this.btnGuardar.Location = new System.Drawing.Point(386, 381);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 12;
@@ -231,7 +231,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(34, 395);
+            this.btnLimpiar.Location = new System.Drawing.Point(34, 381);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 11;
@@ -247,7 +247,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 431);
+            this.ClientSize = new System.Drawing.Size(498, 418);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBoxFechasYHorarios);

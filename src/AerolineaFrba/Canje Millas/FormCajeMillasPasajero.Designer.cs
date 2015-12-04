@@ -245,7 +245,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(45, 371);
+            this.btnLimpiar.Location = new System.Drawing.Point(45, 361);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 31);
             this.btnLimpiar.TabIndex = 17;
@@ -255,7 +255,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(411, 371);
+            this.btnGuardar.Location = new System.Drawing.Point(411, 361);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(83, 31);
             this.btnGuardar.TabIndex = 6;
@@ -274,7 +274,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 445);
+            this.ClientSize = new System.Drawing.Size(537, 414);
             this.Controls.Add(this.lblNoHaySuficientesMillas);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.labelVentanillaPasillo);
