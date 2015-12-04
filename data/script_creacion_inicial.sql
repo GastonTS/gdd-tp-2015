@@ -858,6 +858,7 @@ AS
 	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) = 1)
 		THROW 60003, 'La nave ya se encuentra en mantenimiento', 1
 ;
+GO
 
 CREATE PROCEDURE ÑUFLO.BajaPorVidaUtil
 @id_aeronave int,
@@ -921,6 +922,7 @@ AS
 					and c.codigo_de_compra = p.codigo_de_compra
 					and p.cancelado = 0
 					and v.fecha_llegada is null
+				order by c.codigo_de_compra
 					
 	DECLARE @pnr int, @pasaje int, @cod_anterior int
 	SET @cod_anterior = -1
@@ -970,6 +972,7 @@ AS
 					and c.codigo_de_compra = e.codigo_de_compra
 					and e.cancelado = 0
 					and v.fecha_llegada is null
+				order by c.codigo_de_compra
 					
 	DECLARE @pnr int, @encomienda int, @cod_anterior int
 	SET @cod_anterior = -1
