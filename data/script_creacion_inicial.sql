@@ -1874,8 +1874,8 @@ AS
 				else DATEDIFF(DD, Fecha_Fuera_de_Servicio, Fecha_Reinicio_de_Servicio) 
 			end  Dias_Fuera_de_Servicio
 		from ÑUFLO.DetalleServiciosTecnicos
-		where (Fecha_Fuera_de_Servicio between @fecha_inicio and @fecha_fin) or
-			  (Fecha_Fuera_de_Servicio < @fecha_inicio and Fecha_Reinicio_De_Servicio > @fecha_fin)
+		where ((Fecha_Fuera_de_Servicio between @fecha_inicio and @fecha_fin) or
+			  (Fecha_Fuera_de_Servicio < @fecha_inicio and Fecha_Reinicio_De_Servicio > @fecha_fin))
 			and @matricula = Matricula
 ;
 GO
