@@ -2165,3 +2165,16 @@ AS
 			and a.id_modelo = m.id_modelo
 			and a.id_fabricante = f.id_fabricante
 GO
+
+
+/*****************************************************************/
+/*****************Sarlompeadas que hay que borrar*****************/
+/*****************************************************************/
+/*Bootstrap millas*/		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (1, 200)		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (1, 30)		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (1, 40)		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (2, 20)		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (2, 30)		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (3, 150)		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (4, 300)
