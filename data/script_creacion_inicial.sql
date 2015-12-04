@@ -1804,10 +1804,12 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.DetalleCancelacionesPara
-@ciudad nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
+	declare @ciudad nvarchar(255)
+	set @ciudad = @id
 	select Pasaje, DNI, Nombre, Apellido, Butaca_Numero, Fecha_De_Compra, Fecha_Devolucion, Motivo
 		from ÑUFLO.DetalleCancelaciones
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
