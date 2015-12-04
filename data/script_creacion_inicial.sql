@@ -283,7 +283,7 @@ GO
 INSERT INTO ÑUFLO.Usuario (nombre_usuario, password)
 	values ('Juan', HASHBYTES('SHA2_256', 'w23e'))
 INSERT INTO ÑUFLO.Usuario (nombre_usuario, password)
-	values ('Ramiro', HASHBYTES('SHA2_256', 'w23e'))
+	values ('admin', HASHBYTES('SHA2_256', 'w23e'))
 GO
 
 CREATE TABLE ÑUFLO.RolPorUsuario (
@@ -296,7 +296,7 @@ GO
 INSERT INTO ÑUFLO.RolPorUsuario(id_rol, nombre_usuario)
 	values(1, 'Juan')
 INSERT INTO ÑUFLO.RolPorUsuario(id_rol, nombre_usuario)
-	values(2, 'Ramiro')
+	values(1, 'admin')
 GO
 
 /*****************************************************************/

@@ -11,7 +11,7 @@ namespace AerolineaFrba
 {
     public class gdDataBase
     {
-        public SqlConnection miConexion = new SqlConnection("Data Source=localhost\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=gd2015");
+        public SqlConnection miConexion = new SqlConnection(Config.strConnection);
 
         public static Dictionary<String, gdDataBase.ValorTipo> newParameters() { return new Dictionary<String, gdDataBase.ValorTipo>(); }
 
