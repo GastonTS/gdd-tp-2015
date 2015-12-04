@@ -1759,10 +1759,12 @@ GO
 
 /*Detalles para listados*/
 CREATE PROCEDURE ÑUFLO.DetallePasajePara
-@ciudad nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio nvarchar(255),
 @fecha_fin nvarchar(255)
 AS
+	declare @ciudad nvarchar(255)
+	set @ciudad = @id
 	select Codigo_de_Compra, Fecha_De_Compra, Pasaje, Destino, DNI, Nombre, Apellido, Butaca_Numero, Precio
 		from ÑUFLO.DetallePasajes
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
@@ -1771,7 +1773,7 @@ AS
 GO	
 
 CREATE PROCEDURE ÑUFLO.DetalleMillasDe
-@id int,
+@id nvarchar(255),
 @hoy datetime
 AS
 	declare @dni nvarchar(255)
