@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -44,7 +43,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.guardar1);
             this.groupBox2.Controls.Add(this.btnAceptar);
             this.groupBox2.Controls.Add(this.btnLimpiar);
             this.groupBox2.Controls.Add(this.dataGridView1);
@@ -59,13 +57,6 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de la devolución";
-            // 
-            // guardar1
-            // 
-            this.guardar1.Location = new System.Drawing.Point(526, 449);
-            this.guardar1.Name = "guardar1";
-            this.guardar1.Size = new System.Drawing.Size(83, 31);
-            this.guardar1.TabIndex = 12;
             // 
             // btnAceptar
             // 
@@ -171,6 +162,5 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private Abm.Guardar guardar1;
     }
 }

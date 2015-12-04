@@ -203,7 +203,7 @@ namespace AerolineaFrba.Abm_Aeronave
                     camposValores.Clear();
                     camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
                     camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
-                    camposValores.Add("fecha_rein", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+                    camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
 
                     new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null,
                         "Pasajes de aronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " cancelados correctamente");

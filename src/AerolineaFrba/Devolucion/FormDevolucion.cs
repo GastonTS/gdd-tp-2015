@@ -65,19 +65,20 @@ namespace AerolineaFrba.Devolucion
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-
-            foreach(DataGridViewRow fila in dataGridView1.Rows)
+            if (ValidateChildren())
             {
-                var camposValores = gdDataBase.newParameters();
-                camposValores.Add("id",new gdDataBase.ValorTipo(fila.Cells["Codigo"].Value,SqlDbType.Int));
-                camposValores.Add("tipo", new gdDataBase.ValorTipo(fila.Cells["Tipo"].Value, SqlDbType.NVarChar));
-                camposValores.Add("motivo",new gdDataBase.ValorTipo(richTextBox1.Text,SqlDbType.NVarChar));
-                camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
-                var exec = new SPPureExec("ÑUFLO.CancelarPasajeOEncomienda", camposValores, new Dictionary<int, string>(), "Cancelación de " + fila.Cells["Tipo"].Value + " con código " + fila.Cells["Codigo"].Value + " fue exitosa.");
-                exec.Exec(new gdDataBase());
+                foreach (DataGridViewRow fila in dataGridView1.Rows)
+                {
+                    var camposValores = gdDataBase.newParameters();
+                    camposValores.Add("id", new gdDataBase.ValorTipo(fila.Cells["Codigo"].Value, SqlDbType.Int));
+                    camposValores.Add("tipo", new gdDataBase.ValorTipo(fila.Cells["Tipo"].Value, SqlDbType.NVarChar));
+                    camposValores.Add("motivo", new gdDataBase.ValorTipo(richTextBox1.Text, SqlDbType.NVarChar));
+                    camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
+                    var exec = new SPPureExec("ÑUFLO.CancelarPasajeOEncomienda", camposValores, new Dictionary<int, string>(), "Cancelación de " + fila.Cells["Tipo"].Value + " con código " + fila.Cells["Codigo"].Value + " fue exitosa.");
+                    exec.Exec(new gdDataBase());
+                }
+                dataGridView1.Rows.Clear();
             }
-            dataGridView1.Rows.Clear();
-
         }
 
     }

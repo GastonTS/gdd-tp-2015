@@ -9,26 +9,14 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm
 {
-    public partial class TextBoxNumeroDecimal : AerolineaFrba.Abm.TextBoxValidado
+    public partial class TextBoxMoneda : AerolineaFrba.Abm.TextBoxDecimal
     {
-        public TextBoxNumeroDecimal()
+        public TextBoxMoneda()
         {
             InitializeComponent();
         }
 
-        
 
-        protected override String validationRegexString()
-        {
-            return "[0-9]+[,|.]?[0-9]+";
-        }
-
-        override protected void formatear(object sender, System.EventArgs e)
-        {
-            formatear();
-
-            //decimal d = decimal.Parse(textBox1.Text, System.Globalization.NumberStyles.Currency, MyNFI);
-        }
 
 
         override protected Boolean criterioValidacion()
@@ -62,7 +50,7 @@ namespace AerolineaFrba.Abm
 
 
 
-        public Decimal DecimalValue()
+        public override Decimal DecimalValue()
         { // HACK
             var currencytextbox = new CurrencyTextBox();
             if (textBox1.Text == "")

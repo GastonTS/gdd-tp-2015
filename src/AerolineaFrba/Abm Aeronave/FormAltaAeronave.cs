@@ -36,19 +36,7 @@ namespace AerolineaFrba.Abm_Aeronave
             textBoxModelo.Text = filaAeronave.Cells[1].FormattedValue.ToString();
             textBoxMatricula.Text = filaAeronave.Cells[2].FormattedValue.ToString();
             textBoxFabricante.Text = filaAeronave.Cells[3].FormattedValue.ToString();
-            switch (filaAeronave.Cells[4].FormattedValue.ToString())
-            {
-                case "1":
-                    comboBoxTipoServicio.Text = "Primera Clase";
-                    break;
-                case "2":
-                    comboBoxTipoServicio.Text = "Ejecutivo";
-                    break;
-                case "3":
-                    comboBoxTipoServicio.Text = "Turista";
-                    break;
-            }
-
+            comboBoxTipoServicio.Text = filaAeronave.Cells[4].FormattedValue.ToString();
             textBoxCapacidadEncomiendas.Text = filaAeronave.Cells[6].FormattedValue.ToString();
 
             //HACER
@@ -56,19 +44,20 @@ namespace AerolineaFrba.Abm_Aeronave
             //para así meterla en la modificación de la aeronave. Esta info no la puedo traer del form de selección
             //ya que no la tengo
         }
-
+        
         private void btnElegirTipoButaca_Click(object sender, EventArgs e)
         {
             checkedListBoxButacas.Enabled = true;
-            checkedListBoxButacas.Items.Clear();
+            int cantidadButacas;
+            if (textBoxCantidadButacas.Text == "")
+                cantidadButacas = 0;
+            else
+                cantidadButacas = Convert.ToInt32(textBoxCantidadButacas.Text);
 
-            if (textBoxCantidadButacas.Text != "")
-            {
-                for (int i = 0; i < Convert.ToInt32(textBoxCantidadButacas.Text); i++)
-                {
-                    checkedListBoxButacas.Items.Add("Butaca N°: " + (i + 1));
-                }
-            }
+            for (int j = checkedListBoxButacas.Items.Count, i = cantidadButacas; i < j; checkedListBoxButacas.Items.RemoveAt(--j)) ;
+
+            for (int j = checkedListBoxButacas.Items.Count, i = cantidadButacas; i > j; checkedListBoxButacas.Items.Add("Butaca N°: " + (++j))) ;
+            
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -93,7 +82,7 @@ namespace AerolineaFrba.Abm_Aeronave
             
         }
 
-        private void darDeAltaAeronave()
+        private SPExecuter spAltaAeronave()
         {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
@@ -107,10 +96,12 @@ namespace AerolineaFrba.Abm_Aeronave
 
             errorMensaje.Add(2627, "Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...");
 
-            new gdDataBase().Exec("ÑUFLO.AltaAeronave", camposValores, errorMensaje, "Aeronave registrada correctamente");
+            return new SPPureExec("ÑUFLO.AltaAeronave", camposValores, errorMensaje, "Aeronave registrada correctamente");
+
+
         }
 
-        private void actualizarAeronave()
+        private SPExecuter spActualizarAeronave()
         {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
@@ -125,7 +116,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
             errorMensaje.Add(2627, "Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...");
 
-            new gdDataBase().Exec("ÑUFLO.ActualizarAeronave", camposValores, errorMensaje, "Aeronave modificada correctamente");
+            return new SPPureExec("ÑUFLO.ActualizarAeronave", camposValores, errorMensaje, "Aeronave modificada correctamente");
         }
 
         private void agregarButacas()
@@ -154,11 +145,13 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             if (!esModificacion)
             {
-                darDeAltaAeronave();
-                agregarButacas();
+                var alta = spAltaAeronave();
+                alta.Exec();
+                if(!alta.huboError())
+                    agregarButacas();
             }
             else
-                actualizarAeronave();
+                spActualizarAeronave().Exec();
         }
     }
 }

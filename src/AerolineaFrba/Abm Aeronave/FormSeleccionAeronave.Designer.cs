@@ -228,7 +228,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(42, 292);
+            this.btnLimpiar.Location = new System.Drawing.Point(27, 292);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(84, 23);
             this.btnLimpiar.TabIndex = 16;

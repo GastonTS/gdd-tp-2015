@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxDNI = new AerolineaFrba.Abm.TextBoxDNI();
             this.btnIngresarDatosPasajero = new System.Windows.Forms.Button();
             this.labelDNI = new System.Windows.Forms.Label();
-            this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBoxButacaYEncomienda = new System.Windows.Forms.GroupBox();
             this.labelVentanilla = new System.Windows.Forms.Label();
@@ -41,22 +41,32 @@
             this.labelEncomienda = new System.Windows.Forms.Label();
             this.labelButaca = new System.Windows.Forms.Label();
             this.listBoxEleccionButacaPasillo = new System.Windows.Forms.ListBox();
-            this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnAceptar = new AerolineaFrba.Abm.Guardar();
             this.groupBox1.SuspendLayout();
             this.groupBoxButacaYEncomienda.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxDNI);
             this.groupBox1.Controls.Add(this.btnIngresarDatosPasajero);
             this.groupBox1.Controls.Add(this.labelDNI);
-            this.groupBox1.Controls.Add(this.textBoxDNI);
             this.groupBox1.Location = new System.Drawing.Point(24, 14);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(458, 87);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del pasajero";
+            // 
+            // textBoxDNI
+            // 
+            this.textBoxDNI.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxDNI.Enabled = false;
+            this.textBoxDNI.ErrorText = null;
+            this.textBoxDNI.Location = new System.Drawing.Point(54, 34);
+            this.textBoxDNI.Name = "textBoxDNI";
+            this.textBoxDNI.Size = new System.Drawing.Size(129, 22);
+            this.textBoxDNI.TabIndex = 7;
             // 
             // btnIngresarDatosPasajero
             // 
@@ -76,14 +86,6 @@
             this.labelDNI.Size = new System.Drawing.Size(26, 13);
             this.labelDNI.TabIndex = 5;
             this.labelDNI.Text = "DNI";
-            // 
-            // textBoxDNI
-            // 
-            this.textBoxDNI.Enabled = false;
-            this.textBoxDNI.Location = new System.Drawing.Point(54, 36);
-            this.textBoxDNI.Name = "textBoxDNI";
-            this.textBoxDNI.Size = new System.Drawing.Size(100, 20);
-            this.textBoxDNI.TabIndex = 0;
             // 
             // btnLimpiar
             // 
@@ -181,9 +183,7 @@
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(83, 31);
             this.btnAceptar.TabIndex = 0;
-            this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            this.btnAceptar.TextBtn = "Aceptar";
             // 
             // FormDatosPasajeroEncomienda
             // 
@@ -210,17 +210,17 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelDNI;
-        private System.Windows.Forms.TextBox textBoxDNI;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.GroupBox groupBoxButacaYEncomienda;
         private System.Windows.Forms.TextBox textBoxCantidadAEncomendar;
         private System.Windows.Forms.Label labelEncomienda;
         private System.Windows.Forms.Label labelButaca;
         private System.Windows.Forms.ListBox listBoxEleccionButacaPasillo;
-        private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.ListBox listBoxEleccionButacaVentanilla;
         private System.Windows.Forms.Label labelVentanilla;
         private System.Windows.Forms.Label labelPasillo;
         private System.Windows.Forms.Button btnIngresarDatosPasajero;
+        private Abm.TextBoxDNI textBoxDNI;
+        private Abm.Guardar btnAceptar;
     }
 }

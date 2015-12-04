@@ -702,8 +702,9 @@ CREATE PROCEDURE ÑUFLO.FiltroAeronave
 @capacidad_encomiendas numeric(18,0) = null,
 @cantidad_butacas int = null
 AS
-select id_aeronave, m.nombre, matricula, f.nombre, id_tipo_servicio, fecha_de_alta, capacidad_peso_encomiendas, baja_vida_utill, baja_por_fuera_de_servicio
-	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f
+select id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre Fabricante, ts.tipo_servicio 'Tipo de Servicio', fecha_de_alta 'Fecha de Alta',
+		capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
+	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f, ÑUFLO.TipoServicio ts
 	where a.id_modelo = m.id_modelo
 		and a.id_fabricante = f.id_fabricante
 		and (@modelo is null or @modelo = m.nombre)
@@ -711,12 +712,22 @@ select id_aeronave, m.nombre, matricula, f.nombre, id_tipo_servicio, fecha_de_al
 		and (@fabricante is null or @fabricante = f.nombre)
 		and (@baja_fuera_servicio is null or @baja_fuera_servicio = baja_por_fuera_de_servicio)
 		and (@baja_vida_util is null or (@baja_vida_util = 1 and baja_vida_utill is not null))
-		and (@tipo_servicio is null or @tipo_servicio = id_tipo_servicio)
+		and (@tipo_servicio is null or @tipo_servicio = a.id_tipo_servicio)
 		and (@capacidad_encomiendas is null or @capacidad_encomiendas < capacidad_peso_encomiendas)
+		and a.id_tipo_servicio = ts.id_tipo_servicio
 		and (@cantidad_butacas is null or @cantidad_butacas <= (select COUNT(id_tipo_butaca) 
 																	from ÑUFLO.ButacaPorAvion b
 																	where a.id_aeronave = b.id_aeronave))
 
+;
+GO
+
+CREATE PROCEDURE ÑUFLO.ButacasDe
+@id_aeronave int
+AS
+select numero_de_butaca, id_tipo_butaca
+	from ÑUFLO.ButacaPorAvion
+	where id_aeronave = @id_aeronave
 ;
 GO
 
@@ -1229,12 +1240,13 @@ CREATE PROCEDURE ÑUFLO.ClienteNoEstaEnVuelo
 @fecha_vuelo datetime,
 @fecha_estimada datetime
 AS
-	IF(EXISTS (select p.id_cliente
-					from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
+	IF(@dni IN (select cli.dni
+					from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p, ÑUFLO.Cliente cli
 					where (v.fecha_salida between @fecha_vuelo and @fecha_estimada
 						or v.fecha_llegada_estimada between @fecha_vuelo and @fecha_estimada)
 						and v.id_viaje = c.id_viaje
-						and c.codigo_de_compra = p.codigo_de_compra))
+						and c.codigo_de_compra = p.codigo_de_compra
+						and p.id_cliente = cli.id_cliente))
 		THROW 60034, 'El pasajero se encuentra volando en esas fechas', 1
 ;
 GO
@@ -1403,7 +1415,7 @@ GO
 CREATE PROCEDURE ÑUFLO.RolDadoNombre
 @nombre nvarchar(255) = null
 AS
-	SELECT nombre_rol, habilitado
+	SELECT nombre_rol Nombre, habilitado 'Habilitado'
 		FROM ÑUFLO.Rol
 		WHERE @nombre is null OR nombre_rol LIKE @nombre + '%'
 ;
