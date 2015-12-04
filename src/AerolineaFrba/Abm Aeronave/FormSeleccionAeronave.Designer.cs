@@ -137,14 +137,14 @@
             this.groupBox2.Controls.Add(this.labelCapacidadEncomiendas);
             this.groupBox2.Location = new System.Drawing.Point(27, 184);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(718, 93);
+            this.groupBox2.Size = new System.Drawing.Size(718, 67);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Características de la Aeronave";
             // 
             // textBoxCantidadButacas
             // 
-            this.textBoxCantidadButacas.Location = new System.Drawing.Point(421, 51);
+            this.textBoxCantidadButacas.Location = new System.Drawing.Point(634, 24);
             this.textBoxCantidadButacas.Name = "textBoxCantidadButacas";
             this.textBoxCantidadButacas.Size = new System.Drawing.Size(59, 20);
             this.textBoxCantidadButacas.TabIndex = 2;
@@ -152,7 +152,7 @@
             // labelCantidadButacas
             // 
             this.labelCantidadButacas.AutoSize = true;
-            this.labelCantidadButacas.Location = new System.Drawing.Point(304, 54);
+            this.labelCantidadButacas.Location = new System.Drawing.Point(519, 28);
             this.labelCantidadButacas.Name = "labelCantidadButacas";
             this.labelCantidadButacas.Size = new System.Drawing.Size(109, 13);
             this.labelCantidadButacas.TabIndex = 13;
@@ -228,7 +228,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(27, 292);
+            this.btnLimpiar.Location = new System.Drawing.Point(27, 267);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(84, 23);
             this.btnLimpiar.TabIndex = 16;
@@ -238,7 +238,7 @@
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(661, 292);
+            this.btnSeleccionar.Location = new System.Drawing.Point(661, 267);
             this.btnSeleccionar.Name = "btnSeleccionar";
             this.btnSeleccionar.Size = new System.Drawing.Size(84, 23);
             this.btnSeleccionar.TabIndex = 17;
@@ -252,19 +252,19 @@
             this.dataGridViewAeronave.AllowUserToDeleteRows = false;
             this.dataGridViewAeronave.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewAeronave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAeronave.Location = new System.Drawing.Point(27, 332);
+            this.dataGridViewAeronave.Location = new System.Drawing.Point(27, 306);
             this.dataGridViewAeronave.Name = "dataGridViewAeronave";
             this.dataGridViewAeronave.ReadOnly = true;
-            this.dataGridViewAeronave.Size = new System.Drawing.Size(718, 179);
+            this.dataGridViewAeronave.Size = new System.Drawing.Size(718, 205);
             this.dataGridViewAeronave.TabIndex = 18;
             this.dataGridViewAeronave.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAeronave_RowEnter);
             // 
             // btnModificarAeronave
             // 
             this.btnModificarAeronave.Enabled = false;
-            this.btnModificarAeronave.Location = new System.Drawing.Point(42, 542);
+            this.btnModificarAeronave.Location = new System.Drawing.Point(42, 523);
             this.btnModificarAeronave.Name = "btnModificarAeronave";
-            this.btnModificarAeronave.Size = new System.Drawing.Size(112, 40);
+            this.btnModificarAeronave.Size = new System.Drawing.Size(110, 43);
             this.btnModificarAeronave.TabIndex = 19;
             this.btnModificarAeronave.Text = "Modificar Aeronave";
             this.btnModificarAeronave.UseVisualStyleBackColor = true;
@@ -273,9 +273,9 @@
             // btnBajaFueraServicio
             // 
             this.btnBajaFueraServicio.Enabled = false;
-            this.btnBajaFueraServicio.Location = new System.Drawing.Point(430, 542);
+            this.btnBajaFueraServicio.Location = new System.Drawing.Point(445, 523);
             this.btnBajaFueraServicio.Name = "btnBajaFueraServicio";
-            this.btnBajaFueraServicio.Size = new System.Drawing.Size(118, 40);
+            this.btnBajaFueraServicio.Size = new System.Drawing.Size(113, 43);
             this.btnBajaFueraServicio.TabIndex = 20;
             this.btnBajaFueraServicio.Text = "Dar de Baja Por Fuera de Servicio";
             this.btnBajaFueraServicio.UseVisualStyleBackColor = true;
@@ -284,9 +284,9 @@
             // btnBajaVidaUtil
             // 
             this.btnBajaVidaUtil.Enabled = false;
-            this.btnBajaVidaUtil.Location = new System.Drawing.Point(184, 542);
+            this.btnBajaVidaUtil.Location = new System.Drawing.Point(253, 523);
             this.btnBajaVidaUtil.Name = "btnBajaVidaUtil";
-            this.btnBajaVidaUtil.Size = new System.Drawing.Size(114, 40);
+            this.btnBajaVidaUtil.Size = new System.Drawing.Size(110, 43);
             this.btnBajaVidaUtil.TabIndex = 21;
             this.btnBajaVidaUtil.Text = "Dar de Baja por Vida Útil";
             this.btnBajaVidaUtil.UseVisualStyleBackColor = true;
@@ -295,7 +295,7 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.Enabled = false;
-            this.dateTimePicker1.Location = new System.Drawing.Point(554, 558);
+            this.dateTimePicker1.Location = new System.Drawing.Point(567, 539);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(162, 20);
             this.dateTimePicker1.TabIndex = 22;
@@ -303,7 +303,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(567, 542);
+            this.label2.Location = new System.Drawing.Point(564, 523);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(131, 13);
             this.label2.TabIndex = 23;
@@ -313,7 +313,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 609);
+            this.ClientSize = new System.Drawing.Size(775, 592);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.btnBajaVidaUtil);
