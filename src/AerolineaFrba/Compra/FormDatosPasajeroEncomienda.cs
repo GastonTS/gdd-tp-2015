@@ -129,14 +129,14 @@ namespace AerolineaFrba.Compra
             this.butacasEnCompra = butacasEnCompra;
         }
 
-        private void btnAceptar_Click(object sender, EventArgs e)
+        protected override void guardarPosta()
         {
             if (miPadre != null)
             {
                 if (soloPasaje)
                     miPadre.setPasaje(Convert.ToInt32(textBoxDNI.Text), numeroDeButacaSeleccionada);
                 else
-                    miPadre.setEncomienda(Convert.ToInt32(textBoxDNI.Text), 
+                    miPadre.setEncomienda(Convert.ToInt32(textBoxDNI.Text),
                         Convert.ToDecimal(textBoxCantidadAEncomendar.Text));
             }
 
