@@ -49,11 +49,13 @@
             this.labelFabricante = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.bindingAeronaves = new System.Windows.Forms.BindingSource(this.components);
+            this.tipoServicioBinding = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAeronave)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingAeronaves)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewAeronave
@@ -140,7 +142,7 @@
             // 
             // comboBoxTipoServicio
             // 
-            this.comboBoxTipoServicio.DataSource = this.bindingSourceTipoServicio;
+            this.comboBoxTipoServicio.DataSource = this.tipoServicioBinding;
             this.comboBoxTipoServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipoServicio.FormattingEnabled = true;
             this.comboBoxTipoServicio.Location = new System.Drawing.Point(105, 25);
@@ -245,6 +247,7 @@
             this.Name = "FormSeleccionarAeronave";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Selección de Aeronave para Viaje";
+            this.Load += new System.EventHandler(this.FormSeleccionarAeronave_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAeronave)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -252,6 +255,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingAeronaves)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -278,5 +282,6 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.BindingSource bindingAeronaves;
         private System.Windows.Forms.BindingSource bindingSourceTipoServicio;
+        private System.Windows.Forms.BindingSource tipoServicioBinding;
     }
 }

@@ -17,10 +17,6 @@ namespace AerolineaFrba.Generacion_Viaje
         public FormSeleccionarAeronave()
         {
             InitializeComponent();
-
-            new gdDataBase().actualizarBindingSourceQuery(bindingSourceTipoServicio, "select * from [Ñuflo].TipoServicio");
-            comboBoxTipoServicio.DisplayMember = "tipo_servicio";
-            comboBoxTipoServicio.ValueMember = "id_tipo_servicio";
         }
 
         private void btnSeleccionar_Click(object sender, EventArgs e)
@@ -33,7 +29,8 @@ namespace AerolineaFrba.Generacion_Viaje
                 camposValores.Add("modelo", new gdDataBase.ValorTipo(textBoxModelo.Text, SqlDbType.VarChar));
             if (textBoxFabricante.Text.Trim() != "")
                 camposValores.Add("fabricante", new gdDataBase.ValorTipo(textBoxFabricante.Text, SqlDbType.VarChar));
-            camposValores.Add("tipo_servicio", new gdDataBase.ValorTipo((comboBoxTipoServicio.SelectedIndex + 1).ToString(), SqlDbType.Int));
+            if (comboBoxTipoServicio.Text != "Cualquiera")
+                camposValores.Add("tipo_servicio", new gdDataBase.ValorTipo((comboBoxTipoServicio.SelectedIndex + 1).ToString(), SqlDbType.Int));
             if (textBoxCapacidadEncomiendas.Text.Trim() != "")
                 camposValores.Add("capacidad_encomiendas", new gdDataBase.ValorTipo(textBoxCapacidadEncomiendas.Text, SqlDbType.Decimal));
             if (textBoxCantidadButacas.Text.Trim() != "")
@@ -80,6 +77,21 @@ namespace AerolineaFrba.Generacion_Viaje
                 miPadre.setMatricula(filaAeronave.Cells[2].FormattedValue.ToString());
 
             this.Close();
+        }
+
+        private void FormSeleccionarAeronave_Load(object sender, EventArgs e)
+        {
+            var ds = new gdDataBase().ExecAndGetDataSet("ÑUFLO.CiudadTipoServicio");
+
+            DataTable servicios = ds.Tables[1];
+            var filaExtraServicios = servicios.NewRow();
+            filaExtraServicios["Tipo Servicio"] = "Cualquiera";
+            servicios.Rows.InsertAt(filaExtraServicios, 0);
+
+            tipoServicioBinding.DataSource = servicios;
+
+            comboBoxTipoServicio.DisplayMember = "Tipo Servicio";
+            comboBoxTipoServicio.ValueMember = "Id Tipo Servicio";
         }
     }
 }
