@@ -136,19 +136,18 @@ namespace AerolineaFrba.Compra
 
         protected override void guardarPosta()
         {
-                if (miPadre != null)
-                {
-                    if (soloPasaje)
-                        if (listBoxEleccionButacaPasillo.SelectedIndex != -1 || listBoxEleccionButacaVentanilla.SelectedIndex != -1)
-                            miPadre.setPasaje(Convert.ToInt32(textBoxDNI.Text), numeroDeButacaSeleccionada, this);
-                        else
-                            MessageBox.Show("Seleccione una butaca para terminar la operación");
+            if (miPadre != null)
+            {
+                miPadre.setConViaje();
+
+                if (soloPasaje)
+                    if (listBoxEleccionButacaPasillo.SelectedIndex != -1 || listBoxEleccionButacaVentanilla.SelectedIndex != -1)
+                        miPadre.setPasaje(Convert.ToInt32(textBoxDNI.Text), numeroDeButacaSeleccionada, this);
                     else
-                        miPadre.setEncomienda(Convert.ToInt32(textBoxDNI.Text), Convert.ToDecimal(textBoxCantidadAEncomendar.Text), this);
-                    
-                
+                        MessageBox.Show("Seleccione una butaca para terminar la operación");
+                else
+                    miPadre.setEncomienda(Convert.ToInt32(textBoxDNI.Text), Convert.ToDecimal(textBoxCantidadAEncomendar.Text), this);
             }
-            
         }
     }
 }
