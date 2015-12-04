@@ -845,13 +845,10 @@ CREATE PROCEDURE ÑUFLO.ValidarAeronaveActiva
 @fecha_hoy nvarchar(255),
 @fecha_fin nvarchar(255) = null
 AS
-	IF(@fecha_fin is not null and @fecha_fin > @fecha_hoy)
-		THROW 62004, 'La fecha de reincorporacion debe ser mayor a la fecha de hoy', 1
-
-	IF((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) is not null)
+	if((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) is not null)
 		THROW 60004, 'La nave ya se encuentra fuera de su vida util', 1
 
-	IF((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) = 1)
+	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) = 1)
 		THROW 60003, 'La nave ya se encuentra en mantenimiento', 1
 		
 	select COUNT(id_viaje)
@@ -1762,10 +1759,12 @@ GO
 
 /*Detalles para listados*/
 CREATE PROCEDURE ÑUFLO.DetallePasajePara
-@ciudad nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio nvarchar(255),
 @fecha_fin nvarchar(255)
 AS
+	declare @ciudad nvarchar(255)
+	set @ciudad = @id
 	select Codigo_de_Compra, Fecha_De_Compra, Pasaje, Destino, DNI, Nombre, Apellido, Butaca_Numero, Precio
 		from ÑUFLO.DetallePasajes
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
@@ -1774,9 +1773,11 @@ AS
 GO	
 
 CREATE PROCEDURE ÑUFLO.DetalleMillasDe
-@dni int,
+@id nvarchar(255),
 @hoy datetime
 AS
+	declare @dni nvarchar(255)
+	set @dni = convert(int, @id)
 	EXEC ÑUFLO.ExpirarMillas @hoy
 	select Tipo, Cantidad, Cantidad_Gastada, Fecha, Estado
 		from ÑUFLO.DetalleMillas 
@@ -1786,12 +1787,12 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.DetalleMillasPara
-@dni int,
+@id nvarchar(255),
 @fecha_inicio datetime,
-@fecha_fin datetime,
-@hoy datetime
+@fecha_fin datetime
 AS
-	EXEC ÑUFLO.ExpirarMillas @hoy
+	declare @dni int
+	set @dni = convert(int, @id)
 	select Tipo, Cantidad, Fecha
 		from ÑUFLO.DetalleMillas
 		where Fecha between @fecha_inicio and @fecha_fin
@@ -1801,10 +1802,12 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.DetalleCancelacionesPara
-@ciudad nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
+	declare @ciudad nvarchar(255)
+	set @ciudad = @id
 	select Pasaje, DNI, Nombre, Apellido, Butaca_Numero, Fecha_De_Compra, Fecha_Devolucion, Motivo
 		from ÑUFLO.DetalleCancelaciones
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
@@ -1813,10 +1816,12 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.DetalleServicioTecnicoPara
-@matricula nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
+	declare @matricula nvarchar(255)
+	set @matricula = @id
 	select Matricula, Modelo, Fabricante, Capacidad_Peso, Fecha_Fuera_de_Servicio,
 			case
 				when @fecha_fin < Fecha_Reinicio_de_Servicio then DATEDIFF(DD, Fecha_Fuera_de_Servicio, @fecha_fin)
@@ -1972,7 +1977,8 @@ BEGIN
 	RETURN @peso_disponible
 END
 GO
-
+--drop FUNCTION ÑUFLO.CantidadButacasDisponibles
+--go
 CREATE FUNCTION ÑUFLO.CantidadButacasDisponibles(@id_viaje int)
 RETURNS int
 AS
@@ -1982,6 +1988,9 @@ BEGIN
 	SET @total = (select a.cantidad_butacas
 					from ÑUFLO.Viaje v join ÑUFLO.Aeronave a on v.id_aeronave = a.id_aeronave
 					where v.id_viaje = @id_viaje)
+
+				--	where @id_viaje = v.id_viaje
+					--	and v.id_aeronave = b.id_aeronave)
 
 	SET @ocupadas = (select COUNT(numero_de_butaca)
 						from ÑUFLO.Viaje v, ÑUFLO.Pasaje p, ÑUFLO.Compra c

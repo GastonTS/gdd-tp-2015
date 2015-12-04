@@ -15,6 +15,8 @@ namespace AerolineaFrba.Abm_Aeronave
         Boolean esModificacion = false;
         String idAeronaveModificada = "";
         DataGridViewRow filaAeronave = null;
+        FormSeleccionAeronave miPadre;
+        bool esVidaUtil;
 
         public FormAltaAeronave()
         {
@@ -146,6 +148,16 @@ namespace AerolineaFrba.Abm_Aeronave
             }
         }
 
+        public void setPadre(FormSeleccionAeronave padre)
+        {
+            miPadre = padre;
+        }
+
+        public void setPadreEsVidaUtil(bool queEs)
+        {
+            esVidaUtil = queEs;
+        }
+
         protected override void guardarPosta()
         {
             if (!esModificacion)
@@ -162,10 +174,16 @@ namespace AerolineaFrba.Abm_Aeronave
             else
             {
                 var actualizar = spActualizarAeronave();
-                    actualizar.Exec();
+                actualizar.Exec();
                 if (!(actualizar.huboError()))
                     limpiar();
                 this.Close();
+            }
+
+            if (miPadre != null)
+            {
+                this.Close();
+                miPadre.podesDarDeBaja(esVidaUtil);
             }
         }
     }
