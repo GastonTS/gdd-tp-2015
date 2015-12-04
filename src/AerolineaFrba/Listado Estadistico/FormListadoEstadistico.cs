@@ -82,6 +82,7 @@ namespace AerolineaFrba.Listado_Estadistico
 
         private void button1_Click(object sender, EventArgs e)
         {
+            dataGridView1.DataSource = null;
             var fecha_inicio = fechaInicial().Date.ToString("yyyy-MM-dd hh:mm:ss.000");
             var fecha_fin = fechaFinal().Date.ToString("yyyy-MM-dd hh:mm:ss.000");
             datosListadoActual["fecha_inicio"] = new gdDataBase.ValorTipo(fecha_inicio, SqlDbType.DateTime);
@@ -122,6 +123,12 @@ namespace AerolineaFrba.Listado_Estadistico
         private void dataGridViewListado_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             actualizarDetalle(e);
+        }
+
+        private void comboBoxListado_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            dataGridViewListado.DataSource = null;
+            dataGridView1.DataSource = null;
         }
 
 

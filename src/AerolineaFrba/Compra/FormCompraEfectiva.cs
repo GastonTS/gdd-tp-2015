@@ -40,6 +40,7 @@ namespace AerolineaFrba.Compra
             comboBoxTipoTarjeta.DisplayMember = "nombre";
             comboBoxTipoTarjeta.ValueMember = "cantidad_de_cuotas";
             actualizarEstadoDatosTarjetaDeCredito();
+            textBoxDNI.Enabled = false;
         }
 
         private void checkBoxModificarDatos_CheckedChanged(object sender, EventArgs e)

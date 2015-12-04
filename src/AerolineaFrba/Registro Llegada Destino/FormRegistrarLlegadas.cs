@@ -42,23 +42,27 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                 camposValores.Add("origen", new gdDataBase.ValorTipo(comboBoxOrigen.SelectedValue, SqlDbType.NVarChar));
                 camposValores.Add("destino", new gdDataBase.ValorTipo(comboBoxDestino.SelectedValue, SqlDbType.NVarChar));
                 camposValores.Add("fecha_llegada", new gdDataBase.ValorTipo(fechaCoso.Value, SqlDbType.DateTime));
-                if (!(new gdDataBase().Exec("ÑUFLO.RegistrarLlegada", camposValores, null).huboError()))
-                {
-                    var informeYValidacion = new FormInformeYValidacion();
+                var resultadoEjecucion = new gdDataBase().Exec("ÑUFLO.RegistrarLlegada", camposValores, null);
+                
+                if (!resultadoEjecucion.huboError() || resultadoEjecucion.codError() == 60021){
+                    FormInformeYValidacion informeYValidacion = new FormInformeYValidacion();
                     informeYValidacion.setAeronave(textBoxMatricula.Text);
                     informeYValidacion.setFecha(fechaCoso.Value);
                     informeYValidacion.setOrigen(comboBoxOrigen.SelectedValue.ToString());
                     informeYValidacion.setDestino(comboBoxDestino.SelectedValue.ToString());
+
+                    Dictionary<int,String> errorMessage = new Dictionary<int,String>();
+
+                    errorMessage.Add(60021, "[Error atrapado]La Aeronave no arribo al destino esperado");
+
+                    new gdDataBase().Exec("ÑUFLO.ValidarDestinoLlegada", camposValores, errorMessage);
                     informeYValidacion.Show();
-                    new gdDataBase().Exec("ÑUFLO.ValidarDestinoLlegada", camposValores, null);
                 }
             }
         }
 
         private void btnLimpiar_Click_1(object sender, EventArgs e)
         {
-         
-            
             textBoxMatricula.Clear();
             comboBoxDestino.SelectedIndex = 0;
             comboBoxOrigen.SelectedIndex = 0;

@@ -78,7 +78,7 @@ namespace AerolineaFrba
         public int codError() 
         {
             if (excepcionAtrapada == null) throw new Exception("no habia ninguna excepcion");
-            return excepcionAtrapada.ErrorCode;
+            return excepcionAtrapada.Number;
         }
 
         protected void mostrarResultadoEjecucionCorrecta() {

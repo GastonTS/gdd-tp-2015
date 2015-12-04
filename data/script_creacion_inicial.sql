@@ -762,6 +762,38 @@ select id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.FiltroAeronaveSinBajas
+@modelo nvarchar(255) = null,
+@matricula nvarchar(255) = null,
+@fabricante nvarchar(255) = null,
+@tipo_servicio int = null,
+@capacidad_encomiendas numeric(18,0) = null,
+@cantidad_butacas int = null,
+@hoy datetime
+AS
+
+exec ÑUFLO.IncorporarAeronavesFueraDeServicio @hoy
+
+select id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre Fabricante, ts.tipo_servicio 'Tipo de Servicio', fecha_de_alta 'Fecha de Alta',
+		capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
+	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f, ÑUFLO.TipoServicio ts
+	where a.id_modelo = m.id_modelo
+		and a.id_fabricante = f.id_fabricante
+		and (@modelo is null or @modelo = m.nombre)
+		and (@matricula is null or @matricula = matricula)
+		and (@fabricante is null or @fabricante = f.nombre)
+		and 0 = baja_por_fuera_de_servicio
+		and baja_vida_utill is null
+		and (@tipo_servicio is null or @tipo_servicio = a.id_tipo_servicio)
+		and (@capacidad_encomiendas is null or @capacidad_encomiendas < capacidad_peso_encomiendas)
+		and a.id_tipo_servicio = ts.id_tipo_servicio
+		and (@cantidad_butacas is null or @cantidad_butacas <= (select COUNT(id_tipo_butaca) 
+																	from ÑUFLO.ButacaPorAvion b
+																	where a.id_aeronave = b.id_aeronave))
+
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.ButacasDe
 @id_aeronave int
 AS
