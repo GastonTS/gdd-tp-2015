@@ -69,7 +69,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(118, 19);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 1;
+            this.dateTimePicker1.TabIndex = 0;
             // 
             // comboBoxDestino
             // 
@@ -79,7 +79,7 @@
             this.comboBoxDestino.Location = new System.Drawing.Point(118, 98);
             this.comboBoxDestino.Name = "comboBoxDestino";
             this.comboBoxDestino.Size = new System.Drawing.Size(139, 21);
-            this.comboBoxDestino.TabIndex = 7;
+            this.comboBoxDestino.TabIndex = 2;
             this.comboBoxDestino.ValueMember = "id_ciudad";
             // 
             // comboBoxOrigen
@@ -90,7 +90,7 @@
             this.comboBoxOrigen.Location = new System.Drawing.Point(118, 59);
             this.comboBoxOrigen.Name = "comboBoxOrigen";
             this.comboBoxOrigen.Size = new System.Drawing.Size(139, 21);
-            this.comboBoxOrigen.TabIndex = 5;
+            this.comboBoxOrigen.TabIndex = 1;
             this.comboBoxOrigen.ValueMember = "id_ciudad";
             // 
             // labelDestino
@@ -145,7 +145,7 @@
             this.btnVerDisponibles.Location = new System.Drawing.Point(441, 96);
             this.btnVerDisponibles.Name = "btnVerDisponibles";
             this.btnVerDisponibles.Size = new System.Drawing.Size(110, 23);
-            this.btnVerDisponibles.TabIndex = 8;
+            this.btnVerDisponibles.TabIndex = 3;
             this.btnVerDisponibles.Text = "Ver disponibles";
             this.btnVerDisponibles.UseVisualStyleBackColor = true;
             this.btnVerDisponibles.Click += new System.EventHandler(this.btnVerDisponibles_Click);
@@ -164,7 +164,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(25, 509);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(104, 46);
-            this.btnLimpiar.TabIndex = 15;
+            this.btnLimpiar.TabIndex = 1;
             this.btnLimpiar.Text = "Cancelar Compra";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -174,7 +174,7 @@
             this.btnAgregarPasaje.Location = new System.Drawing.Point(32, 38);
             this.btnAgregarPasaje.Name = "btnAgregarPasaje";
             this.btnAgregarPasaje.Size = new System.Drawing.Size(133, 23);
-            this.btnAgregarPasaje.TabIndex = 16;
+            this.btnAgregarPasaje.TabIndex = 0;
             this.btnAgregarPasaje.Text = "Comprar Pasaje";
             this.btnAgregarPasaje.UseVisualStyleBackColor = true;
             this.btnAgregarPasaje.Click += new System.EventHandler(this.btnAgregarPasaje_Click);
@@ -184,7 +184,7 @@
             this.btnAgregarEncomienda.Location = new System.Drawing.Point(32, 79);
             this.btnAgregarEncomienda.Name = "btnAgregarEncomienda";
             this.btnAgregarEncomienda.Size = new System.Drawing.Size(133, 23);
-            this.btnAgregarEncomienda.TabIndex = 17;
+            this.btnAgregarEncomienda.TabIndex = 1;
             this.btnAgregarEncomienda.Text = "Comprar Encomienda";
             this.btnAgregarEncomienda.UseVisualStyleBackColor = true;
             this.btnAgregarEncomienda.Click += new System.EventHandler(this.btnAgregarEncomienda_Click);
@@ -203,7 +203,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(484, 509);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(104, 46);
-            this.btnAceptar.TabIndex = 19;
+            this.btnAceptar.TabIndex = 0;
             this.btnAceptar.Text = "Confirmar Compra";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
