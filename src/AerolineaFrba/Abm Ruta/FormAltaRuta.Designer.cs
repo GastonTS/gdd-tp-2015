@@ -115,7 +115,7 @@
             this.comboBoxDestino.Location = new System.Drawing.Point(125, 104);
             this.comboBoxDestino.Name = "comboBoxDestino";
             this.comboBoxDestino.Size = new System.Drawing.Size(103, 21);
-            this.comboBoxDestino.TabIndex = 3;
+            this.comboBoxDestino.TabIndex = 2;
             // 
             // destinoBinding
             // 
@@ -126,7 +126,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(26, 289);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 10;
+            this.btnLimpiar.TabIndex = 1;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -148,7 +148,7 @@
             this.comboBoxTipoServicio.Location = new System.Drawing.Point(125, 145);
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";
             this.comboBoxTipoServicio.Size = new System.Drawing.Size(103, 21);
-            this.comboBoxTipoServicio.TabIndex = 5;
+            this.comboBoxTipoServicio.TabIndex = 3;
             // 
             // tipoServicioBinding
             // 
@@ -185,7 +185,7 @@
             this.textBoxCodRuta.Location = new System.Drawing.Point(125, 32);
             this.textBoxCodRuta.Name = "textBoxCodRuta";
             this.textBoxCodRuta.Size = new System.Drawing.Size(139, 22);
-            this.textBoxCodRuta.TabIndex = 20;
+            this.textBoxCodRuta.TabIndex = 0;
             // 
             // label2
             // 
@@ -228,7 +228,7 @@
             this.textBoxPrecioPasaje.Location = new System.Drawing.Point(136, 224);
             this.textBoxPrecioPasaje.Name = "textBoxPrecioPasaje";
             this.textBoxPrecioPasaje.Size = new System.Drawing.Size(135, 22);
-            this.textBoxPrecioPasaje.TabIndex = 1;
+            this.textBoxPrecioPasaje.TabIndex = 5;
             this.textBoxPrecioPasaje.Leave += new System.EventHandler(this.asignarPreciosFinalesALabels);
             // 
             // labelPrecioFinalPasaje
@@ -247,7 +247,7 @@
             this.textBoxPrecioPeso.Location = new System.Drawing.Point(136, 196);
             this.textBoxPrecioPeso.Name = "textBoxPrecioPeso";
             this.textBoxPrecioPeso.Size = new System.Drawing.Size(135, 22);
-            this.textBoxPrecioPeso.TabIndex = 0;
+            this.textBoxPrecioPeso.TabIndex = 4;
             this.textBoxPrecioPeso.Leave += new System.EventHandler(this.asignarPreciosFinalesALabels);
             // 
             // guardar1
@@ -255,7 +255,7 @@
             this.guardar1.Location = new System.Drawing.Point(534, 289);
             this.guardar1.Name = "guardar1";
             this.guardar1.Size = new System.Drawing.Size(83, 31);
-            this.guardar1.TabIndex = 13;
+            this.guardar1.TabIndex = 0;
             // 
             // FormAltaRuta
             // 

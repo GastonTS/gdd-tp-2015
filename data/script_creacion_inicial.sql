@@ -1221,12 +1221,13 @@ CREATE PROCEDURE ÑUFLO.ClienteNoEstaEnVuelo
 @fecha_vuelo datetime,
 @fecha_estimada datetime
 AS
-	IF(EXISTS (select p.id_cliente
-					from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
+	IF(@dni IN (select cli.dni
+					from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p, ÑUFLO.Cliente cli
 					where (v.fecha_salida between @fecha_vuelo and @fecha_estimada
 						or v.fecha_llegada_estimada between @fecha_vuelo and @fecha_estimada)
 						and v.id_viaje = c.id_viaje
-						and c.codigo_de_compra = p.codigo_de_compra))
+						and c.codigo_de_compra = p.codigo_de_compra
+						and p.id_cliente = cli.id_cliente))
 		THROW 60034, 'El pasajero se encuentra volando en esas fechas', 1
 ;
 GO
@@ -1662,12 +1663,12 @@ CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasDe
 @codigo_compra int
 AS
 	select p.id_pasaje Codigo, 'Pasaje' Tipo, c.dni DNI, c.nombre Nombre, c.apellido Apellido,
-		 '-' Peso_Encomienda, cast(p.numero_de_butaca AS nvarchar(255)) Butaca_Numero, p.precio Precio
+		 '-' 'Peso de encomienda', cast(p.numero_de_butaca AS nvarchar(255)) 'Número de butaca', p.precio Precio
 		from ÑUFLO.Pasaje p, ÑUFLO.Cliente c
 		where p.id_cliente = c.id_cliente and
 			  p.codigo_de_compra = @codigo_compra
 	UNION
-	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
+	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)) 'Peso de encomienda', '-' 'Número de butaca', p.precio
 		from ÑUFLO.Encomienda p, ÑUFLO.Cliente c
 		where p.id_cliente = c.id_cliente and
 			  p.codigo_de_compra = @codigo_compra
@@ -1678,13 +1679,13 @@ CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasNoCanceladosDe
 @codigo_compra int
 AS
 	select p.id_pasaje Codigo, 'Pasaje' Tipo, c.dni DNI, c.nombre Nombre, c.apellido Apellido,
-		 '-' Peso_Encomienda, cast(p.numero_de_butaca AS nvarchar(255)) Butaca_Numero, p.precio Precio
+		 '-' 'Peso de encomienda', cast(p.numero_de_butaca AS nvarchar(255)) 'Número de butaca', p.precio Precio
 		from ÑUFLO.Pasaje p, ÑUFLO.Cliente c
 		where p.id_cliente = c.id_cliente and
 			  p.codigo_de_compra = @codigo_compra and
 			  p.cancelado = 0
 	UNION
-	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
+	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)) 'Peso de encomienda', '-' 'Número de butaca', p.precio
 		from ÑUFLO.Encomienda p, ÑUFLO.Cliente c
 		where p.id_cliente = c.id_cliente and
 			  p.codigo_de_compra = @codigo_compra and

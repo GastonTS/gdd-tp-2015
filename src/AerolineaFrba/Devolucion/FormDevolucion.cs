@@ -20,8 +20,8 @@ namespace AerolineaFrba.Devolucion
             dataGridView1.Columns.Add("DNI", "DNI");
             dataGridView1.Columns.Add("Nombre", "Nombre");
             dataGridView1.Columns.Add("Apellido", "Apellido");
-            dataGridView1.Columns.Add("Peso_Encomienda", "Peso_Encomienda");
-            dataGridView1.Columns.Add("Butaca_numero", "Butaca_numero");
+            dataGridView1.Columns.Add("Peso_Encomienda", "Peso de encomienda");
+            dataGridView1.Columns.Add("Butaca_numero", "Número de butaca");
             dataGridView1.Columns.Add("Precio", "Precio");
         }
 

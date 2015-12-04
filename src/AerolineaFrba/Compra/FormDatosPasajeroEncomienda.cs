@@ -129,18 +129,24 @@ namespace AerolineaFrba.Compra
             this.butacasEnCompra = butacasEnCompra;
         }
 
-        private void btnAceptar_Click(object sender, EventArgs e)
+        protected override void guardarPosta()
         {
-            if (miPadre != null)
+            if (listBoxEleccionButacaPasillo.SelectedIndex != -1 ||
+                listBoxEleccionButacaVentanilla.SelectedIndex != -1)
             {
-                if (soloPasaje)
-                    miPadre.setPasaje(Convert.ToInt32(textBoxDNI.Text), numeroDeButacaSeleccionada);
-                else
-                    miPadre.setEncomienda(Convert.ToInt32(textBoxDNI.Text), 
-                        Convert.ToDecimal(textBoxCantidadAEncomendar.Text));
-            }
+                if (miPadre != null)
+                {
+                    if (soloPasaje)
+                        miPadre.setPasaje(Convert.ToInt32(textBoxDNI.Text), numeroDeButacaSeleccionada);
+                    else
+                        miPadre.setEncomienda(Convert.ToInt32(textBoxDNI.Text),
+                            Convert.ToDecimal(textBoxCantidadAEncomendar.Text));
+                }
 
-            this.Close();
+                this.Close();
+            }
+            else
+                MessageBox.Show("Seleccione una butaca para terminar la operación");
         }
     }
 }
