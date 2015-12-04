@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.comboBoxAño = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridViewListado = new System.Windows.Forms.DataGridView();
@@ -41,12 +43,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.bindingSourceListado = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListado)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceListado)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Controls.Add(this.comboBoxAño);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.dataGridViewListado);
@@ -58,11 +63,32 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(40, 31);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(600, 428);
+            this.groupBox1.Size = new System.Drawing.Size(1073, 503);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Top 5 Estadisticos";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(27, 232);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(169, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Detalle del elemento seleccionado";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(28, 267);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(988, 150);
+            this.dataGridView1.TabIndex = 11;
             // 
             // comboBoxAño
             // 
@@ -75,7 +101,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(25, 366);
+            this.button1.Location = new System.Drawing.Point(28, 444);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(87, 29);
             this.button1.TabIndex = 9;
@@ -86,11 +112,15 @@
             // dataGridViewListado
             // 
             this.dataGridViewListado.AllowUserToAddRows = false;
+            this.dataGridViewListado.AllowUserToDeleteRows = false;
+            this.dataGridViewListado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewListado.Location = new System.Drawing.Point(25, 175);
+            this.dataGridViewListado.Location = new System.Drawing.Point(522, 59);
             this.dataGridViewListado.Name = "dataGridViewListado";
-            this.dataGridViewListado.Size = new System.Drawing.Size(527, 172);
+            this.dataGridViewListado.ReadOnly = true;
+            this.dataGridViewListado.Size = new System.Drawing.Size(494, 159);
             this.dataGridViewListado.TabIndex = 8;
+            this.dataGridViewListado.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewListado_RowEnter);
             // 
             // radioBtnSegundoSemestre
             // 
@@ -144,7 +174,7 @@
             "Clientes con más puntos acumulados."});
             this.comboBoxListado.Location = new System.Drawing.Point(119, 59);
             this.comboBoxListado.Name = "comboBoxListado";
-            this.comboBoxListado.Size = new System.Drawing.Size(433, 21);
+            this.comboBoxListado.Size = new System.Drawing.Size(371, 21);
             this.comboBoxListado.TabIndex = 3;
             this.comboBoxListado.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -161,13 +191,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(694, 505);
+            this.ClientSize = new System.Drawing.Size(1170, 604);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormListadoEstadistico";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Listado Estadistico";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListado)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceListado)).EndInit();
             this.ResumeLayout(false);
@@ -187,5 +218,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.BindingSource bindingSourceListado;
         private System.Windows.Forms.ComboBox comboBoxAño;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label label4;
     }
 }

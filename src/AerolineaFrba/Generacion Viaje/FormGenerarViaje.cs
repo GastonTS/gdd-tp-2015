@@ -93,8 +93,8 @@ namespace AerolineaFrba.Generacion_Viaje
             textBoxMatricula.Text = "";
             textBoxOrigen.Text = "";
             textBoxTipoServicio.Text = "";
-            dateTimePickerEstimada.ResetText();
-            dateTimePickerSalida.ResetText();
+            dateTimePickerEstimada.Value = Config.fecha;
+            dateTimePickerSalida.Value = Config.fecha;
         }
 
         private void asinarValidacion(object sender, bool validacion, string mensajeError)

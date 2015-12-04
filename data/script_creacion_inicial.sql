@@ -705,7 +705,7 @@ AS
 	WHILE (@@FETCH_STATUS = 0)
 	BEGIN	
 
-		IF(@fecha_reinicio_de_servicio >= @hoy)
+		IF(@fecha_reinicio_de_servicio <= @hoy)
 			UPDATE ÑUFLO.Aeronave
 			 set baja_por_fuera_de_servicio = 0
 			 where id_aeronave = @id_aeronave
@@ -859,7 +859,7 @@ AS
 		where id_aeronave = @id_aeronave
 			and (@fecha_fin is null and fecha_salida > @fecha_hoy
 				 or fecha_salida between @fecha_hoy and @fecha_fin)
-			and fecha_llegada is null
+			and fecha_llegada is not null
 ;
 GO
 
@@ -1756,10 +1756,12 @@ GO
 
 /*Detalles para listados*/
 CREATE PROCEDURE ÑUFLO.DetallePasajePara
-@ciudad nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio nvarchar(255),
 @fecha_fin nvarchar(255)
 AS
+	declare @ciudad nvarchar(255)
+	set @ciudad = @id
 	select Codigo_de_Compra, Fecha_De_Compra, Pasaje, Destino, DNI, Nombre, Apellido, Butaca_Numero, Precio
 		from ÑUFLO.DetallePasajes
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
@@ -1768,9 +1770,11 @@ AS
 GO	
 
 CREATE PROCEDURE ÑUFLO.DetalleMillasDe
-@dni int,
+@id nvarchar(255),
 @hoy datetime
 AS
+	declare @dni nvarchar(255)
+	set @dni = convert(int, @id)
 	EXEC ÑUFLO.ExpirarMillas @hoy
 	select Tipo, Cantidad, Cantidad_Gastada, Fecha, Estado
 		from ÑUFLO.DetalleMillas 
@@ -1780,12 +1784,12 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.DetalleMillasPara
-@dni int,
+@id nvarchar(255),
 @fecha_inicio datetime,
-@fecha_fin datetime,
-@hoy datetime
+@fecha_fin datetime
 AS
-	EXEC ÑUFLO.ExpirarMillas @hoy
+	declare @dni int
+	set @dni = convert(int, @id)
 	select Tipo, Cantidad, Fecha
 		from ÑUFLO.DetalleMillas
 		where Fecha between @fecha_inicio and @fecha_fin
@@ -1795,22 +1799,26 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.DetalleCancelacionesPara
-@ciudad nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
+	declare @ciudad nvarchar(255)
+	set @ciudad = @id
 	select Pasaje, DNI, Nombre, Apellido, Butaca_Numero, Fecha_De_Compra, Fecha_Devolucion, Motivo
 		from ÑUFLO.DetalleCancelaciones
-		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
+		where Fecha_Devolucion between @fecha_inicio and @fecha_fin
 			and @ciudad = Destino
 ;
 GO
 
 CREATE PROCEDURE ÑUFLO.DetalleServicioTecnicoPara
-@matricula nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
+	declare @matricula nvarchar(255)
+	set @matricula = @id
 	select Matricula, Modelo, Fabricante, Capacidad_Peso, Fecha_Fuera_de_Servicio,
 			case
 				when @fecha_fin < Fecha_Reinicio_de_Servicio then DATEDIFF(DD, Fecha_Fuera_de_Servicio, @fecha_fin)
@@ -1966,7 +1974,8 @@ BEGIN
 	RETURN @peso_disponible
 END
 GO
-
+--drop FUNCTION ÑUFLO.CantidadButacasDisponibles
+--go
 CREATE FUNCTION ÑUFLO.CantidadButacasDisponibles(@id_viaje int)
 RETURNS int
 AS
@@ -1976,6 +1985,9 @@ BEGIN
 	SET @total = (select a.cantidad_butacas
 					from ÑUFLO.Viaje v join ÑUFLO.Aeronave a on v.id_aeronave = a.id_aeronave
 					where v.id_viaje = @id_viaje)
+
+				--	where @id_viaje = v.id_viaje
+					--	and v.id_aeronave = b.id_aeronave)
 
 	SET @ocupadas = (select COUNT(numero_de_butaca)
 						from ÑUFLO.Viaje v, ÑUFLO.Pasaje p, ÑUFLO.Compra c
@@ -2147,3 +2159,54 @@ AS
 			and a.id_modelo = m.id_modelo
 			and a.id_fabricante = f.id_fabricante
 GO
+
+
+/*****************************************************************/
+/*****************Sarlompeadas que hay que borrar*****************/
+/*****************************************************************/
+/*Bootstrap millas*/		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (1, 200,'2016-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (1, 30,'2017-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (1, 40,'2016-12-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (2, 20,'2017-12-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (2, 30,'2015-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (3, 150,'2015-12-01 01:00:00.000')		
+
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (2, 200,'2016-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (3, 30,'2017-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (4, 40,'2016-12-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (1, 20,'2017-12-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (5, 30,'2015-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (6, 150,'2015-12-01 01:00:00.000')
+
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (4, 200,'2016-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (3, 30,'2017-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (9, 40,'2016-12-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (8, 20,'2017-12-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (1, 30,'2015-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (7, 150,'2015-12-01 01:00:00.000')
+
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (9, 200,'2016-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (8, 30,'2017-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (7, 40,'2016-12-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (6, 20,'2017-12-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (5, 30,'2015-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (4, 150,'2015-12-01 01:00:00.000')
+
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (6, 200,'2016-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (9, 30,'2017-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (7, 40,'2016-12-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (5, 20,'2017-12-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (3, 30,'2015-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (1, 150,'2015-12-01 01:00:00.000')
+
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (2, 200,'2016-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (4, 30,'2017-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (6, 40,'2016-12-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (8, 20,'2017-12-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (7, 30,'2015-02-01 01:00:00.000')		
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (9, 150,'2015-12-01 01:00:00.000')
+
+INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (4, 300,'2016-02-01 01:00:00.000')
+
+/*Bootstrap millas fin*/		
