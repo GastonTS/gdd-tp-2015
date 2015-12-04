@@ -48,15 +48,16 @@ namespace AerolineaFrba.Abm_Aeronave
         private void btnElegirTipoButaca_Click(object sender, EventArgs e)
         {
             checkedListBoxButacas.Enabled = true;
-            checkedListBoxButacas.Items.Clear();
+            int cantidadButacas;
+            if (textBoxCantidadButacas.Text == "")
+                cantidadButacas = 0;
+            else
+                cantidadButacas = Convert.ToInt32(textBoxCantidadButacas.Text);
 
-            if (textBoxCantidadButacas.Text != "")
-            {
-                for (int i = 0; i < Convert.ToInt32(textBoxCantidadButacas.Text); i++)
-                {
-                    checkedListBoxButacas.Items.Add("Butaca N°: " + (i + 1));
-                }
-            }
+            for (int j = checkedListBoxButacas.Items.Count, i = cantidadButacas; i < j; checkedListBoxButacas.Items.RemoveAt(--j)) ;
+
+            for (int j = checkedListBoxButacas.Items.Count, i = cantidadButacas; i > j; checkedListBoxButacas.Items.Add("Butaca N°: " + (++j))) ;
+            
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
