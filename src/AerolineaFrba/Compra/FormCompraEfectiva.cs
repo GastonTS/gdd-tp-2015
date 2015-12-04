@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class FormCompraEfectiva : Form, ICargaDatosCliente
+    public partial class FormCompraEfectiva : Abm.Alta, ICargaDatosCliente
     {
         List<FormSeleccionViaje.Pasaje> pasajesAComprar = new List<FormSeleccionViaje.Pasaje>();
         List<FormSeleccionViaje.Encomienda> encomiendasAComprar = new List<FormSeleccionViaje.Encomienda>();

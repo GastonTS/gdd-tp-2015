@@ -39,13 +39,13 @@
             this.labelFechaVencimiento = new System.Windows.Forms.Label();
             this.dateTimePickerFechaVencimiento = new System.Windows.Forms.DateTimePicker();
             this.groupBoxTarjetaCredito = new System.Windows.Forms.GroupBox();
-            this.textBoxCodigoSeguridad = new AerolineaFrba.Abm.TextBoxNumeros();
-            this.textBoxNumeroTarjeta = new AerolineaFrba.Abm.TextBoxNumeros();
             this.checkBoxCompraCoutas = new System.Windows.Forms.CheckBox();
             this.comboBoxTipoTarjeta = new System.Windows.Forms.ComboBox();
             this.labelTipoTarjeta = new System.Windows.Forms.Label();
-            this.btnFinalizarCarga = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.guardar1 = new AerolineaFrba.Abm.Guardar();
+            this.textBoxCodigoSeguridad = new AerolineaFrba.Abm.TextBoxNumeros();
+            this.textBoxNumeroTarjeta = new AerolineaFrba.Abm.TextBoxNumeros();
             this.groupBox1.SuspendLayout();
             this.groupBoxTarjetaCredito.SuspendLayout();
             this.SuspendLayout();
@@ -164,24 +164,6 @@
             this.groupBoxTarjetaCredito.TabStop = false;
             this.groupBoxTarjetaCredito.Text = "Datos de Tarjeta de Crédito";
             // 
-            // textBoxCodigoSeguridad
-            // 
-            this.textBoxCodigoSeguridad.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxCodigoSeguridad.ErrorText = "El codigo de seguridad debe ser un numero";
-            this.textBoxCodigoSeguridad.Location = new System.Drawing.Point(144, 67);
-            this.textBoxCodigoSeguridad.Name = "textBoxCodigoSeguridad";
-            this.textBoxCodigoSeguridad.Size = new System.Drawing.Size(211, 22);
-            this.textBoxCodigoSeguridad.TabIndex = 14;
-            // 
-            // textBoxNumeroTarjeta
-            // 
-            this.textBoxNumeroTarjeta.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxNumeroTarjeta.ErrorText = "Debe ingresarse un numero valido";
-            this.textBoxNumeroTarjeta.Location = new System.Drawing.Point(144, 31);
-            this.textBoxNumeroTarjeta.Name = "textBoxNumeroTarjeta";
-            this.textBoxNumeroTarjeta.Size = new System.Drawing.Size(211, 22);
-            this.textBoxNumeroTarjeta.TabIndex = 13;
-            // 
             // checkBoxCompraCoutas
             // 
             this.checkBoxCompraCoutas.AutoSize = true;
@@ -209,15 +191,6 @@
             this.labelTipoTarjeta.TabIndex = 10;
             this.labelTipoTarjeta.Text = "Tipo de Tarjeta:";
             // 
-            // btnFinalizarCarga
-            // 
-            this.btnFinalizarCarga.Location = new System.Drawing.Point(431, 394);
-            this.btnFinalizarCarga.Name = "btnFinalizarCarga";
-            this.btnFinalizarCarga.Size = new System.Drawing.Size(112, 38);
-            this.btnFinalizarCarga.TabIndex = 11;
-            this.btnFinalizarCarga.Text = "Finalizar Carga";
-            this.btnFinalizarCarga.UseVisualStyleBackColor = true;
-            // 
             // btnLimpiar
             // 
             this.btnLimpiar.Location = new System.Drawing.Point(24, 394);
@@ -227,14 +200,40 @@
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             // 
+            // guardar1
+            // 
+            this.guardar1.Location = new System.Drawing.Point(429, 394);
+            this.guardar1.Name = "guardar1";
+            this.guardar1.Size = new System.Drawing.Size(114, 38);
+            this.guardar1.TabIndex = 13;
+            this.guardar1.TextBtn = "Finalizar carga";
+            // 
+            // textBoxCodigoSeguridad
+            // 
+            this.textBoxCodigoSeguridad.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCodigoSeguridad.ErrorText = "El codigo de seguridad debe ser un numero";
+            this.textBoxCodigoSeguridad.Location = new System.Drawing.Point(144, 67);
+            this.textBoxCodigoSeguridad.Name = "textBoxCodigoSeguridad";
+            this.textBoxCodigoSeguridad.Size = new System.Drawing.Size(211, 22);
+            this.textBoxCodigoSeguridad.TabIndex = 14;
+            // 
+            // textBoxNumeroTarjeta
+            // 
+            this.textBoxNumeroTarjeta.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxNumeroTarjeta.ErrorText = "Debe ingresarse un numero valido";
+            this.textBoxNumeroTarjeta.Location = new System.Drawing.Point(144, 31);
+            this.textBoxNumeroTarjeta.Name = "textBoxNumeroTarjeta";
+            this.textBoxNumeroTarjeta.Size = new System.Drawing.Size(211, 22);
+            this.textBoxNumeroTarjeta.TabIndex = 13;
+            // 
             // FormCompraEfectiva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(569, 449);
-            this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.btnFinalizarCarga);
+            this.Controls.Add(this.guardar1);
             this.Controls.Add(this.groupBoxTarjetaCredito);
+            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormCompraEfectiva";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -262,10 +261,10 @@
         private System.Windows.Forms.CheckBox checkBoxCompraCoutas;
         private System.Windows.Forms.ComboBox comboBoxTipoTarjeta;
         private System.Windows.Forms.Label labelTipoTarjeta;
-        private System.Windows.Forms.Button btnFinalizarCarga;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button button1;
         private Abm.TextBoxNumeros textBoxCodigoSeguridad;
         private Abm.TextBoxNumeros textBoxNumeroTarjeta;
+        private Abm.Guardar guardar1;
     }
 }
