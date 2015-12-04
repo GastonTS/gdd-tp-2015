@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -37,7 +38,6 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -59,6 +59,13 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de la devolución";
+            // 
+            // guardar1
+            // 
+            this.guardar1.Location = new System.Drawing.Point(526, 449);
+            this.guardar1.Name = "guardar1";
+            this.guardar1.Size = new System.Drawing.Size(83, 31);
+            this.guardar1.TabIndex = 12;
             // 
             // btnAceptar
             // 
@@ -89,7 +96,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(19, 221);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(704, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(766, 150);
             this.dataGridView1.TabIndex = 9;
             // 
             // btnAgregarPasaje
@@ -135,14 +142,6 @@
             this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Fecha";
-            // 
-            // guardar1
-            // 
-            this.guardar1.Location = new System.Drawing.Point(526, 449);
-            this.guardar1.Name = "guardar1";
-            this.guardar1.Size = new System.Drawing.Size(83, 31);
-            this.guardar1.TabIndex = 12;
-            this.guardar1.TextBtn = "Guardarasd";
             // 
             // FormDevolucion
             // 
