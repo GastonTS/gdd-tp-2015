@@ -57,7 +57,7 @@ namespace AerolineaFrba.Compra
             encomiendasAComprar = encomiendas;
         }
 
-        private void guardarPosta() 
+        override protected void guardarPosta() 
         {
             generarCompra();
             generarPasajes();
