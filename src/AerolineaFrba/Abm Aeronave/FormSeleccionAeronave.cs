@@ -365,10 +365,6 @@ namespace AerolineaFrba.Abm_Aeronave
             new gdDataBase().Exec("ÑUFLO.BajaFueraDeServicio", camposValores, errorMensaje,
                 "Baja por fuerda de servicio de Aeronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " exitosa");
 
-            MessageBox.Show(filaSeleccionada.Cells[0].FormattedValue.ToString());
-            MessageBox.Show(Config.fecha.ToString());
-            MessageBox.Show(dateTimePicker1.Value.ToString());
-
             consultarConFiltro();
         }
 
