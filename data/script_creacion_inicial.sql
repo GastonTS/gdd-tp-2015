@@ -1771,9 +1771,11 @@ AS
 GO	
 
 CREATE PROCEDURE ÑUFLO.DetalleMillasDe
-@dni int,
+@id int,
 @hoy datetime
 AS
+	declare @dni nvarchar(255)
+	set @dni = convert(nvarchar(255), @id)
 	EXEC ÑUFLO.ExpirarMillas @hoy
 	select Tipo, Cantidad, Cantidad_Gastada, Fecha, Estado
 		from ÑUFLO.DetalleMillas 
