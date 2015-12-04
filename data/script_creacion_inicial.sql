@@ -705,7 +705,7 @@ AS
 	WHILE (@@FETCH_STATUS = 0)
 	BEGIN	
 
-		IF(@fecha_reinicio_de_servicio >= @hoy)
+		IF(@fecha_reinicio_de_servicio <= @hoy)
 			UPDATE ÑUFLO.Aeronave
 			 set baja_por_fuera_de_servicio = 0
 			 where id_aeronave = @id_aeronave
