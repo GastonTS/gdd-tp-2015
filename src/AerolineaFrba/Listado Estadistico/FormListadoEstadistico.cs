@@ -24,6 +24,7 @@ namespace AerolineaFrba.Listado_Estadistico
             var yearList = Enumerable.Range(DateTime.Today.Year - 15, 20).ToList();
             yearList.Reverse();
             comboBoxAño.DataSource = yearList;
+            comboBoxAño.SelectedIndex = 2;
             dataGridViewListado.DataSource = bindingSourceListado;
             mapIndicesNombresTop5.Add(0,"[ÑUFLO].TOP5DiasFueraDeServicio");
             mapIndicesNombresTop5.Add(1,"[Ñuflo].TOP5DestinoPasajesComprados");
