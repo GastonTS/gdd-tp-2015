@@ -33,6 +33,7 @@
             this.comboBoxMedioDePago = new System.Windows.Forms.ComboBox();
             this.labelDNIComprador = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxDNI = new AerolineaFrba.Abm.TextBoxDNI();
             this.button1 = new System.Windows.Forms.Button();
             this.labelNumeroTarjeta = new System.Windows.Forms.Label();
             this.labelCodigoSeguridad = new System.Windows.Forms.Label();
@@ -49,7 +50,6 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.textBoxDNI = new AerolineaFrba.Abm.TextBoxDNI();
             this.groupBox1.SuspendLayout();
             this.groupBoxTarjetaCredito.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -93,16 +93,25 @@
             this.groupBox1.Controls.Add(this.comboBoxMedioDePago);
             this.groupBox1.Location = new System.Drawing.Point(24, 21);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(519, 139);
+            this.groupBox1.Size = new System.Drawing.Size(484, 139);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Medio de Pago y Comprador";
             // 
+            // textBoxDNI
+            // 
+            this.textBoxDNI.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxDNI.ErrorText = "Ingrese un DNI valido";
+            this.textBoxDNI.Location = new System.Drawing.Point(121, 86);
+            this.textBoxDNI.Name = "textBoxDNI";
+            this.textBoxDNI.Size = new System.Drawing.Size(146, 22);
+            this.textBoxDNI.TabIndex = 8;
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(271, 80);
+            this.button1.Location = new System.Drawing.Point(273, 86);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(167, 30);
+            this.button1.Size = new System.Drawing.Size(167, 22);
             this.button1.TabIndex = 7;
             this.button1.Text = "Ingresar Datos del Comprador";
             this.button1.UseVisualStyleBackColor = true;
@@ -157,9 +166,9 @@
             this.groupBoxTarjetaCredito.Controls.Add(this.labelNumeroTarjeta);
             this.groupBoxTarjetaCredito.Controls.Add(this.labelFechaVencimiento);
             this.groupBoxTarjetaCredito.Enabled = false;
-            this.groupBoxTarjetaCredito.Location = new System.Drawing.Point(24, 182);
+            this.groupBoxTarjetaCredito.Location = new System.Drawing.Point(24, 176);
             this.groupBoxTarjetaCredito.Name = "groupBoxTarjetaCredito";
-            this.groupBoxTarjetaCredito.Size = new System.Drawing.Size(519, 206);
+            this.groupBoxTarjetaCredito.Size = new System.Drawing.Size(484, 212);
             this.groupBoxTarjetaCredito.TabIndex = 10;
             this.groupBoxTarjetaCredito.TabStop = false;
             this.groupBoxTarjetaCredito.Text = "Datos de Tarjeta de Crédito";
@@ -234,7 +243,7 @@
             // 
             this.btnLimpiar.Location = new System.Drawing.Point(24, 394);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(112, 38);
+            this.btnLimpiar.Size = new System.Drawing.Size(112, 26);
             this.btnLimpiar.TabIndex = 12;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -242,9 +251,9 @@
             // 
             // guardar1
             // 
-            this.guardar1.Location = new System.Drawing.Point(429, 394);
+            this.guardar1.Location = new System.Drawing.Point(394, 394);
             this.guardar1.Name = "guardar1";
-            this.guardar1.Size = new System.Drawing.Size(114, 38);
+            this.guardar1.Size = new System.Drawing.Size(114, 26);
             this.guardar1.TabIndex = 13;
             this.guardar1.TextBtn = "Finalizar carga";
             // 
@@ -252,21 +261,12 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // textBoxDNI
-            // 
-            this.textBoxDNI.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxDNI.ErrorText = "Ingrese un DNI valido";
-            this.textBoxDNI.Location = new System.Drawing.Point(121, 86);
-            this.textBoxDNI.Name = "textBoxDNI";
-            this.textBoxDNI.Size = new System.Drawing.Size(146, 22);
-            this.textBoxDNI.TabIndex = 8;
-            // 
             // FormCompraEfectiva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.ClientSize = new System.Drawing.Size(569, 449);
+            this.ClientSize = new System.Drawing.Size(528, 436);
             this.Controls.Add(this.guardar1);
             this.Controls.Add(this.groupBoxTarjetaCredito);
             this.Controls.Add(this.btnLimpiar);

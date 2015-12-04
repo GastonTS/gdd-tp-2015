@@ -63,7 +63,7 @@
             this.dataGridViewAeronave.AllowUserToAddRows = false;
             this.dataGridViewAeronave.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewAeronave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAeronave.Location = new System.Drawing.Point(21, 237);
+            this.dataGridViewAeronave.Location = new System.Drawing.Point(21, 204);
             this.dataGridViewAeronave.Name = "dataGridViewAeronave";
             this.dataGridViewAeronave.Size = new System.Drawing.Size(718, 190);
             this.dataGridViewAeronave.TabIndex = 23;
@@ -71,7 +71,7 @@
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(628, 183);
+            this.btnSeleccionar.Location = new System.Drawing.Point(655, 166);
             this.btnSeleccionar.Name = "btnSeleccionar";
             this.btnSeleccionar.Size = new System.Drawing.Size(84, 23);
             this.btnSeleccionar.TabIndex = 22;
@@ -81,7 +81,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(36, 183);
+            this.btnLimpiar.Location = new System.Drawing.Point(21, 166);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(84, 23);
             this.btnLimpiar.TabIndex = 21;
@@ -225,9 +225,9 @@
             // btnAceptar
             // 
             this.btnAceptar.Enabled = false;
-            this.btnAceptar.Location = new System.Drawing.Point(636, 456);
+            this.btnAceptar.Location = new System.Drawing.Point(636, 410);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(103, 39);
+            this.btnAceptar.Size = new System.Drawing.Size(103, 29);
             this.btnAceptar.TabIndex = 24;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -237,7 +237,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(774, 507);
+            this.ClientSize = new System.Drawing.Size(774, 457);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.dataGridViewAeronave);
             this.Controls.Add(this.btnSeleccionar);

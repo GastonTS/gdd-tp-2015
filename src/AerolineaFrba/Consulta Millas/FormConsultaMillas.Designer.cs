@@ -72,7 +72,7 @@
             // labelMillasAcumuladas
             // 
             this.labelMillasAcumuladas.AutoSize = true;
-            this.labelMillasAcumuladas.Location = new System.Drawing.Point(27, 173);
+            this.labelMillasAcumuladas.Location = new System.Drawing.Point(27, 154);
             this.labelMillasAcumuladas.Name = "labelMillasAcumuladas";
             this.labelMillasAcumuladas.Size = new System.Drawing.Size(124, 13);
             this.labelMillasAcumuladas.TabIndex = 10;
@@ -80,7 +80,7 @@
             // 
             // textBoxMillasAcumuladas
             // 
-            this.textBoxMillasAcumuladas.Location = new System.Drawing.Point(157, 170);
+            this.textBoxMillasAcumuladas.Location = new System.Drawing.Point(157, 151);
             this.textBoxMillasAcumuladas.Name = "textBoxMillasAcumuladas";
             this.textBoxMillasAcumuladas.ReadOnly = true;
             this.textBoxMillasAcumuladas.Size = new System.Drawing.Size(80, 20);
@@ -91,9 +91,9 @@
             this.dataGridViewDetalleAcumulacion.AllowUserToAddRows = false;
             this.dataGridViewDetalleAcumulacion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewDetalleAcumulacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewDetalleAcumulacion.Location = new System.Drawing.Point(30, 205);
+            this.dataGridViewDetalleAcumulacion.Location = new System.Drawing.Point(30, 186);
             this.dataGridViewDetalleAcumulacion.Name = "dataGridViewDetalleAcumulacion";
-            this.dataGridViewDetalleAcumulacion.Size = new System.Drawing.Size(404, 150);
+            this.dataGridViewDetalleAcumulacion.Size = new System.Drawing.Size(404, 174);
             this.dataGridViewDetalleAcumulacion.TabIndex = 12;
             // 
             // btnVer

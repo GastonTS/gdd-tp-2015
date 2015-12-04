@@ -36,7 +36,7 @@
             // labelPNR
             // 
             this.labelPNR.AutoSize = true;
-            this.labelPNR.Location = new System.Drawing.Point(113, 31);
+            this.labelPNR.Location = new System.Drawing.Point(55, 34);
             this.labelPNR.Name = "labelPNR";
             this.labelPNR.Size = new System.Drawing.Size(36, 13);
             this.labelPNR.TabIndex = 0;
@@ -53,9 +53,9 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(133, 295);
+            this.btnAceptar.Location = new System.Drawing.Point(136, 290);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 30);
+            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 2;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -65,7 +65,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 349);
+            this.ClientSize = new System.Drawing.Size(364, 325);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.labelPNR);

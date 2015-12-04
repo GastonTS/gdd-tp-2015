@@ -82,6 +82,7 @@
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(83, 31);
             this.btnAceptar.TabIndex = 7;
+            this.btnAceptar.TextBtn = "Guardar";
             // 
             // textBoxMail
             // 
@@ -146,7 +147,7 @@
             // checkBoxModificarDatos
             // 
             this.checkBoxModificarDatos.AutoSize = true;
-            this.checkBoxModificarDatos.Location = new System.Drawing.Point(374, 167);
+            this.checkBoxModificarDatos.Location = new System.Drawing.Point(376, 158);
             this.checkBoxModificarDatos.Name = "checkBoxModificarDatos";
             this.checkBoxModificarDatos.Size = new System.Drawing.Size(100, 17);
             this.checkBoxModificarDatos.TabIndex = 8;

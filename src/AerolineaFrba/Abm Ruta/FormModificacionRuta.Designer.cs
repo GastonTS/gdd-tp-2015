@@ -54,7 +54,7 @@
             this.comboBoxTipoServicio.DataSource = this.tipoServicioBinding;
             this.comboBoxTipoServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipoServicio.FormattingEnabled = true;
-            this.comboBoxTipoServicio.Location = new System.Drawing.Point(136, 109);
+            this.comboBoxTipoServicio.Location = new System.Drawing.Point(423, 52);
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";
             this.comboBoxTipoServicio.Size = new System.Drawing.Size(139, 21);
             this.comboBoxTipoServicio.TabIndex = 15;
@@ -63,7 +63,7 @@
             // labelTipoServicio
             // 
             this.labelTipoServicio.AutoSize = true;
-            this.labelTipoServicio.Location = new System.Drawing.Point(22, 112);
+            this.labelTipoServicio.Location = new System.Drawing.Point(309, 55);
             this.labelTipoServicio.Name = "labelTipoServicio";
             this.labelTipoServicio.Size = new System.Drawing.Size(87, 13);
             this.labelTipoServicio.TabIndex = 14;
@@ -120,7 +120,7 @@
             this.Eliminar,
             this.Modificar});
             this.dataGridView1.DataSource = this.rutaAereaBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(25, 175);
+            this.dataGridView1.Location = new System.Drawing.Point(25, 114);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(572, 165);
@@ -147,7 +147,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(637, 380);
+            this.ClientSize = new System.Drawing.Size(621, 310);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.comboBoxTipoServicio);
             this.Controls.Add(this.labelTipoServicio);

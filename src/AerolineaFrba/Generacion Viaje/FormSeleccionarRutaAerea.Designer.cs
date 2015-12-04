@@ -54,7 +54,7 @@
             this.comboBoxTipoServicio.DataSource = this.tipoServicioBinding;
             this.comboBoxTipoServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipoServicio.FormattingEnabled = true;
-            this.comboBoxTipoServicio.Location = new System.Drawing.Point(138, 106);
+            this.comboBoxTipoServicio.Location = new System.Drawing.Point(475, 25);
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";
             this.comboBoxTipoServicio.Size = new System.Drawing.Size(139, 21);
             this.comboBoxTipoServicio.TabIndex = 21;
@@ -62,7 +62,7 @@
             // labelTipoServicio
             // 
             this.labelTipoServicio.AutoSize = true;
-            this.labelTipoServicio.Location = new System.Drawing.Point(24, 109);
+            this.labelTipoServicio.Location = new System.Drawing.Point(361, 28);
             this.labelTipoServicio.Name = "labelTipoServicio";
             this.labelTipoServicio.Size = new System.Drawing.Size(87, 13);
             this.labelTipoServicio.TabIndex = 20;
@@ -73,7 +73,7 @@
             this.comboBoxDestino.DataSource = this.destinoBindingSource;
             this.comboBoxDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDestino.FormattingEnabled = true;
-            this.comboBoxDestino.Location = new System.Drawing.Point(138, 65);
+            this.comboBoxDestino.Location = new System.Drawing.Point(187, 64);
             this.comboBoxDestino.Name = "comboBoxDestino";
             this.comboBoxDestino.Size = new System.Drawing.Size(139, 21);
             this.comboBoxDestino.TabIndex = 19;
@@ -83,7 +83,7 @@
             this.comboBoxOrigen.DataSource = this.origenBindingSource;
             this.comboBoxOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxOrigen.FormattingEnabled = true;
-            this.comboBoxOrigen.Location = new System.Drawing.Point(138, 26);
+            this.comboBoxOrigen.Location = new System.Drawing.Point(187, 25);
             this.comboBoxOrigen.Name = "comboBoxOrigen";
             this.comboBoxOrigen.Size = new System.Drawing.Size(139, 21);
             this.comboBoxOrigen.TabIndex = 17;
@@ -91,7 +91,7 @@
             // labelDestino
             // 
             this.labelDestino.AutoSize = true;
-            this.labelDestino.Location = new System.Drawing.Point(24, 68);
+            this.labelDestino.Location = new System.Drawing.Point(73, 67);
             this.labelDestino.Name = "labelDestino";
             this.labelDestino.Size = new System.Drawing.Size(100, 13);
             this.labelDestino.TabIndex = 18;
@@ -100,7 +100,7 @@
             // labelOrigen
             // 
             this.labelOrigen.AutoSize = true;
-            this.labelOrigen.Location = new System.Drawing.Point(24, 29);
+            this.labelOrigen.Location = new System.Drawing.Point(73, 28);
             this.labelOrigen.Name = "labelOrigen";
             this.labelOrigen.Size = new System.Drawing.Size(95, 13);
             this.labelOrigen.TabIndex = 16;
@@ -113,18 +113,18 @@
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.DataSource = this.rutaAereaBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 152);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 109);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(686, 165);
+            this.dataGridView1.Size = new System.Drawing.Size(686, 188);
             this.dataGridView1.TabIndex = 22;
             this.dataGridView1.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowEnter);
             // 
             // btnAceptar
             // 
             this.btnAceptar.Enabled = false;
-            this.btnAceptar.Location = new System.Drawing.Point(595, 338);
+            this.btnAceptar.Location = new System.Drawing.Point(595, 317);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(103, 39);
+            this.btnAceptar.Size = new System.Drawing.Size(103, 31);
             this.btnAceptar.TabIndex = 25;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -132,7 +132,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(400, 104);
+            this.btnBuscar.Location = new System.Drawing.Point(539, 62);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 26;
@@ -144,7 +144,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(710, 389);
+            this.ClientSize = new System.Drawing.Size(710, 366);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.dataGridView1);
