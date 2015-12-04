@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class FormCompraEfectiva : Abm.Alta, ICargaDatosCliente
+    public partial class FormCompraEfectiva : Abm.Alta, ICargaDatosCliente, Abm.IFormPadreDeDatosCliente
     {
         List<FormSeleccionViaje.Pasaje> pasajesAComprar = new List<FormSeleccionViaje.Pasaje>();
         List<FormSeleccionViaje.Encomienda> encomiendasAComprar = new List<FormSeleccionViaje.Encomienda>();
@@ -35,6 +35,9 @@ namespace AerolineaFrba.Compra
             mediosDePagoSegunTerminal.Add("kiosko",mediosDePagoKiosko);
             mediosDePagoSegunTerminal.Add("administrativa",mediosDePagoAdministrativa);
             comboBoxMedioDePago.DataSource = mediosDePagoSegunTerminal[Config.terminal];
+            comboBoxTipoTarjeta.DataSource = new gdDataBase().ExecAndGetData("ÑUFLO.TarjetasDeCredito");
+            comboBoxTipoTarjeta.DisplayMember = "nombre";
+            comboBoxTipoTarjeta.ValueMember = "cantidad_de_cuotas";
             actualizarEstadoDatosTarjetaDeCredito();
         }
 
@@ -48,7 +51,8 @@ namespace AerolineaFrba.Compra
             FormDatosCliente fdc = new FormDatosCliente();
 
             fdc.indicarSiEsPasajero(false);
-            fdc.Show(this);
+            fdc.setPadre(this);
+            fdc.Show();
         }
 
         public void setDNI(String dni)
@@ -134,17 +138,19 @@ namespace AerolineaFrba.Compra
         private void actualizarEstadoDatosTarjetaDeCredito()
         {
             var deberiaEstarActivo = (comboBoxMedioDePago.SelectedValue.ToString() == "Tarjeta de crédito");
-            if (!deberiaEstarActivo) {
+            if (!deberiaEstarActivo)
+            {
                 foreach (Control control in groupBoxTarjetaCredito.Controls)
                 {
                     if (control is Abm.TextBoxValidado ||
-                        control is ComboBox ||
                         control is DateTimePicker) control.ResetText();
                     if (control is CheckBox) ((CheckBox)control).Checked = false;
+                    if (control is ComboBox) ((ComboBox)control).SelectedIndex = 0;
                     control.CausesValidation = deberiaEstarActivo;
                 }
-            };
-            
+                lblCantCuotas.ResetText();
+            }
+            else lblCantCuotas.Text = comboBoxTipoTarjeta.SelectedValue.ToString();
             groupBoxTarjetaCredito.Enabled = deberiaEstarActivo;
         }
 
@@ -165,6 +171,12 @@ namespace AerolineaFrba.Compra
                 errorProvider.SetError(dateTimePickerFechaVencimiento, "La fecha debería ser posterior al día de la fecha");
                 e.Cancel = true;
             }
+        }
+
+        private void comboBoxTipoTarjeta_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (comboBoxTipoTarjeta.SelectedValue == null) lblCantCuotas.Text = "";
+            else lblCantCuotas.Text = comboBoxTipoTarjeta.SelectedValue.ToString();
         }
 
     }

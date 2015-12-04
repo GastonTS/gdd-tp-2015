@@ -40,6 +40,8 @@
             this.labelFechaVencimiento = new System.Windows.Forms.Label();
             this.dateTimePickerFechaVencimiento = new System.Windows.Forms.DateTimePicker();
             this.groupBoxTarjetaCredito = new System.Windows.Forms.GroupBox();
+            this.lblCantCuotas = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.textBoxCodigoSeguridad = new AerolineaFrba.Abm.TextBoxNumeros();
             this.textBoxNumeroTarjeta = new AerolineaFrba.Abm.TextBoxNumeros();
             this.checkBoxCompraCoutas = new System.Windows.Forms.CheckBox();
@@ -151,6 +153,8 @@
             // 
             // groupBoxTarjetaCredito
             // 
+            this.groupBoxTarjetaCredito.Controls.Add(this.lblCantCuotas);
+            this.groupBoxTarjetaCredito.Controls.Add(this.label1);
             this.groupBoxTarjetaCredito.Controls.Add(this.textBoxCodigoSeguridad);
             this.groupBoxTarjetaCredito.Controls.Add(this.textBoxNumeroTarjeta);
             this.groupBoxTarjetaCredito.Controls.Add(this.checkBoxCompraCoutas);
@@ -163,10 +167,27 @@
             this.groupBoxTarjetaCredito.Enabled = false;
             this.groupBoxTarjetaCredito.Location = new System.Drawing.Point(24, 182);
             this.groupBoxTarjetaCredito.Name = "groupBoxTarjetaCredito";
-            this.groupBoxTarjetaCredito.Size = new System.Drawing.Size(519, 188);
+            this.groupBoxTarjetaCredito.Size = new System.Drawing.Size(519, 206);
             this.groupBoxTarjetaCredito.TabIndex = 10;
             this.groupBoxTarjetaCredito.TabStop = false;
             this.groupBoxTarjetaCredito.Text = "Datos de Tarjeta de Crédito";
+            // 
+            // lblCantCuotas
+            // 
+            this.lblCantCuotas.AutoSize = true;
+            this.lblCantCuotas.Location = new System.Drawing.Point(384, 151);
+            this.lblCantCuotas.Name = "lblCantCuotas";
+            this.lblCantCuotas.Size = new System.Drawing.Size(0, 13);
+            this.lblCantCuotas.TabIndex = 16;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(281, 150);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Cantidad de cuotas:";
             // 
             // textBoxCodigoSeguridad
             // 
@@ -189,7 +210,8 @@
             // checkBoxCompraCoutas
             // 
             this.checkBoxCompraCoutas.AutoSize = true;
-            this.checkBoxCompraCoutas.Location = new System.Drawing.Point(369, 147);
+            this.checkBoxCompraCoutas.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBoxCompraCoutas.Location = new System.Drawing.Point(43, 178);
             this.checkBoxCompraCoutas.Name = "checkBoxCompraCoutas";
             this.checkBoxCompraCoutas.Size = new System.Drawing.Size(116, 17);
             this.checkBoxCompraCoutas.TabIndex = 12;
@@ -198,11 +220,13 @@
             // 
             // comboBoxTipoTarjeta
             // 
+            this.comboBoxTipoTarjeta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipoTarjeta.FormattingEnabled = true;
             this.comboBoxTipoTarjeta.Location = new System.Drawing.Point(144, 145);
             this.comboBoxTipoTarjeta.Name = "comboBoxTipoTarjeta";
             this.comboBoxTipoTarjeta.Size = new System.Drawing.Size(121, 21);
             this.comboBoxTipoTarjeta.TabIndex = 11;
+            this.comboBoxTipoTarjeta.SelectionChangeCommitted += new System.EventHandler(this.comboBoxTipoTarjeta_SelectionChangeCommitted);
             // 
             // labelTipoTarjeta
             // 
@@ -277,5 +301,7 @@
         private Abm.TextBoxNumeros textBoxNumeroTarjeta;
         private Abm.Guardar guardar1;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Label lblCantCuotas;
+        private System.Windows.Forms.Label label1;
     }
 }
