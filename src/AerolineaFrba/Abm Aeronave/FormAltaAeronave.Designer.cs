@@ -185,7 +185,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // textBoxCapacidadEncomiendas
             // 
             this.textBoxCapacidadEncomiendas.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxCapacidadEncomiendas.ErrorText = "Debe ingresar la cantidad de encomiendas";
+            this.textBoxCapacidadEncomiendas.ErrorText = "Debe ingresar la capacidad en encomiendas";
             this.textBoxCapacidadEncomiendas.Location = new System.Drawing.Point(105, 59);
             this.textBoxCapacidadEncomiendas.Name = "textBoxCapacidadEncomiendas";
             this.textBoxCapacidadEncomiendas.Size = new System.Drawing.Size(211, 22);
