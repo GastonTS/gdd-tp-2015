@@ -28,6 +28,7 @@ namespace AerolineaFrba.Compra
             mediosDePagoSegunTerminal.Add("kiosko",mediosDePagoKiosko);
             mediosDePagoSegunTerminal.Add("administrativa",mediosDePagoAdministrativa);
             comboBoxMedioDePago.DataSource = mediosDePagoSegunTerminal[Config.terminal];
+            actualizarEstadoDatosTarjetaDeCredito();
         }
 
         private void checkBoxModificarDatos_CheckedChanged(object sender, EventArgs e)
@@ -117,5 +118,31 @@ namespace AerolineaFrba.Compra
                 new gdDataBase().Exec("ÑUFLO.CrearEncomienda", camposValores, null);
             }
         }
+
+        private void comboBoxMedioDePago_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            actualizarEstadoDatosTarjetaDeCredito();
+        }
+
+        private void actualizarEstadoDatosTarjetaDeCredito()
+        {
+            var deberiaEstarActivo = (comboBoxMedioDePago.SelectedValue.ToString() == "Tarjeta de crédito");
+            if (!deberiaEstarActivo) {
+                foreach (Control control in groupBoxTarjetaCredito.Controls)
+                {
+                    if (control is Abm.TextBoxValidado ||
+                        control is ComboBox ||
+                        control is DateTimePicker) control.ResetText();
+                    if (control is CheckBox) ((CheckBox)control).Checked = false;
+                }
+            };
+            groupBoxTarjetaCredito.Enabled = deberiaEstarActivo;
+        }
+
+        private void comboBoxMedioDePago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
