@@ -722,6 +722,15 @@ select id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.ButacasDe
+@id_aeronave int
+AS
+select numero_de_butaca, id_tipo_butaca
+	from ÑUFLO.ButacaPorAvion
+	where id_aeronave = @id_aeronave
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.AltaAeronave
 @matricula nvarchar(255),
 @modelo nvarchar(255), 
