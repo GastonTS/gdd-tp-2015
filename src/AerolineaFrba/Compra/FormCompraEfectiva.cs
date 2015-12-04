@@ -70,11 +70,19 @@ namespace AerolineaFrba.Compra
 
         override protected void guardarPosta() 
         {
-            generarCompra();
-            generarPasajes();
-            generarEncomiendas();
-
-            MessageBox.Show("Compra de pasajes y encomiendas realizada con éxito");
+            try
+            {
+                generarCompra();
+                generarPasajes();
+                generarEncomiendas();
+                MessageBox.Show("Compra de pasajes y encomiendas realizada con éxito.");
+                this.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ocurrió un problema al generar la compra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void generarCompra()
@@ -86,8 +94,11 @@ namespace AerolineaFrba.Compra
             camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDNI.Text, SqlDbType.Int));
             camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
-            var dt = new gdDataBase().ExecAndGetData("ÑUFLO.CrearCompra", camposValores, null);
+            var spExec = new SPExecGetData("ÑUFLO.CrearCompra", camposValores, null);
 
+            var dt = (DataTable)spExec.Exec();
+
+            if (spExec.huboError()) throw new Exception();
             compraARealizar = new FormSeleccionViaje.Compra(compraARealizar.idViaje,
                 Convert.ToInt32(textBoxDNI.Text), Convert.ToInt32(dt.Rows[0].ItemArray[0]));
         }
@@ -108,7 +119,11 @@ namespace AerolineaFrba.Compra
 
                 errorMensaje.Add(60033, "Una de las butacas seleccionada en la compra no está disponible");
 
-                new gdDataBase().Exec("ÑUFLO.CrearPasaje", camposValores, errorMensaje);
+                var spExec = new SPPureExec("ÑUFLO.CrearPasaje", camposValores, errorMensaje);
+
+                spExec.Exec();
+
+                if (spExec.huboError()) throw new Exception();
             }
         }
 
@@ -126,7 +141,12 @@ namespace AerolineaFrba.Compra
                 camposValores.Add("dni", new gdDataBase.ValorTipo(encomiendasAComprar[i].dni, SqlDbType.Int));
                 camposValores.Add("peso_encomienda", new gdDataBase.ValorTipo(encomiendasAComprar[i].pesoEncomienda, SqlDbType.Decimal));
 
-                new gdDataBase().Exec("ÑUFLO.CrearEncomienda", camposValores, null);
+                var spExec = new SPPureExec("ÑUFLO.CrearEncomienda", camposValores, null);
+
+                spExec.Exec();
+
+                if (spExec.huboError()) throw new Exception();
+
             }
         }
 
