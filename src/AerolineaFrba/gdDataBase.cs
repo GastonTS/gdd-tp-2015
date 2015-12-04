@@ -220,7 +220,7 @@ namespace AerolineaFrba
         //los distintos casos de Stored Procedures que pueden haber y así saber que estoy haciendo en cada caso
         //al ejecutarlos y esas cosas.
 
-        public DataTable ExecAndGetData(String spName, Dictionary<String, ValorTipo> campoValor, Dictionary<int, String> errorMensaje, String ejecucionCorrecta=null)
+        public DataTable ExecAndGetData(String spName, Dictionary<String, ValorTipo> campoValor=null, Dictionary<int, String> errorMensaje=null, String ejecucionCorrecta=null)
 
 
         {

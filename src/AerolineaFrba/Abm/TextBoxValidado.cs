@@ -20,6 +20,11 @@ namespace AerolineaFrba.Abm
             textBox1.CausesValidation = Visible;
         }
 
+        protected override void OnCausesValidationChanged(EventArgs e)
+        {
+            base.OnCausesValidationChanged(e);
+            textBox1.CausesValidation = this.CausesValidation;
+        }
 
         public event EventHandler TextboxTextChanged;
 

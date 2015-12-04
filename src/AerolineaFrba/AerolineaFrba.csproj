@@ -124,6 +124,7 @@
     <Compile Include="Abm\Guardar.Designer.cs">
       <DependentUpon>Guardar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm\IFormPadreDeDatosCliente.cs" />
     <Compile Include="Abm\IntegerTextBox.cs">
       <SubType>Component</SubType>
     </Compile>

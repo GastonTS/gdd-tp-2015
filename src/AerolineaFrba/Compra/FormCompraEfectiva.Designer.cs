@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelMedioDePago = new System.Windows.Forms.Label();
             this.comboBoxMedioDePago = new System.Windows.Forms.ComboBox();
             this.labelDNIComprador = new System.Windows.Forms.Label();
@@ -38,16 +39,20 @@
             this.labelCodigoSeguridad = new System.Windows.Forms.Label();
             this.labelFechaVencimiento = new System.Windows.Forms.Label();
             this.dateTimePickerFechaVencimiento = new System.Windows.Forms.DateTimePicker();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxTarjetaCredito = new System.Windows.Forms.GroupBox();
+            this.lblCantCuotas = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxCodigoSeguridad = new AerolineaFrba.Abm.TextBoxNumeros();
+            this.textBoxNumeroTarjeta = new AerolineaFrba.Abm.TextBoxNumeros();
             this.checkBoxCompraCoutas = new System.Windows.Forms.CheckBox();
             this.comboBoxTipoTarjeta = new System.Windows.Forms.ComboBox();
             this.labelTipoTarjeta = new System.Windows.Forms.Label();
-            this.btnFinalizarCarga = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.textBoxCodigoSeguridad = new AerolineaFrba.Abm.TextBoxNumeros();
-            this.textBoxNumeroTarjeta = new AerolineaFrba.Abm.TextBoxNumeros();
+            this.guardar1 = new AerolineaFrba.Abm.Guardar();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.groupBoxTarjetaCredito.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // labelMedioDePago
@@ -67,6 +72,8 @@
             this.comboBoxMedioDePago.Name = "comboBoxMedioDePago";
             this.comboBoxMedioDePago.Size = new System.Drawing.Size(121, 21);
             this.comboBoxMedioDePago.TabIndex = 1;
+            this.comboBoxMedioDePago.SelectedIndexChanged += new System.EventHandler(this.comboBoxMedioDePago_SelectedIndexChanged);
+            this.comboBoxMedioDePago.SelectionChangeCommitted += new System.EventHandler(this.comboBoxMedioDePago_SelectionChangeCommitted);
             // 
             // labelDNIComprador
             // 
@@ -142,71 +149,45 @@
             this.dateTimePickerFechaVencimiento.Name = "dateTimePickerFechaVencimiento";
             this.dateTimePickerFechaVencimiento.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerFechaVencimiento.TabIndex = 9;
+            this.dateTimePickerFechaVencimiento.Validating += new System.ComponentModel.CancelEventHandler(this.dateTimePickerFechaVencimiento_Validating);
             // 
-            // groupBox2
+            // groupBoxTarjetaCredito
             // 
-            this.groupBox2.Controls.Add(this.textBoxCodigoSeguridad);
-            this.groupBox2.Controls.Add(this.textBoxNumeroTarjeta);
-            this.groupBox2.Controls.Add(this.checkBoxCompraCoutas);
-            this.groupBox2.Controls.Add(this.comboBoxTipoTarjeta);
-            this.groupBox2.Controls.Add(this.labelTipoTarjeta);
-            this.groupBox2.Controls.Add(this.labelCodigoSeguridad);
-            this.groupBox2.Controls.Add(this.dateTimePickerFechaVencimiento);
-            this.groupBox2.Controls.Add(this.labelNumeroTarjeta);
-            this.groupBox2.Controls.Add(this.labelFechaVencimiento);
-            this.groupBox2.Enabled = false;
-            this.groupBox2.Location = new System.Drawing.Point(24, 182);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(519, 188);
-            this.groupBox2.TabIndex = 10;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Datos de Tarjeta de Crédito";
+            this.groupBoxTarjetaCredito.Controls.Add(this.lblCantCuotas);
+            this.groupBoxTarjetaCredito.Controls.Add(this.label1);
+            this.groupBoxTarjetaCredito.Controls.Add(this.textBoxCodigoSeguridad);
+            this.groupBoxTarjetaCredito.Controls.Add(this.textBoxNumeroTarjeta);
+            this.groupBoxTarjetaCredito.Controls.Add(this.checkBoxCompraCoutas);
+            this.groupBoxTarjetaCredito.Controls.Add(this.comboBoxTipoTarjeta);
+            this.groupBoxTarjetaCredito.Controls.Add(this.labelTipoTarjeta);
+            this.groupBoxTarjetaCredito.Controls.Add(this.labelCodigoSeguridad);
+            this.groupBoxTarjetaCredito.Controls.Add(this.dateTimePickerFechaVencimiento);
+            this.groupBoxTarjetaCredito.Controls.Add(this.labelNumeroTarjeta);
+            this.groupBoxTarjetaCredito.Controls.Add(this.labelFechaVencimiento);
+            this.groupBoxTarjetaCredito.Enabled = false;
+            this.groupBoxTarjetaCredito.Location = new System.Drawing.Point(24, 182);
+            this.groupBoxTarjetaCredito.Name = "groupBoxTarjetaCredito";
+            this.groupBoxTarjetaCredito.Size = new System.Drawing.Size(519, 206);
+            this.groupBoxTarjetaCredito.TabIndex = 10;
+            this.groupBoxTarjetaCredito.TabStop = false;
+            this.groupBoxTarjetaCredito.Text = "Datos de Tarjeta de Crédito";
             // 
-            // checkBoxCompraCoutas
+            // lblCantCuotas
             // 
-            this.checkBoxCompraCoutas.AutoSize = true;
-            this.checkBoxCompraCoutas.Location = new System.Drawing.Point(369, 147);
-            this.checkBoxCompraCoutas.Name = "checkBoxCompraCoutas";
-            this.checkBoxCompraCoutas.Size = new System.Drawing.Size(116, 17);
-            this.checkBoxCompraCoutas.TabIndex = 12;
-            this.checkBoxCompraCoutas.Text = "Comprar en Cuotas";
-            this.checkBoxCompraCoutas.UseVisualStyleBackColor = true;
+            this.lblCantCuotas.AutoSize = true;
+            this.lblCantCuotas.Location = new System.Drawing.Point(384, 151);
+            this.lblCantCuotas.Name = "lblCantCuotas";
+            this.lblCantCuotas.Size = new System.Drawing.Size(0, 13);
+            this.lblCantCuotas.TabIndex = 16;
             // 
-            // comboBoxTipoTarjeta
+            // label1
             // 
-            this.comboBoxTipoTarjeta.FormattingEnabled = true;
-            this.comboBoxTipoTarjeta.Location = new System.Drawing.Point(144, 145);
-            this.comboBoxTipoTarjeta.Name = "comboBoxTipoTarjeta";
-            this.comboBoxTipoTarjeta.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxTipoTarjeta.TabIndex = 11;
-            // 
-            // labelTipoTarjeta
-            // 
-            this.labelTipoTarjeta.AutoSize = true;
-            this.labelTipoTarjeta.Location = new System.Drawing.Point(56, 148);
-            this.labelTipoTarjeta.Name = "labelTipoTarjeta";
-            this.labelTipoTarjeta.Size = new System.Drawing.Size(82, 13);
-            this.labelTipoTarjeta.TabIndex = 10;
-            this.labelTipoTarjeta.Text = "Tipo de Tarjeta:";
-            // 
-            // btnFinalizarCarga
-            // 
-            this.btnFinalizarCarga.Location = new System.Drawing.Point(431, 394);
-            this.btnFinalizarCarga.Name = "btnFinalizarCarga";
-            this.btnFinalizarCarga.Size = new System.Drawing.Size(112, 38);
-            this.btnFinalizarCarga.TabIndex = 11;
-            this.btnFinalizarCarga.Text = "Finalizar Carga";
-            this.btnFinalizarCarga.UseVisualStyleBackColor = true;
-            this.btnFinalizarCarga.Click += new System.EventHandler(this.btnFinalizarCarga_Click);
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Location = new System.Drawing.Point(24, 394);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(112, 38);
-            this.btnLimpiar.TabIndex = 12;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(281, 150);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Cantidad de cuotas:";
             // 
             // textBoxCodigoSeguridad
             // 
@@ -226,22 +207,75 @@
             this.textBoxNumeroTarjeta.Size = new System.Drawing.Size(211, 22);
             this.textBoxNumeroTarjeta.TabIndex = 13;
             // 
+            // checkBoxCompraCoutas
+            // 
+            this.checkBoxCompraCoutas.AutoSize = true;
+            this.checkBoxCompraCoutas.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBoxCompraCoutas.Location = new System.Drawing.Point(43, 178);
+            this.checkBoxCompraCoutas.Name = "checkBoxCompraCoutas";
+            this.checkBoxCompraCoutas.Size = new System.Drawing.Size(116, 17);
+            this.checkBoxCompraCoutas.TabIndex = 12;
+            this.checkBoxCompraCoutas.Text = "Comprar en Cuotas";
+            this.checkBoxCompraCoutas.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxTipoTarjeta
+            // 
+            this.comboBoxTipoTarjeta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTipoTarjeta.FormattingEnabled = true;
+            this.comboBoxTipoTarjeta.Location = new System.Drawing.Point(144, 145);
+            this.comboBoxTipoTarjeta.Name = "comboBoxTipoTarjeta";
+            this.comboBoxTipoTarjeta.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxTipoTarjeta.TabIndex = 11;
+            this.comboBoxTipoTarjeta.SelectionChangeCommitted += new System.EventHandler(this.comboBoxTipoTarjeta_SelectionChangeCommitted);
+            // 
+            // labelTipoTarjeta
+            // 
+            this.labelTipoTarjeta.AutoSize = true;
+            this.labelTipoTarjeta.Location = new System.Drawing.Point(56, 148);
+            this.labelTipoTarjeta.Name = "labelTipoTarjeta";
+            this.labelTipoTarjeta.Size = new System.Drawing.Size(82, 13);
+            this.labelTipoTarjeta.TabIndex = 10;
+            this.labelTipoTarjeta.Text = "Tipo de Tarjeta:";
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(24, 394);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(112, 38);
+            this.btnLimpiar.TabIndex = 12;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            // 
+            // guardar1
+            // 
+            this.guardar1.Location = new System.Drawing.Point(429, 394);
+            this.guardar1.Name = "guardar1";
+            this.guardar1.Size = new System.Drawing.Size(114, 38);
+            this.guardar1.TabIndex = 13;
+            this.guardar1.TextBtn = "Finalizar carga";
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // FormCompraEfectiva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(569, 449);
+            this.Controls.Add(this.guardar1);
+            this.Controls.Add(this.groupBoxTarjetaCredito);
             this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.btnFinalizarCarga);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormCompraEfectiva";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ingreso de datos para la compra efectiva";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBoxTarjetaCredito.ResumeLayout(false);
+            this.groupBoxTarjetaCredito.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -257,14 +291,17 @@
         private System.Windows.Forms.Label labelCodigoSeguridad;
         private System.Windows.Forms.Label labelFechaVencimiento;
         private System.Windows.Forms.DateTimePicker dateTimePickerFechaVencimiento;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxTarjetaCredito;
         private System.Windows.Forms.CheckBox checkBoxCompraCoutas;
         private System.Windows.Forms.ComboBox comboBoxTipoTarjeta;
         private System.Windows.Forms.Label labelTipoTarjeta;
-        private System.Windows.Forms.Button btnFinalizarCarga;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button button1;
         private Abm.TextBoxNumeros textBoxCodigoSeguridad;
         private Abm.TextBoxNumeros textBoxNumeroTarjeta;
+        private Abm.Guardar guardar1;
+        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Label lblCantCuotas;
+        private System.Windows.Forms.Label label1;
     }
 }
