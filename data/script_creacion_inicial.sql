@@ -692,13 +692,14 @@ AS
 GO
 
 /*Aeronave*/
+/*
 CREATE PROCEDURE ÑUFLO.IncorporarAeronavesFueraDeServicio
 AS
 	select * from ÑUFLO.Aeronave
 	select * from ÑUFLO.ServicioTecnico
 ;
 GO
-
+*/
 CREATE PROCEDURE ÑUFLO.FiltroAeronave
 @modelo nvarchar(255) = null,
 @matricula nvarchar(255) = null,
@@ -709,7 +710,7 @@ CREATE PROCEDURE ÑUFLO.FiltroAeronave
 @capacidad_encomiendas numeric(18,0) = null,
 @cantidad_butacas int = null
 AS
-exec ÑUFLO.IncorporarAeronavesFueraDeServicio
+--exec ÑUFLO.IncorporarAeronavesFueraDeServicio
 select id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre Fabricante, ts.tipo_servicio 'Tipo de Servicio', fecha_de_alta 'Fecha de Alta',
 		capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
 	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f, ÑUFLO.TipoServicio ts
