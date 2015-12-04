@@ -59,6 +59,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 camposValores.Add("baja_vida_util", new gdDataBase.ValorTipo(Convert.ToString(bajaVidaUtil), SqlDbType.Bit));
             if (textBoxCantidadButacas.Text.Trim() != "")
                 camposValores.Add("cantidad_butacas", new gdDataBase.ValorTipo(textBoxCantidadButacas.Text, SqlDbType.Int));
+            camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
             var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.FiltroAeronave", camposValores);
 
@@ -89,7 +90,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 dateTimePicker1.Enabled = true;
                 if (dataGridViewAeronave.SelectedRows[0].Cells[7].Value.ToString() != "")
                     btnBajaFueraServicio.Enabled = false;
-                if (dataGridViewAeronave.SelectedRows[0].Cells[8].Value.ToString() != "")
+                if (dataGridViewAeronave.SelectedRows[0].Cells[8].Value.ToString() != "0")
                     btnBajaVidaUtil.Enabled = false;
             }
             else
@@ -120,47 +121,57 @@ namespace AerolineaFrba.Abm_Aeronave
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
             camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
-            camposValores.Add("fecha", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
-            errorMensaje.Add(60004, "La Aeronave ya está fuera por vida útil");
+            errorMensaje.Add(60004, "La nave ya se encuentra fuera de su vida util");
 
-            var dt = new gdDataBase().ExecAndGetData("ÑUFLO.BajaPorVidaUtil", camposValores, errorMensaje, "Baja por vida útil de Aeronave exitosa");
+            var ejecucion = new SPPureExec("ÑUFLO.ValidarAeronaveActiva", camposValores, errorMensaje);
 
-            int cantidadViajesPendientes = -1;
-            if(dt.Rows.Count > 0)
-                cantidadViajesPendientes = Convert.ToInt32(dt.Rows[0].ItemArray[0]);
-
-            if (cantidadViajesPendientes > 0)
+            if (!ejecucion.huboError())
             {
-                DialogResult dialogResult = MessageBox.Show("Desea Reprogramar los " + cantidadViajesPendientes
-                    + " pasajes/encomiendas asociados a la Aeronave dada en baja? (De elejir no, simplemente se cancelarán esos viajes", 
-                    "Baja por vida útil de Aeronave con viajes asignados", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    // fecha inicio la considero como la fecha actual
-                    camposValores.Clear();
-                    camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
-                    camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
-                    
-                    errorMensaje.Clear();
-                    errorMensaje.Add(60005, "No se pudieron reemplazar todos los viajes");
 
-                    new gdDataBase().Exec("ÑUFLO.ReemplazarAeronavePara", camposValores, errorMensaje, 
-                        "Pasajes/Encomiendas de la aeronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " reprogramadas exitosamente");
-                }
-                else if (dialogResult == DialogResult.No)
+                int cantidadViajesPendientes = -1;
+                /*if (dt.Rows.Count > 0)
+                    cantidadViajesPendientes = Convert.ToInt32(dt.Rows[0].ItemArray[0]);
+                */
+                if (cantidadViajesPendientes > 0)
                 {
-                    // fecha inicio la considero como la fecha actual
-                    camposValores.Clear();
-                    camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
-                    camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
+                    DialogResult dialogResult = MessageBox.Show("Desea Reprogramar los " + cantidadViajesPendientes
+                        + " pasajes/encomiendas asociados a la Aeronave dada en baja? (De elejir no, simplemente se cancelarán esos viajes",
+                        "Baja por vida útil de Aeronave con viajes asignados", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        // fecha inicio la considero como la fecha actual
+                        camposValores.Clear();
+                        camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
+                        camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
-                    new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null,
-                        "Pasajes de aronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " cancelados correctamente");
+                        errorMensaje.Clear();
+                        errorMensaje.Add(60005, "No se pudieron reemplazar todos los viajes");
+
+                        new gdDataBase().Exec("ÑUFLO.ReemplazarAeronavePara", camposValores, errorMensaje,
+                            "Pasajes/Encomiendas de la aeronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " reprogramadas exitosamente");
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        // fecha inicio la considero como la fecha actual
+                        camposValores.Clear();
+                        camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
+                        camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
+
+                        new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null,
+                            "Pasajes de aronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " cancelados correctamente");
+                    }
                 }
+
+                camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
+                camposValores.Add("fecha", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
+
+                errorMensaje.Add(60004, "La Aeronave ya está fuera por vida útil");
+
+                var dt = new gdDataBase().ExecAndGetData("ÑUFLO.BajaPorVidaUtil", camposValores, errorMensaje, "Baja por vida útil de Aeronave exitosa");
+
+                consultarConFiltro();
             }
-
-            consultarConFiltro();
         }
 
         private void btnBajaFueraServicio_Click(object sender, EventArgs e)
