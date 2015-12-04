@@ -1811,7 +1811,7 @@ CREATE PROCEDURE ÑUFLO.DetallePasajePara
 AS
 	declare @ciudad nvarchar(255)
 	set @ciudad = @id
-	select Codigo_de_Compra, Fecha_De_Compra, Pasaje, Destino, DNI, Nombre, Apellido, Butaca_Numero, Precio
+	select Destino, Codigo_de_Compra, Fecha_De_Compra, Pasaje, DNI, Nombre, Apellido, Butaca_Numero, Precio
 		from ÑUFLO.DetallePasajes
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
 			and Destino = @ciudad
