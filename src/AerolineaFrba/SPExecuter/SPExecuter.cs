@@ -49,6 +49,7 @@ namespace AerolineaFrba
 
         public void mostrarErrorSqlProducido()
         {
+
             Boolean encontroErrorConocido = false;
             if (errorMensaje != null)
             {

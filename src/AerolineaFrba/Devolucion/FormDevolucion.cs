@@ -20,8 +20,8 @@ namespace AerolineaFrba.Devolucion
             dataGridView1.Columns.Add("DNI", "DNI");
             dataGridView1.Columns.Add("Nombre", "Nombre");
             dataGridView1.Columns.Add("Apellido", "Apellido");
-            dataGridView1.Columns.Add("Peso_Encomienda", "Peso_Encomienda");
-            dataGridView1.Columns.Add("Butaca_numero", "Butaca_numero");
+            dataGridView1.Columns.Add("Peso_Encomienda", "Peso de encomienda");
+            dataGridView1.Columns.Add("Butaca_numero", "Número de butaca");
             dataGridView1.Columns.Add("Precio", "Precio");
         }
 
@@ -65,6 +65,7 @@ namespace AerolineaFrba.Devolucion
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+
             foreach(DataGridViewRow fila in dataGridView1.Rows)
             {
                 var camposValores = gdDataBase.newParameters();
@@ -72,8 +73,9 @@ namespace AerolineaFrba.Devolucion
                 camposValores.Add("tipo", new gdDataBase.ValorTipo(fila.Cells["Tipo"].Value, SqlDbType.NVarChar));
                 camposValores.Add("motivo",new gdDataBase.ValorTipo(richTextBox1.Text,SqlDbType.NVarChar));
                 camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
-                new gdDataBase().Exec("ÑUFLO.CancelarPasajeOEncomienda",camposValores,new Dictionary<int,string>(),"Cancelación de "+fila.Cells["Tipo"].Value+" con código "+fila.Cells["Codigo"].Value+" fue exitosa.");
-            }            
+                var exec = new SPPureExec("ÑUFLO.CancelarPasajeOEncomienda", camposValores, new Dictionary<int, string>(), "Cancelación de " + fila.Cells["Tipo"].Value + " con código " + fila.Cells["Codigo"].Value + " fue exitosa.");
+                exec.Exec(new gdDataBase());
+            }
             dataGridView1.Rows.Clear();
 
         }
