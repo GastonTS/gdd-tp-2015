@@ -1815,6 +1815,7 @@ AS
 		from ÑUFLO.DetallePasajes
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
 			and Destino = @ciudad
+		order by Precio desc
 ;
 GO	
 
