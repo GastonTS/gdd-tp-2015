@@ -140,11 +140,11 @@ namespace AerolineaFrba.Compra
                 {
                     if (soloPasaje)
                         if (listBoxEleccionButacaPasillo.SelectedIndex != -1 || listBoxEleccionButacaVentanilla.SelectedIndex != -1)
-                            miPadre.setPasaje(Convert.ToInt32(textBoxDNI.Text), numeroDeButacaSeleccionada);
+                            miPadre.setPasaje(Convert.ToInt32(textBoxDNI.Text), numeroDeButacaSeleccionada, this);
                         else
                             MessageBox.Show("Seleccione una butaca para terminar la operación");
                     else
-                        miPadre.setEncomienda(Convert.ToInt32(textBoxDNI.Text), Convert.ToDecimal(textBoxCantidadAEncomendar.Text));
+                        miPadre.setEncomienda(Convert.ToInt32(textBoxDNI.Text), Convert.ToDecimal(textBoxCantidadAEncomendar.Text), this);
                     
                 
             }
