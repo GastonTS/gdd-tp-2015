@@ -1407,7 +1407,7 @@ GO
 CREATE PROCEDURE ÑUFLO.RolDadoNombre
 @nombre nvarchar(255) = null
 AS
-	SELECT nombre_rol, habilitado
+	SELECT nombre_rol Nombre, habilitado 'Habilitado'
 		FROM ÑUFLO.Rol
 		WHERE @nombre is null OR nombre_rol LIKE @nombre + '%'
 ;
