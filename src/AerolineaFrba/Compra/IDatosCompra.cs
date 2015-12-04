@@ -8,7 +8,7 @@ namespace AerolineaFrba.Compra
 {
     interface IDatosCompra
     {
-        void setPasaje(int dni, int numeroDeButaca);
-        void setEncomienda(int dni, decimal pesoEncomienda);
+        void setPasaje(int dni, int numeroDeButaca, FormDatosPasajeroEncomienda hijo);
+        void setEncomienda(int dni, decimal pesoEncomienda, FormDatosPasajeroEncomienda hijo);
     }
 }
