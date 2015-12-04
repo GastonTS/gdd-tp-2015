@@ -31,6 +31,7 @@ namespace AerolineaFrba.Consulta_Millas
                     MessageBox.Show("No hay resultados que satisfagan la búsqueda");
                 else
                 {
+                    camposValores.Remove("hoy");
                     dataGridViewDetalleAcumulacion.DataSource = historialMillas;
                     textBoxMillasAcumuladas.Text = new gdDataBase().ExecAndGetData("ÑUFLO.MillasTotalesDe", camposValores, new Dictionary<int, String>()).Rows[0].ItemArray[0].ToString();
                 }

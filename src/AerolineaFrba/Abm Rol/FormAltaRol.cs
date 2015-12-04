@@ -62,11 +62,14 @@ namespace AerolineaFrba.Abm_Rol
             {
                 darDeAltaRol();
                 agregarFuncionalidades();
+                limpiar();
             }
             else
+            {
                 actualizarRol();
+                this.Close();
+            }
 
-            limpiar();
         }
 
         private void btnAñadir_Click(object sender, EventArgs e)

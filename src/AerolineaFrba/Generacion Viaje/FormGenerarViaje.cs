@@ -63,12 +63,16 @@ namespace AerolineaFrba.Generacion_Viaje
                 camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.VarChar));
                 camposValores.Add("id_ruta", new gdDataBase.ValorTipo(idRuta.ToString(), SqlDbType.VarChar));
 
-                errorMensaje.Add(60007,  "La matricula ingresada no pertenece a ninguna Aeronave");
+                errorMensaje.Add(60007, "La matricula ingresada no pertenece a ninguna Aeronave");
                 errorMensaje.Add(600012, "La ruta ingresada no existe");
                 errorMensaje.Add(600015, "El servicio brindado por la aeronave no coincide con el de la ruta");
                 errorMensaje.Add(600016, "La aeronave ya posee un viaje en esas fechas");
 
-                new gdDataBase().Exec("ÑUFLO.GenerarViaje", camposValores, errorMensaje, "Viaje registrado correctamente");
+                var ejecucion = new SPPureExec("ÑUFLO.GenerarViaje", camposValores, errorMensaje, "Viaje registrado correctamente");
+
+                ejecucion.Exec();
+                if (!ejecucion.huboError())
+                    limpiar();
             }
         }
 
@@ -79,6 +83,11 @@ namespace AerolineaFrba.Generacion_Viaje
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            limpiar();
+        }
+
+        private void limpiar()
         {
             textBoxDestino.Text = "";
             textBoxMatricula.Text = "";
