@@ -59,6 +59,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 camposValores.Add("baja_vida_util", new gdDataBase.ValorTipo(Convert.ToString(bajaVidaUtil), SqlDbType.Bit));
             if (textBoxCantidadButacas.Text.Trim() != "")
                 camposValores.Add("cantidad_butacas", new gdDataBase.ValorTipo(textBoxCantidadButacas.Text, SqlDbType.Int));
+            camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
             var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.FiltroAeronave", camposValores);
 
@@ -89,7 +90,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 dateTimePicker1.Enabled = true;
                 if (dataGridViewAeronave.SelectedRows[0].Cells[7].Value.ToString() != "")
                     btnBajaFueraServicio.Enabled = false;
-                if (dataGridViewAeronave.SelectedRows[0].Cells[8].Value.ToString() != "")
+                if (dataGridViewAeronave.SelectedRows[0].Cells[8].Value.ToString() != "0")
                     btnBajaVidaUtil.Enabled = false;
             }
             else
