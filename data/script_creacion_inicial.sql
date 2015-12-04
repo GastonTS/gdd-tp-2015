@@ -850,13 +850,22 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.ValidarAeronaveActiva
-@id_aeronave int
+@id_aeronave int,
+@fecha_hoy nvarchar(255),
+@fecha_fin nvarchar(255) = null
 AS
 	if((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) is not null)
 		THROW 60004, 'La nave ya se encuentra fuera de su vida util', 1
 
 	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) = 1)
 		THROW 60003, 'La nave ya se encuentra en mantenimiento', 1
+		
+	select COUNT(id_viaje)
+		from ÑUFLO.Viaje
+		where id_aeronave = @id_aeronave
+			and (@fecha_fin is null and fecha_salida > @fecha_hoy
+				 or fecha_salida between @fecha_hoy and @fecha_fin)
+			and fecha_llegada is not null
 ;
 GO
 
@@ -870,12 +879,6 @@ AS
 	UPDATE ÑUFLO.Aeronave
 		SET baja_vida_utill = @fecha_baja
 		WHERE id_aeronave = @id_aeronave
-
-	select COUNT(id_viaje)
-		from ÑUFLO.Viaje
-		where id_aeronave = @id_aeronave
-			and fecha_salida > @fecha_baja
-			and fecha_llegada is not null
 ;
 GO
 
@@ -894,12 +897,6 @@ AS
 	
 	INSERT INTO ÑUFLO.ServicioTecnico(fecha_fuera_de_servicio, fecha_reinicio_de_servicio, id_aeronave)
 		values(@fecha_baja, @fecha_reinicio, @id_aeronave)			
-	
-	select COUNT(id_viaje)
-		from ÑUFLO.Viaje
-		where id_aeronave = @id_aeronave
-			and fecha_salida between @fecha_baja and @fecha_reinicio
-			and fecha_llegada is not null
 ;
 GO
 
