@@ -93,7 +93,7 @@ namespace AerolineaFrba.Listado_Estadistico
 
             camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(fecha_inicio, SqlDbType.DateTime));
             camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(fecha_fin, SqlDbType.DateTime));
-
+            if (indiceListadoActual == 0) camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha, SqlDbType.DateTime));
             errorMensaje.Add(2627, "Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...");
 
             dataGridViewListado.DataSource = new gdDataBase().ExecAndGetData(nombre_sp, camposValores, errorMensaje);
@@ -117,7 +117,7 @@ namespace AerolineaFrba.Listado_Estadistico
             camposValores.Add("id", datosListadoActual["id"]);
             camposValores.Add("fecha_inicio", datosListadoActual["fecha_inicio"]);
             camposValores.Add("fecha_fin", datosListadoActual["fecha_fin"]);
-            if (mapIndicesDetallesTop5[indiceListadoActual] == "[ÑUFLO].DetalleServicioTecnicoPara") camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha, SqlDbType.DateTime));
+            //if (indiceListadoActual == 0) camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha, SqlDbType.DateTime));
             dataGridView1.DataSource = new gdDataBase().ExecAndGetData(mapIndicesDetallesTop5[indiceListadoActual], camposValores); 
         }
 
