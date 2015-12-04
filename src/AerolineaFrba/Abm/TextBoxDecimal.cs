@@ -25,7 +25,7 @@ namespace AerolineaFrba.Abm
             //decimal d = decimal.Parse(textBox1.Text, System.Globalization.NumberStyles.Currency, MyNFI);
         }
 
-        public void formatear()
+        public virtual void formatear()
         {
             Double value;
             if (Double.TryParse(textBox1.Text, out value))

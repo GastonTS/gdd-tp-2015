@@ -21,10 +21,10 @@ namespace AerolineaFrba.Abm
 
         override protected Boolean criterioValidacion()
         {
-            return new Regex("^[$]" + this.validationRegexString() + "$").IsMatch(textBox1.Text.Trim());
+            return textBox1.Text!="";
         }
 
-        public void formatear(){
+        override public void formatear(){
     Double value;
             if (Double.TryParse(textBox1.Text, out value))
                 textBox1.Text = String.Format(new System.Globalization.CultureInfo("es-AR"), "{0:C2}", value);
