@@ -129,7 +129,7 @@ namespace AerolineaFrba.Compra
             this.butacasEnCompra = butacasEnCompra;
         }
 
-        private void btnAceptar_Click(object sender, EventArgs e)
+        protected override void guardarPosta()
         {
             if (listBoxEleccionButacaPasillo.SelectedIndex != -1 ||
                 listBoxEleccionButacaVentanilla.SelectedIndex != -1)
