@@ -19,6 +19,7 @@ namespace AerolineaFrba.Compra
         List<String> mediosDePagoKiosko = new List<String>{"Tarjeta de crédito"};
         List<String> mediosDePagoAdministrativa = new List<String>{"Tarjeta de crédito", "Efectivo"};
         Dictionary<String, List<String>> mediosDePagoSegunTerminal = new Dictionary<String, List<String>>();
+        FormSeleccionViaje miPadre;
 
         public override string MsgError
         {
@@ -76,10 +77,12 @@ namespace AerolineaFrba.Compra
                 generarPasajes();
                 generarEncomiendas();
                 MessageBox.Show("Compra de pasajes y encomiendas realizada con éxito.");
+                miPadre.cancelarTodo(true);
                 this.Close();
             }
-            catch (Exception e)
+            catch (CompraException e)
             {
+                MessageBox.Show(e.ToString());
                 MessageBox.Show("Ocurrió un problema al generar la compra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
@@ -98,7 +101,12 @@ namespace AerolineaFrba.Compra
 
             var dt = (DataTable)spExec.Exec();
 
-            if (spExec.huboError()) throw new Exception();
+            if (spExec.huboError())
+            {
+                spExec.mostrarErrorSqlProducido();
+                MessageBox.Show(spExec.codError().ToString());
+                throw new CompraException();
+            }
             compraARealizar = new FormSeleccionViaje.Compra(compraARealizar.idViaje,
                 Convert.ToInt32(textBoxDNI.Text), Convert.ToInt32(dt.Rows[0].ItemArray[0]));
         }
@@ -123,7 +131,12 @@ namespace AerolineaFrba.Compra
 
                 spExec.Exec();
 
-                if (spExec.huboError()) throw new Exception();
+                if (spExec.huboError())
+                {
+                    spExec.mostrarErrorSqlProducido();
+                    MessageBox.Show(spExec.codError().ToString());
+                    throw new CompraException();
+                }
             }
         }
 
@@ -145,7 +158,12 @@ namespace AerolineaFrba.Compra
 
                 spExec.Exec();
 
-                if (spExec.huboError()) throw new Exception();
+                if (spExec.huboError())
+                {
+                    spExec.mostrarErrorSqlProducido();
+                    MessageBox.Show(spExec.codError().ToString());
+                    throw new CompraException();
+                }
 
             }
         }
@@ -179,6 +197,7 @@ namespace AerolineaFrba.Compra
             }
             else lblCantCuotas.Text = comboBoxTipoTarjeta.SelectedValue.ToString();
             groupBoxTarjetaCredito.Enabled = deberiaEstarActivo;
+            groupBoxTarjetaCredito.Visible = deberiaEstarActivo;
         }
 
         private void comboBoxMedioDePago_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,5 +230,9 @@ namespace AerolineaFrba.Compra
             limpiar();
         }
 
+        public void setPadre(FormSeleccionViaje padre)
+        {
+            miPadre = padre;
+        }
     }
 }

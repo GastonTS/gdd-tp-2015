@@ -1840,6 +1840,32 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.DetalleDestinoAeronavesVacias
+@id nvarchar(255),
+@fecha_inicio datetime,
+@fecha_fin datetime
+AS
+	
+	select top 5 c.nombre Destino, a.matricula Matricula, (a.cantidad_butacas - usados) as 'Butacas libres por aeronave', 
+				 a.cantidad_butacas 'Butacas totales',a.capacidad_peso_encomiendas 'Capacidad total de encomiendas', 
+				 v.peso_ocupado 'Peso ocupado' 
+		from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad c,
+			(select v.id_viaje, COUNT(p.id_pasaje) usados
+				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
+				where v.id_viaje = c.id_viaje
+					and c.codigo_de_compra = p.codigo_de_compra
+					and p.cancelado = 0
+				group by v.id_viaje) bm
+		where c.id_ciudad = r.id_ciudad_destino
+			and r.id_ruta = v.id_ruta
+			and v.id_aeronave = a.id_aeronave
+			and v.id_viaje = bm.id_viaje
+			and v.fecha_llegada between @fecha_inicio and @fecha_fin
+			and c.nombre = @id
+		order by 'Butacas libres por aeronave' desc
+;
+GO
+
 
 /*Listados Estadisticos*/
 CREATE PROCEDURE ÑUFLO.TOP5DestinoPasajesComprados
@@ -1985,8 +2011,7 @@ BEGIN
 	RETURN @peso_disponible
 END
 GO
---drop FUNCTION ÑUFLO.CantidadButacasDisponibles
---go
+
 CREATE FUNCTION ÑUFLO.CantidadButacasDisponibles(@id_viaje int)
 RETURNS int
 AS

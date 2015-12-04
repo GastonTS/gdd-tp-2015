@@ -59,18 +59,19 @@ namespace AerolineaFrba.Compra
             InitializeComponent();
         }
 
-        public void setPasaje(int dni, int numeroDeButaca, FormDatosPasajeroEncomienda hijo) 
+        public void setPasaje(int dni, int numeroDeButaca, FormDatosPasajeroEncomienda hijo)
         {
-            validarQueNoEsteEnElVuelo(dni);
-
-            if (pasajes.Any(unPasaje => unPasaje.dni == dni))
-                MessageBox.Show("Esta persona ya tiene asignado un pasaje en este viaje");
-            else
+            if (!validarQueNoEsteEnElVuelo(dni))
             {
-                pasajes.Add(new Pasaje(-1, dni, numeroDeButaca));
-                listBoxPasajesYEncomiendasComprados.Items.Add("Pasaje -> DNI:" + dni + ". Butaca n°: " + numeroDeButaca);
-                btnAceptar.Enabled = true;
-                hijo.Close();
+                if (pasajes.Any(unPasaje => unPasaje.dni == dni))
+                    MessageBox.Show("Esta persona ya tiene asignado un pasaje en este viaje");
+                else
+                {
+                    pasajes.Add(new Pasaje(-1, dni, numeroDeButaca));
+                    listBoxPasajesYEncomiendasComprados.Items.Add("Pasaje -> DNI:" + dni + ". Butaca n°: " + numeroDeButaca);
+                    btnAceptar.Enabled = true;
+                    hijo.Close();
+                }
             }
         }
 
@@ -200,17 +201,40 @@ namespace AerolineaFrba.Compra
             fce.setCompras(new Compra(Convert.ToInt32(filaSeleccionada.Cells[0].FormattedValue.ToString()),
                 -1, -1), pasajes, encomiendas);
 
+            fce.setPadre(this);
             fce.Show(this);
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            cancelarTodo(false);
+        }
+
+        public void cancelarTodo(bool vieneDeCompraEfectiva)
+        {
+
             if (pasajes.Count > 0 || encomiendas.Count > 0)
             {
-                DialogResult dialogResult = MessageBox.Show("Está seguro que desea cancelar las compras registradas hasta el momento",
-                    "Cancelar Compras", MessageBoxButtons.YesNo);
+                if (!vieneDeCompraEfectiva)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Está seguro que desea cancelar las compras registradas hasta el momento",
+                        "Cancelar Compras", MessageBoxButtons.YesNo);
 
-                if (dialogResult == DialogResult.Yes)
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        dateTimePicker1.ResetText();
+                        comboBoxDestino.SelectedIndex = 0;
+                        comboBoxOrigen.SelectedIndex = 0;
+
+                        pasajes.Clear();
+                        encomiendas.Clear();
+                        pesoDisponible = 0;
+                        listBoxPasajesYEncomiendasComprados.Items.Clear();
+                        dataGridView1.ClearSelection();
+                        btnAceptar.Enabled = false;
+                    }
+                }
+                else
                 {
                     dateTimePicker1.ResetText();
                     comboBoxDestino.SelectedIndex = 0;
@@ -228,7 +252,7 @@ namespace AerolineaFrba.Compra
             dataGridView1.Enabled = true;
         }
 
-        private void validarQueNoEsteEnElVuelo(int dni)
+        private bool validarQueNoEsteEnElVuelo(int dni)
         {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
@@ -239,7 +263,11 @@ namespace AerolineaFrba.Compra
 
             errorMensaje.Add(60034, "EL pasajero se encuentra volando en esas fechas");
 
-            new gdDataBase().Exec("ÑUFLO.ClienteNoEstaEnVuelo", camposValores, errorMensaje);
+            var ejecucion = new SPPureExec("ÑUFLO.ClienteNoEstaEnVuelo", camposValores, errorMensaje);
+
+            ejecucion.Exec();
+
+            return ejecucion.huboError();
         }
 
         public void setConViaje()
