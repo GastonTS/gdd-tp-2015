@@ -845,10 +845,13 @@ CREATE PROCEDURE ÑUFLO.ValidarAeronaveActiva
 @fecha_hoy nvarchar(255),
 @fecha_fin nvarchar(255) = null
 AS
-	if((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) is not null)
+	IF(@fecha_fin is not null and @fecha_fin > @fecha_hoy)
+		THROW 62004, 'La fecha de reincorporacion debe ser mayor a la fecha de hoy', 1
+
+	IF((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) is not null)
 		THROW 60004, 'La nave ya se encuentra fuera de su vida util', 1
 
-	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) = 1)
+	IF((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) = 1)
 		THROW 60003, 'La nave ya se encuentra en mantenimiento', 1
 		
 	select COUNT(id_viaje)
@@ -856,7 +859,7 @@ AS
 		where id_aeronave = @id_aeronave
 			and (@fecha_fin is null and fecha_salida > @fecha_hoy
 				 or fecha_salida between @fecha_hoy and @fecha_fin)
-			and fecha_llegada is not null
+			and fecha_llegada is null
 ;
 GO
 
@@ -1759,10 +1762,12 @@ GO
 
 /*Detalles para listados*/
 CREATE PROCEDURE ÑUFLO.DetallePasajePara
-@ciudad nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio nvarchar(255),
 @fecha_fin nvarchar(255)
 AS
+	declare @ciudad nvarchar(255)
+	set @ciudad = @id
 	select Codigo_de_Compra, Fecha_De_Compra, Pasaje, Destino, DNI, Nombre, Apellido, Butaca_Numero, Precio
 		from ÑUFLO.DetallePasajes
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
@@ -1770,22 +1775,12 @@ AS
 ;
 GO	
 
-CREATE PROCEDURE ÑUFLO.DetalleAeronavesVaciasPara
-@ciudad nvarchar(255),
-@fecha_inicio datetime,
-@fecha_fin datetime
-AS
-	select Viaje, Destino, Matricula, Modelo, Fabricante, Capacidad_Peso, Fecha_De_Compra
-		from ÑUFLO.DetalleAeronavesVacias
-		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
-			and @ciudad = Destino
-;
-GO
-
 CREATE PROCEDURE ÑUFLO.DetalleMillasDe
-@dni int,
+@id nvarchar(255),
 @hoy datetime
 AS
+	declare @dni nvarchar(255)
+	set @dni = convert(int, @id)
 	EXEC ÑUFLO.ExpirarMillas @hoy
 	select Tipo, Cantidad, Cantidad_Gastada, Fecha, Estado
 		from ÑUFLO.DetalleMillas 
@@ -1795,11 +1790,13 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.DetalleMillasPara
-@dni int,
+@id nvarchar(255),
 @fecha_inicio datetime,
 @fecha_fin datetime,
 @hoy datetime
 AS
+	declare @dni int
+	set @dni = convert(int, @id)
 	EXEC ÑUFLO.ExpirarMillas @hoy
 	select Tipo, Cantidad, Fecha
 		from ÑUFLO.DetalleMillas
@@ -1810,10 +1807,12 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.DetalleCancelacionesPara
-@ciudad nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
+	declare @ciudad nvarchar(255)
+	set @ciudad = @id
 	select Pasaje, DNI, Nombre, Apellido, Butaca_Numero, Fecha_De_Compra, Fecha_Devolucion, Motivo
 		from ÑUFLO.DetalleCancelaciones
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
@@ -1822,10 +1821,12 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.DetalleServicioTecnicoPara
-@matricula nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
+	declare @matricula nvarchar(255)
+	set @matricula = @id
 	select Matricula, Modelo, Fabricante, Capacidad_Peso, Fecha_Fuera_de_Servicio,
 			case
 				when @fecha_fin < Fecha_Reinicio_de_Servicio then DATEDIFF(DD, Fecha_Fuera_de_Servicio, @fecha_fin)
@@ -1981,8 +1982,7 @@ BEGIN
 	RETURN @peso_disponible
 END
 GO
---drop FUNCTION ÑUFLO.CantidadButacasDisponibles
---go
+
 CREATE FUNCTION ÑUFLO.CantidadButacasDisponibles(@id_viaje int)
 RETURNS int
 AS
@@ -1992,9 +1992,6 @@ BEGIN
 	SET @total = (select a.cantidad_butacas
 					from ÑUFLO.Viaje v join ÑUFLO.Aeronave a on v.id_aeronave = a.id_aeronave
 					where v.id_viaje = @id_viaje)
-
-				--	where @id_viaje = v.id_viaje
-					--	and v.id_aeronave = b.id_aeronave)
 
 	SET @ocupadas = (select COUNT(numero_de_butaca)
 						from ÑUFLO.Viaje v, ÑUFLO.Pasaje p, ÑUFLO.Compra c
@@ -2114,27 +2111,6 @@ GO
 /**************************** Views ******************************/
 /*****************************************************************/
 
-CREATE VIEW ÑUFLO.VRutaAerea
-AS
-	select r.codigo_ruta 'Código Ruta', co.nombre 'Ciudad Origen', cd.nombre 'Ciudad Destino', 
-			r.precio_base_por_peso 'Precio base x peso', r.precio_base_por_pasaje 'Precio base x pasaje'
-		from ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
-		where r.id_ciudad_origen = co.id_ciudad
-			and r.id_ciudad_destino = cd.id_ciudad
-			and r.cancelado = 0
-GO
-
-CREATE VIEW ÑUFLO.VRutaAereaCancelados
-AS
-	select r.codigo_ruta 'Código Ruta', co.nombre 'Ciudad Origen', cd.nombre 'Ciudad Destino', 
-			r.precio_base_por_peso 'Precio base x peso', r.precio_base_por_pasaje 'Precio base x pasaje'
-		from ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
-		where r.id_ciudad_origen = co.id_ciudad
-			and r.id_ciudad_destino = cd.id_ciudad
-			and r.cancelado = 1
-GO
-
-
 CREATE VIEW ÑUFLO.DetallePasajes
 AS
 	select co.codigo_de_compra Codigo_de_Compra, co.fecha_de_compra Fecha_De_Compra, id_pasaje Pasaje, ci.nombre Destino,
@@ -2145,23 +2121,6 @@ AS
 			and r.id_ciudad_destino = ci.id_ciudad
 			and co.codigo_de_compra = p.codigo_de_compra
 			and c.id_cliente = p.id_cliente
-GO
-
-CREATE VIEW ÑUFLO.DetalleAeronavesVacias
-AS
-	select v.id_viaje Viaje, ci.nombre Destino, a.matricula Matricula, m.nombre Modelo, m.nombre Fabricante, a.capacidad_peso_encomiendas Capacidad_Peso,
-			c.fecha_de_compra Fecha_De_Compra
-		from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje pa, ÑUFLO.Encomienda en, ÑUFLO.Ciudad ci, ÑUFLO.RutaAerea r, ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f
-		where v.id_ruta = r.id_ruta
-			and r.id_ciudad_destino = ci.id_ciudad
-			and v.id_viaje = c.id_viaje
-			and (c.codigo_de_compra = pa.codigo_de_compra OR
-				c.codigo_de_compra = en.codigo_de_compra)
-			and v.id_aeronave = a.id_aeronave
-			and a.id_modelo = m.id_modelo
-			and a.id_fabricante = f.id_fabricante
-		group by v.id_viaje, ci.nombre, a.matricula, m.nombre, f.nombre, a.capacidad_peso_encomiendas, c.fecha_de_compra
-		having COUNT(*) = 0
 GO
 
 CREATE VIEW ÑUFLO.DetalleMillas
