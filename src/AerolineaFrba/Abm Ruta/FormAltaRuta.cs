@@ -29,13 +29,24 @@ namespace AerolineaFrba.Abm_Ruta
             comboBoxDestino.ValueMember = "Id ciudad";
             comboBoxTipoServicio.DisplayMember = "Tipo Servicio";
             comboBoxTipoServicio.ValueMember = "Id Tipo Servicio";
-            
+
         }
 
-        public FormAltaRuta(DataRowView datosAModificar) 
+        public override string MsgError
+        {
+            get
+            {
+                if (!modificacion)
+                    return "Error al dar de alta la aeronave.";
+                else
+                    return "Error al modificar la aeronave";
+            }
+        }
+
+        public FormAltaRuta(DataRowView datosAModificar)
         {
             InitializeComponent();
-            
+
             var ds = new gdDataBase().GetDataSP("ÑUFLO.CiudadTipoServicio");
 
             origenBinding.DataSource = ds.Tables[0];
@@ -48,15 +59,16 @@ namespace AerolineaFrba.Abm_Ruta
             comboBoxDestino.ValueMember = "Id ciudad";
             comboBoxTipoServicio.DisplayMember = "Tipo Servicio";
             comboBoxTipoServicio.ValueMember = "Id Tipo Servicio";
-            
+
             textBoxCodRuta.Text = datosAModificar["Código Ruta"].ToString();
             DataSet dss = new gdDataBase().GetDataQuery("Select id_ciudad FROM ÑUFLO.Ciudad where nombre= " + "'" + datosAModificar["Ciudad Origen"].ToString() + "'");
-            comboBoxOrigen.SelectedIndex = dss.Tables[0].Rows[0].Field<int>(0)-1;
+            comboBoxOrigen.SelectedIndex = dss.Tables[0].Rows[0].Field<int>(0) - 1;
             dss = new gdDataBase().GetDataQuery("Select id_ciudad FROM ÑUFLO.Ciudad where nombre= " + "'" + datosAModificar["Ciudad Destino"].ToString() + "'");
             comboBoxDestino.SelectedIndex = dss.Tables[0].Rows[0].Field<int>(0) - 1;
         }
 
-        public void setId(int id){
+        public void setId(int id)
+        {
             id_ruta = id;
         }
 
@@ -70,11 +82,11 @@ namespace AerolineaFrba.Abm_Ruta
             modificacion = true;
         }
 
-        public void setOrigen(int index) 
+        public void setOrigen(int index)
         {
             comboBoxOrigen.SelectedIndex = index;
         }
-        public void setDestino(int index) 
+        public void setDestino(int index)
         {
             comboBoxDestino.SelectedIndex = index;
         }
@@ -82,19 +94,24 @@ namespace AerolineaFrba.Abm_Ruta
         {
             comboBoxTipoServicio.SelectedIndex = index;
         }
-        public void setPrecioBasePeso(Double precio) 
+        public void setPrecioBasePeso(Double precio)
         {
-               textBoxPrecioPeso.Text = precio.ToString();
-               textBoxPrecioPeso.formatear();
+            textBoxPrecioPeso.Text = precio.ToString();
+            textBoxPrecioPeso.formatear();
         }
-        public void setPrecioBasePasaje(double precio) 
+        public void setPrecioBasePasaje(double precio)
         {
             textBoxPrecioPasaje.Text = precio.ToString();
             textBoxPrecioPasaje.formatear();
         }
-        
+
 
         private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            limpiar();
+        }
+
+        private void limpiar()
         {
             textBoxCodRuta.ResetText();
             comboBoxOrigen.SelectedIndex = 0;
@@ -112,9 +129,9 @@ namespace AerolineaFrba.Abm_Ruta
         private void FormAltaRuta_Load(object sender, EventArgs e)
         {
 
-            
-            
-            
+
+
+
         }
 
         private void bindingSource1_CurrentChanged(object sender, EventArgs e)
@@ -141,26 +158,37 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void asignarPreciosFinalesALabels(object sender, EventArgs e)
         {
-            actualizarLabels();   
+            actualizarLabels();
         }
 
 
         protected override void guardarPosta()
         {
+            String spName;
+            String mensajeDeExito;
             var camposValores = gdDataBase.newParameters();
 
-            camposValores.Add("codigo_ruta", new gdDataBase.ValorTipo(int.Parse(textBoxCodRuta.Text),SqlDbType.Int));
-            camposValores.Add("id_ciudad_origen", new gdDataBase.ValorTipo(comboBoxOrigen.SelectedValue,SqlDbType.Int));
-            camposValores.Add("id_ciudad_destino", new gdDataBase.ValorTipo(comboBoxDestino.SelectedValue,SqlDbType.Int));
-            camposValores.Add("precio_base_por_peso", new gdDataBase.ValorTipo(textBoxPrecioPeso.DecimalValue(),SqlDbType.Decimal));
+            camposValores.Add("codigo_ruta", new gdDataBase.ValorTipo(int.Parse(textBoxCodRuta.Text), SqlDbType.Int));
+            camposValores.Add("id_ciudad_origen", new gdDataBase.ValorTipo(comboBoxOrigen.SelectedValue, SqlDbType.Int));
+            camposValores.Add("id_ciudad_destino", new gdDataBase.ValorTipo(comboBoxDestino.SelectedValue, SqlDbType.Int));
+            camposValores.Add("precio_base_por_peso", new gdDataBase.ValorTipo(textBoxPrecioPeso.DecimalValue(), SqlDbType.Decimal));
             camposValores.Add("precio_base_por_pasaje", new gdDataBase.ValorTipo(textBoxPrecioPasaje.DecimalValue(), SqlDbType.Decimal));
-            if (modificacion){
-                camposValores.Add("id_ruta", new gdDataBase.ValorTipo(id_ruta,SqlDbType.Int));
-                new gdDataBase().Exec("ÑUFLO.UpdateRutaAerea",camposValores,new Dictionary<int,string>());
+            if (modificacion)
+            {
+                spName = "ÑUFLO.UpdateRutaAerea";
+                mensajeDeExito = "Ruta modificada exitosamente";
+                camposValores.Add("id_ruta", new gdDataBase.ValorTipo(id_ruta, SqlDbType.Int));
             }
             else
-                new gdDataBase().Exec("ÑUFLO.InsertRutaAerea",camposValores,new Dictionary<int,string>());
-        }
+            {
+                spName = "ÑUFLO.InsertRutaAerea";
+                mensajeDeExito = "Ruta creada exitosamente";
+            }
+            var spExec = new SPPureExec(spName, camposValores, new Dictionary<int, string>(), mensajeDeExito);
+            spExec.Exec();
+            if (!spExec.huboError())
+                limpiar();
 
+        }
     }
 }
