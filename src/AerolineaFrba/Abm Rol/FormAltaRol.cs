@@ -43,6 +43,11 @@ namespace AerolineaFrba.Abm_Rol
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            limpiar();
+        }
+
+        private void limpiar()
+        {
             if (!modificacion)
                 textBoxNombre.Clear();
 
@@ -60,6 +65,8 @@ namespace AerolineaFrba.Abm_Rol
             }
             else
                 actualizarRol();
+
+            limpiar();
         }
 
         private void btnAñadir_Click(object sender, EventArgs e)
