@@ -63,7 +63,7 @@
             this.btnIngresarDatosPasajero.Location = new System.Drawing.Point(183, 30);
             this.btnIngresarDatosPasajero.Name = "btnIngresarDatosPasajero";
             this.btnIngresarDatosPasajero.Size = new System.Drawing.Size(167, 30);
-            this.btnIngresarDatosPasajero.TabIndex = 6;
+            this.btnIngresarDatosPasajero.TabIndex = 1;
             this.btnIngresarDatosPasajero.Text = "Ingresar Datos del Pasajero";
             this.btnIngresarDatosPasajero.UseVisualStyleBackColor = true;
             this.btnIngresarDatosPasajero.Click += new System.EventHandler(this.button1_Click);
@@ -90,7 +90,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(24, 374);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(83, 31);
-            this.btnLimpiar.TabIndex = 16;
+            this.btnLimpiar.TabIndex = 1;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -143,7 +143,7 @@
             this.textBoxCantidadAEncomendar.Location = new System.Drawing.Point(146, 33);
             this.textBoxCantidadAEncomendar.Name = "textBoxCantidadAEncomendar";
             this.textBoxCantidadAEncomendar.Size = new System.Drawing.Size(78, 20);
-            this.textBoxCantidadAEncomendar.TabIndex = 3;
+            this.textBoxCantidadAEncomendar.TabIndex = 0;
             this.textBoxCantidadAEncomendar.Visible = false;
             this.textBoxCantidadAEncomendar.TextChanged += new System.EventHandler(this.textBoxCantidadAEncomendar_TextChanged);
             // 
@@ -180,7 +180,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(399, 374);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(83, 31);
-            this.btnAceptar.TabIndex = 18;
+            this.btnAceptar.TabIndex = 0;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);

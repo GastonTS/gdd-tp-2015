@@ -30,9 +30,9 @@
         {
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
-            this.textBoxUsername = new AerolineaFrba.Abm.TextBoxValidado();
-            this.textBoxPassword = new AerolineaFrba.Abm.TextBoxValidado();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.textBoxPassword = new AerolineaFrba.Abm.TextBoxValidado();
+            this.textBoxUsername = new AerolineaFrba.Abm.TextBoxValidado();
             this.SuspendLayout();
             // 
             // lblUsername
@@ -53,14 +53,15 @@
             this.lblPassword.TabIndex = 2;
             this.lblPassword.Text = "Contraseña";
             // 
-            // textBoxUsername
+            // btnLogin
             // 
-            this.textBoxUsername.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxUsername.ErrorText = null;
-            this.textBoxUsername.Location = new System.Drawing.Point(199, 53);
-            this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.Size = new System.Drawing.Size(211, 22);
-            this.textBoxUsername.TabIndex = 3;
+            this.btnLogin.Location = new System.Drawing.Point(199, 136);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin.TabIndex = 2;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // textBoxPassword
             // 
@@ -69,17 +70,16 @@
             this.textBoxPassword.Location = new System.Drawing.Point(199, 90);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(211, 22);
-            this.textBoxPassword.TabIndex = 4;
+            this.textBoxPassword.TabIndex = 1;
             // 
-            // btnLogin
+            // textBoxUsername
             // 
-            this.btnLogin.Location = new System.Drawing.Point(199, 136);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(75, 23);
-            this.btnLogin.TabIndex = 5;
-            this.btnLogin.Text = "Login";
-            this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            this.textBoxUsername.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxUsername.ErrorText = null;
+            this.textBoxUsername.Location = new System.Drawing.Point(199, 53);
+            this.textBoxUsername.Name = "textBoxUsername";
+            this.textBoxUsername.Size = new System.Drawing.Size(211, 22);
+            this.textBoxUsername.TabIndex = 0;
             // 
             // Login
             // 

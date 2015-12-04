@@ -81,7 +81,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(504, 153);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(83, 31);
-            this.btnAceptar.TabIndex = 21;
+            this.btnAceptar.TabIndex = 7;
             // 
             // textBoxMail
             // 
@@ -91,7 +91,7 @@
             this.textBoxMail.Location = new System.Drawing.Point(392, 80);
             this.textBoxMail.Name = "textBoxMail";
             this.textBoxMail.Size = new System.Drawing.Size(211, 22);
-            this.textBoxMail.TabIndex = 24;
+            this.textBoxMail.TabIndex = 5;
             // 
             // textBoxTelefono
             // 
@@ -101,7 +101,7 @@
             this.textBoxTelefono.Location = new System.Drawing.Point(392, 43);
             this.textBoxTelefono.Name = "textBoxTelefono";
             this.textBoxTelefono.Size = new System.Drawing.Size(161, 22);
-            this.textBoxTelefono.TabIndex = 21;
+            this.textBoxTelefono.TabIndex = 4;
             // 
             // textBoxDireccion
             // 
@@ -111,7 +111,7 @@
             this.textBoxDireccion.Location = new System.Drawing.Point(92, 143);
             this.textBoxDireccion.Name = "textBoxDireccion";
             this.textBoxDireccion.Size = new System.Drawing.Size(164, 22);
-            this.textBoxDireccion.TabIndex = 23;
+            this.textBoxDireccion.TabIndex = 3;
             // 
             // textBoxApellido
             // 
@@ -121,7 +121,7 @@
             this.textBoxApellido.Location = new System.Drawing.Point(92, 112);
             this.textBoxApellido.Name = "textBoxApellido";
             this.textBoxApellido.Size = new System.Drawing.Size(151, 22);
-            this.textBoxApellido.TabIndex = 22;
+            this.textBoxApellido.TabIndex = 2;
             // 
             // textBoxNombre
             // 
@@ -131,7 +131,7 @@
             this.textBoxNombre.Location = new System.Drawing.Point(92, 79);
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(151, 22);
-            this.textBoxNombre.TabIndex = 21;
+            this.textBoxNombre.TabIndex = 1;
             // 
             // textBoxDNI
             // 
@@ -140,7 +140,7 @@
             this.textBoxDNI.Location = new System.Drawing.Point(92, 43);
             this.textBoxDNI.Name = "textBoxDNI";
             this.textBoxDNI.Size = new System.Drawing.Size(135, 22);
-            this.textBoxDNI.TabIndex = 18;
+            this.textBoxDNI.TabIndex = 0;
             this.textBoxDNI.TextboxTextChanged += new System.EventHandler(this.textBoxDNI_TextChanged);
             // 
             // checkBoxModificarDatos
@@ -149,7 +149,7 @@
             this.checkBoxModificarDatos.Location = new System.Drawing.Point(374, 167);
             this.checkBoxModificarDatos.Name = "checkBoxModificarDatos";
             this.checkBoxModificarDatos.Size = new System.Drawing.Size(100, 17);
-            this.checkBoxModificarDatos.TabIndex = 17;
+            this.checkBoxModificarDatos.TabIndex = 8;
             this.checkBoxModificarDatos.Text = "Modificar Datos";
             this.checkBoxModificarDatos.UseVisualStyleBackColor = true;
             this.checkBoxModificarDatos.CheckedChanged += new System.EventHandler(this.checkBoxModificarDatos_CheckedChanged_1);
@@ -160,7 +160,7 @@
             this.dateTimeFechaNacimiento.Location = new System.Drawing.Point(392, 112);
             this.dateTimeFechaNacimiento.Name = "dateTimeFechaNacimiento";
             this.dateTimeFechaNacimiento.Size = new System.Drawing.Size(195, 20);
-            this.dateTimeFechaNacimiento.TabIndex = 14;
+            this.dateTimeFechaNacimiento.TabIndex = 6;
             // 
             // labelFechaDeNacimiento
             // 
@@ -230,7 +230,7 @@
             this.button1.Location = new System.Drawing.Point(547, 224);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 31);
-            this.button1.TabIndex = 20;
+            this.button1.TabIndex = 0;
             this.button1.Text = "Aceptar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -240,7 +240,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(12, 224);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(83, 31);
-            this.btnLimpiar.TabIndex = 19;
+            this.btnLimpiar.TabIndex = 1;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
