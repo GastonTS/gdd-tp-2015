@@ -845,13 +845,10 @@ CREATE PROCEDURE ÑUFLO.ValidarAeronaveActiva
 @fecha_hoy nvarchar(255),
 @fecha_fin nvarchar(255) = null
 AS
-	IF(@fecha_fin is not null and @fecha_fin > @fecha_hoy)
-		THROW 62004, 'La fecha de reincorporacion debe ser mayor a la fecha de hoy', 1
-
-	IF((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) is not null)
+	if((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) is not null)
 		THROW 60004, 'La nave ya se encuentra fuera de su vida util', 1
 
-	IF((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) = 1)
+	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) = 1)
 		THROW 60003, 'La nave ya se encuentra en mantenimiento', 1
 		
 	select COUNT(id_viaje)
@@ -859,7 +856,7 @@ AS
 		where id_aeronave = @id_aeronave
 			and (@fecha_fin is null and fecha_salida > @fecha_hoy
 				 or fecha_salida between @fecha_hoy and @fecha_fin)
-			and fecha_llegada is null
+			and fecha_llegada is not null
 ;
 GO
 
@@ -1792,12 +1789,10 @@ GO
 CREATE PROCEDURE ÑUFLO.DetalleMillasPara
 @id nvarchar(255),
 @fecha_inicio datetime,
-@fecha_fin datetime,
-@hoy datetime
+@fecha_fin datetime
 AS
 	declare @dni int
 	set @dni = convert(int, @id)
-	EXEC ÑUFLO.ExpirarMillas @hoy
 	select Tipo, Cantidad, Fecha
 		from ÑUFLO.DetalleMillas
 		where Fecha between @fecha_inicio and @fecha_fin
@@ -1982,7 +1977,8 @@ BEGIN
 	RETURN @peso_disponible
 END
 GO
-
+--drop FUNCTION ÑUFLO.CantidadButacasDisponibles
+--go
 CREATE FUNCTION ÑUFLO.CantidadButacasDisponibles(@id_viaje int)
 RETURNS int
 AS
@@ -1992,6 +1988,9 @@ BEGIN
 	SET @total = (select a.cantidad_butacas
 					from ÑUFLO.Viaje v join ÑUFLO.Aeronave a on v.id_aeronave = a.id_aeronave
 					where v.id_viaje = @id_viaje)
+
+				--	where @id_viaje = v.id_viaje
+					--	and v.id_aeronave = b.id_aeronave)
 
 	SET @ocupadas = (select COUNT(numero_de_butaca)
 						from ÑUFLO.Viaje v, ÑUFLO.Pasaje p, ÑUFLO.Compra c
