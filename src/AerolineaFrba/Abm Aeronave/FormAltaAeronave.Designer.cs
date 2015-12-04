@@ -36,7 +36,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.labelCapacidadEncomiendas = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxFabricante = new AerolineaFrba.Abm.TextBoxLetras();
-            this.textBoxMatricula = new AerolineaFrba.Abm.TextBoxLetras();
             this.textBoxModelo = new AerolineaFrba.Abm.TextBoxLetras();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
@@ -51,6 +50,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
+            this.textBoxMatricula = new AerolineaFrba.Abm.TextBoxValidado();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -95,8 +95,8 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBoxFabricante);
             this.groupBox1.Controls.Add(this.textBoxMatricula);
+            this.groupBox1.Controls.Add(this.textBoxFabricante);
             this.groupBox1.Controls.Add(this.textBoxModelo);
             this.groupBox1.Controls.Add(this.labelModelo);
             this.groupBox1.Controls.Add(this.labelMatricula);
@@ -116,15 +116,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxFabricante.Name = "textBoxFabricante";
             this.textBoxFabricante.Size = new System.Drawing.Size(211, 22);
             this.textBoxFabricante.TabIndex = 6;
-            // 
-            // textBoxMatricula
-            // 
-            this.textBoxMatricula.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxMatricula.ErrorText = "Debe ingresar la matrícula";
-            this.textBoxMatricula.Location = new System.Drawing.Point(105, 62);
-            this.textBoxMatricula.Name = "textBoxMatricula";
-            this.textBoxMatricula.Size = new System.Drawing.Size(211, 22);
-            this.textBoxMatricula.TabIndex = 5;
             // 
             // textBoxModelo
             // 
@@ -245,11 +236,21 @@ namespace AerolineaFrba.Abm_Aeronave
             this.guardar1.Name = "guardar1";
             this.guardar1.Size = new System.Drawing.Size(83, 31);
             this.guardar1.TabIndex = 15;
+            this.guardar1.TextBtn = "Guardar";
             // 
             // gD2C2015DataSet
             // 
             this.gD2C2015DataSet.DataSetName = "GD2C2015DataSet";
             this.gD2C2015DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // textBoxMatricula
+            // 
+            this.textBoxMatricula.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxMatricula.ErrorText = "Debe ingresar la matrícula";
+            this.textBoxMatricula.Location = new System.Drawing.Point(105, 58);
+            this.textBoxMatricula.Name = "textBoxMatricula";
+            this.textBoxMatricula.Size = new System.Drawing.Size(139, 22);
+            this.textBoxMatricula.TabIndex = 21;
             // 
             // FormAltaAeronave
             // 
@@ -292,12 +293,12 @@ namespace AerolineaFrba.Abm_Aeronave
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.CheckedListBox checkedListBoxButacas;
         private Abm.TextBoxLetras textBoxFabricante;
-        private Abm.TextBoxLetras textBoxMatricula;
         private Abm.TextBoxLetras textBoxModelo;
         private Abm.Guardar guardar1;
         private Abm.TextBoxNumeros textBoxCapacidadEncomiendas;
         private Abm.TextBoxNumeros textBoxCantidadButacas;
         private System.Windows.Forms.BindingSource bindingSourceTipoServicio;
         private GD2C2015DataSet gD2C2015DataSet;
+        private Abm.TextBoxValidado textBoxMatricula;
     }
 }
