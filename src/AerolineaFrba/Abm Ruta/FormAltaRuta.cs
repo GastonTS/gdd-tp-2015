@@ -29,7 +29,7 @@ namespace AerolineaFrba.Abm_Ruta
             comboBoxDestino.ValueMember = "Id ciudad";
             comboBoxTipoServicio.DisplayMember = "Tipo Servicio";
             comboBoxTipoServicio.ValueMember = "Id Tipo Servicio";
-
+           
         }
 
         public override string MsgError
@@ -190,6 +190,21 @@ namespace AerolineaFrba.Abm_Ruta
             {
                 limpiar();
                 if (modificacion) this.Close();
+            }
+
+        }
+
+        private void comboBoxDestino_Validating(object sender, CancelEventArgs e)
+        {
+            if ((int)comboBoxOrigen.SelectedValue == (int)comboBoxDestino.SelectedValue)
+            {
+                errorProvider1.SetError(comboBoxDestino, "El destino deberia ser diferente al origen.");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorProvider1.Clear();
+                e.Cancel = false;
             }
 
         }
