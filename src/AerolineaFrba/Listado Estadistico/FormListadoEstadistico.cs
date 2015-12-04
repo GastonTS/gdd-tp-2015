@@ -21,7 +21,7 @@ namespace AerolineaFrba.Listado_Estadistico
         public FormListadoEstadistico()
         {
             InitializeComponent();
-            var yearList = Enumerable.Range(DateTime.Today.Year - 15, 18).ToList();
+            var yearList = Enumerable.Range(DateTime.Today.Year - 15, 25).ToList();
             yearList.Reverse();
             comboBoxAño.DataSource = yearList;
             dataGridViewListado.DataSource = bindingSourceListado;
