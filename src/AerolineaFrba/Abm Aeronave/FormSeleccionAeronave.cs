@@ -32,7 +32,7 @@ namespace AerolineaFrba.Abm_Aeronave
             consultarConFiltro();
         }
 
-        private void consultarConFiltro()
+        public void consultarConFiltro()
         {
             Boolean bajaVidaUtil = false, bajaFueraServicio = false;
 
@@ -139,6 +139,8 @@ namespace AerolineaFrba.Abm_Aeronave
 
             FormAltaAeronave faa = new FormAltaAeronave();
             faa.Show();
+            faa.setPadre(this);
+            
             faa.setFilaDeAeronaveSeleccionada(filaSeleccionada);
         }
 
