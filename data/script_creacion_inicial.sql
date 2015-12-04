@@ -1841,13 +1841,14 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.DetalleDestinoAeronavesVacias
-@nombre_ciudad nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
 	
-	select top 5 c.nombre Destino, a.matricula Matricula,a.cantidad_butacas 'Butacas totales',a.capacidad_peso_encomiendas 'Capacidad total de encomiendas',
-				 v.peso_ocupado 'Peso ocupado', (a.cantidad_butacas - usados) 'Butacas libres por aeronave'	 
+	select top 5 c.nombre Destino, a.matricula Matricula, (a.cantidad_butacas - usados) as 'Butacas libres por aeronave', 
+				 a.cantidad_butacas 'Butacas totales',a.capacidad_peso_encomiendas 'Capacidad total de encomiendas', 
+				 v.peso_ocupado 'Peso ocupado' 
 		from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad c,
 			(select v.id_viaje, COUNT(p.id_pasaje) usados
 				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
@@ -1860,7 +1861,7 @@ AS
 			and v.id_aeronave = a.id_aeronave
 			and v.id_viaje = bm.id_viaje
 			and v.fecha_llegada between @fecha_inicio and @fecha_fin
-			and c.nombre = @nombre_ciudad
+			and c.nombre = @id
 		order by 'Butacas libres por aeronave' desc
 ;
 GO
