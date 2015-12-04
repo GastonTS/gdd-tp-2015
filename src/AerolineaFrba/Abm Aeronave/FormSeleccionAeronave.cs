@@ -218,8 +218,7 @@ namespace AerolineaFrba.Abm_Aeronave
             camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
             camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
-            new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null,
-                "Pasajes de aronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " cancelados correctamente");
+            new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null, null);
                     
         }
 
@@ -337,6 +336,10 @@ namespace AerolineaFrba.Abm_Aeronave
             new gdDataBase().Exec("ÑUFLO.BajaFueraDeServicio", camposValores, errorMensaje,
                 "Baja por fuerda de servicio de Aeronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " exitosa");
 
+            MessageBox.Show(filaSeleccionada.Cells[0].FormattedValue.ToString());
+            MessageBox.Show(Config.fecha.ToString());
+            MessageBox.Show(dateTimePicker1.Value.ToString());
+
             consultarConFiltro();
         }
 
@@ -353,8 +356,7 @@ namespace AerolineaFrba.Abm_Aeronave
             camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
             camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
 
-            new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null,
-                "Pasajes de aronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " cancelados correctamente");
+            new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null, null);
         }
 
         private void checkBoxBajaPorServicio_CheckedChanged(object sender, EventArgs e)
