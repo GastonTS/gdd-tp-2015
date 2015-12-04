@@ -66,6 +66,8 @@ namespace AerolineaFrba.Abm_Aeronave
             //dataGridViewAeronave.DataSource = ds;
             bindingAeronaves.DataSource = ds;
             dataGridViewAeronave.DataSource = bindingAeronaves;
+
+            deshabilitarModifBaja();
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -93,20 +95,47 @@ namespace AerolineaFrba.Abm_Aeronave
                 if (dataGridViewAeronave.SelectedRows[0].Cells[8].Value.ToString() != "0")
                     btnBajaVidaUtil.Enabled = false;
             }
+            else if (dataGridViewAeronave.Rows.Count == 1)
+            {
+                btnModificarAeronave.Enabled = true;
+                btnBajaFueraServicio.Enabled = true;
+                btnBajaVidaUtil.Enabled = true;
+                dateTimePicker1.Enabled = true;
+                if (dataGridViewAeronave.Rows[0].Cells[7].Value.ToString() != "")
+                    btnBajaFueraServicio.Enabled = false;
+                if (dataGridViewAeronave.Rows[0].Cells[8].Value.ToString() != "0")
+                    btnBajaVidaUtil.Enabled = false;
+            }
             else
             {
-                btnModificarAeronave.Enabled = false;
-                btnBajaVidaUtil.Enabled = false;
-                btnBajaFueraServicio.Enabled = false;
-                dateTimePicker1.Enabled = false;
+                deshabilitarModifBaja();
             }
 
+        }
+
+        private void deshabilitarModifBaja()
+        {
+            btnModificarAeronave.Enabled = false;
+            btnBajaVidaUtil.Enabled = false;
+            btnBajaFueraServicio.Enabled = false;
+            dateTimePicker1.Enabled = false;
+        }
+
+        private DataGridViewRow getFilaSeleccionada()
+        {
+            DataGridViewRow filaSeleccionada = null;
+            if (dataGridViewAeronave.SelectedRows.Count == 1)
+                filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+            else if (dataGridViewAeronave.Rows.Count == 1)
+                filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+
+            return filaSeleccionada;
         }
 
         private void btnModificarAeronave_Click(object sender, EventArgs e)
         {
             //abrir el formulario de alta con todos los datos de la aeronave seleccionada actualmente
-            DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+            DataGridViewRow filaSeleccionada = getFilaSeleccionada();
 
             FormAltaAeronave faa = new FormAltaAeronave();
             faa.Show();
@@ -115,7 +144,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void btnBajaVidaUtil_Click(object sender, EventArgs e)
         {
-            DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+            DataGridViewRow filaSeleccionada = getFilaSeleccionada();
 
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
@@ -190,7 +219,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void bajaVidaUtil()
         {
-            DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+            DataGridViewRow filaSeleccionada = getFilaSeleccionada();
 
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
@@ -209,7 +238,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void cancelarPasajesVidaUtil()
         {
-            DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+            DataGridViewRow filaSeleccionada = getFilaSeleccionada();
 
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
 
@@ -224,9 +253,9 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void btnBajaFueraServicio_Click(object sender, EventArgs e)
         {
-            DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+            DataGridViewRow filaSeleccionada = getFilaSeleccionada();
 
-            filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+            filaSeleccionada = getFilaSeleccionada();
 
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
@@ -320,7 +349,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void bajaFueraDeServicio()
         {
-            DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+            DataGridViewRow filaSeleccionada = getFilaSeleccionada();
 
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
@@ -345,7 +374,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void cancelarPasajesFueraServicio()
         {
-            DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+            DataGridViewRow filaSeleccionada = getFilaSeleccionada();
 
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
