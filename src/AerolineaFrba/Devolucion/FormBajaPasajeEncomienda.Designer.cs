@@ -149,7 +149,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "FormBajaPasajeEncomienda";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormBajaPasajeEncomienda";
+            this.Text = "Seleccion de Devolucion de pasajes o encomiendas";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

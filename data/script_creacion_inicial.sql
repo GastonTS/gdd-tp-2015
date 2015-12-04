@@ -1455,8 +1455,10 @@ AS
 						and v.fecha_llegada is not null
 						and e.codigo_de_compra = c.codigo_de_compra
 						and c.id_viaje = v.id_viaje))
+			BEGIN
 			SET @msg = 'La encomienda ' + convert(nvarchar(255), @id) + ' ya fue realizada, no se pueden cancelar encomiendas ya realizadas, porfavor vuelva a realizar la seleccion';
 			THROW 60035, @msg, 1
+			END
 		
 		set @pnr =(select e.codigo_de_compra from Encomienda e where e.id_encomienda = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
