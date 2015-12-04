@@ -1792,7 +1792,7 @@ CREATE PROCEDURE ÑUFLO.DetalleMillasPara
 @fecha_fin datetime,
 @hoy datetime
 AS
-	declare @dni int,
+	declare @dni int
 	set @dni = convert(int, @id)
 	EXEC ÑUFLO.ExpirarMillas @hoy
 	select Tipo, Cantidad, Fecha
@@ -1818,10 +1818,12 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.DetalleServicioTecnicoPara
-@matricula nvarchar(255),
+@id nvarchar(255),
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
+	declare @matricula nvarchar(255)
+	set @matricula = @id
 	select Matricula, Modelo, Fabricante, Capacidad_Peso, Fecha_Fuera_de_Servicio,
 			case
 				when @fecha_fin < Fecha_Reinicio_de_Servicio then DATEDIFF(DD, Fecha_Fuera_de_Servicio, @fecha_fin)
