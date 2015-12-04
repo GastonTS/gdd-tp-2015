@@ -224,6 +224,8 @@ namespace AerolineaFrba.Compra
                     btnAceptar.Enabled = false;
                 }
             }
+            groupBoxFechaYRuta.Enabled = true;
+            dataGridView1.Enabled = true;
         }
 
         private void validarQueNoEsteEnElVuelo(int dni)
@@ -238,6 +240,12 @@ namespace AerolineaFrba.Compra
             errorMensaje.Add(60034, "EL pasajero se encuentra volando en esas fechas");
 
             new gdDataBase().Exec("ÑUFLO.ClienteNoEstaEnVuelo", camposValores, errorMensaje);
+        }
+
+        public void setConViaje()
+        {
+            groupBoxFechaYRuta.Enabled = false;
+            dataGridView1.Enabled = false;
         }
     }
 }
