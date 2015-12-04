@@ -32,7 +32,7 @@ namespace AerolineaFrba.Listado_Estadistico
             mapIndicesNombresTop5.Add(4, "[ÑUFLO].TOP5MillasDeClientes");
             mapIndicesDetallesTop5.Add(0, "[ÑUFLO].DetalleServicioTecnicoPara");
             mapIndicesDetallesTop5.Add(1, "[ÑUFLO].DetallePasajePara");
-            mapIndicesDetallesTop5.Add(2, "[ÑUFLO].RANDOM");//PONERLE NOMBRE A ESTO
+            mapIndicesDetallesTop5.Add(2, "[ÑUFLO].DetalleDestinoAeronavesVacias");//PONERLE NOMBRE A ESTO--> OK
             mapIndicesDetallesTop5.Add(3, "[ÑUFLO].DetalleCancelacionesPara");
             mapIndicesDetallesTop5.Add(4, "[ÑUFLO].DetalleMillasPara");
             comboBoxListado.SelectedIndex = 0;
