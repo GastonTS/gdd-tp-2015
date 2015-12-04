@@ -90,9 +90,9 @@ namespace AerolineaFrba.Abm_Aeronave
                 btnBajaFueraServicio.Enabled = true;
                 btnBajaVidaUtil.Enabled = true;
                 dateTimePicker1.Enabled = true;
-                if (dataGridViewAeronave.SelectedRows[0].Cells[7].Value.ToString() != "")
+                if (dataGridViewAeronave.SelectedRows[0].Cells[7].Value != null)
                     btnBajaFueraServicio.Enabled = false;
-                if (dataGridViewAeronave.SelectedRows[0].Cells[8].Value.ToString() != "0")
+                if (dataGridViewAeronave.SelectedRows[0].Cells[8].Value != null && dataGridViewAeronave.SelectedRows[0].Cells[8].Value.ToString() != "0")
                     btnBajaVidaUtil.Enabled = false;
             }
             else if (dataGridViewAeronave.Rows.Count == 1)
