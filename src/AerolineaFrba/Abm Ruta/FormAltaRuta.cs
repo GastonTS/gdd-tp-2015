@@ -187,7 +187,10 @@ namespace AerolineaFrba.Abm_Ruta
             var spExec = new SPPureExec(spName, camposValores, new Dictionary<int, string>(), mensajeDeExito);
             spExec.Exec();
             if (!spExec.huboError())
+            {
                 limpiar();
+                if (modificacion) this.Close();
+            }
 
         }
     }
