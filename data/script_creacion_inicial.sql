@@ -1922,7 +1922,7 @@ AS
 		where (Fecha_Fuera_de_Servicio between @fecha_inicio and @fecha_fin) or
 			  (Fecha_Fuera_de_Servicio < @fecha_inicio and Fecha_Reinicio_De_Servicio > @fecha_fin)
 		group by Matricula, Modelo, Fabricante, Capacidad_Peso
-		order by 5;
+		order by 2 desc;
 GO
 
 /*****************************************************************/
