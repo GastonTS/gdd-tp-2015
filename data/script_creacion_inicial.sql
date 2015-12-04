@@ -1176,6 +1176,14 @@ AS
 		where id_viaje = @id_viaje
 
 	EXEC ÑUFLO.CargarMillasDe @id_viaje, @fecha_llegada
+	
+	IF(@destino <> (select nombre
+						from ÑUFLO.Ciudad c, ÑUFLO.Viaje v, ÑUFLO.RutaAerea r
+						where v.id_viaje = @id_viaje
+							and r.id_ruta = v.id_ruta
+							and c.id_ciudad = r.id_ciudad_destino))
+		THROW 60021, 'La Aeronave no arribo al destino esperado', 1
+
 ;
 GO
 
@@ -1407,7 +1415,7 @@ GO
 CREATE PROCEDURE ÑUFLO.RolDadoNombre
 @nombre nvarchar(255) = null
 AS
-	SELECT nombre_rol, habilitado
+	SELECT nombre_rol Nombre, habilitado 'Habilitado'
 		FROM ÑUFLO.Rol
 		WHERE @nombre is null OR nombre_rol LIKE @nombre + '%'
 ;
