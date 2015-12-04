@@ -1831,9 +1831,9 @@ AS
 ;
 GO
 
-TOP5DestinoPasajesComprados
+
 /*Listados Estadisticos*/
-CREATE PROCEDURE ÑUFLO.
+CREATE PROCEDURE ÑUFLO.TOP5DestinoPasajesComprados
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
