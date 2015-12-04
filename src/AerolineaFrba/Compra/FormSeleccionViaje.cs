@@ -228,8 +228,6 @@ namespace AerolineaFrba.Compra
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
-            MessageBox.Show(dni.ToString() + " --- " + fechaSalida + " --- " + fechaLlegadaEstimada);
-
             camposValores.Add("dni", new gdDataBase.ValorTipo(dni.ToString(), SqlDbType.Int));
             camposValores.Add("fecha_vuelo", new gdDataBase.ValorTipo(fechaSalida, SqlDbType.DateTime));
             camposValores.Add("fecha_estimada", new gdDataBase.ValorTipo(fechaLlegadaEstimada, SqlDbType.DateTime));
