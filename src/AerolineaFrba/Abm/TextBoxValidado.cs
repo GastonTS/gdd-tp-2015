@@ -62,6 +62,10 @@ namespace AerolineaFrba.Abm
             set { _ErrorText = value; }
         }
 
+        public void modoPassword()
+        {
+            textBox1.PasswordChar = '*';
+        }
         public TextBoxValidado()
         {
             InitializeComponent();

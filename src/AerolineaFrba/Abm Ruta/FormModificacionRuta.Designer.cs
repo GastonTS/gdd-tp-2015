@@ -157,7 +157,7 @@
             this.Controls.Add(this.labelOrigen);
             this.Name = "FormModificacionRuta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Modificacion y Baja de Ruta";
             this.Load += new System.EventHandler(this.FormModificacionRuta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.destinoBindingSource)).EndInit();

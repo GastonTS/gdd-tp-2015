@@ -69,7 +69,7 @@ namespace AerolineaFrba.Abm_Ruta
         }
 
         
-        private void consultarConFiltro()
+        public void consultarConFiltro()
         {
          
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
@@ -102,15 +102,19 @@ namespace AerolineaFrba.Abm_Ruta
                 if (index == senderGrid.Columns["Eliminar"].Index)
                 {
                     var camposValores = gdDataBase.newParameters();
+                    Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
                     camposValores.Add("id_ruta",new gdDataBase.ValorTipo(senderGrid.CurrentRow.Cells["id ruta"].Value,SqlDbType.Int));
                     camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
-                    new gdDataBase().Exec("ÑUFLO.DeleteRutaAerea",camposValores,new Dictionary<int,String>(),"El registro ha sido eliminado correctamente");
-                    consultarConFiltro();//dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
+
+                    errorMensaje.Add(60035, "Algunos vuelos de la Ruta ya fueron realizados, dichos vuelos no seran cancelados");
+
+                    new gdDataBase().Exec("ÑUFLO.DeleteRutaAerea",camposValores,errorMensaje,"El registro ha sido eliminado correctamente");
+                    consultarConFiltro();
                 }
 
                 else if (index == senderGrid.Columns["Modificar"].Index)
                 {
-                    MessageBox.Show("Modificar columna" + senderGrid.CurrentRow.Cells["Ciudad Origen"].Value.ToString());
                     var formAltaRuta = new FormAltaRuta();
                     formAltaRuta.setId((int)senderGrid.CurrentRow.Cells["id ruta"].Value); 
                     formAltaRuta.setCodRuta(senderGrid.CurrentRow.Cells["Codigo de ruta"].Value.ToString());
@@ -121,6 +125,7 @@ namespace AerolineaFrba.Abm_Ruta
                     formAltaRuta.setPrecioBasePasaje(Double.Parse(senderGrid.CurrentRow.Cells["Precio base por pasaje"].Value.ToString()));
                     formAltaRuta.actualizarLabels();
                     formAltaRuta.esModificacion();
+                    formAltaRuta.setPadre(this);
                     formAltaRuta.Show();
                     //((DataRowView)rutaAereaBindingSource.Current)
                 }

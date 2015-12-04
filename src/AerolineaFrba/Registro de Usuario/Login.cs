@@ -17,6 +17,7 @@ namespace AerolineaFrba.Registro_de_Usuario
         public Login()
         {
             InitializeComponent();
+            textBoxPassword.modoPassword();
         }
 
         public void setPadre(FormPrincipal unForm)
