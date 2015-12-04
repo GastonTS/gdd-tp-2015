@@ -60,7 +60,7 @@ namespace AerolineaFrba.Abm_Aeronave
             
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void limpiar() 
         {
             textBoxCantidadButacas.Clear();
             btnElegirTipoButaca.Enabled = false;
@@ -74,6 +74,11 @@ namespace AerolineaFrba.Abm_Aeronave
             checkedListBoxButacas.Enabled = false;
 
             comboBoxTipoServicio.ResetText();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            this.limpiar();
         }
 
         private void textBoxCantidadButacas_TextChanged(object sender, EventArgs e)
@@ -96,7 +101,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
             errorMensaje.Add(2627, "Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...");
 
-            return new SPPureExec("ÑUFLO.AltaAeronave", camposValores, errorMensaje, "Aeronave registrada correctamente");
+            return new SPPureExec("ÑUFLO.AltaAeronave", camposValores, errorMensaje);
 
 
         }
@@ -147,11 +152,20 @@ namespace AerolineaFrba.Abm_Aeronave
             {
                 var alta = spAltaAeronave();
                 alta.Exec();
-                if(!alta.huboError())
+                if (!alta.huboError())
+                {
                     agregarButacas();
+                    MessageBox.Show("Aeronave registrada correctamente");
+                    limpiar();
+                }
             }
             else
-                spActualizarAeronave().Exec();
+            {
+                var actualizar = spActualizarAeronave();
+                    actualizar.Exec();
+                if (!(actualizar.huboError()))
+                    limpiar();
+            }
         }
     }
 }
