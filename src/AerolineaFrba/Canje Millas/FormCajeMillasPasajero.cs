@@ -22,13 +22,12 @@ namespace AerolineaFrba.Canje_Millas
             textBoxDni.Text = "";
             textBoxCantidadProducto.Text = "";
             comboBoxProducto.Text = "";
-            dateTimePicker1.Text = "";
 
             comboBoxProducto.Enabled = false;
             textBoxCantidadProducto.Enabled = false;
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        protected override void guardarPosta()
         {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
@@ -44,7 +43,7 @@ namespace AerolineaFrba.Canje_Millas
             new gdDataBase().Exec("ÑUFLO.CanjearProductoA", camposValores, errorMensaje, "Canje realizado con éxito");
         }
 
-        protected override void guardarPosta()
+        private void btnVerProductos_Click(object sender, EventArgs e)
         {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
 

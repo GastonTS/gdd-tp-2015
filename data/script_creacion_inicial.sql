@@ -72,7 +72,7 @@ CREATE TABLE ÑUFLO.Aeronave (
 	capacidad_peso_encomiendas numeric(18,0) NOT NULL,
 	cantidad_butacas int,
 	baja_vida_utill datetime,
-	baja_por_fuera_de_servicio int 
+	baja_por_fuera_de_servicio int DEFAULT 0
 	)
 GO
 
@@ -692,6 +692,14 @@ AS
 GO
 
 /*Aeronave*/
+/*
+CREATE PROCEDURE ÑUFLO.IncorporarAeronavesFueraDeServicio
+AS
+	select * from ÑUFLO.Aeronave
+	select * from ÑUFLO.ServicioTecnico
+;
+GO
+*/
 CREATE PROCEDURE ÑUFLO.FiltroAeronave
 @modelo nvarchar(255) = null,
 @matricula nvarchar(255) = null,
@@ -702,6 +710,7 @@ CREATE PROCEDURE ÑUFLO.FiltroAeronave
 @capacidad_encomiendas numeric(18,0) = null,
 @cantidad_butacas int = null
 AS
+--exec ÑUFLO.IncorporarAeronavesFueraDeServicio
 select id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre Fabricante, ts.tipo_servicio 'Tipo de Servicio', fecha_de_alta 'Fecha de Alta',
 		capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
 	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f, ÑUFLO.TipoServicio ts
@@ -827,6 +836,7 @@ AS
 		from ÑUFLO.Viaje
 		where id_aeronave = @id_aeronave
 			and fecha_salida > @fecha_baja
+			and fecha_llegada is not null
 ;
 GO
 
@@ -853,6 +863,7 @@ AS
 		from ÑUFLO.Viaje
 		where id_aeronave = @id_aeronave
 			and fecha_salida between @fecha_baja and @fecha_reinicio
+			and fecha_llegada is not null
 ;
 GO
 
@@ -914,7 +925,7 @@ AS
 	SET @hoy = convert(datetime, @fecha_hoy)
 	SET @fecha_f = convert(datetime, @fecha_fin)
 
-	DECLARE CPasajes CURSOR 
+	DECLARE CEncomienda CURSOR 
 		FOR select c.codigo_de_compra, e.id_encomienda
 				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Encomienda e
 				where @id_aeronave = v.id_aeronave
@@ -925,10 +936,10 @@ AS
 					and e.cancelado = 0
 					and v.fecha_llegada is null
 					
-	DECLARE @pnr int, @pasaje int, @cod_anterior int
+	DECLARE @pnr int, @encomienda int, @cod_anterior int
 	SET @cod_anterior = -1
-	OPEN CPasajes
-	FETCH CPasajes INTO @pnr, @pasaje
+	OPEN CEncomienda
+	FETCH CEncomienda INTO @pnr, @encomienda
 
 	WHILE (@@FETCH_STATUS = 0)
 	BEGIN	
@@ -940,17 +951,17 @@ AS
 		END
 
 		INSERT INTO ÑUFLO.EncomiendaPorCancelacion(id_cancelacion, id_encomienda, motivo_cancelacion)
-			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @pasaje, 'Baja de Aeronave')
+			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @encomienda, 'Baja de Aeronave')
 
-		UPDATE ÑUFLO.Pasaje
+		UPDATE ÑUFLO.Encomienda
 			SET cancelado = 1
-			WHERE @pasaje = id_pasaje
+			WHERE @encomienda = id_encomienda
 
-		FETCH CPasajes INTO @pnr, @pasaje
+		FETCH CPasajes INTO @pnr, @encomienda
 	END
 
-	CLOSE CPasajes
-	DEALLOCATE CPasajes
+	CLOSE CEncomienda
+	DEALLOCATE CEncomienda
 ;
 GO
 
@@ -1347,11 +1358,13 @@ AS
 		IF(EXISTS(select id_pasaje
 					from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
 					where p.id_pasaje = @id
+						and v.fecha_llegada is not null
 						and p.codigo_de_compra = c.codigo_de_compra
 						and c.id_viaje = v.id_viaje))
+		BEGIN
 			SET @msg = 'El vuelo del pasaje ' + convert(nvarchar(255), @id) + ' ya fue realizado, no se pueden cancelar passajes de vuelos ya realizadas, porfavor vuelva a realizar la seleccion';
 			THROW 60035, @msg, 1
-	
+		END
 		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
 		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
 		BEGIN
