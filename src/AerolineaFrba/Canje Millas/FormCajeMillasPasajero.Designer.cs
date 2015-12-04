@@ -34,18 +34,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxProducto = new System.Windows.Forms.ComboBox();
             this.textBoxCantidadProducto = new System.Windows.Forms.TextBox();
-            this.labelFechaCanje = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.groupBoxInfoCliente = new System.Windows.Forms.GroupBox();
             this.btnVerProductos = new System.Windows.Forms.Button();
             this.groupBoxProducto = new System.Windows.Forms.GroupBox();
-            this.groupBoxFecha = new System.Windows.Forms.GroupBox();
             this.labelVentanillaPasillo = new System.Windows.Forms.Label();
-            this.btnGuardar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnGuardar = new AerolineaFrba.Abm.Guardar();
             this.groupBoxInfoCliente.SuspendLayout();
             this.groupBoxProducto.SuspendLayout();
-            this.groupBoxFecha.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelDni
@@ -102,22 +98,6 @@
             this.textBoxCantidadProducto.Size = new System.Drawing.Size(63, 20);
             this.textBoxCantidadProducto.TabIndex = 5;
             // 
-            // labelFechaCanje
-            // 
-            this.labelFechaCanje.AutoSize = true;
-            this.labelFechaCanje.Location = new System.Drawing.Point(6, 30);
-            this.labelFechaCanje.Name = "labelFechaCanje";
-            this.labelFechaCanje.Size = new System.Drawing.Size(85, 13);
-            this.labelFechaCanje.TabIndex = 6;
-            this.labelFechaCanje.Text = "Fecha de Canje:";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(122, 24);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 7;
-            // 
             // groupBoxInfoCliente
             // 
             this.groupBoxInfoCliente.Controls.Add(this.btnVerProductos);
@@ -138,6 +118,7 @@
             this.btnVerProductos.TabIndex = 2;
             this.btnVerProductos.Text = "Ver sus Productos";
             this.btnVerProductos.UseVisualStyleBackColor = true;
+            this.btnVerProductos.Click += new System.EventHandler(this.btnVerProductos_Click);
             // 
             // groupBoxProducto
             // 
@@ -152,17 +133,6 @@
             this.groupBoxProducto.TabStop = false;
             this.groupBoxProducto.Text = "Producto a canjear";
             // 
-            // groupBoxFecha
-            // 
-            this.groupBoxFecha.Controls.Add(this.dateTimePicker1);
-            this.groupBoxFecha.Controls.Add(this.labelFechaCanje);
-            this.groupBoxFecha.Location = new System.Drawing.Point(36, 234);
-            this.groupBoxFecha.Name = "groupBoxFecha";
-            this.groupBoxFecha.Size = new System.Drawing.Size(404, 70);
-            this.groupBoxFecha.TabIndex = 10;
-            this.groupBoxFecha.TabStop = false;
-            this.groupBoxFecha.Text = "Fecha a realizar el canje";
-            // 
             // labelVentanillaPasillo
             // 
             this.labelVentanillaPasillo.AutoSize = true;
@@ -172,37 +142,34 @@
             this.labelVentanillaPasillo.TabIndex = 19;
             this.labelVentanillaPasillo.Text = "Seleccione Butaca con Ventanilla. El resto será Pasillo";
             // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Location = new System.Drawing.Point(365, 336);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 18;
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(36, 336);
+            this.btnLimpiar.Location = new System.Drawing.Point(36, 230);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.btnLimpiar.Size = new System.Drawing.Size(75, 31);
             this.btnLimpiar.TabIndex = 17;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
+            // btnGuardar
+            // 
+            this.btnGuardar.Location = new System.Drawing.Point(357, 230);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(83, 31);
+            this.btnGuardar.TabIndex = 6;
+            this.btnGuardar.TextBtn = "Guardar";
+            // 
             // FormCajeMillasPasajero
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 392);
-            this.Controls.Add(this.labelVentanillaPasillo);
+            this.ClientSize = new System.Drawing.Size(478, 281);
             this.Controls.Add(this.btnGuardar);
+            this.Controls.Add(this.labelVentanillaPasillo);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBoxInfoCliente);
             this.Controls.Add(this.groupBoxProducto);
-            this.Controls.Add(this.groupBoxFecha);
             this.Name = "FormCajeMillasPasajero";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Canje de Millas de Pasajero Frecuente";
@@ -210,8 +177,6 @@
             this.groupBoxInfoCliente.PerformLayout();
             this.groupBoxProducto.ResumeLayout(false);
             this.groupBoxProducto.PerformLayout();
-            this.groupBoxFecha.ResumeLayout(false);
-            this.groupBoxFecha.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,14 +190,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxProducto;
         private System.Windows.Forms.TextBox textBoxCantidadProducto;
-        private System.Windows.Forms.Label labelFechaCanje;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.GroupBox groupBoxInfoCliente;
         private System.Windows.Forms.GroupBox groupBoxProducto;
-        private System.Windows.Forms.GroupBox groupBoxFecha;
         private System.Windows.Forms.Label labelVentanillaPasillo;
-        private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnVerProductos;
+        private Abm.Guardar btnGuardar;
     }
 }
