@@ -37,11 +37,11 @@
             this.labelVentanilla = new System.Windows.Forms.Label();
             this.labelPasillo = new System.Windows.Forms.Label();
             this.listBoxEleccionButacaVentanilla = new System.Windows.Forms.ListBox();
-            this.textBoxCantidadAEncomendar = new System.Windows.Forms.TextBox();
             this.labelEncomienda = new System.Windows.Forms.Label();
             this.labelButaca = new System.Windows.Forms.Label();
             this.listBoxEleccionButacaPasillo = new System.Windows.Forms.ListBox();
             this.btnAceptar = new AerolineaFrba.Abm.Guardar();
+            this.textBoxCantidadAEncomendar = new AerolineaFrba.Abm.TextBoxDecimal();
             this.groupBox1.SuspendLayout();
             this.groupBoxButacaYEncomienda.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +62,7 @@
             // 
             this.textBoxDNI.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.textBoxDNI.Enabled = false;
-            this.textBoxDNI.ErrorText = null;
+            this.textBoxDNI.ErrorText = "Debe ingresar un DNI valido";
             this.textBoxDNI.Location = new System.Drawing.Point(54, 34);
             this.textBoxDNI.Name = "textBoxDNI";
             this.textBoxDNI.Size = new System.Drawing.Size(129, 22);
@@ -99,10 +99,10 @@
             // 
             // groupBoxButacaYEncomienda
             // 
+            this.groupBoxButacaYEncomienda.Controls.Add(this.textBoxCantidadAEncomendar);
             this.groupBoxButacaYEncomienda.Controls.Add(this.labelVentanilla);
             this.groupBoxButacaYEncomienda.Controls.Add(this.labelPasillo);
             this.groupBoxButacaYEncomienda.Controls.Add(this.listBoxEleccionButacaVentanilla);
-            this.groupBoxButacaYEncomienda.Controls.Add(this.textBoxCantidadAEncomendar);
             this.groupBoxButacaYEncomienda.Controls.Add(this.labelEncomienda);
             this.groupBoxButacaYEncomienda.Controls.Add(this.labelButaca);
             this.groupBoxButacaYEncomienda.Controls.Add(this.listBoxEleccionButacaPasillo);
@@ -140,15 +140,6 @@
             this.listBoxEleccionButacaVentanilla.TabIndex = 5;
             this.listBoxEleccionButacaVentanilla.SelectedIndexChanged += new System.EventHandler(this.listBoxEleccionButacaVentanilla_SelectedIndexChanged);
             // 
-            // textBoxCantidadAEncomendar
-            // 
-            this.textBoxCantidadAEncomendar.Location = new System.Drawing.Point(146, 33);
-            this.textBoxCantidadAEncomendar.Name = "textBoxCantidadAEncomendar";
-            this.textBoxCantidadAEncomendar.Size = new System.Drawing.Size(78, 20);
-            this.textBoxCantidadAEncomendar.TabIndex = 0;
-            this.textBoxCantidadAEncomendar.Visible = false;
-            this.textBoxCantidadAEncomendar.TextChanged += new System.EventHandler(this.textBoxCantidadAEncomendar_TextChanged);
-            // 
             // labelEncomienda
             // 
             this.labelEncomienda.AutoSize = true;
@@ -185,6 +176,16 @@
             this.btnAceptar.TabIndex = 0;
             this.btnAceptar.TextBtn = "Aceptar";
             // 
+            // textBoxCantidadAEncomendar
+            // 
+            this.textBoxCantidadAEncomendar.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCantidadAEncomendar.ErrorText = "Debe indicarse un peso de encomienda";
+            this.textBoxCantidadAEncomendar.Location = new System.Drawing.Point(152, 32);
+            this.textBoxCantidadAEncomendar.Name = "textBoxCantidadAEncomendar";
+            this.textBoxCantidadAEncomendar.Size = new System.Drawing.Size(142, 22);
+            this.textBoxCantidadAEncomendar.TabIndex = 8;
+            this.textBoxCantidadAEncomendar.Visible = false;
+            // 
             // FormDatosPasajeroEncomienda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,7 +213,6 @@
         private System.Windows.Forms.Label labelDNI;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.GroupBox groupBoxButacaYEncomienda;
-        private System.Windows.Forms.TextBox textBoxCantidadAEncomendar;
         private System.Windows.Forms.Label labelEncomienda;
         private System.Windows.Forms.Label labelButaca;
         private System.Windows.Forms.ListBox listBoxEleccionButacaPasillo;
@@ -222,5 +222,6 @@
         private System.Windows.Forms.Button btnIngresarDatosPasajero;
         private Abm.TextBoxDNI textBoxDNI;
         private Abm.Guardar btnAceptar;
+        private Abm.TextBoxDecimal textBoxCantidadAEncomendar;
     }
 }
