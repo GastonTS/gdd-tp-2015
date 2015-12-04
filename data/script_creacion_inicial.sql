@@ -845,10 +845,13 @@ CREATE PROCEDURE ÑUFLO.ValidarAeronaveActiva
 @fecha_hoy nvarchar(255),
 @fecha_fin nvarchar(255) = null
 AS
-	if((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) is not null)
+	IF(@fecha_fin is not null and @fecha_fin > @fecha_hoy)
+		THROW 62004, 'La fecha de reincorporacion debe ser mayor a la fecha de hoy', 1		
+		
+	IF((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) is not null)
 		THROW 60004, 'La nave ya se encuentra fuera de su vida util', 1
 
-	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) = 1)
+	IF((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) = 1)
 		THROW 60003, 'La nave ya se encuentra en mantenimiento', 1
 		
 	select COUNT(id_viaje)
