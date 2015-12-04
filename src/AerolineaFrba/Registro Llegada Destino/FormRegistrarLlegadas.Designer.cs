@@ -145,9 +145,9 @@
             // 
             // btnConfirmarLlegada
             // 
-            this.btnConfirmarLlegada.Location = new System.Drawing.Point(374, 250);
+            this.btnConfirmarLlegada.Location = new System.Drawing.Point(374, 232);
             this.btnConfirmarLlegada.Name = "btnConfirmarLlegada";
-            this.btnConfirmarLlegada.Size = new System.Drawing.Size(90, 35);
+            this.btnConfirmarLlegada.Size = new System.Drawing.Size(90, 25);
             this.btnConfirmarLlegada.TabIndex = 19;
             this.btnConfirmarLlegada.Text = "Confirmar Arribo";
             this.btnConfirmarLlegada.UseVisualStyleBackColor = true;
@@ -155,9 +155,9 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(29, 250);
+            this.btnLimpiar.Location = new System.Drawing.Point(29, 232);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(90, 35);
+            this.btnLimpiar.Size = new System.Drawing.Size(90, 25);
             this.btnLimpiar.TabIndex = 18;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -167,7 +167,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 303);
+            this.ClientSize = new System.Drawing.Size(492, 278);
             this.Controls.Add(this.btnConfirmarLlegada);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBoxDatosViaje);
