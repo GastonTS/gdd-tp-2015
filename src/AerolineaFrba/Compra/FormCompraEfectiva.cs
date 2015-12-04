@@ -20,6 +20,13 @@ namespace AerolineaFrba.Compra
         List<String> mediosDePagoAdministrativa = new List<String>{"Tarjeta de crédito", "Efectivo"};
         Dictionary<String, List<String>> mediosDePagoSegunTerminal = new Dictionary<String, List<String>>();
 
+        public override string MsgError
+        {
+            get
+            {
+                return "Error al realizar la compra";
+            }
+        }
 
         public FormCompraEfectiva()
         {
@@ -134,8 +141,10 @@ namespace AerolineaFrba.Compra
                         control is ComboBox ||
                         control is DateTimePicker) control.ResetText();
                     if (control is CheckBox) ((CheckBox)control).Checked = false;
+                    control.CausesValidation = deberiaEstarActivo;
                 }
             };
+            
             groupBoxTarjetaCredito.Enabled = deberiaEstarActivo;
         }
 
