@@ -32,6 +32,7 @@ namespace AerolineaFrba.Abm_Rol
 
                 FormAltaRol far = new FormAltaRol();
 
+                far.setPadre(this);
                 far.setNombreRol(nombre);
                 far.Show();
             }
@@ -75,6 +76,12 @@ namespace AerolineaFrba.Abm_Rol
             dataGridView.Columns[1].DisplayIndex = 2;
             dataGridView.Columns[3].DisplayIndex = 1;
             dataGridView.Columns[2].DisplayIndex = 0;
+        }
+
+        public void actualizate()
+        {
+            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.RolDadoNombre", null);
+            cargarDatosEnTabla(dt);
         }
     }
 }

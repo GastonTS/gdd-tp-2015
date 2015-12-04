@@ -30,6 +30,7 @@
         {
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.textBoxNombre = new AerolineaFrba.Abm.TextBoxValidado();
             this.btnQuitar = new System.Windows.Forms.Button();
             this.btnAñadir = new System.Windows.Forms.Button();
@@ -54,6 +55,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.textBoxNombre);
             this.groupBox1.Controls.Add(this.btnQuitar);
             this.groupBox1.Controls.Add(this.btnAñadir);
@@ -68,6 +70,17 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Campos de Rol";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(246, 45);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(139, 17);
+            this.checkBox1.TabIndex = 8;
+            this.checkBox1.Text = "Modificación de nombre";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // textBoxNombre
             // 
@@ -150,6 +163,7 @@
             this.guardar1.Name = "guardar1";
             this.guardar1.Size = new System.Drawing.Size(81, 28);
             this.guardar1.TabIndex = 4;
+            this.guardar1.TextBtn = "Guardar";
             // 
             // FormAltaRol
             // 
@@ -185,5 +199,6 @@
         private System.Windows.Forms.ListBox listBoxFuncionalidades;
         private System.Windows.Forms.Label label1;
         private Abm.TextBoxValidado textBoxNombre;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

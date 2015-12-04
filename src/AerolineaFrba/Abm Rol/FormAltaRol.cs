@@ -13,6 +13,8 @@ namespace AerolineaFrba.Abm_Rol
     public partial class FormAltaRol : Abm.Alta
     {
         bool modificacion = false;
+        String nombreViejo;
+        FormSeleccionRol padre;
 
         public FormAltaRol()
         {
@@ -25,18 +27,20 @@ namespace AerolineaFrba.Abm_Rol
             comboBoxFuncionalidades.DataSource = dt;
             comboBoxFuncionalidades.DisplayMember = dt.Columns[0].ColumnName;
 
+            textBoxNombre.Enabled = false;
+
+            if (modificacion)
+                checkBox1.Enabled = true;
         }
 
         private void textBoxNombre_Validating(object sender, CancelEventArgs e)
         {
             if (textBoxNombre.Text.Trim() == "")
             {
-
                 e.Cancel = true;
             }
             else
             {
-
                 e.Cancel = false;
             }
         }
@@ -66,7 +70,9 @@ namespace AerolineaFrba.Abm_Rol
             }
             else
             {
+                cambiarNombre();
                 actualizarRol();
+                padre.actualizate();
                 this.Close();
             }
 
@@ -95,7 +101,7 @@ namespace AerolineaFrba.Abm_Rol
         {            
             this.Text = "Modificación de Rol";
             modificacion = true;
-            textBoxNombre.Enabled = false;
+            textBoxNombre.Enabled = true;
             textBoxNombre.Text = nombreRol;
 
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
@@ -146,6 +152,34 @@ namespace AerolineaFrba.Abm_Rol
             agregarFuncionalidades();
 
             MessageBox.Show("Rol modificado correctamente"); //no valido nada, porque no hay posibilidad de error...
+        }
+
+        private void cambiarNombre()
+        {
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            camposValores.Add("nombre_old", new gdDataBase.ValorTipo(nombreViejo, SqlDbType.VarChar));
+            camposValores.Add("nombre", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
+
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+            errorMensaje.Add(60011, "No puede cambiar el nombre a un nombre de rol ya existente");
+
+            new gdDataBase().Exec("ÑUFLO.CambiarNombreDeRol", camposValores, errorMensaje);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                nombreViejo = textBoxNombre.Text;
+                textBoxNombre.Enabled = true;
+            }
+            else
+                textBoxNombre.Enabled = false;
+        }
+
+        public void setPadre(FormSeleccionRol padre)
+        {
+            this.padre = padre;
         }
     }
 }
