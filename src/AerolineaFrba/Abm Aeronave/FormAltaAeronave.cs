@@ -36,19 +36,7 @@ namespace AerolineaFrba.Abm_Aeronave
             textBoxModelo.Text = filaAeronave.Cells[1].FormattedValue.ToString();
             textBoxMatricula.Text = filaAeronave.Cells[2].FormattedValue.ToString();
             textBoxFabricante.Text = filaAeronave.Cells[3].FormattedValue.ToString();
-            switch (filaAeronave.Cells[4].FormattedValue.ToString())
-            {
-                case "1":
-                    comboBoxTipoServicio.Text = "Primera Clase";
-                    break;
-                case "2":
-                    comboBoxTipoServicio.Text = "Ejecutivo";
-                    break;
-                case "3":
-                    comboBoxTipoServicio.Text = "Turista";
-                    break;
-            }
-
+            comboBoxTipoServicio.Text = filaAeronave.Cells[4].FormattedValue.ToString();
             textBoxCapacidadEncomiendas.Text = filaAeronave.Cells[6].FormattedValue.ToString();
 
             //HACER
@@ -56,7 +44,7 @@ namespace AerolineaFrba.Abm_Aeronave
             //para así meterla en la modificación de la aeronave. Esta info no la puedo traer del form de selección
             //ya que no la tengo
         }
-
+        
         private void btnElegirTipoButaca_Click(object sender, EventArgs e)
         {
             checkedListBoxButacas.Enabled = true;
