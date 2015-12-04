@@ -47,9 +47,9 @@
             this.labelValorPrecioFinalPasaje = new System.Windows.Forms.Label();
             this.labelValorPrecioFinalPeso = new System.Windows.Forms.Label();
             this.labelPrecioFinalPeso = new System.Windows.Forms.Label();
-            this.textBoxPrecioPasaje = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
+            this.textBoxPrecioPasaje = new AerolineaFrba.Abm.TextBoxMoneda();
             this.labelPrecioFinalPasaje = new System.Windows.Forms.Label();
-            this.textBoxPrecioPeso = new AerolineaFrba.Abm.TextBoxNumeroDecimal();
+            this.textBoxPrecioPeso = new AerolineaFrba.Abm.TextBoxMoneda();
             this.codRutaBinding = new System.Windows.Forms.BindingSource(this.components);
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             ((System.ComponentModel.ISupportInitialize)(this.origenBinding)).BeginInit();
@@ -297,8 +297,8 @@
         private System.Windows.Forms.BindingSource origenBinding;
         private System.Windows.Forms.BindingSource destinoBinding;
         private System.Windows.Forms.BindingSource tipoServicioBinding;
-        private Abm.TextBoxNumeroDecimal textBoxPrecioPeso;
-        private Abm.TextBoxNumeroDecimal textBoxPrecioPasaje;
+        private Abm.TextBoxMoneda textBoxPrecioPeso;
+        private Abm.TextBoxMoneda textBoxPrecioPasaje;
         private System.Windows.Forms.Label labelValorPrecioFinalPasaje;
         private System.Windows.Forms.Label labelValorPrecioFinalPeso;
         private System.Windows.Forms.Label labelPrecioFinalPeso;
