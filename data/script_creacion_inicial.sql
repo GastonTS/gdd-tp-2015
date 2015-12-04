@@ -1646,10 +1646,13 @@ CREATE PROCEDURE ÑUFLO.InsertRutaAerea
 @id_ciudad_origen int,
 @id_ciudad_destino int,
 @precio_base_por_peso  numeric (18, 0),
-@precio_base_por_pasaje  numeric (18, 0)
+@precio_base_por_pasaje  numeric (18, 0),
+@id_tipo_servicio int
 AS
 	INSERT INTO ÑUFLO.RutaAerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje)
 		VALUES (@codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso, @precio_base_por_pasaje)
+		
+	INSERT INTO ÑUFLO.ServicioPorRuta values((select MAX(id_ruta) from ÑUFLO.RutaAerea), @id_tipo_servicio)
 ;  
 GO
 
@@ -1713,12 +1716,16 @@ CREATE PROCEDURE ÑUFLO.UpdateRutaAerea
 @id_ciudad_origen int,
 @id_ciudad_destino int,
 @precio_base_por_peso  numeric (18, 0),
-@precio_base_por_pasaje  numeric (18, 0)
+@precio_base_por_pasaje  numeric (18, 0),
+@id_tipo_servicio int
 AS
 	UPDATE ÑUFLO.RutaAerea
 	SET codigo_ruta = @codigo_ruta, id_ciudad_origen = @id_ciudad_origen, id_ciudad_destino = @id_ciudad_destino,
 		precio_base_por_peso = @precio_base_por_peso, precio_base_por_pasaje = @precio_base_por_pasaje
 	WHERE id_ruta = @id_ruta
+	
+	IF(NOT EXISTS(select id_ruta from ÑUFLO.ServicioPorRuta sr where id_ruta = @id_ruta and @id_tipo_servicio = id_tipo_servicio))
+		INSERT INTO ÑUFLO.ServicioPorRuta values(@id_ruta, @id_tipo_servicio)
 ;  
 GO
 
