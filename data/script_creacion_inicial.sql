@@ -1076,7 +1076,7 @@ AS
 				where @modelo = a.id_modelo
 					and @fabricante = a.id_fabricante
 					and @tipo_servicio = a.id_tipo_servicio
-					and baja_por_fuera_de_servicio is null
+					and baja_por_fuera_de_servicio = 0
 					and baja_vida_utill is null
 					and NOT EXISTS (select * from ÑUFLO.ViajesDeAeronaveEntre(a.id_aeronave, @salida, @llegada))
 		 
