@@ -177,6 +177,7 @@
             this.comboBoxListado.Size = new System.Drawing.Size(371, 21);
             this.comboBoxListado.TabIndex = 3;
             this.comboBoxListado.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBoxListado.SelectionChangeCommitted += new System.EventHandler(this.comboBoxListado_SelectionChangeCommitted);
             // 
             // label1
             // 

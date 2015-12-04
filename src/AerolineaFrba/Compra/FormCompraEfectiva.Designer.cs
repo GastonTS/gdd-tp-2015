@@ -32,7 +32,6 @@
             this.labelMedioDePago = new System.Windows.Forms.Label();
             this.comboBoxMedioDePago = new System.Windows.Forms.ComboBox();
             this.labelDNIComprador = new System.Windows.Forms.Label();
-            this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.labelNumeroTarjeta = new System.Windows.Forms.Label();
@@ -50,6 +49,7 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.textBoxDNI = new AerolineaFrba.Abm.TextBoxDNI();
             this.groupBox1.SuspendLayout();
             this.groupBoxTarjetaCredito.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -84,18 +84,10 @@
             this.labelDNIComprador.TabIndex = 2;
             this.labelDNIComprador.Text = "DNI del Comprador:";
             // 
-            // textBoxDNI
-            // 
-            this.textBoxDNI.Enabled = false;
-            this.textBoxDNI.Location = new System.Drawing.Point(121, 86);
-            this.textBoxDNI.Name = "textBoxDNI";
-            this.textBoxDNI.Size = new System.Drawing.Size(100, 20);
-            this.textBoxDNI.TabIndex = 3;
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.textBoxDNI);
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.labelMedioDePago);
             this.groupBox1.Controls.Add(this.labelDNIComprador);
             this.groupBox1.Controls.Add(this.comboBoxMedioDePago);
@@ -108,7 +100,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(244, 80);
+            this.button1.Location = new System.Drawing.Point(271, 80);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(167, 30);
             this.button1.TabIndex = 7;
@@ -260,6 +252,15 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // textBoxDNI
+            // 
+            this.textBoxDNI.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxDNI.ErrorText = "Ingrese un DNI valido";
+            this.textBoxDNI.Location = new System.Drawing.Point(121, 86);
+            this.textBoxDNI.Name = "textBoxDNI";
+            this.textBoxDNI.Size = new System.Drawing.Size(146, 22);
+            this.textBoxDNI.TabIndex = 8;
+            // 
             // FormCompraEfectiva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,7 +288,6 @@
         private System.Windows.Forms.Label labelMedioDePago;
         private System.Windows.Forms.ComboBox comboBoxMedioDePago;
         private System.Windows.Forms.Label labelDNIComprador;
-        private System.Windows.Forms.TextBox textBoxDNI;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelNumeroTarjeta;
         private System.Windows.Forms.Label labelCodigoSeguridad;
@@ -305,5 +305,6 @@
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Label lblCantCuotas;
         private System.Windows.Forms.Label label1;
+        private Abm.TextBoxDNI textBoxDNI;
     }
 }

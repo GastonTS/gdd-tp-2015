@@ -49,29 +49,6 @@ namespace AerolineaFrba.Abm_Ruta
             }
         }
 
-        public FormAltaRuta(DataRowView datosAModificar)
-        {
-            InitializeComponent();
-
-            var ds = new gdDataBase().GetDataSP("ÑUFLO.CiudadTipoServicio");
-
-            origenBinding.DataSource = ds.Tables[0];
-            destinoBinding.DataSource = ds.Tables[0];
-            tipoServicioBinding.DataSource = ds.Tables[1];
-
-            comboBoxOrigen.DisplayMember = "Nombre";
-            comboBoxOrigen.ValueMember = "Id ciudad";
-            comboBoxDestino.DisplayMember = "Nombre";
-            comboBoxDestino.ValueMember = "Id ciudad";
-            comboBoxTipoServicio.DisplayMember = "Tipo Servicio";
-            comboBoxTipoServicio.ValueMember = "Id Tipo Servicio";
-
-            textBoxCodRuta.Text = datosAModificar["Código Ruta"].ToString();
-            DataSet dss = new gdDataBase().GetDataQuery("Select id_ciudad FROM ÑUFLO.Ciudad where nombre= " + "'" + datosAModificar["Ciudad Origen"].ToString() + "'");
-            comboBoxOrigen.SelectedIndex = dss.Tables[0].Rows[0].Field<int>(0) - 1;
-            dss = new gdDataBase().GetDataQuery("Select id_ciudad FROM ÑUFLO.Ciudad where nombre= " + "'" + datosAModificar["Ciudad Destino"].ToString() + "'");
-            comboBoxDestino.SelectedIndex = dss.Tables[0].Rows[0].Field<int>(0) - 1;
-        }
 
         public void setId(int id)
         {
@@ -179,6 +156,7 @@ namespace AerolineaFrba.Abm_Ruta
             camposValores.Add("id_ciudad_destino", new gdDataBase.ValorTipo(comboBoxDestino.SelectedValue, SqlDbType.Int));
             camposValores.Add("precio_base_por_peso", new gdDataBase.ValorTipo(textBoxPrecioPeso.DecimalValue(), SqlDbType.Decimal));
             camposValores.Add("precio_base_por_pasaje", new gdDataBase.ValorTipo(textBoxPrecioPasaje.DecimalValue(), SqlDbType.Decimal));
+            camposValores.Add("id_tipo_servicio", new gdDataBase.ValorTipo(comboBoxTipoServicio.SelectedValue, SqlDbType.Int));
             if (modificacion)
             {
                 spName = "ÑUFLO.UpdateRutaAerea";

@@ -37,7 +37,7 @@ namespace AerolineaFrba.Generacion_Viaje
                 camposValores.Add("cantidad_butacas", new gdDataBase.ValorTipo(textBoxCantidadButacas.Text, SqlDbType.Int));
             camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
-            var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.FiltroAeronave", camposValores);
+            var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.FiltroAeronaveSinBajas", camposValores);
 
             bindingAeronaves.DataSource = ds;
             dataGridViewAeronave.DataSource = bindingAeronaves;
