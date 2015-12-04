@@ -1770,18 +1770,6 @@ AS
 ;
 GO	
 
-CREATE PROCEDURE ÑUFLO.DetalleAeronavesVaciasPara
-@ciudad nvarchar(255),
-@fecha_inicio datetime,
-@fecha_fin datetime
-AS
-	select Viaje, Destino, Matricula, Modelo, Fabricante, Capacidad_Peso, Fecha_De_Compra
-		from ÑUFLO.DetalleAeronavesVacias
-		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
-			and @ciudad = Destino
-;
-GO
-
 CREATE PROCEDURE ÑUFLO.DetalleMillasDe
 @dni int,
 @hoy datetime
@@ -2114,27 +2102,6 @@ GO
 /**************************** Views ******************************/
 /*****************************************************************/
 
-CREATE VIEW ÑUFLO.VRutaAerea
-AS
-	select r.codigo_ruta 'Código Ruta', co.nombre 'Ciudad Origen', cd.nombre 'Ciudad Destino', 
-			r.precio_base_por_peso 'Precio base x peso', r.precio_base_por_pasaje 'Precio base x pasaje'
-		from ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
-		where r.id_ciudad_origen = co.id_ciudad
-			and r.id_ciudad_destino = cd.id_ciudad
-			and r.cancelado = 0
-GO
-
-CREATE VIEW ÑUFLO.VRutaAereaCancelados
-AS
-	select r.codigo_ruta 'Código Ruta', co.nombre 'Ciudad Origen', cd.nombre 'Ciudad Destino', 
-			r.precio_base_por_peso 'Precio base x peso', r.precio_base_por_pasaje 'Precio base x pasaje'
-		from ÑUFLO.RutaAerea r, ÑUFLO.Ciudad co, ÑUFLO.Ciudad cd
-		where r.id_ciudad_origen = co.id_ciudad
-			and r.id_ciudad_destino = cd.id_ciudad
-			and r.cancelado = 1
-GO
-
-
 CREATE VIEW ÑUFLO.DetallePasajes
 AS
 	select co.codigo_de_compra Codigo_de_Compra, co.fecha_de_compra Fecha_De_Compra, id_pasaje Pasaje, ci.nombre Destino,
@@ -2145,23 +2112,6 @@ AS
 			and r.id_ciudad_destino = ci.id_ciudad
 			and co.codigo_de_compra = p.codigo_de_compra
 			and c.id_cliente = p.id_cliente
-GO
-
-CREATE VIEW ÑUFLO.DetalleAeronavesVacias
-AS
-	select v.id_viaje Viaje, ci.nombre Destino, a.matricula Matricula, m.nombre Modelo, m.nombre Fabricante, a.capacidad_peso_encomiendas Capacidad_Peso,
-			c.fecha_de_compra Fecha_De_Compra
-		from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje pa, ÑUFLO.Encomienda en, ÑUFLO.Ciudad ci, ÑUFLO.RutaAerea r, ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f
-		where v.id_ruta = r.id_ruta
-			and r.id_ciudad_destino = ci.id_ciudad
-			and v.id_viaje = c.id_viaje
-			and (c.codigo_de_compra = pa.codigo_de_compra OR
-				c.codigo_de_compra = en.codigo_de_compra)
-			and v.id_aeronave = a.id_aeronave
-			and a.id_modelo = m.id_modelo
-			and a.id_fabricante = f.id_fabricante
-		group by v.id_viaje, ci.nombre, a.matricula, m.nombre, f.nombre, a.capacidad_peso_encomiendas, c.fecha_de_compra
-		having COUNT(*) = 0
 GO
 
 CREATE VIEW ÑUFLO.DetalleMillas
