@@ -12,9 +12,16 @@ namespace AerolineaFrba.Abm
 {
     public partial class Guardar : UserControl
     {
-        
+
+        [Category("Apariencia"), Description("Texto del boton."), EditorBrowsable(EditorBrowsableState.Always)]
+        public string TextBtn
+        {
+            get { return guardarBtn.Text; }
+            set { guardarBtn.Text = value; }
+        }
+
         public Guardar(){
-            InitializeComponent();            
+            InitializeComponent();
        }
 
         private Alta alta(){

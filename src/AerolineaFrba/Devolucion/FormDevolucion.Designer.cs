@@ -37,12 +37,14 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.guardar1);
             this.groupBox2.Controls.Add(this.btnAceptar);
             this.groupBox2.Controls.Add(this.btnLimpiar);
             this.groupBox2.Controls.Add(this.dataGridView1);
@@ -134,6 +136,14 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "Fecha";
             // 
+            // guardar1
+            // 
+            this.guardar1.Location = new System.Drawing.Point(526, 449);
+            this.guardar1.Name = "guardar1";
+            this.guardar1.Size = new System.Drawing.Size(83, 31);
+            this.guardar1.TabIndex = 12;
+            this.guardar1.TextBtn = "Guardarasd";
+            // 
             // FormDevolucion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -162,5 +172,6 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private Abm.Guardar guardar1;
     }
 }

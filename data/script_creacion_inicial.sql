@@ -1662,12 +1662,12 @@ CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasDe
 @codigo_compra int
 AS
 	select p.id_pasaje Codigo, 'Pasaje' Tipo, c.dni DNI, c.nombre Nombre, c.apellido Apellido,
-		 '-' Peso_Encomienda, cast(p.numero_de_butaca AS nvarchar(255)) Butaca_Numero, p.precio Precio
+		 '-' 'Peso de encomienda', cast(p.numero_de_butaca AS nvarchar(255)) 'Número de butaca', p.precio Precio
 		from ÑUFLO.Pasaje p, ÑUFLO.Cliente c
 		where p.id_cliente = c.id_cliente and
 			  p.codigo_de_compra = @codigo_compra
 	UNION
-	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
+	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)) 'Peso de encomienda', '-' 'Número de butaca', p.precio
 		from ÑUFLO.Encomienda p, ÑUFLO.Cliente c
 		where p.id_cliente = c.id_cliente and
 			  p.codigo_de_compra = @codigo_compra
@@ -1678,13 +1678,13 @@ CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasNoCanceladosDe
 @codigo_compra int
 AS
 	select p.id_pasaje Codigo, 'Pasaje' Tipo, c.dni DNI, c.nombre Nombre, c.apellido Apellido,
-		 '-' Peso_Encomienda, cast(p.numero_de_butaca AS nvarchar(255)) Butaca_Numero, p.precio Precio
+		 '-' 'Peso de encomienda', cast(p.numero_de_butaca AS nvarchar(255)) 'Número de butaca', p.precio Precio
 		from ÑUFLO.Pasaje p, ÑUFLO.Cliente c
 		where p.id_cliente = c.id_cliente and
 			  p.codigo_de_compra = @codigo_compra and
 			  p.cancelado = 0
 	UNION
-	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)), '-', p.precio
+	select p.id_encomienda, 'Encomienda', c.dni, c.nombre, c.apellido, cast(p.peso_encomienda AS nvarchar(255)) 'Peso de encomienda', '-' 'Número de butaca', p.precio
 		from ÑUFLO.Encomienda p, ÑUFLO.Cliente c
 		where p.id_cliente = c.id_cliente and
 			  p.codigo_de_compra = @codigo_compra and
