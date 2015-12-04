@@ -14,7 +14,7 @@ namespace AerolineaFrba.Abm
 
     {
 
-        string _MsgError="Hijo de puta implementa el mensaje de error";
+        string _MsgError="The impossible has happened.";
         [Category("Mensajes"), Description("Texto que se muestra en caso de error."), EditorBrowsable(EditorBrowsableState.Always)]
         public virtual string MsgError
         {
@@ -22,7 +22,7 @@ namespace AerolineaFrba.Abm
             set { _MsgError = value; }
         }
 
-        string _MsgExito = "Hijo de puta implementa el mensaje de exito";
+        string _MsgExito = "The impossible has happened.";
         [Category("Mensajes"), Description("Texto que se muestra en caso de error."), EditorBrowsable(EditorBrowsableState.Always)]
         public virtual string MsgExito
         {
@@ -30,7 +30,7 @@ namespace AerolineaFrba.Abm
             set { _MsgExito = value; }
         }
 
-        protected virtual void guardarPosta() { throw new Exception("Implementa como guardar hijo de puta"); }
+        protected virtual void guardarPosta() { throw new Exception("The impossible has happened."); }
 
         public Alta()
         {
