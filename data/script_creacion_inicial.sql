@@ -1830,8 +1830,9 @@ AS
 ;
 GO
 
+TOP5DestinoPasajesComprados
 /*Listados Estadisticos*/
-CREATE PROCEDURE ÑUFLO.TOP5DestinoPasajesComprados
+CREATE PROCEDURE ÑUFLO.
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
@@ -1895,6 +1896,7 @@ AS
 ;
 GO
 
+
 CREATE PROCEDURE ÑUFLO.TOP5DiasFueraDeServicio
 @fecha_inicio datetime,
 @fecha_fin datetime
@@ -1902,10 +1904,12 @@ AS
 	select Matricula, Modelo, Fabricante, Capacidad_Peso, 
 			SUM(case
 					when @fecha_fin < Fecha_Reinicio_de_Servicio then DATEDIFF(DD, Fecha_Fuera_de_Servicio, @fecha_fin)
+					when (Fecha_Fuera_de_Servicio < @fecha_inicio and Fecha_Reinicio_De_Servicio > @fecha_fin) then DATEDIFF(DD, @fecha_inicio, @fecha_fin)
 					else DATEDIFF(DD, Fecha_Fuera_de_Servicio, Fecha_Reinicio_de_Servicio) 
 				end)  Dias_Fuera_de_Servicio
 		from ÑUFLO.DetalleServiciosTecnicos
-		where Fecha_Fuera_de_Servicio between @fecha_inicio and @fecha_fin
+		where Fecha_Fuera_de_Servicio between @fecha_inicio and @fecha_fin or
+			  (Fecha_Fuera_de_Servicio < @fecha_inicio and Fecha_Reinicio_De_Servicio > @fecha_fin)
 		group by Matricula, Modelo, Fabricante, Capacidad_Peso
 		order by SUM(case
 						when @fecha_fin < Fecha_Reinicio_de_Servicio then DATEDIFF(DD, Fecha_Fuera_de_Servicio, @fecha_fin)
@@ -1913,7 +1917,6 @@ AS
 					end) desc
 ;
 GO
-
 /*****************************************************************/
 /*************************** Function ****************************/
 /*****************************************************************/
