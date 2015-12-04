@@ -114,7 +114,7 @@ namespace AerolineaFrba.Listado_Estadistico
             filaSeleccionada = dataGridViewListado.Rows[e.RowIndex];
             datosListadoActual["id"] = new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].Value, SqlDbType.NVarChar);
             var camposValores = gdDataBase.newParameters();
-            camposValores.Add("ciudad", datosListadoActual["id"]);
+            camposValores.Add("id", datosListadoActual["id"]);
             camposValores.Add("fecha_inicio", datosListadoActual["fecha_inicio"]);
             camposValores.Add("fecha_fin", datosListadoActual["fecha_fin"]);
             dataGridView1.DataSource = new gdDataBase().ExecAndGetData(mapIndicesDetallesTop5[indiceListadoActual], camposValores); 
