@@ -57,7 +57,7 @@ namespace AerolineaFrba.Compra
             encomiendasAComprar = encomiendas;
         }
 
-        private void btnFinalizarCarga_Click(object sender, EventArgs e)
+        private void guardarPosta() 
         {
             generarCompra();
             generarPasajes();

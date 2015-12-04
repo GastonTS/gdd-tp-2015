@@ -39,13 +39,13 @@
             this.labelFechaVencimiento = new System.Windows.Forms.Label();
             this.dateTimePickerFechaVencimiento = new System.Windows.Forms.DateTimePicker();
             this.groupBoxTarjetaCredito = new System.Windows.Forms.GroupBox();
+            this.textBoxCodigoSeguridad = new AerolineaFrba.Abm.TextBoxNumeros();
+            this.textBoxNumeroTarjeta = new AerolineaFrba.Abm.TextBoxNumeros();
             this.checkBoxCompraCoutas = new System.Windows.Forms.CheckBox();
             this.comboBoxTipoTarjeta = new System.Windows.Forms.ComboBox();
             this.labelTipoTarjeta = new System.Windows.Forms.Label();
             this.btnFinalizarCarga = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.textBoxCodigoSeguridad = new AerolineaFrba.Abm.TextBoxNumeros();
-            this.textBoxNumeroTarjeta = new AerolineaFrba.Abm.TextBoxNumeros();
             this.groupBox1.SuspendLayout();
             this.groupBoxTarjetaCredito.SuspendLayout();
             this.SuspendLayout();
@@ -164,6 +164,24 @@
             this.groupBoxTarjetaCredito.TabStop = false;
             this.groupBoxTarjetaCredito.Text = "Datos de Tarjeta de Crédito";
             // 
+            // textBoxCodigoSeguridad
+            // 
+            this.textBoxCodigoSeguridad.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCodigoSeguridad.ErrorText = "El codigo de seguridad debe ser un numero";
+            this.textBoxCodigoSeguridad.Location = new System.Drawing.Point(144, 67);
+            this.textBoxCodigoSeguridad.Name = "textBoxCodigoSeguridad";
+            this.textBoxCodigoSeguridad.Size = new System.Drawing.Size(211, 22);
+            this.textBoxCodigoSeguridad.TabIndex = 14;
+            // 
+            // textBoxNumeroTarjeta
+            // 
+            this.textBoxNumeroTarjeta.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxNumeroTarjeta.ErrorText = "Debe ingresarse un numero valido";
+            this.textBoxNumeroTarjeta.Location = new System.Drawing.Point(144, 31);
+            this.textBoxNumeroTarjeta.Name = "textBoxNumeroTarjeta";
+            this.textBoxNumeroTarjeta.Size = new System.Drawing.Size(211, 22);
+            this.textBoxNumeroTarjeta.TabIndex = 13;
+            // 
             // checkBoxCompraCoutas
             // 
             this.checkBoxCompraCoutas.AutoSize = true;
@@ -199,7 +217,6 @@
             this.btnFinalizarCarga.TabIndex = 11;
             this.btnFinalizarCarga.Text = "Finalizar Carga";
             this.btnFinalizarCarga.UseVisualStyleBackColor = true;
-            this.btnFinalizarCarga.Click += new System.EventHandler(this.btnFinalizarCarga_Click);
             // 
             // btnLimpiar
             // 
@@ -209,24 +226,6 @@
             this.btnLimpiar.TabIndex = 12;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
-            // 
-            // textBoxCodigoSeguridad
-            // 
-            this.textBoxCodigoSeguridad.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxCodigoSeguridad.ErrorText = "El codigo de seguridad debe ser un numero";
-            this.textBoxCodigoSeguridad.Location = new System.Drawing.Point(144, 67);
-            this.textBoxCodigoSeguridad.Name = "textBoxCodigoSeguridad";
-            this.textBoxCodigoSeguridad.Size = new System.Drawing.Size(211, 22);
-            this.textBoxCodigoSeguridad.TabIndex = 14;
-            // 
-            // textBoxNumeroTarjeta
-            // 
-            this.textBoxNumeroTarjeta.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxNumeroTarjeta.ErrorText = "Debe ingresarse un numero valido";
-            this.textBoxNumeroTarjeta.Location = new System.Drawing.Point(144, 31);
-            this.textBoxNumeroTarjeta.Name = "textBoxNumeroTarjeta";
-            this.textBoxNumeroTarjeta.Size = new System.Drawing.Size(211, 22);
-            this.textBoxNumeroTarjeta.TabIndex = 13;
             // 
             // FormCompraEfectiva
             // 
