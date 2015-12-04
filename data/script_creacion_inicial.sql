@@ -818,13 +818,20 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.ValidarAeronaveActiva
+@id_aeronave int
+AS
+	if((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) is not null)
+		THROW 60004, 'La nave ya se encuentra fuera de su vida util', 1
+
+	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) = 1)
+		THROW 60003, 'La nave ya se encuentra en mantenimiento', 1
+;
+
 CREATE PROCEDURE ÑUFLO.BajaPorVidaUtil
 @id_aeronave int,
 @fecha nvarchar(255)
-AS
-	if((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave=@id_aeronave) is not null)
-		THROW 60004, 'La nave ya se encuentra fuera de su vida util', 1
-	
+AS	
 	DECLARE @fecha_baja datetime
 	SET @fecha_baja = convert(datetime, @fecha)
 
@@ -845,9 +852,6 @@ CREATE PROCEDURE ÑUFLO.BajaFueraDeServicio
 @fecha_fuera nvarchar(255),
 @fecha_rein nvarchar(255)
 AS
-	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave=@id_aeronave) = 1)
-		THROW 60003, 'La nave ya se encuentra en mantenimiento', 1
-
 	DECLARE @fecha_baja datetime, @fecha_reinicio datetime
 	SET @fecha_baja = convert(datetime, @fecha_fuera)
 	SET @fecha_reinicio = convert(datetime, @fecha_rein)
