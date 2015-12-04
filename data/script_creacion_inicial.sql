@@ -1221,12 +1221,13 @@ CREATE PROCEDURE ÑUFLO.ClienteNoEstaEnVuelo
 @fecha_vuelo datetime,
 @fecha_estimada datetime
 AS
-	IF(EXISTS (select p.id_cliente
-					from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p
+	IF(@dni IN (select cli.dni
+					from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Pasaje p, ÑUFLO.Cliente cli
 					where (v.fecha_salida between @fecha_vuelo and @fecha_estimada
 						or v.fecha_llegada_estimada between @fecha_vuelo and @fecha_estimada)
 						and v.id_viaje = c.id_viaje
-						and c.codigo_de_compra = p.codigo_de_compra))
+						and c.codigo_de_compra = p.codigo_de_compra
+						and p.id_cliente = cli.id_cliente))
 		THROW 60034, 'El pasajero se encuentra volando en esas fechas', 1
 ;
 GO
