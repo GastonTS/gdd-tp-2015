@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxPNR = new AerolineaFrba.Abm.TextBoxNumeros();
             this.label2 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -39,6 +38,7 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pasajesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.textBoxPNR = new AerolineaFrba.Abm.TextBoxNumeros();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pasajesBindingSource)).BeginInit();
@@ -60,15 +60,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la compra a cancelar";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
-            // 
-            // textBoxPNR
-            // 
-            this.textBoxPNR.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxPNR.ErrorText = "Debe ingresar un código de compra.";
-            this.textBoxPNR.Location = new System.Drawing.Point(50, 33);
-            this.textBoxPNR.Name = "textBoxPNR";
-            this.textBoxPNR.Size = new System.Drawing.Size(168, 22);
-            this.textBoxPNR.TabIndex = 9;
             // 
             // label2
             // 
@@ -100,7 +91,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(19, 107);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(703, 297);
+            this.dataGridView1.Size = new System.Drawing.Size(785, 297);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -140,6 +131,15 @@
             this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "PNR";
+            // 
+            // textBoxPNR
+            // 
+            this.textBoxPNR.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxPNR.ErrorText = "Debe ingresar un código de compra.";
+            this.textBoxPNR.Location = new System.Drawing.Point(50, 33);
+            this.textBoxPNR.Name = "textBoxPNR";
+            this.textBoxPNR.Size = new System.Drawing.Size(168, 22);
+            this.textBoxPNR.TabIndex = 9;
             // 
             // FormBajaPasajeEncomienda
             // 
