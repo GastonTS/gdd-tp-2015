@@ -836,6 +836,7 @@ AS
 		from ÑUFLO.Viaje
 		where id_aeronave = @id_aeronave
 			and fecha_salida > @fecha_baja
+			and fecha_llegada is not null
 ;
 GO
 
@@ -862,6 +863,7 @@ AS
 		from ÑUFLO.Viaje
 		where id_aeronave = @id_aeronave
 			and fecha_salida between @fecha_baja and @fecha_reinicio
+			and fecha_llegada is not null
 ;
 GO
 
@@ -923,7 +925,7 @@ AS
 	SET @hoy = convert(datetime, @fecha_hoy)
 	SET @fecha_f = convert(datetime, @fecha_fin)
 
-	DECLARE CPasajes CURSOR 
+	DECLARE CEncomienda CURSOR 
 		FOR select c.codigo_de_compra, e.id_encomienda
 				from ÑUFLO.Viaje v, ÑUFLO.Compra c, ÑUFLO.Encomienda e
 				where @id_aeronave = v.id_aeronave
@@ -934,10 +936,10 @@ AS
 					and e.cancelado = 0
 					and v.fecha_llegada is null
 					
-	DECLARE @pnr int, @pasaje int, @cod_anterior int
+	DECLARE @pnr int, @encomienda int, @cod_anterior int
 	SET @cod_anterior = -1
-	OPEN CPasajes
-	FETCH CPasajes INTO @pnr, @pasaje
+	OPEN CEncomienda
+	FETCH CEncomienda INTO @pnr, @encomienda
 
 	WHILE (@@FETCH_STATUS = 0)
 	BEGIN	
@@ -949,17 +951,17 @@ AS
 		END
 
 		INSERT INTO ÑUFLO.EncomiendaPorCancelacion(id_cancelacion, id_encomienda, motivo_cancelacion)
-			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @pasaje, 'Baja de Aeronave')
+			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @encomienda, 'Baja de Aeronave')
 
-		UPDATE ÑUFLO.Pasaje
+		UPDATE ÑUFLO.Encomienda
 			SET cancelado = 1
-			WHERE @pasaje = id_pasaje
+			WHERE @encomienda = id_encomienda
 
-		FETCH CPasajes INTO @pnr, @pasaje
+		FETCH CPasajes INTO @pnr, @encomienda
 	END
 
-	CLOSE CPasajes
-	DEALLOCATE CPasajes
+	CLOSE CEncomienda
+	DEALLOCATE CEncomienda
 ;
 GO
 
