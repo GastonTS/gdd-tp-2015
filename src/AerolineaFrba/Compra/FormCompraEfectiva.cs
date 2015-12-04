@@ -20,6 +20,7 @@ namespace AerolineaFrba.Compra
         List<String> mediosDePagoAdministrativa = new List<String>{"Tarjeta de crédito", "Efectivo"};
         Dictionary<String, List<String>> mediosDePagoSegunTerminal = new Dictionary<String, List<String>>();
         FormSeleccionViaje miPadre;
+        int pnr;
 
         public override string MsgError
         {
@@ -78,6 +79,9 @@ namespace AerolineaFrba.Compra
                 generarPasajes();
                 generarEncomiendas();
                 MessageBox.Show("Compra de pasajes y encomiendas realizada con éxito.");
+
+                informarCompra();
+                
                 miPadre.cancelarTodo(true);
                 this.Close();
             }
@@ -87,6 +91,16 @@ namespace AerolineaFrba.Compra
                 MessageBox.Show("Ocurrió un problema al generar la compra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
+        }
+
+        private void informarCompra()
+        {
+            FormInformeCompra formularioInformeCompra = new FormInformeCompra();
+
+            formularioInformeCompra.setEncomiendas(encomiendasAComprar);
+            formularioInformeCompra.setPasajes(pasajesAComprar);
+            formularioInformeCompra.setPNR(pnr);
+            formularioInformeCompra.Show();
         }
 
         private void generarCompra()
@@ -110,6 +124,8 @@ namespace AerolineaFrba.Compra
             }
             compraARealizar = new FormSeleccionViaje.Compra(compraARealizar.idViaje,
                 Convert.ToInt32(textBoxDNI.Text), Convert.ToInt32(dt.Rows[0].ItemArray[0]));
+
+            pnr = Convert.ToInt32(dt.Rows[0].ItemArray[0]);
         }
 
         private void generarPasajes()
