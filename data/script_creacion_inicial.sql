@@ -900,7 +900,7 @@ AS
 		where id_aeronave = @id_aeronave
 			and (@fecha_fin is null and fecha_salida > @fecha_hoy
 				 or fecha_salida between @fecha_hoy and @fecha_fin)
-			and fecha_llegada is not null
+			and fecha_llegada is null
 ;
 GO
 
