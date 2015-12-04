@@ -16,7 +16,7 @@ namespace AerolineaFrba.Compra
         List<FormSeleccionViaje.Encomienda> encomiendasAComprar = new List<FormSeleccionViaje.Encomienda>();
         FormSeleccionViaje.Compra compraARealizar;
         List<String> mediosDePagoDesarrollo = new List<String> { "Tarjeta de crédito", "Efectivo", "Bitcoins", "Pago en especias", "Cheques de Mumuki", "Fiar"};
-        List<String> mediosDePagoKiosko = new List<String>{"Tarjeta de crédito"};
+        List<String> mediosDePagoKiosco = new List<String>{"Tarjeta de crédito"};
         List<String> mediosDePagoAdministrativa = new List<String>{"Tarjeta de crédito", "Efectivo"};
         Dictionary<String, List<String>> mediosDePagoSegunTerminal = new Dictionary<String, List<String>>();
         FormSeleccionViaje miPadre;
@@ -33,7 +33,7 @@ namespace AerolineaFrba.Compra
         {
             InitializeComponent();
             mediosDePagoSegunTerminal.Add("desarrollo", mediosDePagoDesarrollo);
-            mediosDePagoSegunTerminal.Add("kiosko",mediosDePagoKiosko);
+            mediosDePagoSegunTerminal.Add("kiosco",mediosDePagoKiosco);
             mediosDePagoSegunTerminal.Add("administrativa",mediosDePagoAdministrativa);
             comboBoxMedioDePago.DataSource = mediosDePagoSegunTerminal[Config.terminal];
             comboBoxTipoTarjeta.DataSource = new gdDataBase().ExecAndGetData("ÑUFLO.TarjetasDeCredito");
