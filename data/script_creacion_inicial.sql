@@ -631,6 +631,15 @@ AS
 ;
 GO	
 
+CREATE PROCEDURE ÑUFLO.DatosDeProducto
+@nombre nvarchar(255)
+AS
+select p.millas_necesarias, p.stock
+	from ÑUFLO.Producto p
+	where p.descripcion = @nombre
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.CanjearProductoA
 @dni NUMERIC(18,0),
 @cantidad int,
