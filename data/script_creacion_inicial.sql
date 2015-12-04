@@ -694,8 +694,10 @@ GO
 /*Aeronave*/
 
 CREATE PROCEDURE ÑUFLO.IncorporarAeronavesFueraDeServicio
-@hoy datetime
+@fecha_hoy nvarchar(255)
 AS
+	DECLARE @hoy datetime
+	SET @hoy = convert(datetime, @fecha_hoy)
 	
 	DECLARE @id_aeronave int
 	DECLARE @fecha_reinicio_de_servicio datetime
@@ -738,10 +740,10 @@ CREATE PROCEDURE ÑUFLO.FiltroAeronave
 @tipo_servicio int = null,
 @capacidad_encomiendas numeric(18,0) = null,
 @cantidad_butacas int = null,
-@hoy datetime
+@fecha_hoy nvarchar(255)
 AS
 
-exec ÑUFLO.IncorporarAeronavesFueraDeServicio @hoy
+exec ÑUFLO.IncorporarAeronavesFueraDeServicio @fecha_hoy
 
 select id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre Fabricante, ts.tipo_servicio 'Tipo de Servicio', fecha_de_alta 'Fecha de Alta',
 		capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
