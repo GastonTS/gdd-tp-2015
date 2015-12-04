@@ -15,6 +15,7 @@ namespace AerolineaFrba.Canje_Millas
         public FormCajeMillasPasajero()
         {
             InitializeComponent();
+            lblNoHaySuficientesMillas.Visible = false;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -22,9 +23,20 @@ namespace AerolineaFrba.Canje_Millas
             textBoxDni.Text = "";
             textBoxCantidadProducto.Text = "";
             comboBoxProducto.Text = "";
+            lblNoHaySuficientesMillas.Visible = false;
+            lblCantMillas.ResetText();
 
             comboBoxProducto.Enabled = false;
             textBoxCantidadProducto.Enabled = false;
+
+        }
+
+        public override string MsgError
+        {
+            get
+            {
+                return "Hubo un problema al tratar de canjear las millas.";
+            }
         }
 
         protected override void guardarPosta()
@@ -41,6 +53,9 @@ namespace AerolineaFrba.Canje_Millas
             errorMensaje.Add(60009, "No hay suficiente stock del producto deseado para realizar el canje");
 
             new gdDataBase().Exec("ÑUFLO.CanjearProductoA", camposValores, errorMensaje, "Canje realizado con éxito");
+
+            if(esClienteValido(textBoxDni.Text))
+                actualizarDatosCliente();
         }
 
         private int cantidadProducto() 
@@ -49,52 +64,77 @@ namespace AerolineaFrba.Canje_Millas
             else return int.Parse(textBoxCantidadProducto.Text);
         }
 
+        private void actualizarDatosCliente() 
+        {
+            var camposValores = gdDataBase.newParameters();
+            camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDni.Text, SqlDbType.Int));
+            lblCantMillas.Text = new gdDataBase().ExecAndGetData("ÑUFLO.MillasTotalesDe", camposValores, new Dictionary<int, String>()).Rows[0].ItemArray[0].ToString();
+
+            var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.ProductosDe", camposValores);
+            comboBoxProducto.DataSource = dt;
+            comboBoxProducto.DisplayMember = dt.Columns[0].ColumnName;
+
+            var hayAlgunProductoDisponible = comboBoxProducto.Items.Count != 0;
+
+            comboBoxProducto.Enabled = hayAlgunProductoDisponible;
+            textBoxCantidadProducto.Enabled = hayAlgunProductoDisponible;
+            lblNoHaySuficientesMillas.Visible = !hayAlgunProductoDisponible;
+            
+            actualizarDatosTransaccion();
+        }
+
         private void actualizarDatosTransaccion()
         {
             if (comboBoxProducto.Items.Count != 0)
             {
                 var camposValores = gdDataBase.newParameters();
-                camposValores.Add("nombre",new gdDataBase.ValorTipo(comboBoxProducto.SelectedValue.ToString(),SqlDbType.NVarChar);
+                camposValores.Add("nombre",new gdDataBase.ValorTipo(comboBoxProducto.Text.ToString(),SqlDbType.NVarChar));
                 var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.DatosDeProducto",camposValores);
-                var precioUnitario = (int)dt.Rows[0]["Precio"];
-                var stock = (int)dt.Rows[0]["Stock"];
+                var precioUnitario = (int)dt.Rows[0]["millas_necesarias"];
+                var stock = (int)dt.Rows[0]["stock"];
                 var precioTotal = precioUnitario * cantidadProducto();
                 var millasRestantes = int.Parse(lblCantMillas.Text) - precioTotal;
                 lblCostoProducto.Text = precioUnitario.ToString();
                 lblStock.Text = stock.ToString();
                 lblCostoTotal.Text = precioTotal.ToString();
-                lblMillasRestantes.Text = precioTotal.ToString();
+                lblMillasRestantes.Text = millasRestantes.ToString();
             }
 
 
         }
 
-        private void btnVerProductos_Click(object sender, EventArgs e)
+        private bool esClienteValido(String dni) 
         {
-            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
-
-            if (textBoxDni.Text.Trim() != "")
-            {
-                camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDni.Text, SqlDbType.Decimal));
-
-                var dt = new gdDataBase().GetDataWithParameters("ÑUFLO.ProductosDe", camposValores);
-                comboBoxProducto.DataSource = dt;
-                comboBoxProducto.DisplayMember = dt.Columns[0].ColumnName;
-
-                comboBoxProducto.Enabled = true;
-                textBoxCantidadProducto.Enabled = true;
-
-                actualizarDatosTransaccion();
-            }
+            var camposValores = gdDataBase.newParameters();
+            camposValores.Add("dni",new gdDataBase.ValorTipo(dni,SqlDbType.Int));
+            return new gdDataBase().ExecAndGetData("ÑUFLO.ConsultaCliente", camposValores).Rows.Count > 0;
         }
+
+        
 
         private void textBoxDni_TextboxTextChanged(object sender, EventArgs e)
         {
             if (textBoxDni.Text.Trim() != "")
             {
-                var camposValores = gdDataBase.newParameters();
-                camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDni.Text, SqlDbType.Int));
-                lblCantMillas.Text = new gdDataBase().ExecAndGetData("ÑUFLO.MillasTotalesDe", camposValores, new Dictionary<int, String>()).Rows[0].ItemArray[0].ToString();
+                if (esClienteValido(textBoxDni.Text))
+                {
+                    actualizarDatosCliente();
+
+                    
+                }
+                else
+                {
+                    comboBoxProducto.DataSource = null;
+                    comboBoxProducto.Enabled = false;
+                    textBoxCantidadProducto.Enabled = false;
+                    textBoxCantidadProducto.ResetText();
+                    lblCantMillas.ResetText();
+                    lblCostoProducto.ResetText();
+                    lblCostoTotal.ResetText();
+                    lblMillasRestantes.ResetText();
+                    lblStock.ResetText();
+                    lblNoHaySuficientesMillas.Visible = false;
+                }
             }
         }
 
@@ -105,6 +145,17 @@ namespace AerolineaFrba.Canje_Millas
 
         private void label5_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void textBoxCantidadProducto_TextboxTextChanged(object sender, EventArgs e)
+        {
+            actualizarDatosTransaccion();
+        }
+
+        private void comboBoxProducto_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            actualizarDatosTransaccion();
 
         }
     }

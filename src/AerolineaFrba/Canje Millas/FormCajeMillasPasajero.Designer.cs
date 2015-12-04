@@ -36,8 +36,9 @@
             this.groupBoxInfoCliente = new System.Windows.Forms.GroupBox();
             this.lblCantMillas = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.btnVerProductos = new System.Windows.Forms.Button();
             this.groupBoxProducto = new System.Windows.Forms.GroupBox();
+            this.lblStock = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.lblMillasRestantes = new System.Windows.Forms.Label();
             this.lblCostoTotal = new System.Windows.Forms.Label();
             this.lblCostoProducto = new System.Windows.Forms.Label();
@@ -48,8 +49,7 @@
             this.labelVentanillaPasillo = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new AerolineaFrba.Abm.Guardar();
-            this.lblStock = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblNoHaySuficientesMillas = new System.Windows.Forms.Label();
             this.groupBoxInfoCliente.SuspendLayout();
             this.groupBoxProducto.SuspendLayout();
             this.SuspendLayout();
@@ -69,7 +69,7 @@
             this.textBoxDni.ErrorText = "I";
             this.textBoxDni.Location = new System.Drawing.Point(54, 30);
             this.textBoxDni.Name = "textBoxDni";
-            this.textBoxDni.Size = new System.Drawing.Size(104, 20);
+            this.textBoxDni.Size = new System.Drawing.Size(143, 20);
             this.textBoxDni.TabIndex = 1;
             this.textBoxDni.TextboxTextChanged += new System.EventHandler(this.textBoxDni_TextboxTextChanged);
             // 
@@ -100,17 +100,17 @@
             this.comboBoxProducto.Name = "comboBoxProducto";
             this.comboBoxProducto.Size = new System.Drawing.Size(121, 21);
             this.comboBoxProducto.TabIndex = 4;
+            this.comboBoxProducto.SelectionChangeCommitted += new System.EventHandler(this.comboBoxProducto_SelectionChangeCommitted);
             // 
             // groupBoxInfoCliente
             // 
             this.groupBoxInfoCliente.Controls.Add(this.lblCantMillas);
             this.groupBoxInfoCliente.Controls.Add(this.label8);
-            this.groupBoxInfoCliente.Controls.Add(this.btnVerProductos);
             this.groupBoxInfoCliente.Controls.Add(this.textBoxDni);
             this.groupBoxInfoCliente.Controls.Add(this.labelDni);
             this.groupBoxInfoCliente.Location = new System.Drawing.Point(36, 24);
             this.groupBoxInfoCliente.Name = "groupBoxInfoCliente";
-            this.groupBoxInfoCliente.Size = new System.Drawing.Size(458, 95);
+            this.groupBoxInfoCliente.Size = new System.Drawing.Size(458, 76);
             this.groupBoxInfoCliente.TabIndex = 8;
             this.groupBoxInfoCliente.TabStop = false;
             this.groupBoxInfoCliente.Text = "Información de cliente";
@@ -118,7 +118,7 @@
             // lblCantMillas
             // 
             this.lblCantMillas.AutoSize = true;
-            this.lblCantMillas.Location = new System.Drawing.Point(122, 70);
+            this.lblCantMillas.Location = new System.Drawing.Point(304, 34);
             this.lblCantMillas.Name = "lblCantMillas";
             this.lblCantMillas.Size = new System.Drawing.Size(0, 13);
             this.lblCantMillas.TabIndex = 4;
@@ -126,21 +126,11 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(22, 69);
+            this.label8.Location = new System.Drawing.Point(206, 35);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(92, 13);
             this.label8.TabIndex = 3;
             this.label8.Text = "Balance de millas:";
-            // 
-            // btnVerProductos
-            // 
-            this.btnVerProductos.Location = new System.Drawing.Point(201, 28);
-            this.btnVerProductos.Name = "btnVerProductos";
-            this.btnVerProductos.Size = new System.Drawing.Size(193, 23);
-            this.btnVerProductos.TabIndex = 2;
-            this.btnVerProductos.Text = "Ver productos disponibles";
-            this.btnVerProductos.UseVisualStyleBackColor = true;
-            this.btnVerProductos.Click += new System.EventHandler(this.btnVerProductos_Click);
             // 
             // groupBoxProducto
             // 
@@ -162,6 +152,25 @@
             this.groupBoxProducto.TabIndex = 9;
             this.groupBoxProducto.TabStop = false;
             this.groupBoxProducto.Text = "Producto a canjear";
+            // 
+            // lblStock
+            // 
+            this.lblStock.AutoSize = true;
+            this.lblStock.Location = new System.Drawing.Point(200, 131);
+            this.lblStock.Name = "lblStock";
+            this.lblStock.Size = new System.Drawing.Size(0, 13);
+            this.lblStock.TabIndex = 14;
+            this.lblStock.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(98, 130);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(88, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Stock disponible:";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // lblMillasRestantes
             // 
@@ -217,11 +226,13 @@
             // textBoxCantidadProducto
             // 
             this.textBoxCantidadProducto.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCantidadProducto.Enabled = false;
             this.textBoxCantidadProducto.ErrorText = null;
             this.textBoxCantidadProducto.Location = new System.Drawing.Point(197, 69);
             this.textBoxCantidadProducto.Name = "textBoxCantidadProducto";
             this.textBoxCantidadProducto.Size = new System.Drawing.Size(101, 22);
             this.textBoxCantidadProducto.TabIndex = 6;
+            this.textBoxCantidadProducto.TextboxTextChanged += new System.EventHandler(this.textBoxCantidadProducto_TextboxTextChanged);
             // 
             // labelVentanillaPasillo
             // 
@@ -250,30 +261,21 @@
             this.btnGuardar.TabIndex = 6;
             this.btnGuardar.TextBtn = "Guardar";
             // 
-            // lblStock
+            // lblNoHaySuficientesMillas
             // 
-            this.lblStock.AutoSize = true;
-            this.lblStock.Location = new System.Drawing.Point(200, 131);
-            this.lblStock.Name = "lblStock";
-            this.lblStock.Size = new System.Drawing.Size(0, 13);
-            this.lblStock.TabIndex = 14;
-            this.lblStock.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(98, 130);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(88, 13);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Stock disponible:";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
+            this.lblNoHaySuficientesMillas.AutoSize = true;
+            this.lblNoHaySuficientesMillas.Location = new System.Drawing.Point(111, 109);
+            this.lblNoHaySuficientesMillas.Name = "lblNoHaySuficientesMillas";
+            this.lblNoHaySuficientesMillas.Size = new System.Drawing.Size(285, 13);
+            this.lblNoHaySuficientesMillas.TabIndex = 20;
+            this.lblNoHaySuficientesMillas.Text = "No tenés suficientes millas para comprar ningun producto :(";
             // 
             // FormCajeMillasPasajero
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(537, 445);
+            this.Controls.Add(this.lblNoHaySuficientesMillas);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.labelVentanillaPasillo);
             this.Controls.Add(this.btnLimpiar);
@@ -302,7 +304,6 @@
         private System.Windows.Forms.GroupBox groupBoxProducto;
         private System.Windows.Forms.Label labelVentanillaPasillo;
         private System.Windows.Forms.Button btnLimpiar;
-        private System.Windows.Forms.Button btnVerProductos;
         private Abm.Guardar btnGuardar;
         private Abm.TextBoxNumeros textBoxCantidadProducto;
         private System.Windows.Forms.Label label4;
@@ -315,5 +316,6 @@
         private System.Windows.Forms.Label lblCostoProducto;
         private System.Windows.Forms.Label lblStock;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblNoHaySuficientesMillas;
     }
 }
