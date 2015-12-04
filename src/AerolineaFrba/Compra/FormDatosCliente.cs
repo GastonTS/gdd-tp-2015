@@ -13,7 +13,7 @@ namespace AerolineaFrba.Compra
     public partial class FormDatosCliente : Abm.Alta
     {
         bool esPasajero;
-        FormDatosPasajeroEncomienda miPadre;
+        Abm.IFormPadreDeDatosCliente miPadre;
 
         public override string MsgError
         {
@@ -132,7 +132,7 @@ namespace AerolineaFrba.Compra
             checkBoxModificarDatos.Checked = false;
         }
 
-        public void setPadre(FormDatosPasajeroEncomienda padre)
+        public void setPadre(Abm.IFormPadreDeDatosCliente padre)
         {
             miPadre = padre;
         }

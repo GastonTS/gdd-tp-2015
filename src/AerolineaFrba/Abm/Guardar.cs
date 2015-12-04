@@ -12,7 +12,7 @@ namespace AerolineaFrba.Abm
 {
     public partial class Guardar : UserControl
     {
-
+        
         [Category("Apariencia"), Description("Texto del boton."), EditorBrowsable(EditorBrowsableState.Always)]
         public string TextBtn
         {
@@ -20,7 +20,14 @@ namespace AerolineaFrba.Abm
             set { guardarBtn.Text = value; }
         }
 
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            guardarBtn.Size = this.Size;
+        }
+
         public Guardar(){
+            
             InitializeComponent();
        }
 

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class FormDatosPasajeroEncomienda : Abm.Alta, ICargaDatosCliente
+    public partial class FormDatosPasajeroEncomienda : Abm.Alta, ICargaDatosCliente, Abm.IFormPadreDeDatosCliente
     {
         public override string MsgError
         {

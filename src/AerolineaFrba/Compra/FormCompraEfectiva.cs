@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class FormCompraEfectiva : Form, ICargaDatosCliente
+    public partial class FormCompraEfectiva : Abm.Alta, ICargaDatosCliente, Abm.IFormPadreDeDatosCliente
     {
         List<FormSeleccionViaje.Pasaje> pasajesAComprar = new List<FormSeleccionViaje.Pasaje>();
         List<FormSeleccionViaje.Encomienda> encomiendasAComprar = new List<FormSeleccionViaje.Encomienda>();
@@ -20,6 +20,13 @@ namespace AerolineaFrba.Compra
         List<String> mediosDePagoAdministrativa = new List<String>{"Tarjeta de crédito", "Efectivo"};
         Dictionary<String, List<String>> mediosDePagoSegunTerminal = new Dictionary<String, List<String>>();
 
+        public override string MsgError
+        {
+            get
+            {
+                return "Error al realizar la compra";
+            }
+        }
 
         public FormCompraEfectiva()
         {
@@ -28,6 +35,10 @@ namespace AerolineaFrba.Compra
             mediosDePagoSegunTerminal.Add("kiosko",mediosDePagoKiosko);
             mediosDePagoSegunTerminal.Add("administrativa",mediosDePagoAdministrativa);
             comboBoxMedioDePago.DataSource = mediosDePagoSegunTerminal[Config.terminal];
+            comboBoxTipoTarjeta.DataSource = new gdDataBase().ExecAndGetData("ÑUFLO.TarjetasDeCredito");
+            comboBoxTipoTarjeta.DisplayMember = "nombre";
+            comboBoxTipoTarjeta.ValueMember = "cantidad_de_cuotas";
+            actualizarEstadoDatosTarjetaDeCredito();
         }
 
         private void checkBoxModificarDatos_CheckedChanged(object sender, EventArgs e)
@@ -40,7 +51,8 @@ namespace AerolineaFrba.Compra
             FormDatosCliente fdc = new FormDatosCliente();
 
             fdc.indicarSiEsPasajero(false);
-            fdc.Show(this);
+            fdc.setPadre(this);
+            fdc.Show();
         }
 
         public void setDNI(String dni)
@@ -56,13 +68,21 @@ namespace AerolineaFrba.Compra
             encomiendasAComprar = encomiendas;
         }
 
-        private void btnFinalizarCarga_Click(object sender, EventArgs e)
+        override protected void guardarPosta() 
         {
-            generarCompra();
-            generarPasajes();
-            generarEncomiendas();
-
-            MessageBox.Show("Compra de pasajes y encomiendas realizada con éxito");
+            try
+            {
+                generarCompra();
+                generarPasajes();
+                generarEncomiendas();
+                MessageBox.Show("Compra de pasajes y encomiendas realizada con éxito.");
+                this.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ocurrió un problema al generar la compra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void generarCompra()
@@ -74,8 +94,11 @@ namespace AerolineaFrba.Compra
             camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDNI.Text, SqlDbType.Int));
             camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
-            var dt = new gdDataBase().ExecAndGetData("ÑUFLO.CrearCompra", camposValores, null);
+            var spExec = new SPExecGetData("ÑUFLO.CrearCompra", camposValores, null);
 
+            var dt = (DataTable)spExec.Exec();
+
+            if (spExec.huboError()) throw new Exception();
             compraARealizar = new FormSeleccionViaje.Compra(compraARealizar.idViaje,
                 Convert.ToInt32(textBoxDNI.Text), Convert.ToInt32(dt.Rows[0].ItemArray[0]));
         }
@@ -96,7 +119,11 @@ namespace AerolineaFrba.Compra
 
                 errorMensaje.Add(60033, "Una de las butacas seleccionada en la compra no está disponible");
 
-                new gdDataBase().Exec("ÑUFLO.CrearPasaje", camposValores, errorMensaje);
+                var spExec = new SPPureExec("ÑUFLO.CrearPasaje", camposValores, errorMensaje);
+
+                spExec.Exec();
+
+                if (spExec.huboError()) throw new Exception();
             }
         }
 
@@ -114,8 +141,63 @@ namespace AerolineaFrba.Compra
                 camposValores.Add("dni", new gdDataBase.ValorTipo(encomiendasAComprar[i].dni, SqlDbType.Int));
                 camposValores.Add("peso_encomienda", new gdDataBase.ValorTipo(encomiendasAComprar[i].pesoEncomienda, SqlDbType.Decimal));
 
-                new gdDataBase().Exec("ÑUFLO.CrearEncomienda", camposValores, null);
+                var spExec = new SPPureExec("ÑUFLO.CrearEncomienda", camposValores, null);
+
+                spExec.Exec();
+
+                if (spExec.huboError()) throw new Exception();
+
             }
         }
+
+        private void comboBoxMedioDePago_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            actualizarEstadoDatosTarjetaDeCredito();
+        }
+
+        private void actualizarEstadoDatosTarjetaDeCredito()
+        {
+            var deberiaEstarActivo = (comboBoxMedioDePago.SelectedValue.ToString() == "Tarjeta de crédito");
+            if (!deberiaEstarActivo)
+            {
+                foreach (Control control in groupBoxTarjetaCredito.Controls)
+                {
+                    if (control is Abm.TextBoxValidado ||
+                        control is DateTimePicker) control.ResetText();
+                    if (control is CheckBox) ((CheckBox)control).Checked = false;
+                    if (control is ComboBox) ((ComboBox)control).SelectedIndex = 0;
+                    control.CausesValidation = deberiaEstarActivo;
+                }
+                lblCantCuotas.ResetText();
+            }
+            else lblCantCuotas.Text = comboBoxTipoTarjeta.SelectedValue.ToString();
+            groupBoxTarjetaCredito.Enabled = deberiaEstarActivo;
+        }
+
+        private void comboBoxMedioDePago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePickerFechaVencimiento_Validating(object sender, CancelEventArgs e)
+        {
+            if (dateTimePickerFechaVencimiento.Value > Config.fecha)
+            {
+                errorProvider.Clear();
+                e.Cancel = false;
+            }
+            else
+            {
+                errorProvider.SetError(dateTimePickerFechaVencimiento, "La fecha debería ser posterior al día de la fecha");
+                e.Cancel = true;
+            }
+        }
+
+        private void comboBoxTipoTarjeta_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (comboBoxTipoTarjeta.SelectedValue == null) lblCantCuotas.Text = "";
+            else lblCantCuotas.Text = comboBoxTipoTarjeta.SelectedValue.ToString();
+        }
+
     }
 }
