@@ -1899,7 +1899,7 @@ CREATE PROCEDURE ÑUFLO.TOP5DiasFueraDeServicio
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
-	select Matricula, Modelo, Fabricante, Capacidad_Peso, 
+	select Matricula, 
 			SUM(case
 					when @fecha_fin < Fecha_Reinicio_de_Servicio then DATEDIFF(DD, Fecha_Fuera_de_Servicio, @fecha_fin)
 					when (Fecha_Fuera_de_Servicio < @fecha_inicio and Fecha_Reinicio_De_Servicio > @fecha_fin) then DATEDIFF(DD, @fecha_inicio, @fecha_fin)
