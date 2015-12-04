@@ -9,7 +9,7 @@ namespace AerolineaFrba
 {
     class Config
     {
-        public static string strConnection = ConfigurationManager.ConnectionStrings["AerolineaFrba.Properties.Settings.GD2C2015ConnectionString"].ConnectionString;
+        public static string strConnection = ConfigurationManager.ConnectionStrings["ConexionSQL"].ConnectionString;
         public static DateTime fecha = DateTime.Parse(ConfigurationManager.AppSettings["Fecha"]);
         public static String terminal = ConfigurationManager.AppSettings["Terminal"];
     }
