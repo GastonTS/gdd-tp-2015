@@ -1813,7 +1813,7 @@ AS
 	set @ciudad = @id
 	select Pasaje, DNI, Nombre, Apellido, Butaca_Numero, Fecha_De_Compra, Fecha_Devolucion, Motivo
 		from ÑUFLO.DetalleCancelaciones
-		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
+		where Fecha_Devolucion between @fecha_inicio and @fecha_fin
 			and @ciudad = Destino
 ;
 GO
