@@ -117,6 +117,7 @@ namespace AerolineaFrba.Listado_Estadistico
             camposValores.Add("id", datosListadoActual["id"]);
             camposValores.Add("fecha_inicio", datosListadoActual["fecha_inicio"]);
             camposValores.Add("fecha_fin", datosListadoActual["fecha_fin"]);
+            if (mapIndicesDetallesTop5[indiceListadoActual] == "[ÑUFLO].DetalleServicioTecnicoPara") camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha, SqlDbType.DateTime));
             dataGridView1.DataSource = new gdDataBase().ExecAndGetData(mapIndicesDetallesTop5[indiceListadoActual], camposValores); 
         }
 

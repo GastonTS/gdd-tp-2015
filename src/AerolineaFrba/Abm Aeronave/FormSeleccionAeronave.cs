@@ -120,7 +120,7 @@ namespace AerolineaFrba.Abm_Aeronave
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
-            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
+            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
             camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
             errorMensaje.Add(60004, "La nave ya se encuentra fuera de su vida util");
@@ -144,7 +144,7 @@ namespace AerolineaFrba.Abm_Aeronave
                     {
                         // fecha inicio la considero como la fecha actual
                         camposValores.Clear();
-                        camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
+                        camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
                         camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
                         errorMensaje.Clear();
@@ -171,26 +171,40 @@ namespace AerolineaFrba.Abm_Aeronave
                             else if (dialogResultReemplazo == DialogResult.No)
                             {
                                 cancelarPasajesVidaUtil();
+                                bajaVidaUtil();
                             }
                         }
                         else
                         {
-                            camposValores.Clear();
-                            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
-                            camposValores.Add("fecha", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
-
-                            errorMensaje.Clear();
-                            errorMensaje.Add(60004, "La Aeronave ya está fuera por vida útil");
-
-                            new gdDataBase().Exec("ÑUFLO.BajaPorVidaUtil", camposValores, errorMensaje, "Baja por vida útil de Aeronave exitosa");
+                            bajaVidaUtil();
                         }
                     }
                     else if (dialogResult == DialogResult.No)
                     {
                         cancelarPasajesVidaUtil();
+                        bajaVidaUtil();
                     }
                 }
             }
+        }
+
+        private void bajaVidaUtil()
+        {
+            DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+            
+            camposValores.Clear();
+            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
+            camposValores.Add("fecha", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
+
+            errorMensaje.Clear();
+            errorMensaje.Add(60004, "La Aeronave ya está fuera por vida útil");
+
+            new gdDataBase().Exec("ÑUFLO.BajaPorVidaUtil", camposValores, errorMensaje, "Baja por vida útil de Aeronave exitosa");
+
+            consultarConFiltro();
         }
 
         private void cancelarPasajesVidaUtil()
@@ -201,11 +215,10 @@ namespace AerolineaFrba.Abm_Aeronave
 
             // fecha inicio la considero como la fecha actual
             camposValores.Clear();
-            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
+            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
             camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
-            new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null,
-                "Pasajes de aronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " cancelados correctamente");
+            new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null, null);
                     
         }
 
@@ -213,14 +226,17 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
 
+            filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
-            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
+            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
             camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
-            camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+            camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
 
-            errorMensaje.Add(60004, "La nave ya se encuentra fuera de su vida util");
+            errorMensaje.Add(62004, "La fecha de reincorporacion debe ser mayor a la fecha de hoy");
+            errorMensaje.Add(60003, "La nave ya se encuentra en mantenimiento");
 
             var ejecucion = new SPExecGetData("ÑUFLO.ValidarAeronaveActiva", camposValores, errorMensaje);
 
@@ -241,7 +257,7 @@ namespace AerolineaFrba.Abm_Aeronave
                     {
                         // fecha inicio la considero como la fecha actual
                         camposValores.Clear();
-                        camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
+                        camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
                         camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
                         camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
 
@@ -269,25 +285,18 @@ namespace AerolineaFrba.Abm_Aeronave
                             else if (dialogResultReemplazo == DialogResult.No)
                             {
                                 cancelarPasajesFueraServicio();
+                                bajaFueraDeServicio();
                             }
                         }
                         else
                         {
-                            camposValores.Clear();
-                            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
-                            camposValores.Add("fecha_fuera", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
-                            camposValores.Add("fecha_rein", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
-
-                            errorMensaje.Clear();
-                            errorMensaje.Add(60003, "La Aeronave ya se encuentra en mantenimiento");
-
-                            new gdDataBase().Exec("ÑUFLO.BajaFueraDeServicio", camposValores, errorMensaje,
-                                "Baja por fuerda de servicio de Aeronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " exitosa");
+                            bajaFueraDeServicio();
                         }
                     }
                     else if (dialogResult == DialogResult.No)
                     {
                         cancelarPasajesFueraServicio();
+                        bajaFueraDeServicio();
                     }
                 }
             }
@@ -309,6 +318,31 @@ namespace AerolineaFrba.Abm_Aeronave
             consultarConFiltro();
         }
 
+        private void bajaFueraDeServicio()
+        {
+            DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
+            camposValores.Clear();
+            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
+            camposValores.Add("fecha_fuera", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
+            camposValores.Add("fecha_rein", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString(), SqlDbType.DateTime));
+
+            errorMensaje.Clear();
+            errorMensaje.Add(60003, "La Aeronave ya se encuentra en mantenimiento");
+
+            new gdDataBase().Exec("ÑUFLO.BajaFueraDeServicio", camposValores, errorMensaje,
+                "Baja por fuerda de servicio de Aeronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " exitosa");
+
+            MessageBox.Show(filaSeleccionada.Cells[0].FormattedValue.ToString());
+            MessageBox.Show(Config.fecha.ToString());
+            MessageBox.Show(dateTimePicker1.Value.ToString());
+
+            consultarConFiltro();
+        }
+
         private void cancelarPasajesFueraServicio()
         {
             DataGridViewRow filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
@@ -318,12 +352,11 @@ namespace AerolineaFrba.Abm_Aeronave
 
             // fecha inicio la considero como la fecha actual
             camposValores.Clear();
-            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.VarChar));
+            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
             camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
             camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
 
-            new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null,
-                "Pasajes de aronave " + filaSeleccionada.Cells[2].FormattedValue.ToString() + " cancelados correctamente");
+            new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null, null);
         }
 
         private void checkBoxBajaPorServicio_CheckedChanged(object sender, EventArgs e)

@@ -842,12 +842,12 @@ GO
 
 CREATE PROCEDURE ÑUFLO.ValidarAeronaveActiva
 @id_aeronave int,
-@fecha_hoy nvarchar(255),
-@fecha_fin nvarchar(255) = null
+@fecha_hoy datetime,
+@fecha_fin datetime = null
 AS
-	IF(@fecha_fin is not null and @fecha_fin > @fecha_hoy)
-		THROW 62004, 'La fecha de reincorporacion debe ser mayor a la fecha de hoy', 1		
-		
+	IF(@fecha_fin is not null and @fecha_fin < @fecha_hoy)
+		THROW 62004, 'La fecha de reincorporacion debe ser mayor a la fecha de hoy', 1
+
 	IF((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) is not null)
 		THROW 60004, 'La nave ya se encuentra fuera de su vida util', 1
 
@@ -878,19 +878,15 @@ GO
 
 CREATE PROCEDURE ÑUFLO.BajaFueraDeServicio
 @id_aeronave int,
-@fecha_fuera nvarchar(255),
-@fecha_rein nvarchar(255)
+@fecha_fuera datetime,
+@fecha_rein datetime
 AS
-	DECLARE @fecha_baja datetime, @fecha_reinicio datetime
-	SET @fecha_baja = convert(datetime, @fecha_fuera)
-	SET @fecha_reinicio = convert(datetime, @fecha_rein)
-
 	UPDATE ÑUFLO.Aeronave
 		SET baja_por_fuera_de_servicio = 1
 		WHERE id_aeronave = @id_aeronave
 	
 	INSERT INTO ÑUFLO.ServicioTecnico(fecha_fuera_de_servicio, fecha_reinicio_de_servicio, id_aeronave)
-		values(@fecha_baja, @fecha_reinicio, @id_aeronave)			
+		values(@fecha_fuera, @fecha_rein, @id_aeronave)			
 ;
 GO
 
@@ -913,7 +909,6 @@ AS
 					and c.codigo_de_compra = p.codigo_de_compra
 					and p.cancelado = 0
 					and v.fecha_llegada is null
-				order by c.codigo_de_compra
 					
 	DECLARE @pnr int, @pasaje int, @cod_anterior int
 	SET @cod_anterior = -1
@@ -963,7 +958,6 @@ AS
 					and c.codigo_de_compra = e.codigo_de_compra
 					and e.cancelado = 0
 					and v.fecha_llegada is null
-				order by c.codigo_de_compra
 					
 	DECLARE @pnr int, @encomienda int, @cod_anterior int
 	SET @cod_anterior = -1
@@ -986,7 +980,7 @@ AS
 			SET cancelado = 1
 			WHERE @encomienda = id_encomienda
 
-		FETCH CPasajes INTO @pnr, @encomienda
+		FETCH CEncomienda INTO @pnr, @encomienda
 	END
 
 	CLOSE CEncomienda
