@@ -210,6 +210,11 @@ namespace AerolineaFrba.Abm_Aeronave
                         bajaVidaUtil();
                     }
                 }
+                else
+                {
+                    bajaVidaUtil();
+
+                }
             }
         }
 
@@ -324,6 +329,10 @@ namespace AerolineaFrba.Abm_Aeronave
                         cancelarPasajesFueraServicio();
                         bajaFueraDeServicio();
                     }
+                }
+                else 
+                {
+                    bajaFueraDeServicio();
                 }
             }
         }
