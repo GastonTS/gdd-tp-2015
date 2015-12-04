@@ -33,10 +33,10 @@
             this.labelProducto = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxProducto = new System.Windows.Forms.ComboBox();
-            this.textBoxCantidadProducto = new System.Windows.Forms.TextBox();
             this.groupBoxInfoCliente = new System.Windows.Forms.GroupBox();
             this.btnVerProductos = new System.Windows.Forms.Button();
             this.groupBoxProducto = new System.Windows.Forms.GroupBox();
+            this.textBoxCantidadProducto = new AerolineaFrba.Abm.TextBoxNumeros();
             this.labelVentanillaPasillo = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new AerolineaFrba.Abm.Guardar();
@@ -90,14 +90,6 @@
             this.comboBoxProducto.Size = new System.Drawing.Size(121, 21);
             this.comboBoxProducto.TabIndex = 4;
             // 
-            // textBoxCantidadProducto
-            // 
-            this.textBoxCantidadProducto.Enabled = false;
-            this.textBoxCantidadProducto.Location = new System.Drawing.Point(201, 69);
-            this.textBoxCantidadProducto.Name = "textBoxCantidadProducto";
-            this.textBoxCantidadProducto.Size = new System.Drawing.Size(63, 20);
-            this.textBoxCantidadProducto.TabIndex = 5;
-            // 
             // groupBoxInfoCliente
             // 
             this.groupBoxInfoCliente.Controls.Add(this.btnVerProductos);
@@ -122,9 +114,9 @@
             // 
             // groupBoxProducto
             // 
+            this.groupBoxProducto.Controls.Add(this.textBoxCantidadProducto);
             this.groupBoxProducto.Controls.Add(this.labelProducto);
             this.groupBoxProducto.Controls.Add(this.label1);
-            this.groupBoxProducto.Controls.Add(this.textBoxCantidadProducto);
             this.groupBoxProducto.Controls.Add(this.comboBoxProducto);
             this.groupBoxProducto.Location = new System.Drawing.Point(36, 110);
             this.groupBoxProducto.Name = "groupBoxProducto";
@@ -132,6 +124,15 @@
             this.groupBoxProducto.TabIndex = 9;
             this.groupBoxProducto.TabStop = false;
             this.groupBoxProducto.Text = "Producto a canjear";
+            // 
+            // textBoxCantidadProducto
+            // 
+            this.textBoxCantidadProducto.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCantidadProducto.ErrorText = null;
+            this.textBoxCantidadProducto.Location = new System.Drawing.Point(201, 69);
+            this.textBoxCantidadProducto.Name = "textBoxCantidadProducto";
+            this.textBoxCantidadProducto.Size = new System.Drawing.Size(101, 22);
+            this.textBoxCantidadProducto.TabIndex = 6;
             // 
             // labelVentanillaPasillo
             // 
@@ -189,12 +190,12 @@
         private System.Windows.Forms.Label labelProducto;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxProducto;
-        private System.Windows.Forms.TextBox textBoxCantidadProducto;
         private System.Windows.Forms.GroupBox groupBoxInfoCliente;
         private System.Windows.Forms.GroupBox groupBoxProducto;
         private System.Windows.Forms.Label labelVentanillaPasillo;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnVerProductos;
         private Abm.Guardar btnGuardar;
+        private Abm.TextBoxNumeros textBoxCantidadProducto;
     }
 }
