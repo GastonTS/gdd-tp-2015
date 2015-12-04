@@ -179,6 +179,7 @@ namespace AerolineaFrba.Abm_Ruta
             camposValores.Add("id_ciudad_destino", new gdDataBase.ValorTipo(comboBoxDestino.SelectedValue, SqlDbType.Int));
             camposValores.Add("precio_base_por_peso", new gdDataBase.ValorTipo(textBoxPrecioPeso.DecimalValue(), SqlDbType.Decimal));
             camposValores.Add("precio_base_por_pasaje", new gdDataBase.ValorTipo(textBoxPrecioPasaje.DecimalValue(), SqlDbType.Decimal));
+            camposValores.Add("id_tipo_servicio", new gdDataBase.ValorTipo(comboBoxTipoServicio.SelectedValue, SqlDbType.Int));
             if (modificacion)
             {
                 spName = "ÑUFLO.UpdateRutaAerea";
