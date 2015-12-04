@@ -101,6 +101,7 @@ namespace AerolineaFrba.Compra
             formularioInformeCompra.setPasajes(pasajesAComprar);
             formularioInformeCompra.setPNR(pnr);
             formularioInformeCompra.Show();
+            miPadre.cancelarTodo(true);
         }
 
         private void generarCompra()

@@ -84,6 +84,7 @@ namespace AerolineaFrba.Compra
                 pesoDisponible = pesoDisponible - pesoEncomienda;
                 encomiendas.Add(new Encomienda(-1, dni, pesoEncomienda));
                 listBoxPasajesYEncomiendasComprados.Items.Add("Encomienda -> DNI:" + dni + ". Peso: " + pesoEncomienda);
+                btnAceptar.Enabled = true;
                 hijo.Close();
             }
         }
@@ -231,6 +232,7 @@ namespace AerolineaFrba.Compra
                         pesoDisponible = 0;
                         listBoxPasajesYEncomiendasComprados.Items.Clear();
                         dataGridView1.ClearSelection();
+                        dataGridView1.DataSource = null;
                         btnAceptar.Enabled = false;
                     }
                 }
@@ -245,6 +247,7 @@ namespace AerolineaFrba.Compra
                     pesoDisponible = 0;
                     listBoxPasajesYEncomiendasComprados.Items.Clear();
                     dataGridView1.ClearSelection();
+                    dataGridView1.DataSource = null;
                     btnAceptar.Enabled = false;
                 }
             }

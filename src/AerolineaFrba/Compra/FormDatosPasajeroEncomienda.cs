@@ -149,5 +149,10 @@ namespace AerolineaFrba.Compra
                     miPadre.setEncomienda(Convert.ToInt32(textBoxDNI.Text), Convert.ToDecimal(textBoxCantidadAEncomendar.Text), this);
             }
         }
+
+        private void btnAceptar_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

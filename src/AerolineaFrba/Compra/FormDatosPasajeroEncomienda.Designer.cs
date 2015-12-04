@@ -185,6 +185,7 @@
             this.btnAceptar.Size = new System.Drawing.Size(83, 24);
             this.btnAceptar.TabIndex = 0;
             this.btnAceptar.TextBtn = "Aceptar";
+            this.btnAceptar.Load += new System.EventHandler(this.btnAceptar_Load);
             // 
             // FormDatosPasajeroEncomienda
             // 
