@@ -94,9 +94,9 @@ namespace AerolineaFrba.Abm
             set { textBox1.Text = value; }
         }
 
-        private void textBox1_EnabledChanged(object sender, EventArgs e)
+        private void textBox1_VisibilityChanged(object sender, EventArgs e)
         {
-            textBox1.CausesValidation = textBox1.Enabled;
+            textBox1.CausesValidation = textBox1.Visible;
         }
 
         private void TextBoxValidado_Load(object sender, EventArgs e)
