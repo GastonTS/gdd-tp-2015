@@ -1424,7 +1424,7 @@ AS
 						and p.codigo_de_compra = c.codigo_de_compra
 						and c.id_viaje = v.id_viaje))
 		BEGIN
-			SET @msg = 'El vuelo del pasaje ' + convert(nvarchar(255), @id) + ' ya fue realizado, no se pueden cancelar passajes de vuelos ya realizadas, porfavor vuelva a realizar la seleccion';
+			SET @msg = 'El vuelo del pasaje ' + convert(nvarchar(255), @id) + ' ya fue realizado, no se pueden cancelar pasajes de vuelos ya realizadas, porfavor vuelva a realizar la seleccion';
 			THROW 60035, @msg, 1
 		END
 		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
@@ -2236,54 +2236,3 @@ AS
 			and a.id_modelo = m.id_modelo
 			and a.id_fabricante = f.id_fabricante
 GO
-
-
-/*****************************************************************/
-/*****************Sarlompeadas que hay que borrar*****************/
-/*****************************************************************/
-/*Bootstrap millas*/		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (1, 200,'2016-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (1, 30,'2017-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (1, 40,'2016-12-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (2, 20,'2017-12-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (2, 30,'2015-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (3, 150,'2015-12-01 01:00:00.000')		
-
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (2, 200,'2016-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (3, 30,'2017-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (4, 40,'2016-12-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (1, 20,'2017-12-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (5, 30,'2015-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (6, 150,'2015-12-01 01:00:00.000')
-
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (4, 200,'2016-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (3, 30,'2017-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (9, 40,'2016-12-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (8, 20,'2017-12-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (1, 30,'2015-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (7, 150,'2015-12-01 01:00:00.000')
-
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (9, 200,'2016-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (8, 30,'2017-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (7, 40,'2016-12-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (6, 20,'2017-12-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (5, 30,'2015-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (4, 150,'2015-12-01 01:00:00.000')
-
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (6, 200,'2016-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (9, 30,'2017-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (7, 40,'2016-12-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (5, 20,'2017-12-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (3, 30,'2015-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (1, 150,'2015-12-01 01:00:00.000')
-
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (2, 200,'2016-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (4, 30,'2017-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (6, 40,'2016-12-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (8, 20,'2017-12-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (7, 30,'2015-02-01 01:00:00.000')		
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (9, 150,'2015-12-01 01:00:00.000')
-
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad, fecha_de_obtencion) VALUES (4, 300,'2016-02-01 01:00:00.000')
-
-/*Bootstrap millas fin*/		
