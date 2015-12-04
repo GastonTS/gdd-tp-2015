@@ -326,7 +326,7 @@ INSERT INTO ÑUFLO.Modelo
 	from gd_esquema.Maestra
 GO
 
-/*30 Aeronave - Sin fechas, en alta pongo today?*/
+/*30 Aeronave*/
 INSERT INTO ÑUFLO.Aeronave (matricula, id_modelo, id_fabricante, capacidad_peso_encomiendas, fecha_de_alta, id_tipo_servicio)
 	select distinct Aeronave_Matricula, m.id_modelo, f.id_fabricante, Aeronave_KG_Disponibles, GETDATE(),
 				case Tipo_Servicio
@@ -340,7 +340,7 @@ INSERT INTO ÑUFLO.Aeronave (matricula, id_modelo, id_fabricante, capacidad_peso
 	order by Aeronave_Matricula
 GO
 	
-/*1337 Butacas - Asumo que el maximo de butacas es la butaca mas grande del avion?*/
+/*1337 Butacas*/
 INSERT INTO ÑUFLO.ButacaPorAvion (id_aeronave, numero_de_butaca, id_tipo_butaca)
 	select distinct id_aeronave, Butaca_Nro, 
 					case Butaca_Tipo
@@ -364,7 +364,7 @@ ALTER TABLE ÑUFLO.Aeronave ALTER COLUMN cantidad_butacas INTEGER NOT NULL
 GO
 
 	
-/*68 Ruta Aerea - Codigos Ruta Repetidos, Escalas?*/
+/*68 Ruta Aerea*/
 INSERT INTO ÑUFLO.RutaAerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje)
 	select distinct Ruta_Codigo, co.id_ciudad, cd.id_ciudad, SUM(Ruta_Precio_BaseKG), 
 					SUM(Ruta_Precio_BasePasaje)
@@ -378,7 +378,7 @@ INSERT INTO ÑUFLO.RutaAerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, 
 	order by Ruta_Codigo
 GO
 
-/*68 Servicio Por Ruta - Pareciera no haber una misma ruta con diferentes servicios, pero si se diferencias en las "escalas"*/
+/*68 Servicio Por Ruta*/
 INSERT INTO ÑUFLO.ServicioPorRuta (id_ruta, id_tipo_servicio)
 	select r.id_ruta, a.id_tipo_servicio
 		from (select distinct Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino,
@@ -398,7 +398,7 @@ INSERT INTO ÑUFLO.ServicioPorRuta (id_ruta, id_tipo_servicio)
 			and a.Ruta_Ciudad_Destino = cd.nombre
 GO
 
-/*8510 Viaje - Ademas existen registros en los cuales la misma aeronave sale a por distintas rutas en la misma fecha, se debe corregir, tendra que ver con escalas?*/
+/*8510 Viaje*/
 INSERT INTO ÑUFLO.Viaje (id_aeronave, id_ruta, peso_ocupado, fecha_salida, fecha_llegada, fecha_llegada_estimada)
 	select id_aeronave,	id_ruta, peso_ocupado, FechaSalida, FechaLLegada, Fecha_LLegada_Estimada
 	from (select distinct Aeronave_Matricula, Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, FechaSalida, FechaLLegada, Fecha_LLegada_Estimada, SUM(Paquete_KG) peso_ocupado
@@ -422,15 +422,6 @@ INSERT INTO ÑUFLO.Cliente (dni , nombre, apellido, direccion, telefono, mail, f
 	select distinct Cli_Dni, Cli_Nombre, Cli_Apellido, Cli_Dir, Cli_Telefono, Cli_Mail, Cli_Fecha_Nac 
 	from gd_esquema.Maestra
 GO
-
-/*XXX PONGO UN CASO DE PRUEBA PORQUE TODAVÍA NO SE IMPLEMENTÓ ESTO*/
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (1, 200)
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (1, 30)
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (1, 40)
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (2, 20)
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (2, 30)
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (3, 150)
-INSERT INTO ÑUFLO.Milla (id_cliente, cantidad) VALUES (4, 300)
 
 /*Comrpas Pasajes Encomiendas*/
 
@@ -505,7 +496,7 @@ INSERT INTO #CompraEncomienda(paquete_kg, paquete_precio, id_encomienda, fecha_c
 		where Paquete_Codigo != 0
 GO
 
-/*401304 Compra - Consideramos como que las compras eran de a uno, no varios pasajes ni encomiendas juntas por no poder diferenciarlas*/
+/*401304 Compra*/
 INSERT INTO ÑUFLO.Compra (id_viaje, id_cliente, fecha_de_compra)
 	select id_viaje, id_cliente, fecha_compra
 		from  #CompraPasaje
@@ -850,13 +841,22 @@ AS
 GO
 
 CREATE PROCEDURE ÑUFLO.ValidarAeronaveActiva
-@id_aeronave int
+@id_aeronave int,
+@fecha_hoy nvarchar(255),
+@fecha_fin nvarchar(255) = null
 AS
 	if((select baja_vida_utill from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) is not null)
 		THROW 60004, 'La nave ya se encuentra fuera de su vida util', 1
 
 	if((select baja_por_fuera_de_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave) = 1)
 		THROW 60003, 'La nave ya se encuentra en mantenimiento', 1
+		
+	select COUNT(id_viaje)
+		from ÑUFLO.Viaje
+		where id_aeronave = @id_aeronave
+			and (@fecha_fin is null and fecha_salida > @fecha_hoy
+				 or fecha_salida between @fecha_hoy and @fecha_fin)
+			and fecha_llegada is not null
 ;
 GO
 
@@ -870,12 +870,6 @@ AS
 	UPDATE ÑUFLO.Aeronave
 		SET baja_vida_utill = @fecha_baja
 		WHERE id_aeronave = @id_aeronave
-
-	select COUNT(id_viaje)
-		from ÑUFLO.Viaje
-		where id_aeronave = @id_aeronave
-			and fecha_salida > @fecha_baja
-			and fecha_llegada is not null
 ;
 GO
 
@@ -894,12 +888,6 @@ AS
 	
 	INSERT INTO ÑUFLO.ServicioTecnico(fecha_fuera_de_servicio, fecha_reinicio_de_servicio, id_aeronave)
 		values(@fecha_baja, @fecha_reinicio, @id_aeronave)			
-	
-	select COUNT(id_viaje)
-		from ÑUFLO.Viaje
-		where id_aeronave = @id_aeronave
-			and fecha_salida between @fecha_baja and @fecha_reinicio
-			and fecha_llegada is not null
 ;
 GO
 

@@ -38,8 +38,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxCapacidadEncomiendas = new AerolineaFrba.Abm.TextBoxNumeros();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
-            this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
+            this.tipoServicioBinding = new System.Windows.Forms.BindingSource(this.components);
             this.labelCapacidadEncomiendas = new System.Windows.Forms.Label();
+            this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxModelo = new System.Windows.Forms.TextBox();
             this.labelModelo = new System.Windows.Forms.Label();
@@ -49,13 +50,12 @@
             this.labelFabricante = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.bindingAeronaves = new System.Windows.Forms.BindingSource(this.components);
-            this.tipoServicioBinding = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAeronave)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingAeronaves)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewAeronave
@@ -110,7 +110,7 @@
             this.textBoxCantidadButacas.ErrorText = "Debe ingresar cantidad de butacas";
             this.textBoxCantidadButacas.Location = new System.Drawing.Point(171, 86);
             this.textBoxCantidadButacas.Name = "textBoxCantidadButacas";
-            this.textBoxCantidadButacas.Size = new System.Drawing.Size(99, 20);
+            this.textBoxCantidadButacas.Size = new System.Drawing.Size(110, 20);
             this.textBoxCantidadButacas.TabIndex = 2;
             // 
             // labelCantidadButacas
@@ -137,7 +137,7 @@
             this.textBoxCapacidadEncomiendas.ErrorText = "Debe ingresar la capacidad de encomiendas";
             this.textBoxCapacidadEncomiendas.Location = new System.Drawing.Point(171, 60);
             this.textBoxCapacidadEncomiendas.Name = "textBoxCapacidadEncomiendas";
-            this.textBoxCapacidadEncomiendas.Size = new System.Drawing.Size(99, 20);
+            this.textBoxCapacidadEncomiendas.Size = new System.Drawing.Size(110, 20);
             this.textBoxCapacidadEncomiendas.TabIndex = 1;
             // 
             // comboBoxTipoServicio
@@ -251,11 +251,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAeronave)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingAeronaves)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tipoServicioBinding)).EndInit();
             this.ResumeLayout(false);
 
         }
