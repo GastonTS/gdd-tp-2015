@@ -155,20 +155,27 @@ namespace AerolineaFrba.Compra
             actualizarEstadoDatosTarjetaDeCredito();
         }
 
+        private void limpiar() 
+        {
+            foreach (Control control in groupBoxTarjetaCredito.Controls)
+            {
+                if (control is Abm.TextBoxValidado ||
+                    control is DateTimePicker) control.ResetText();
+                if (control is CheckBox) ((CheckBox)control).Checked = false;
+                if (control is ComboBox) ((ComboBox)control).SelectedIndex = 0;
+                
+            }
+            lblCantCuotas.ResetText();
+        }
+
         private void actualizarEstadoDatosTarjetaDeCredito()
         {
             var deberiaEstarActivo = (comboBoxMedioDePago.SelectedValue.ToString() == "Tarjeta de crédito");
             if (!deberiaEstarActivo)
             {
-                foreach (Control control in groupBoxTarjetaCredito.Controls)
-                {
-                    if (control is Abm.TextBoxValidado ||
-                        control is DateTimePicker) control.ResetText();
-                    if (control is CheckBox) ((CheckBox)control).Checked = false;
-                    if (control is ComboBox) ((ComboBox)control).SelectedIndex = 0;
+                limpiar();
+                foreach(Control control in groupBoxTarjetaCredito.Controls)
                     control.CausesValidation = deberiaEstarActivo;
-                }
-                lblCantCuotas.ResetText();
             }
             else lblCantCuotas.Text = comboBoxTipoTarjeta.SelectedValue.ToString();
             groupBoxTarjetaCredito.Enabled = deberiaEstarActivo;
@@ -197,6 +204,11 @@ namespace AerolineaFrba.Compra
         {
             if (comboBoxTipoTarjeta.SelectedValue == null) lblCantCuotas.Text = "";
             else lblCantCuotas.Text = comboBoxTipoTarjeta.SelectedValue.ToString();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            limpiar();
         }
 
     }
