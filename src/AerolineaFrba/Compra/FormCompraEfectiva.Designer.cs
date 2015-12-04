@@ -171,6 +171,7 @@
             this.groupBoxTarjetaCredito.TabIndex = 10;
             this.groupBoxTarjetaCredito.TabStop = false;
             this.groupBoxTarjetaCredito.Text = "Datos de Tarjeta de Crédito";
+            this.groupBoxTarjetaCredito.Visible = false;
             // 
             // lblCantCuotas
             // 

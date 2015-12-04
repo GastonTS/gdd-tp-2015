@@ -176,6 +176,7 @@
     <Compile Include="Canje Millas\FormCajeMillasPasajero.Designer.cs">
       <DependentUpon>FormCajeMillasPasajero.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\CompraException.cs" />
     <Compile Include="Compra\FormCompraEfectiva.cs">
       <SubType>Form</SubType>
     </Compile>
