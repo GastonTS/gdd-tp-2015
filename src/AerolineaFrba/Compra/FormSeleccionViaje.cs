@@ -98,6 +98,7 @@ namespace AerolineaFrba.Compra
             var ds = new gdDataBase().GetDataWithParameters("ÑUFLO.ViajesDisponiblesPara", camposValores);
 
             dataGridView1.DataSource = ds;
+            groupBoxPasajesEncomiendas.Enabled = false;
         }
 
         private void btnAgregarPasaje_Click(object sender, EventArgs e)
