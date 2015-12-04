@@ -702,8 +702,9 @@ CREATE PROCEDURE ÑUFLO.FiltroAeronave
 @capacidad_encomiendas numeric(18,0) = null,
 @cantidad_butacas int = null
 AS
-select id_aeronave, m.nombre, matricula, f.nombre, id_tipo_servicio, fecha_de_alta, capacidad_peso_encomiendas, baja_vida_utill, baja_por_fuera_de_servicio
-	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f
+select id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre Fabricante, ts.tipo_servicio 'Tipo de Servicio', fecha_de_alta 'Fecha de Alta',
+		capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
+	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f, ÑUFLO.TipoServicio ts
 	where a.id_modelo = m.id_modelo
 		and a.id_fabricante = f.id_fabricante
 		and (@modelo is null or @modelo = m.nombre)
@@ -711,8 +712,9 @@ select id_aeronave, m.nombre, matricula, f.nombre, id_tipo_servicio, fecha_de_al
 		and (@fabricante is null or @fabricante = f.nombre)
 		and (@baja_fuera_servicio is null or @baja_fuera_servicio = baja_por_fuera_de_servicio)
 		and (@baja_vida_util is null or (@baja_vida_util = 1 and baja_vida_utill is not null))
-		and (@tipo_servicio is null or @tipo_servicio = id_tipo_servicio)
+		and (@tipo_servicio is null or @tipo_servicio = a.id_tipo_servicio)
 		and (@capacidad_encomiendas is null or @capacidad_encomiendas < capacidad_peso_encomiendas)
+		and a.id_tipo_servicio = ts.id_tipo_servicio
 		and (@cantidad_butacas is null or @cantidad_butacas <= (select COUNT(id_tipo_butaca) 
 																	from ÑUFLO.ButacaPorAvion b
 																	where a.id_aeronave = b.id_aeronave))
