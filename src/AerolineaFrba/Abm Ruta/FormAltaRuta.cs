@@ -12,6 +12,7 @@ namespace AerolineaFrba.Abm_Ruta
 {
     public partial class FormAltaRuta : Abm.Alta
     {
+        FormModificacionRuta padre;
         int id_ruta;
         Boolean modificacion = false;
         public FormAltaRuta()
@@ -30,6 +31,11 @@ namespace AerolineaFrba.Abm_Ruta
             comboBoxTipoServicio.DisplayMember = "Tipo Servicio";
             comboBoxTipoServicio.ValueMember = "Id Tipo Servicio";
            
+        }
+
+        public void setPadre(FormModificacionRuta form) {
+            padre = form;
+
         }
 
         public override string MsgError
@@ -189,9 +195,13 @@ namespace AerolineaFrba.Abm_Ruta
             if (!spExec.huboError())
             {
                 limpiar();
-                if (modificacion) this.Close();
+                if (modificacion)
+                {
+                    padre.consultarConFiltro();
+                    this.Close();
+                }
             }
-
+            
         }
 
         private void comboBoxDestino_Validating(object sender, CancelEventArgs e)
