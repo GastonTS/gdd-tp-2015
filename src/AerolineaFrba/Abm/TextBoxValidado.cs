@@ -14,6 +14,12 @@ namespace AerolineaFrba.Abm
     public partial class TextBoxValidado : UserControl
     {
 
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            textBox1.CausesValidation = Visible;
+        }
+
 
         public event EventHandler TextboxTextChanged;
 

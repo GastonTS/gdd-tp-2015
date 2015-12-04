@@ -59,7 +59,7 @@ namespace AerolineaFrba.Compra
             InitializeComponent();
         }
 
-        public void setPasaje(int dni, int numeroDeButaca) 
+        public void setPasaje(int dni, int numeroDeButaca, FormDatosPasajeroEncomienda hijo) 
         {
             validarQueNoEsteEnElVuelo(dni);
 
@@ -70,10 +70,11 @@ namespace AerolineaFrba.Compra
                 pasajes.Add(new Pasaje(-1, dni, numeroDeButaca));
                 listBoxPasajesYEncomiendasComprados.Items.Add("Pasaje -> DNI:" + dni + ". Butaca n°: " + numeroDeButaca);
                 btnAceptar.Enabled = true;
+                hijo.Close();
             }
         }
 
-        public void setEncomienda(int dni, decimal pesoEncomienda)
+        public void setEncomienda(int dni, decimal pesoEncomienda, FormDatosPasajeroEncomienda hijo)
         {
             if (pesoDisponible - pesoEncomienda < 0)
                 MessageBox.Show("El peso encomendado es mayor al disponible en la aeronave");
@@ -82,6 +83,7 @@ namespace AerolineaFrba.Compra
                 pesoDisponible = pesoDisponible - pesoEncomienda;
                 encomiendas.Add(new Encomienda(-1, dni, pesoEncomienda));
                 listBoxPasajesYEncomiendasComprados.Items.Add("Encomienda -> DNI:" + dni + ". Peso: " + pesoEncomienda);
+                hijo.Close();
             }
         }
 

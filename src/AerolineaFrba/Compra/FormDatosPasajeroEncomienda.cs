@@ -12,6 +12,11 @@ namespace AerolineaFrba.Compra
 {
     public partial class FormDatosPasajeroEncomienda : Abm.Alta, ICargaDatosCliente
     {
+        public override string MsgError
+        {
+            get { return "Porfavor revise que todos los datos sean correctos"; }
+        }
+
         bool soloPasaje = true;
         int idViaje, numeroDeButacaSeleccionada;
         List<int> butacasEnCompra = new List<int>();
@@ -131,22 +136,19 @@ namespace AerolineaFrba.Compra
 
         protected override void guardarPosta()
         {
-            if (listBoxEleccionButacaPasillo.SelectedIndex != -1 ||
-                listBoxEleccionButacaVentanilla.SelectedIndex != -1)
-            {
                 if (miPadre != null)
                 {
                     if (soloPasaje)
-                        miPadre.setPasaje(Convert.ToInt32(textBoxDNI.Text), numeroDeButacaSeleccionada);
+                        if (listBoxEleccionButacaPasillo.SelectedIndex != -1 || listBoxEleccionButacaVentanilla.SelectedIndex != -1)
+                            miPadre.setPasaje(Convert.ToInt32(textBoxDNI.Text), numeroDeButacaSeleccionada, this);
+                        else
+                            MessageBox.Show("Seleccione una butaca para terminar la operación");
                     else
-                        miPadre.setEncomienda(Convert.ToInt32(textBoxDNI.Text),
-                            Convert.ToDecimal(textBoxCantidadAEncomendar.Text));
-                }
-
-                this.Close();
+                        miPadre.setEncomienda(Convert.ToInt32(textBoxDNI.Text), Convert.ToDecimal(textBoxCantidadAEncomendar.Text), this);
+                    
+                
             }
-            else
-                MessageBox.Show("Seleccione una butaca para terminar la operación");
+            
         }
     }
 }
