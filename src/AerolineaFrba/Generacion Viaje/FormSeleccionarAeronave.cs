@@ -30,7 +30,7 @@ namespace AerolineaFrba.Generacion_Viaje
             if (textBoxFabricante.Text.Trim() != "")
                 camposValores.Add("fabricante", new gdDataBase.ValorTipo(textBoxFabricante.Text, SqlDbType.VarChar));
             if (comboBoxTipoServicio.Text != "Cualquiera")
-                camposValores.Add("tipo_servicio", new gdDataBase.ValorTipo((comboBoxTipoServicio.SelectedIndex + 1).ToString(), SqlDbType.Int));
+                camposValores.Add("tipo_servicio", new gdDataBase.ValorTipo(comboBoxTipoServicio.SelectedIndex.ToString(), SqlDbType.Int));
             if (textBoxCapacidadEncomiendas.Text.Trim() != "")
                 camposValores.Add("capacidad_encomiendas", new gdDataBase.ValorTipo(textBoxCapacidadEncomiendas.Text, SqlDbType.Decimal));
             if (textBoxCantidadButacas.Text.Trim() != "")
