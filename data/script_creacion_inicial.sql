@@ -1886,7 +1886,7 @@ CREATE PROCEDURE ÑUFLO.DetalleDestinoAeronavesVacias
 @fecha_fin datetime
 AS
 	
-	select top 5 c.nombre Destino, a.matricula Matricula, (a.cantidad_butacas - usados) as 'Butacas libres por aeronave', 
+	select c.nombre Destino, a.matricula Matricula, (a.cantidad_butacas - usados) as 'Butacas libres por aeronave', 
 				 a.cantidad_butacas 'Butacas totales',a.capacidad_peso_encomiendas 'Capacidad total de encomiendas', 
 				 v.peso_ocupado 'Peso ocupado' 
 		from ÑUFLO.Viaje v, ÑUFLO.Aeronave a, ÑUFLO.RutaAerea r, ÑUFLO.Ciudad c,
