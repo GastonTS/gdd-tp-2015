@@ -35,6 +35,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.labelFabricante = new System.Windows.Forms.Label();
             this.labelCapacidadEncomiendas = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxMatricula = new AerolineaFrba.Abm.TextBoxValidado();
             this.textBoxFabricante = new AerolineaFrba.Abm.TextBoxLetras();
             this.textBoxModelo = new AerolineaFrba.Abm.TextBoxLetras();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
@@ -50,7 +51,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
-            this.textBoxMatricula = new AerolineaFrba.Abm.TextBoxValidado();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -108,6 +108,15 @@ namespace AerolineaFrba.Abm_Aeronave
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Identificación de Aeronave";
             // 
+            // textBoxMatricula
+            // 
+            this.textBoxMatricula.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxMatricula.ErrorText = "Debe ingresar la matrícula";
+            this.textBoxMatricula.Location = new System.Drawing.Point(105, 58);
+            this.textBoxMatricula.Name = "textBoxMatricula";
+            this.textBoxMatricula.Size = new System.Drawing.Size(139, 22);
+            this.textBoxMatricula.TabIndex = 1;
+            // 
             // textBoxFabricante
             // 
             this.textBoxFabricante.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
@@ -115,7 +124,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxFabricante.Location = new System.Drawing.Point(105, 94);
             this.textBoxFabricante.Name = "textBoxFabricante";
             this.textBoxFabricante.Size = new System.Drawing.Size(211, 22);
-            this.textBoxFabricante.TabIndex = 6;
+            this.textBoxFabricante.TabIndex = 2;
             // 
             // textBoxModelo
             // 
@@ -124,7 +133,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxModelo.Location = new System.Drawing.Point(105, 30);
             this.textBoxModelo.Name = "textBoxModelo";
             this.textBoxModelo.Size = new System.Drawing.Size(211, 22);
-            this.textBoxModelo.TabIndex = 4;
+            this.textBoxModelo.TabIndex = 0;
             // 
             // comboBoxTipoServicio
             // 
@@ -170,7 +179,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxCantidadButacas.Location = new System.Drawing.Point(120, 149);
             this.textBoxCantidadButacas.Name = "textBoxCantidadButacas";
             this.textBoxCantidadButacas.Size = new System.Drawing.Size(124, 22);
-            this.textBoxCantidadButacas.TabIndex = 20;
+            this.textBoxCantidadButacas.TabIndex = 2;
             this.textBoxCantidadButacas.TextboxTextChanged += new System.EventHandler(this.textBoxCantidadButacas_TextChanged);
             // 
             // textBoxCapacidadEncomiendas
@@ -180,7 +189,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxCapacidadEncomiendas.Location = new System.Drawing.Point(105, 59);
             this.textBoxCapacidadEncomiendas.Name = "textBoxCapacidadEncomiendas";
             this.textBoxCapacidadEncomiendas.Size = new System.Drawing.Size(211, 22);
-            this.textBoxCapacidadEncomiendas.TabIndex = 19;
+            this.textBoxCapacidadEncomiendas.TabIndex = 1;
             // 
             // btnElegirTipoButaca
             // 
@@ -188,7 +197,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.btnElegirTipoButaca.Location = new System.Drawing.Point(16, 177);
             this.btnElegirTipoButaca.Name = "btnElegirTipoButaca";
             this.btnElegirTipoButaca.Size = new System.Drawing.Size(189, 23);
-            this.btnElegirTipoButaca.TabIndex = 17;
+            this.btnElegirTipoButaca.TabIndex = 3;
             this.btnElegirTipoButaca.Text = "Elegir Ventana/Pasillo";
             this.btnElegirTipoButaca.UseVisualStyleBackColor = true;
             this.btnElegirTipoButaca.Click += new System.EventHandler(this.btnElegirTipoButaca_Click);
@@ -235,22 +244,13 @@ namespace AerolineaFrba.Abm_Aeronave
             this.guardar1.Location = new System.Drawing.Point(425, 460);
             this.guardar1.Name = "guardar1";
             this.guardar1.Size = new System.Drawing.Size(83, 31);
-            this.guardar1.TabIndex = 15;
+            this.guardar1.TabIndex = 0;
             this.guardar1.TextBtn = "Guardar";
             // 
             // gD2C2015DataSet
             // 
             this.gD2C2015DataSet.DataSetName = "GD2C2015DataSet";
             this.gD2C2015DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // textBoxMatricula
-            // 
-            this.textBoxMatricula.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxMatricula.ErrorText = "Debe ingresar la matrícula";
-            this.textBoxMatricula.Location = new System.Drawing.Point(105, 58);
-            this.textBoxMatricula.Name = "textBoxMatricula";
-            this.textBoxMatricula.Size = new System.Drawing.Size(139, 22);
-            this.textBoxMatricula.TabIndex = 21;
             // 
             // FormAltaAeronave
             // 
