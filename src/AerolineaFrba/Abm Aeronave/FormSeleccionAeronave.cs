@@ -87,6 +87,10 @@ namespace AerolineaFrba.Abm_Aeronave
                 btnBajaFueraServicio.Enabled = true;
                 btnBajaVidaUtil.Enabled = true;
                 dateTimePicker1.Enabled = true;
+                if (dataGridViewAeronave.SelectedRows[0].Cells[7].Value.ToString() != "")
+                    btnBajaFueraServicio.Enabled = false;
+                if (dataGridViewAeronave.SelectedRows[0].Cells[8].Value.ToString() != "")
+                    btnBajaVidaUtil.Enabled = false;
             }
             else
             {
@@ -95,6 +99,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 btnBajaFueraServicio.Enabled = false;
                 dateTimePicker1.Enabled = false;
             }
+
         }
 
         private void btnModificarAeronave_Click(object sender, EventArgs e)
