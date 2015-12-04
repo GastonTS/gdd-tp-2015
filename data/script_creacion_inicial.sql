@@ -2011,8 +2011,7 @@ BEGIN
 	RETURN @peso_disponible
 END
 GO
---drop FUNCTION ÑUFLO.CantidadButacasDisponibles
---go
+
 CREATE FUNCTION ÑUFLO.CantidadButacasDisponibles(@id_viaje int)
 RETURNS int
 AS
