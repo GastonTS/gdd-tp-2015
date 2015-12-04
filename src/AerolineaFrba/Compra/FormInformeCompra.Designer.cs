@@ -70,6 +70,7 @@
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.labelPNR);
             this.Name = "FormInformeCompra";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Informe Compra";
             this.Load += new System.EventHandler(this.FormInformeCompra_Load);
             this.ResumeLayout(false);
