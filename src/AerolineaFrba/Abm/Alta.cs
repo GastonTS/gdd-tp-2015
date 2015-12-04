@@ -37,9 +37,14 @@ namespace AerolineaFrba.Abm
             InitializeComponent();
         }
 
+        protected virtual Boolean validar() 
+        {
+            return ValidateChildren(ValidationConstraints.TabStop);
+        }
+
         public void guardar()
         {
-            if (this.ValidateChildren(ValidationConstraints.TabStop))
+            if (this.validar())
             {
                 this.guardarPosta();
             }

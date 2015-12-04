@@ -165,6 +165,7 @@ namespace AerolineaFrba.Abm_Aeronave
                     actualizar.Exec();
                 if (!(actualizar.huboError()))
                     limpiar();
+                this.Close();
             }
         }
     }
