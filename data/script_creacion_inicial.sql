@@ -1424,7 +1424,7 @@ AS
 						and p.codigo_de_compra = c.codigo_de_compra
 						and c.id_viaje = v.id_viaje))
 		BEGIN
-			SET @msg = 'El vuelo del pasaje ' + convert(nvarchar(255), @id) + ' ya fue realizado, no se pueden cancelar passajes de vuelos ya realizadas, porfavor vuelva a realizar la seleccion';
+			SET @msg = 'El vuelo del pasaje ' + convert(nvarchar(255), @id) + ' ya fue realizado, no se pueden cancelar pasajes de vuelos ya realizadas, porfavor vuelva a realizar la seleccion';
 			THROW 60035, @msg, 1
 		END
 		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
