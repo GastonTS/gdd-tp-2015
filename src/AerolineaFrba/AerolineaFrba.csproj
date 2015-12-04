@@ -127,6 +127,12 @@
     <Compile Include="Abm\IntegerTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Abm\TextBoxDecimal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Abm\TextBoxDecimal.Designer.cs">
+      <DependentUpon>TextBoxDecimal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm\TextBoxDNI.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -145,11 +151,11 @@
     <Compile Include="Abm\TextBoxMail.Designer.cs">
       <DependentUpon>TextBoxMail.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm\TextBoxNumeroDecimal.cs">
+    <Compile Include="Abm\TextBoxMoneda.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Abm\TextBoxNumeroDecimal.Designer.cs">
-      <DependentUpon>TextBoxNumeroDecimal.cs</DependentUpon>
+    <Compile Include="Abm\TextBoxMoneda.Designer.cs">
+      <DependentUpon>TextBoxMoneda.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm\TextBoxNumeros.cs">
       <SubType>UserControl</SubType>
@@ -319,8 +325,8 @@
     <EmbeddedResource Include="Abm\TextBoxMail.resx">
       <DependentUpon>TextBoxMail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm\TextBoxNumeroDecimal.resx">
-      <DependentUpon>TextBoxNumeroDecimal.cs</DependentUpon>
+    <EmbeddedResource Include="Abm\TextBoxMoneda.resx">
+      <DependentUpon>TextBoxMoneda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm\TextBoxNumeros.resx">
       <DependentUpon>TextBoxNumeros.cs</DependentUpon>
