@@ -93,7 +93,7 @@ namespace AerolineaFrba.Abm_Aeronave
             
         }
 
-        private void darDeAltaAeronave()
+        private SPExecuter spAltaAeronave()
         {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
@@ -107,10 +107,12 @@ namespace AerolineaFrba.Abm_Aeronave
 
             errorMensaje.Add(2627, "Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...");
 
-            new gdDataBase().Exec("ÑUFLO.AltaAeronave", camposValores, errorMensaje, "Aeronave registrada correctamente");
+            return new SPPureExec("ÑUFLO.AltaAeronave", camposValores, errorMensaje, "Aeronave registrada correctamente");
+
+
         }
 
-        private void actualizarAeronave()
+        private SPExecuter spActualizarAeronave()
         {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
@@ -125,7 +127,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
             errorMensaje.Add(2627, "Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...");
 
-            new gdDataBase().Exec("ÑUFLO.ActualizarAeronave", camposValores, errorMensaje, "Aeronave modificada correctamente");
+            return new SPPureExec("ÑUFLO.ActualizarAeronave", camposValores, errorMensaje, "Aeronave modificada correctamente");
         }
 
         private void agregarButacas()
@@ -154,11 +156,13 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             if (!esModificacion)
             {
-                darDeAltaAeronave();
-                agregarButacas();
+                var alta = spAltaAeronave();
+                alta.Exec();
+                if(!alta.huboError())
+                    agregarButacas();
             }
             else
-                actualizarAeronave();
+                spActualizarAeronave().Exec();
         }
     }
 }
