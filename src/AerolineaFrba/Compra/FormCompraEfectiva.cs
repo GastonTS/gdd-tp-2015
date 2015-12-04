@@ -153,5 +153,19 @@ namespace AerolineaFrba.Compra
 
         }
 
+        private void dateTimePickerFechaVencimiento_Validating(object sender, CancelEventArgs e)
+        {
+            if (dateTimePickerFechaVencimiento.Value > Config.fecha)
+            {
+                errorProvider.Clear();
+                e.Cancel = false;
+            }
+            else
+            {
+                errorProvider.SetError(dateTimePickerFechaVencimiento, "La fecha debería ser posterior al día de la fecha");
+                e.Cancel = true;
+            }
+        }
+
     }
 }
