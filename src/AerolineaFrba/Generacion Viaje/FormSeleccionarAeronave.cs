@@ -43,16 +43,12 @@ namespace AerolineaFrba.Generacion_Viaje
             dataGridViewAeronave.DataSource = bindingAeronaves;
         }
 
-        private void dataGridViewAeronave_RowEnter(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewAeronave_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridViewAeronave.SelectedRows.Count == 1)
-            {
-                btnAceptar.Enabled = true;
-            }
-            else
-            {
-                btnAceptar.Enabled = false;
-            }
+            var senderGrid = (DataGridView)sender;
+            senderGrid.CurrentRow.Selected = true;
+            btnAceptar.Enabled = true;
+          
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)

@@ -65,11 +65,12 @@
             this.dataGridViewAeronave.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewAeronave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAeronave.Location = new System.Drawing.Point(21, 204);
+            this.dataGridViewAeronave.MultiSelect = false;
             this.dataGridViewAeronave.Name = "dataGridViewAeronave";
             this.dataGridViewAeronave.ReadOnly = true;
             this.dataGridViewAeronave.Size = new System.Drawing.Size(718, 190);
             this.dataGridViewAeronave.TabIndex = 23;
-            this.dataGridViewAeronave.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAeronave_RowEnter);
+            this.dataGridViewAeronave.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAeronave_CellEnter);
             // 
             // btnSeleccionar
             // 
