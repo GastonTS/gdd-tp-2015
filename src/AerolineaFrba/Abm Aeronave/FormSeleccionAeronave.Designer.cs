@@ -253,6 +253,7 @@
             this.dataGridViewAeronave.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewAeronave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAeronave.Location = new System.Drawing.Point(27, 306);
+            this.dataGridViewAeronave.MultiSelect = false;
             this.dataGridViewAeronave.Name = "dataGridViewAeronave";
             this.dataGridViewAeronave.ReadOnly = true;
             this.dataGridViewAeronave.Size = new System.Drawing.Size(718, 205);
