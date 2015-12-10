@@ -26,9 +26,15 @@ namespace AerolineaFrba.Consulta_Millas
                     camposValores.Add("dni", new gdDataBase.ValorTipo(textBoxDni.Text, SqlDbType.Int));
                 camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
-                var historialMillas = new gdDataBase().ExecAndGetData("ÑUFLO.DetalleMillasDe", camposValores, new Dictionary<int, String>());
-                if (historialMillas.Rows.Count == 0)
-                    MessageBox.Show("No hay resultados que satisfagan la búsqueda");
+                Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
+                errorMensaje.Add(60018, "El cliente no tiene ninguna milla acumulada. Seleccione un cliente con millas por favor.");
+
+                var historialMillas = new SPExecGetData("ÑUFLO.DetalleMillasDe", camposValores, errorMensaje);
+                DataTable dt = (DataTable)historialMillas.Exec();
+                if (dt.Rows.Count == 0 && !historialMillas.huboError())
+                    MessageBox.Show("No hay resultados que satisfagan la búsqueda", "Cliente inexistente", 
+                                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 else
                 {
                     camposValores.Remove("hoy");

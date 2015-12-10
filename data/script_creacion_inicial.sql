@@ -1835,10 +1835,22 @@ CREATE PROCEDURE ÑUFLO.DetalleMillasDe
 @hoy datetime
 AS
 	EXEC ÑUFLO.ExpirarMillas @hoy
-	select Tipo, Cantidad, Cantidad_Gastada, Fecha, Estado
-		from ÑUFLO.DetalleMillas 
-		where DNI = @dni
-		order by Fecha
+	if(EXISTS(select *
+			  from ÑUFLO.Cliente
+			  where dni = @dni)
+	   and NOT EXISTS(select *
+				from ÑUFLO.DetalleMillas 
+				where DNI = @dni ) )
+	BEGIN
+		THROW 60018, 'El cliente no tiene ninguna milla acumulada', 1
+	END
+	ELSE
+	BEGIN
+		select Tipo, Cantidad, Cantidad_Gastada, Fecha, Estado
+			from ÑUFLO.DetalleMillas 
+			where DNI = @dni
+			order by Fecha
+	END
 ;
 GO
 
