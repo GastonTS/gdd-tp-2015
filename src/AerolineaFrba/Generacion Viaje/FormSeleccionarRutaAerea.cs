@@ -90,16 +90,12 @@ namespace AerolineaFrba.Generacion_Viaje
             dataGridView1.DataSource = ds;
         }
 
-        private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count == 1)
-            {
-                btnAceptar.Enabled = true;
-            }
-            else
-            {
-                btnAceptar.Enabled = false;
-            }
+            btnAceptar.Enabled = true;
+            var senderGrid = (DataGridView)sender;
+            senderGrid.CurrentRow.Selected = true;
+
         }
     }
 }
