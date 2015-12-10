@@ -904,6 +904,17 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.ValidarAeronavesSinViajes
+@id_aeronave int
+AS
+	IF(EXISTS (select * 
+		 from ÑUFLO.Viaje
+		 where fecha_llegada IS NULL and
+			   id_aeronave = @id_aeronave))
+		THROW 60017, 'No se puede modificar una aeronave con viajes', 1
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.BajaPorVidaUtil
 @id_aeronave int,
 @fecha nvarchar(255)
