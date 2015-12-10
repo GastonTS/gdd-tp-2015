@@ -34,12 +34,12 @@ namespace AerolineaFrba.Abm_Aeronave
             esModificacion = true;
             this.Text = "Modificación de Aeronave";
             
-            idAeronaveModificada = filaAeronave.Cells[1].FormattedValue.ToString();
-            textBoxModelo.Text = filaAeronave.Cells[2].FormattedValue.ToString();
-            textBoxMatricula.Text = filaAeronave.Cells[3].FormattedValue.ToString();
-            textBoxFabricante.Text = filaAeronave.Cells[4].FormattedValue.ToString();
-            comboBoxTipoServicio.Text = filaAeronave.Cells[5].FormattedValue.ToString();
-            textBoxCapacidadEncomiendas.Text = filaAeronave.Cells[7].FormattedValue.ToString();
+            idAeronaveModificada = filaAeronave.Cells[0].FormattedValue.ToString();
+            textBoxModelo.Text = filaAeronave.Cells[1].FormattedValue.ToString();
+            textBoxMatricula.Text = filaAeronave.Cells[2].FormattedValue.ToString();
+            textBoxFabricante.Text = filaAeronave.Cells[3].FormattedValue.ToString();
+            comboBoxTipoServicio.Text = filaAeronave.Cells[4].FormattedValue.ToString();
+            textBoxCapacidadEncomiendas.Text = filaAeronave.Cells[6].FormattedValue.ToString();
             
             //HACER
             //Con un Stored Procedure, traerse la cantidad de bucatas y la lista de butacas ventanilla o pasillo
