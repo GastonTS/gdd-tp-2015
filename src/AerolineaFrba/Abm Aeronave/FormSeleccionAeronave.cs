@@ -398,7 +398,7 @@ namespace AerolineaFrba.Abm_Aeronave
             consultarConFiltro();
         }
 
-        private void dataGridViewAeronave_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewAeronave_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
 

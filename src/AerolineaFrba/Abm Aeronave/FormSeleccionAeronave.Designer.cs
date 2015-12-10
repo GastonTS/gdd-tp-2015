@@ -257,7 +257,7 @@
             this.dataGridViewAeronave.ReadOnly = true;
             this.dataGridViewAeronave.Size = new System.Drawing.Size(718, 205);
             this.dataGridViewAeronave.TabIndex = 18;
-            this.dataGridViewAeronave.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAeronave_CellContentClick);
+            this.dataGridViewAeronave.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAeronave_CellEnter);
             // 
             // btnModificarAeronave
             // 
