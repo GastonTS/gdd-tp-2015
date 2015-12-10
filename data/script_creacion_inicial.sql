@@ -911,7 +911,7 @@ AS
 		 from ÑUFLO.Viaje
 		 where fecha_llegada IS NULL and
 			   id_aeronave = @id_aeronave))
-		THROW 60017, 'No se puede modificar una aeronave con viajes', 1
+		THROW 60017, 'No se puede modificar una aeronave con viajes pendientes', 1
 ;
 GO
 

@@ -132,17 +132,19 @@ namespace AerolineaFrba.Abm_Aeronave
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
-            errorMensaje.Add(60017, "No se puede modificar una aeronave con viajes");
+            errorMensaje.Add(60017, "No se puede modificar una aeronave con viajes pendientes");
 
             camposValores.Clear();
             camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
-            new gdDataBase().Exec("ÑUFLO.ValidarAeronavesSinViajes", camposValores, errorMensaje, null);
+            var ejecucion = new gdDataBase().Exec("ÑUFLO.ValidarAeronavesSinViajes", camposValores, errorMensaje, null);
+            if (!ejecucion.huboError())
+            {
+                FormAltaAeronave faa = new FormAltaAeronave();
+                faa.Show();
+                faa.setPadre(this);
 
-            FormAltaAeronave faa = new FormAltaAeronave();
-            faa.Show();
-            faa.setPadre(this);
-            
-            faa.setFilaDeAeronaveSeleccionada(filaSeleccionada);
+                faa.setFilaDeAeronaveSeleccionada(filaSeleccionada);
+            }
         }
 
         private void btnBajaVidaUtil_Click(object sender, EventArgs e)
