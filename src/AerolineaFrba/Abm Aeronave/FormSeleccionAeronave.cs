@@ -82,29 +82,6 @@ namespace AerolineaFrba.Abm_Aeronave
             checkBoxPorVidaUtil.Checked = false;
         }
 
-        private void dataGridViewAeronave_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridViewAeronave.SelectedRows.Count == 1)
-            {
-                btnModificarAeronave.Enabled = true;
-                btnBajaFueraServicio.Enabled = true;
-                btnBajaVidaUtil.Enabled = true;
-                dateTimePicker1.Enabled = true;
-            }
-            else if (dataGridViewAeronave.Rows.Count == 1)
-            {
-                btnModificarAeronave.Enabled = true;
-                btnBajaFueraServicio.Enabled = true;
-                btnBajaVidaUtil.Enabled = true;
-                dateTimePicker1.Enabled = true;
-            }
-            else
-            {
-                deshabilitarModifBaja();
-            }
-
-        }
-
         private void deshabilitarModifBaja()
         {
             btnModificarAeronave.Enabled = false;
@@ -116,10 +93,8 @@ namespace AerolineaFrba.Abm_Aeronave
         private DataGridViewRow getFilaSeleccionada()
         {
             DataGridViewRow filaSeleccionada = null;
-            if (dataGridViewAeronave.SelectedRows.Count == 1)
-                filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
-            else if (dataGridViewAeronave.Rows.Count == 1)
-                filaSeleccionada = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+
+            filaSeleccionada = dataGridViewAeronave.CurrentRow;
 
             return filaSeleccionada;
         }
@@ -135,14 +110,15 @@ namespace AerolineaFrba.Abm_Aeronave
             errorMensaje.Add(60017, "No se puede modificar una aeronave con viajes pendientes");
 
             camposValores.Clear();
-            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
+            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[1].FormattedValue.ToString(), SqlDbType.Int));
+            
             var ejecucion = new gdDataBase().Exec("ÑUFLO.ValidarAeronavesSinViajes", camposValores, errorMensaje, null);
+            
             if (!ejecucion.huboError())
             {
                 FormAltaAeronave faa = new FormAltaAeronave();
                 faa.Show();
                 faa.setPadre(this);
-
                 faa.setFilaDeAeronaveSeleccionada(filaSeleccionada);
             }
         }
@@ -415,6 +391,38 @@ namespace AerolineaFrba.Abm_Aeronave
                 checkBoxBajaPorServicio.Enabled = false;
             else
                 checkBoxBajaPorServicio.Enabled = true;
+        }
+
+        private void FormSeleccionAeronave_Load(object sender, EventArgs e)
+        {
+            consultarConFiltro();
+
+            new List<String> { "Seleccionar" }.ForEach(column =>
+            {
+                dataGridViewAeronave.Columns[column].DisplayIndex = dataGridViewAeronave.Columns.Count - 1;
+                dataGridViewAeronave.Columns[column].Frozen = true;
+            });
+        }
+
+        private void dataGridViewAeronave_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+            var index = e.ColumnIndex;
+
+            if (senderGrid.Columns[index] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                if (index == senderGrid.Columns["Seleccionar"].Index)
+                {
+                    senderGrid.CurrentRow.Selected = true;
+                    btnModificarAeronave.Enabled = true;
+                    btnBajaFueraServicio.Enabled = true;
+                    btnBajaVidaUtil.Enabled = true;
+                    dateTimePicker1.Enabled = true;
+                }
+                else
+                    deshabilitarModifBaja();
+            }
         }
     }
 }
