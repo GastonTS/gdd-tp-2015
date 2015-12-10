@@ -85,6 +85,7 @@
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(28, 252);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(988, 150);
@@ -116,6 +117,7 @@
             this.dataGridViewListado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewListado.Location = new System.Drawing.Point(522, 59);
+            this.dataGridViewListado.MultiSelect = false;
             this.dataGridViewListado.Name = "dataGridViewListado";
             this.dataGridViewListado.ReadOnly = true;
             this.dataGridViewListado.Size = new System.Drawing.Size(494, 132);
