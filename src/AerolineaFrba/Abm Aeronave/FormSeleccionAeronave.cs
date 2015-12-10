@@ -129,6 +129,15 @@ namespace AerolineaFrba.Abm_Aeronave
             //abrir el formulario de alta con todos los datos de la aeronave seleccionada actualmente
             DataGridViewRow filaSeleccionada = getFilaSeleccionada();
 
+            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+
+            errorMensaje.Add(60017, "No se puede modificar una aeronave con viajes");
+
+            camposValores.Clear();
+            camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
+            new gdDataBase().Exec("ÑUFLO.ValidarAeronavesSinViajes", camposValores, errorMensaje, null);
+
             FormAltaAeronave faa = new FormAltaAeronave();
             faa.Show();
             faa.setPadre(this);
