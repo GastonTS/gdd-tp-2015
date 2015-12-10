@@ -131,26 +131,6 @@ namespace AerolineaFrba.Compra
             comboBoxDestino.DisplayMember = dtOrigenDestino.Columns[0].ColumnName;
         }
 
-        private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridView1.SelectedRows.Count == 1)
-            {
-                DataGridViewRow filaSeleccionada = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index];
-                pesoDisponible = Convert.ToInt32(filaSeleccionada.Cells[5].FormattedValue.ToString());
-
-                HabilitacionDeCompra(true);
-            }
-            else if (dataGridView1.Rows.Count == 1)
-            {
-                DataGridViewRow filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
-                pesoDisponible = Convert.ToInt32(filaSeleccionada.Cells[5].FormattedValue.ToString());
-
-                HabilitacionDeCompra(true);
-            }
-            else
-                HabilitacionDeCompra(false);
-        }
-
         private void HabilitacionDeCompra(bool estado)
         {
             groupBoxPasajesEncomiendas.Enabled = estado;
@@ -277,6 +257,24 @@ namespace AerolineaFrba.Compra
         {
             groupBoxFechaYRuta.Enabled = false;
             dataGridView1.Enabled = false;
+        }
+
+        private DataGridViewRow getFilaSeleccionada()
+        {
+            DataGridViewRow filaSeleccionada = null;
+
+            filaSeleccionada = dataGridView1.CurrentRow;
+
+            return filaSeleccionada;
+        }
+
+        private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+            senderGrid.CurrentRow.Selected = true;
+
+            pesoDisponible = Convert.ToInt32(senderGrid.CurrentRow.Cells[5].FormattedValue.ToString());
+            HabilitacionDeCompra(true);
         }
     }
 }
