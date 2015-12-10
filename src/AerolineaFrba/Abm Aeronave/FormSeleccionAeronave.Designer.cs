@@ -56,7 +56,6 @@
             this.btnBajaVidaUtil = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.Seleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
@@ -253,8 +252,6 @@
             this.dataGridViewAeronave.AllowUserToDeleteRows = false;
             this.dataGridViewAeronave.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewAeronave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAeronave.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Seleccionar});
             this.dataGridViewAeronave.Location = new System.Drawing.Point(27, 306);
             this.dataGridViewAeronave.Name = "dataGridViewAeronave";
             this.dataGridViewAeronave.ReadOnly = true;
@@ -312,14 +309,6 @@
             this.label2.Size = new System.Drawing.Size(131, 13);
             this.label2.TabIndex = 23;
             this.label2.Text = "Fecha de reincorporación:";
-            // 
-            // Seleccionar
-            // 
-            this.Seleccionar.HeaderText = "";
-            this.Seleccionar.Name = "Seleccionar";
-            this.Seleccionar.ReadOnly = true;
-            this.Seleccionar.Text = "Elegir";
-            this.Seleccionar.UseColumnTextForButtonValue = true;
             // 
             // FormSeleccionAeronave
             // 
@@ -384,6 +373,5 @@
         private System.Windows.Forms.Button btnBajaVidaUtil;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridViewButtonColumn Seleccionar;
     }
 }
