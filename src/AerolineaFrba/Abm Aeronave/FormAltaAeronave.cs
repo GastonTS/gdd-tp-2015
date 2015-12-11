@@ -57,7 +57,7 @@ namespace AerolineaFrba.Abm_Aeronave
             textBoxMatricula.Clear();
             textBoxModelo.Clear();
 
-            comboBoxTipoServicio.ResetText();
+            comboBoxTipoServicio.SelectedIndex = 0;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)

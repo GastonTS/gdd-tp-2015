@@ -68,7 +68,7 @@ namespace AerolineaFrba.Generacion_Viaje
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            DataGridViewRow filaAeronave = dataGridViewAeronave.Rows[dataGridViewAeronave.SelectedRows[0].Index];
+            DataGridViewRow filaAeronave = dataGridViewAeronave.CurrentRow;
 
             if (miPadre != null)
                 miPadre.setMatricula(filaAeronave.Cells[2].FormattedValue.ToString());

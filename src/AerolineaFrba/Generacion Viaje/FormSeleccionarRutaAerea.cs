@@ -26,7 +26,7 @@ namespace AerolineaFrba.Generacion_Viaje
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            DataGridViewRow filaAeronave = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index];
+            DataGridViewRow filaAeronave = dataGridView1.CurrentRow;
 
             if (miPadre != null)
             {

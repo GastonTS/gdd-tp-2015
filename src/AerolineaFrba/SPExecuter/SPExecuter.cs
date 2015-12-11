@@ -57,8 +57,13 @@ namespace AerolineaFrba
                 {
                     if (excepcionAtrapada.Number == errorMensaje.ElementAt(i).Key)
                     {
-                        MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        encontroErrorConocido = true;
+                        if (excepcionAtrapada.Number >= 64000)
+                            MessageBox.Show(errorMensaje.ElementAt(i).Value, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        else
+                        {
+                            MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            encontroErrorConocido = true;
+                        }
                     }
                 }
             }
