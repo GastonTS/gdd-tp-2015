@@ -995,6 +995,7 @@ AS
 					and c.codigo_de_compra = p.codigo_de_compra
 					and p.cancelado = 0
 					and v.fecha_llegada is null
+			order by c.codigo_de_compra
 					
 	DECLARE @pnr int, @pasaje int, @cod_anterior int
 	SET @cod_anterior = -1
@@ -1044,6 +1045,7 @@ AS
 					and c.codigo_de_compra = e.codigo_de_compra
 					and e.cancelado = 0
 					and v.fecha_llegada is null
+			order by c.codigo_de_compra
 					
 	DECLARE @pnr int, @encomienda int, @cod_anterior int
 	SET @cod_anterior = -1
