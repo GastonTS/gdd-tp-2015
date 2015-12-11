@@ -1094,6 +1094,7 @@ AS
 				and ((@fecha_f is null and fecha_salida > @fecha_i)
 				or fecha_salida between @fecha_i and @fecha_f)
 				and cancelado = 0
+				and fecha_llegada is null
 
 	BEGIN TRANSACTION
 	
@@ -1189,7 +1190,7 @@ AS
 	IF(@fecha_llegada_estimada < @fecha_salida)
 		THROW 60013, 'La fecha de llegada no puede ser menor a la de salida', 1
 		
-	IF(@fecha_salida < @hoy)
+	IF(@fecha_salida <= @hoy)
 		THROW 60014, 'La fecha de salida debe ser mayor a la fecha de hoy', 1
 		
 	IF ((select id_tipo_servicio from ÑUFLO.ServicioPorRuta where id_ruta = @id_ruta) <> (select id_tipo_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave))
@@ -1313,6 +1314,7 @@ AS
 						and r.id_ciudad_origen = c.id_ciudad
 						and c.nombre = @origen
 						and v.fecha_llegada is null
+						and v.cancelado  = 0
 						and v.fecha_salida < @fecha_llegada
 					order by v.fecha_salida)
 
@@ -1740,6 +1742,7 @@ AS
 				where v.id_ruta = @id_ruta
 					and c.id_viaje = v.id_viaje
 					and v.fecha_llegada IS NULL--PROBAR
+					and v.cancelado = 0
 					and c.codigo_de_compra = p.codigo_de_compra
 			 UNION
 			 select e.id_encomienda id, 'Encomienda' as tipo
@@ -1747,6 +1750,7 @@ AS
 				where v.id_ruta = @id_ruta
 					and c.id_viaje = v.id_viaje
 					and v.fecha_llegada IS NULL--PROBAR
+					and v.cancelado = 0
 					and c.codigo_de_compra = e.codigo_de_compra)
 
 	
@@ -1779,13 +1783,14 @@ AS
 			set cancelado = 1
 		WHERE id_ruta=@id_ruta;
 		
+		EXEC ÑUFLO.CancelarRutaAerea @id_ruta, @hoy
 			
 		UPDATE ÑUFLO.Viaje
 			SET cancelado = 1
 			where id_ruta = @id_ruta;
 		END
 	
-	EXEC ÑUFLO.CancelarRutaAerea @id_ruta, @hoy
+	
 ;  
 GO
 

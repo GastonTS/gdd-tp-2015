@@ -161,7 +161,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 if (cantidadViajesPendientes > 0)
                 {
                     DialogResult dialogResult = MessageBox.Show("Desea Reprogramar los " + cantidadViajesPendientes
-                        + " pasajes/encomiendas asociados a la Aeronave dada en baja? (De elejir no, simplemente se cancelarán esos viajes",
+                        + " viajes pendientes asociados a la Aeronave dada en baja? (De elegir no, simplemente se cancelarán esos viajes",
                         "Baja por vida útil de Aeronave con viajes asignados", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
