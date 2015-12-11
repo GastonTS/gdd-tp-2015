@@ -758,7 +758,7 @@ AS
 exec ÑUFLO.IncorporarAeronavesFueraDeServicio @hoy
 
 select distinct a.id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre Fabricante, ts.tipo_servicio 'Tipo de Servicio', fecha_de_alta 'Fecha de Alta', 
-		ÑUFLO.CantidadButacasDe(a.id_aeronave) 'Cantidad Butacas',	capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
+		a.cantidad_butacas 'Cantidad Butacas',	capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
 	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f, ÑUFLO.TipoServicio ts
 	where a.id_modelo = m.id_modelo
 		and a.id_fabricante = f.id_fabricante
@@ -789,7 +789,7 @@ AS
 exec ÑUFLO.IncorporarAeronavesFueraDeServicio @hoy
 
 select distinct a.id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre Fabricante, ts.tipo_servicio 'Tipo de Servicio', fecha_de_alta 'Fecha de Alta', 
-		ÑUFLO.CantidadButacasDe(a.id_aeronave) 'Cantidad Butacas',	capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
+		a.cantidad_butacas 'Cantidad Butacas',	capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
 	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f, ÑUFLO.TipoServicio ts
 	where a.id_modelo = m.id_modelo
 		and a.id_fabricante = f.id_fabricante
@@ -856,7 +856,7 @@ AS
 		
 	UPDATE ÑUFLO.Aeronave
 		SET cantidad_butacas = cantidad_butacas + 1
-		
+		where id_aeronave = @id_aeronave
 ;
 GO
 
@@ -904,7 +904,8 @@ AS
 			id_fabricante = @id_fabricante, 
 			id_tipo_servicio = @tipo_de_servicio, 
 			capacidad_peso_encomiendas = @capacidad_de_encomiendas, 
-			fecha_de_alta = convert(datetime, @fecha_hoy)
+			fecha_de_alta = convert(datetime, @fecha_hoy),
+			cantidad_butacas = 0
 		WHERE id_aeronave = @id_aeronave
 	
 	DELETE ÑUFLO.ButacaPorAvion
@@ -1528,6 +1529,18 @@ AS
 		UPDATE ÑUFLO.Encomienda
 			SET cancelado = 1
 			WHERE @id = id_encomienda
+
+		DECLARE @peso int, @id_viaje int
+		SET @peso = (select peso_encomienda from ÑUFLO.Encomienda where @id = id_encomienda)
+		SET @id_viaje = (select v.id_viaje 
+							from ÑUFLO.Encomienda e, ÑUFLO.Compra c, ÑUFLO.Viaje v
+							where @id = id_encomienda
+								and e.codigo_de_compra = c.codigo_de_compra
+								and c.id_viaje = v.id_viaje)
+
+		UPDATE ÑUFLO.Viaje
+			SET peso_ocupado = peso_ocupado - @peso
+			where id_viaje = @id_viaje
 	END
 ;
 GO
@@ -2155,19 +2168,6 @@ BEGIN
 									and v.id_aeronave = a.id_aeronave)
 	
 	RETURN @peso_disponible
-END
-GO
-
-CREATE FUNCTION ÑUFLO.CantidadButacasDe(@id_aeronave int)
-RETURNS int
-AS
-BEGIN
-DECLARE @cantidad int
-SET @cantidad = (select COUNT(numero_de_butaca)
-					from ÑUFLO.ButacaPorAvion
-					where id_aeronave = @id_aeronave)
-
-return @cantidad
 END
 GO
 
