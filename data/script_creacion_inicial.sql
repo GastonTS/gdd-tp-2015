@@ -1094,6 +1094,7 @@ AS
 				and ((@fecha_f is null and fecha_salida > @fecha_i)
 				or fecha_salida between @fecha_i and @fecha_f)
 				and cancelado = 0
+				and fecha_llegada is null
 
 	BEGIN TRANSACTION
 	
