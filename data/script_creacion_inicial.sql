@@ -861,6 +861,7 @@ AS
 		where ba.id_aeronave = @id_aeronave
 			and ba.id_tipo_butaca = 2
 ;
+GO
 
 CREATE PROCEDURE ÑUFLO.ActualizarAeronave
 @id_aeronave int,
