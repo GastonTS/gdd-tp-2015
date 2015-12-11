@@ -15,6 +15,7 @@ namespace AerolineaFrba.Abm_Rol
         bool modificacion = false;
         String nombreViejo;
         FormSeleccionRol padre;
+        private Control primerControlInvalido;
 
         public FormAltaRol()
         {
@@ -192,6 +193,20 @@ namespace AerolineaFrba.Abm_Rol
         public void setPadre(FormSeleccionRol padre)
         {
             this.padre = padre;
+        }
+
+        private void listBoxFuncionalidades_Validating(object sender, CancelEventArgs e)
+        {
+            if (listBoxFuncionalidades.Items.Count != 0)
+            {
+                errorProvider1.Clear();
+                e.Cancel = false;
+            }
+            else 
+            {
+                errorProvider1.SetError(listBoxFuncionalidades, "Es obligatorio al menos una funcionalidad para crear un rol");
+                e.Cancel = true;
+            }
         }
     }
 }
