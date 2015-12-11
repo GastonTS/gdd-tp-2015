@@ -45,7 +45,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxCantidadProducto = new AerolineaFrba.Abm.TextBoxNumeros();
+            this.textBoxCantidadProducto = new AerolineaFrba.Abm.TextBoxPositivo();
             this.labelVentanillaPasillo = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new AerolineaFrba.Abm.Guardar();
@@ -226,11 +226,12 @@
             // textBoxCantidadProducto
             // 
             this.textBoxCantidadProducto.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCantidadProducto.CausesValidation = false;
             this.textBoxCantidadProducto.Enabled = false;
-            this.textBoxCantidadProducto.ErrorText = null;
+            this.textBoxCantidadProducto.ErrorText = "Debe ingresar una cantidad";
             this.textBoxCantidadProducto.Location = new System.Drawing.Point(197, 69);
             this.textBoxCantidadProducto.Name = "textBoxCantidadProducto";
-            this.textBoxCantidadProducto.Size = new System.Drawing.Size(101, 22);
+            this.textBoxCantidadProducto.Size = new System.Drawing.Size(152, 22);
             this.textBoxCantidadProducto.TabIndex = 6;
             this.textBoxCantidadProducto.TextboxTextChanged += new System.EventHandler(this.textBoxCantidadProducto_TextboxTextChanged);
             // 
@@ -259,7 +260,7 @@
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(83, 31);
             this.btnGuardar.TabIndex = 6;
-            this.btnGuardar.TextBtn = "Guardar";
+            this.btnGuardar.TextBtn = "Canjear";
             // 
             // lblNoHaySuficientesMillas
             // 
@@ -281,9 +282,10 @@
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBoxInfoCliente);
             this.Controls.Add(this.groupBoxProducto);
+            this.MsgError = "Los datos ingresados no son válidos.";
             this.Name = "FormCajeMillasPasajero";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Canje de Millas de Pasajero Frecuente";
+            this.Text = "Canje de millas";
             this.groupBoxInfoCliente.ResumeLayout(false);
             this.groupBoxInfoCliente.PerformLayout();
             this.groupBoxProducto.ResumeLayout(false);
@@ -305,7 +307,7 @@
         private System.Windows.Forms.Label labelVentanillaPasillo;
         private System.Windows.Forms.Button btnLimpiar;
         private Abm.Guardar btnGuardar;
-        private Abm.TextBoxNumeros textBoxCantidadProducto;
+        private Abm.TextBoxPositivo textBoxCantidadProducto;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;

@@ -16,6 +16,7 @@ namespace AerolineaFrba.Canje_Millas
         {
             InitializeComponent();
             lblNoHaySuficientesMillas.Visible = false;
+            textBoxCantidadProducto.ResetText();
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -27,17 +28,10 @@ namespace AerolineaFrba.Canje_Millas
             lblCantMillas.ResetText();
 
             comboBoxProducto.Enabled = false;
-            textBoxCantidadProducto.Enabled = false;
 
         }
 
-        public override string MsgError
-        {
-            get
-            {
-                return "Hubo un problema al tratar de canjear las millas.";
-            }
-        }
+
 
         protected override void guardarPosta()
         {
@@ -119,7 +113,7 @@ namespace AerolineaFrba.Canje_Millas
                 if (esClienteValido(textBoxDni.Text))
                 {
                     actualizarDatosCliente();
-
+                    
                     
                 }
                 else
@@ -135,6 +129,7 @@ namespace AerolineaFrba.Canje_Millas
                     lblStock.ResetText();
                     lblNoHaySuficientesMillas.Visible = false;
                 }
+                textBoxCantidadProducto.CausesValidation = esClienteValido(textBoxDni.Text);
             }
         }
 
@@ -158,5 +153,7 @@ namespace AerolineaFrba.Canje_Millas
             actualizarDatosTransaccion();
 
         }
+
+
     }
 }
