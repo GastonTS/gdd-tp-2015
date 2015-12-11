@@ -39,6 +39,8 @@ namespace AerolineaFrba.Registro_de_Usuario
                 padre.activarFuncionalidad(idFuncion(funcion));
             }
 
+            
+
             padre.habilitarFormulario();
         }
 
