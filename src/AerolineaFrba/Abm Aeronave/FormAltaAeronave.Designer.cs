@@ -36,21 +36,20 @@ namespace AerolineaFrba.Abm_Aeronave
             this.labelCapacidadEncomiendas = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxMatricula = new AerolineaFrba.Abm.TextBoxValidado();
-            this.textBoxFabricante = new AerolineaFrba.Abm.TextBoxLetras();
-            this.textBoxModelo = new AerolineaFrba.Abm.TextBoxLetras();
+            this.textBoxFabricante = new AerolineaFrba.Abm.TextBoxValidado();
+            this.textBoxModelo = new AerolineaFrba.Abm.TextBoxValidado();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBoxCantidadButacas = new AerolineaFrba.Abm.TextBoxNumeros();
+            this.textBoxButacasVentanilla = new AerolineaFrba.Abm.TextBoxNumeros();
             this.textBoxCapacidadEncomiendas = new AerolineaFrba.Abm.TextBoxNumeros();
-            this.btnElegirTipoButaca = new System.Windows.Forms.Button();
-            this.labelVentanillaPasillo = new System.Windows.Forms.Label();
-            this.checkedListBoxButacas = new System.Windows.Forms.CheckedListBox();
-            this.labelCantidadButacas = new System.Windows.Forms.Label();
+            this.labelCantidadButacasPasillo = new System.Windows.Forms.Label();
+            this.labelCantidadButacasVentanilla = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
+            this.textBoxButacasPasillo = new AerolineaFrba.Abm.TextBoxNumeros();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -140,7 +139,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.comboBoxTipoServicio.DataSource = this.bindingSourceTipoServicio;
             this.comboBoxTipoServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipoServicio.FormattingEnabled = true;
-            this.comboBoxTipoServicio.Location = new System.Drawing.Point(28, 178);
+            this.comboBoxTipoServicio.Location = new System.Drawing.Point(28, 111);
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";
             this.comboBoxTipoServicio.Size = new System.Drawing.Size(139, 21);
             this.comboBoxTipoServicio.TabIndex = 0;
@@ -148,7 +147,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // labelTipoServicio
             // 
             this.labelTipoServicio.AutoSize = true;
-            this.labelTipoServicio.Location = new System.Drawing.Point(25, 162);
+            this.labelTipoServicio.Location = new System.Drawing.Point(25, 95);
             this.labelTipoServicio.Name = "labelTipoServicio";
             this.labelTipoServicio.Size = new System.Drawing.Size(87, 13);
             this.labelTipoServicio.TabIndex = 10;
@@ -156,31 +155,29 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBoxCantidadButacas);
+            this.groupBox2.Controls.Add(this.textBoxButacasPasillo);
+            this.groupBox2.Controls.Add(this.textBoxButacasVentanilla);
             this.groupBox2.Controls.Add(this.textBoxCapacidadEncomiendas);
-            this.groupBox2.Controls.Add(this.btnElegirTipoButaca);
-            this.groupBox2.Controls.Add(this.labelVentanillaPasillo);
-            this.groupBox2.Controls.Add(this.checkedListBoxButacas);
-            this.groupBox2.Controls.Add(this.labelCantidadButacas);
+            this.groupBox2.Controls.Add(this.labelCantidadButacasPasillo);
+            this.groupBox2.Controls.Add(this.labelCantidadButacasVentanilla);
             this.groupBox2.Controls.Add(this.labelTipoServicio);
             this.groupBox2.Controls.Add(this.comboBoxTipoServicio);
             this.groupBox2.Controls.Add(this.labelCapacidadEncomiendas);
             this.groupBox2.Location = new System.Drawing.Point(21, 165);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(487, 279);
+            this.groupBox2.Size = new System.Drawing.Size(487, 163);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Características de la Aeronave";
             // 
-            // textBoxCantidadButacas
+            // textBoxButacasVentanilla
             // 
-            this.textBoxCantidadButacas.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxCantidadButacas.ErrorText = "Debe ingresar una cantidad de butacas";
-            this.textBoxCantidadButacas.Location = new System.Drawing.Point(331, 40);
-            this.textBoxCantidadButacas.Name = "textBoxCantidadButacas";
-            this.textBoxCantidadButacas.Size = new System.Drawing.Size(124, 22);
-            this.textBoxCantidadButacas.TabIndex = 2;
-            this.textBoxCantidadButacas.TextboxTextChanged += new System.EventHandler(this.textBoxCantidadButacas_TextChanged);
+            this.textBoxButacasVentanilla.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxButacasVentanilla.ErrorText = "Debe ingresar una cantidad de butacas";
+            this.textBoxButacasVentanilla.Location = new System.Drawing.Point(357, 44);
+            this.textBoxButacasVentanilla.Name = "textBoxButacasVentanilla";
+            this.textBoxButacasVentanilla.Size = new System.Drawing.Size(124, 22);
+            this.textBoxButacasVentanilla.TabIndex = 2;
             // 
             // textBoxCapacidadEncomiendas
             // 
@@ -191,49 +188,29 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxCapacidadEncomiendas.Size = new System.Drawing.Size(139, 22);
             this.textBoxCapacidadEncomiendas.TabIndex = 1;
             // 
-            // btnElegirTipoButaca
+            // labelCantidadButacasPasillo
             // 
-            this.btnElegirTipoButaca.Enabled = false;
-            this.btnElegirTipoButaca.Location = new System.Drawing.Point(243, 79);
-            this.btnElegirTipoButaca.Name = "btnElegirTipoButaca";
-            this.btnElegirTipoButaca.Size = new System.Drawing.Size(189, 23);
-            this.btnElegirTipoButaca.TabIndex = 3;
-            this.btnElegirTipoButaca.Text = "Elegir Ventana/Pasillo";
-            this.btnElegirTipoButaca.UseVisualStyleBackColor = true;
-            this.btnElegirTipoButaca.Click += new System.EventHandler(this.btnElegirTipoButaca_Click);
+            this.labelCantidadButacasPasillo.AutoSize = true;
+            this.labelCantidadButacasPasillo.Location = new System.Drawing.Point(249, 82);
+            this.labelCantidadButacasPasillo.Name = "labelCantidadButacasPasillo";
+            this.labelCantidadButacasPasillo.Size = new System.Drawing.Size(82, 26);
+            this.labelCantidadButacasPasillo.TabIndex = 16;
+            this.labelCantidadButacasPasillo.Text = "Cantidad \r\nButacas Pasillo:";
             // 
-            // labelVentanillaPasillo
+            // labelCantidadButacasVentanilla
             // 
-            this.labelVentanillaPasillo.AutoSize = true;
-            this.labelVentanillaPasillo.Location = new System.Drawing.Point(262, 112);
-            this.labelVentanillaPasillo.Name = "labelVentanillaPasillo";
-            this.labelVentanillaPasillo.Size = new System.Drawing.Size(170, 26);
-            this.labelVentanillaPasillo.TabIndex = 16;
-            this.labelVentanillaPasillo.Text = "Seleccione Butaca con Ventanilla.\r\nEl resto será Pasillo";
-            // 
-            // checkedListBoxButacas
-            // 
-            this.checkedListBoxButacas.Enabled = false;
-            this.checkedListBoxButacas.FormattingEnabled = true;
-            this.checkedListBoxButacas.Location = new System.Drawing.Point(253, 141);
-            this.checkedListBoxButacas.Name = "checkedListBoxButacas";
-            this.checkedListBoxButacas.Size = new System.Drawing.Size(179, 124);
-            this.checkedListBoxButacas.TabIndex = 3;
-            // 
-            // labelCantidadButacas
-            // 
-            this.labelCantidadButacas.AutoSize = true;
-            this.labelCantidadButacas.Location = new System.Drawing.Point(249, 40);
-            this.labelCantidadButacas.Name = "labelCantidadButacas";
-            this.labelCantidadButacas.Size = new System.Drawing.Size(67, 26);
-            this.labelCantidadButacas.TabIndex = 13;
-            this.labelCantidadButacas.Text = "Cantidad de \r\nButacas:";
+            this.labelCantidadButacasVentanilla.AutoSize = true;
+            this.labelCantidadButacasVentanilla.Location = new System.Drawing.Point(249, 40);
+            this.labelCantidadButacasVentanilla.Name = "labelCantidadButacasVentanilla";
+            this.labelCantidadButacasVentanilla.Size = new System.Drawing.Size(103, 26);
+            this.labelCantidadButacasVentanilla.TabIndex = 13;
+            this.labelCantidadButacasVentanilla.Text = "Cantidad \r\nButacas Ventanillas:";
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(36, 468);
+            this.btnLimpiar.Location = new System.Drawing.Point(37, 349);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.btnLimpiar.Size = new System.Drawing.Size(83, 23);
             this.btnLimpiar.TabIndex = 0;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -241,7 +218,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // guardar1
             // 
-            this.guardar1.Location = new System.Drawing.Point(425, 468);
+            this.guardar1.Location = new System.Drawing.Point(400, 349);
             this.guardar1.Name = "guardar1";
             this.guardar1.Size = new System.Drawing.Size(83, 23);
             this.guardar1.TabIndex = 0;
@@ -252,12 +229,21 @@ namespace AerolineaFrba.Abm_Aeronave
             this.gD2C2015DataSet.DataSetName = "GD2C2015DataSet";
             this.gD2C2015DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
+            // textBoxButacasPasillo
+            // 
+            this.textBoxButacasPasillo.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxButacasPasillo.ErrorText = "Debe ingresar una cantidad de butacas";
+            this.textBoxButacasPasillo.Location = new System.Drawing.Point(357, 86);
+            this.textBoxButacasPasillo.Name = "textBoxButacasPasillo";
+            this.textBoxButacasPasillo.Size = new System.Drawing.Size(124, 22);
+            this.textBoxButacasPasillo.TabIndex = 17;
+            // 
             // FormAltaAeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.ClientSize = new System.Drawing.Size(533, 517);
+            this.ClientSize = new System.Drawing.Size(533, 395);
             this.Controls.Add(this.guardar1);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox1);
@@ -287,18 +273,17 @@ namespace AerolineaFrba.Abm_Aeronave
         private System.Windows.Forms.ComboBox comboBoxTipoServicio;
         private System.Windows.Forms.Label labelTipoServicio;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label labelCantidadButacas;
-        private System.Windows.Forms.Label labelVentanillaPasillo;
-        private System.Windows.Forms.Button btnElegirTipoButaca;
+        private System.Windows.Forms.Label labelCantidadButacasVentanilla;
+        private System.Windows.Forms.Label labelCantidadButacasPasillo;
         private System.Windows.Forms.Button btnLimpiar;
-        private System.Windows.Forms.CheckedListBox checkedListBoxButacas;
-        private Abm.TextBoxLetras textBoxFabricante;
-        private Abm.TextBoxLetras textBoxModelo;
+        private Abm.TextBoxValidado textBoxFabricante;
+        private Abm.TextBoxValidado textBoxModelo;
         private Abm.Guardar guardar1;
         private Abm.TextBoxNumeros textBoxCapacidadEncomiendas;
-        private Abm.TextBoxNumeros textBoxCantidadButacas;
+        private Abm.TextBoxNumeros textBoxButacasVentanilla;
         private System.Windows.Forms.BindingSource bindingSourceTipoServicio;
         private GD2C2015DataSet gD2C2015DataSet;
         private Abm.TextBoxValidado textBoxMatricula;
+        private Abm.TextBoxNumeros textBoxButacasPasillo;
     }
 }
