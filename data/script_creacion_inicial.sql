@@ -879,6 +879,9 @@ AS
 			capacidad_peso_encomiendas = @capacidad_de_encomiendas, 
 			fecha_de_alta = convert(datetime, @fecha_hoy)
 		WHERE id_aeronave = @id_aeronave
+	
+	DELETE ÑUFLO.ButacaPorAvion
+		where id_aeronave = @id_aeronave
 ;
 GO
 
