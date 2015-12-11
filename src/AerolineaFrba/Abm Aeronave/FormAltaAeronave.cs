@@ -39,7 +39,7 @@ namespace AerolineaFrba.Abm_Aeronave
             textBoxMatricula.Text = filaAeronave.Cells[2].FormattedValue.ToString();
             textBoxFabricante.Text = filaAeronave.Cells[3].FormattedValue.ToString();
             comboBoxTipoServicio.Text = filaAeronave.Cells[4].FormattedValue.ToString();
-            textBoxCapacidadEncomiendas.Text = filaAeronave.Cells[6].FormattedValue.ToString();
+            textBoxCapacidadEncomiendas.Text = filaAeronave.Cells[7].FormattedValue.ToString();
             
             //HACER
             //Con un Stored Procedure, traerse la cantidad de bucatas y la lista de butacas ventanilla o pasillo
