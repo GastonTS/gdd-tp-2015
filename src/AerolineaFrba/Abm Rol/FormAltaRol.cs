@@ -27,10 +27,9 @@ namespace AerolineaFrba.Abm_Rol
             comboBoxFuncionalidades.DataSource = dt;
             comboBoxFuncionalidades.DisplayMember = dt.Columns[0].ColumnName;
 
-            textBoxNombre.Enabled = false;
+            textBoxNombre.Enabled = !modificacion;
+            checkBox1.Visible = modificacion;
 
-            if (modificacion)
-                checkBox1.Enabled = true;
         }
 
         private void textBoxNombre_Validating(object sender, CancelEventArgs e)
@@ -62,18 +61,24 @@ namespace AerolineaFrba.Abm_Rol
 
         protected override void guardarPosta()
         {
-            if (!modificacion)
+            try
             {
-                darDeAltaRol();
-                agregarFuncionalidades();
-                limpiar();
+                if (!modificacion)
+                {
+                    darDeAltaRol();
+                    agregarFuncionalidades();
+                    limpiar();
+                }
+                else
+                {
+                    cambiarNombre();
+                    actualizarRol();
+                    padre.actualizate();
+                    this.Close();
+                }
             }
-            else
+            catch (RolException e)
             {
-                cambiarNombre();
-                actualizarRol();
-                padre.actualizate();
-                this.Close();
             }
 
         }
@@ -101,8 +106,8 @@ namespace AerolineaFrba.Abm_Rol
         {            
             this.Text = "Modificación de Rol";
             modificacion = true;
-            textBoxNombre.Enabled = true;
-            textBoxNombre.Text = nombreRol;
+            nombreViejo = nombreRol;
+            textBoxNombre.Text = nombreViejo;
 
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             camposValores.Add("nombre_rol", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
@@ -124,7 +129,11 @@ namespace AerolineaFrba.Abm_Rol
             
             errorMensaje.Add(60005, "Ese rol ya existe en el sistema. Ingrese uno distinto...");
 
-            new gdDataBase().Exec("ÑUFLO.CrearRol", camposValores, errorMensaje, "Rol registrada correctamente");
+            var executer = new SPPureExec("ÑUFLO.CrearRol", camposValores, errorMensaje, "Rol registrada correctamente");
+
+            executer.Exec();
+
+            if (executer.huboError()) throw new RolException();
         }
 
         private void agregarFuncionalidades()
@@ -156,25 +165,28 @@ namespace AerolineaFrba.Abm_Rol
 
         private void cambiarNombre()
         {
-            Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
-            camposValores.Add("nombre_old", new gdDataBase.ValorTipo(nombreViejo, SqlDbType.VarChar));
-            camposValores.Add("nombre", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
+            if (textBoxNombre.Text != nombreViejo)
+            {
+                Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+                camposValores.Add("nombre_old", new gdDataBase.ValorTipo(nombreViejo, SqlDbType.VarChar));
+                camposValores.Add("nombre", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
 
-            Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
-            errorMensaje.Add(60011, "No puede cambiar el nombre a un nombre de rol ya existente");
+                Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
+                errorMensaje.Add(60011, "No puede cambiar el nombre a un nombre de rol ya existente");
 
-            new gdDataBase().Exec("ÑUFLO.CambiarNombreDeRol", camposValores, errorMensaje);
+                var executer = new SPPureExec("ÑUFLO.CambiarNombreDeRol", camposValores, errorMensaje);
+
+                executer.Exec();
+
+                if (executer.huboError()) throw new RolException();
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-            {
-                nombreViejo = textBoxNombre.Text;
-                textBoxNombre.Enabled = true;
-            }
-            else
-                textBoxNombre.Enabled = false;
+            if (!checkBox1.Checked)
+                textBoxNombre.Text = nombreViejo;
+            textBoxNombre.Enabled = checkBox1.Checked;
         }
 
         public void setPadre(FormSeleccionRol padre)

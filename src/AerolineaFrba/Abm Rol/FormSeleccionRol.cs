@@ -60,7 +60,7 @@ namespace AerolineaFrba.Abm_Rol
             cargarDatosEnTabla(dt);
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private void textBox_textChanged(object sender, EventArgs e)
         {
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
             camposValores.Add("nombre", new gdDataBase.ValorTipo(textBoxNombre.Text, SqlDbType.VarChar));
