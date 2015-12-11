@@ -148,6 +148,7 @@
             // 
             // guardar1
             // 
+            this.guardar1.Enabled = false;
             this.guardar1.Location = new System.Drawing.Point(358, 269);
             this.guardar1.Name = "guardar1";
             this.guardar1.Size = new System.Drawing.Size(81, 28);
