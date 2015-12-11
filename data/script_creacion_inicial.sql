@@ -1760,10 +1760,6 @@ AS
 
 	CLOSE CRutaAerea
 	DEALLOCATE CRutaAerea
-	
-	UPDATE ÑUFLO.Viaje
-		SET cancelado = 1
-		where id_ruta = @id_ruta
 		
 ;
 GO
@@ -1778,6 +1774,11 @@ AS
 		UPDATE ÑUFLO.RutaAerea
 			set cancelado = 1
 		WHERE id_ruta=@id_ruta;
+		
+			
+		UPDATE ÑUFLO.Viaje
+			SET cancelado = 1
+			where id_ruta = @id_ruta;
 		END
 	
 	EXEC ÑUFLO.CancelarRutaAerea @id_ruta, @hoy
@@ -1824,6 +1825,13 @@ GO
 CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasNoCanceladosDe
 @codigo_compra int
 AS
+	IF(EXISTS (select id_viaje 
+				from ÑUFLO.Viaje v, ÑUFLO.Compra c 
+				where c.codigo_de_compra = @codigo_compra
+					and c.id_viaje = v.id_viaje
+					and v.fecha_llegada is not null))
+		THROW 64001, 'El viaje correspondiente al PNR indicado ya fue realizado, las compras de un viaje ya realizado no se pueden cancelar', 1
+	
 	select p.id_pasaje Codigo, 'Pasaje' Tipo, c.dni DNI, c.nombre Nombre, c.apellido Apellido,
 		 '-' 'Peso de encomienda', cast(p.numero_de_butaca AS nvarchar(255)) 'Número de butaca', p.precio Precio
 		from ÑUFLO.Pasaje p, ÑUFLO.Cliente c
@@ -2098,6 +2106,7 @@ BEGIN
 		select id_viaje viajes
 			from ÑUFLO.Viaje v
 			where @id_aeronave = v.id_aeronave
+				and cancelado = 0
 				and (v.fecha_salida between @salida and @llegada
 				or v.fecha_llegada_estimada between @salida and @llegada)
 RETURN
