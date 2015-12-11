@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.btnLimpiar = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.btnSeleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ColumnaHabilitacion = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -40,26 +38,6 @@
             this.groupBoxFiltros.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Location = new System.Drawing.Point(363, 111);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 10;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Location = new System.Drawing.Point(26, 111);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 9;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
@@ -69,10 +47,10 @@
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.btnSeleccionar,
             this.ColumnaHabilitacion});
-            this.dataGridView.Location = new System.Drawing.Point(26, 155);
+            this.dataGridView.Location = new System.Drawing.Point(26, 108);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(412, 181);
+            this.dataGridView.Size = new System.Drawing.Size(412, 228);
             this.dataGridView.TabIndex = 8;
             this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellContentClick);
             // 
@@ -105,6 +83,7 @@
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(100, 20);
             this.textBoxNombre.TabIndex = 2;
+            this.textBoxNombre.TextChanged += new System.EventHandler(this.textBox_textChanged);
             // 
             // labelNombre
             // 
@@ -120,8 +99,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 359);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.groupBoxFiltros);
             this.Name = "FormSeleccionRol";
@@ -137,8 +114,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnBuscar;
-        private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBoxFiltros;
         private System.Windows.Forms.TextBox textBoxNombre;
