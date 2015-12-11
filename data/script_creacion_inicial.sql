@@ -1463,11 +1463,23 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.CrearCancelacion
+@pnr int,
+@hoy datetime
+AS
+	INSERT INTO ÑUFLO.Cancelacion(codigo_de_compra, fecha_devolucion) 
+ 		values(@pnr, @hoy) 
+		
+	select MAX(id_cancelacion) from ÑUFLO.Cancelacion
+
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.CancelarPasajeOEncomienda
 @id int,
 @tipo nvarchar(64),
 @motivo nvarchar(255),
-@hoy datetime
+@id_cancelacion int
 AS	
 	DECLARE @pnr int, @msg nvarchar(255)
 	
@@ -1486,17 +1498,9 @@ AS
 			SET @msg = 'El vuelo del pasaje ' + convert(nvarchar(255), @id) + ' ya fue realizado, no se pueden cancelar pasajes de vuelos ya realizadas, porfavor vuelva a realizar la seleccion';
 			THROW 60035, @msg, 1
 		END
-		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
-		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
-		BEGIN
-
-			INSERT INTO ÑUFLO.Cancelacion(codigo_de_compra, fecha_devolucion)
-				values(@pnr, @hoy)
-
-		END
 		
 		INSERT INTO ÑUFLO.PasajePorCancelacion(id_cancelacion, id_pasaje, motivo_cancelacion)
-			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @id, @motivo)
+			values(@id_cancelacion, @id, @motivo)
 			
 		UPDATE ÑUFLO.Pasaje
 			SET cancelado = 1
@@ -1519,17 +1523,8 @@ AS
 			THROW 60035, @msg, 1
 			END
 		
-		set @pnr =(select e.codigo_de_compra from Encomienda e where e.id_encomienda = @id)
-		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
-		BEGIN
-
-				INSERT INTO ÑUFLO.Cancelacion(codigo_de_compra, fecha_devolucion)
-					values(@pnr, @hoy)
-
-		END
-		
 		INSERT INTO ÑUFLO.EncomiendaPorCancelacion(id_cancelacion, id_encomienda, motivo_cancelacion)
-			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @id, @motivo)
+			values(@id_cancelacion, @id, @motivo)
 			
 		UPDATE ÑUFLO.Encomienda
 			SET cancelado = 1
