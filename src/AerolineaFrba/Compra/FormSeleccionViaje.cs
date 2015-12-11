@@ -107,10 +107,7 @@ namespace AerolineaFrba.Compra
         {
             DataGridViewRow filaSeleccionada;
 
-            if (dataGridView1.Rows.Count > 1)
-                filaSeleccionada = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index];
-            else
-                filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
+            filaSeleccionada = dataGridView1.CurrentRow;
 
             fechaSalida = filaSeleccionada.Cells[2].FormattedValue.ToString();
             fechaLlegadaEstimada = filaSeleccionada.Cells[3].FormattedValue.ToString();
@@ -146,10 +143,7 @@ namespace AerolineaFrba.Compra
             FormDatosPasajeroEncomienda fdpe = new FormDatosPasajeroEncomienda();
             DataGridViewRow filaSeleccionada;
 
-            if (dataGridView1.Rows.Count > 1)
-                filaSeleccionada = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index];
-            else
-                filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
+            filaSeleccionada = dataGridView1.CurrentRow;
 
             fdpe.indicarPasajeOEncomienda(esSoloPasaje);
 
@@ -174,10 +168,7 @@ namespace AerolineaFrba.Compra
 
             DataGridViewRow filaSeleccionada;
 
-            if (dataGridView1.Rows.Count > 1)
-                filaSeleccionada = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index];
-            else
-                filaSeleccionada = dataGridView1.Rows[dataGridView1.Rows[0].Index];
+            filaSeleccionada = dataGridView1.CurrentRow;
 
             fce.setCompras(new Compra(Convert.ToInt32(filaSeleccionada.Cells[0].FormattedValue.ToString()),
                 -1, -1), pasajes, encomiendas);

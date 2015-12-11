@@ -742,9 +742,9 @@ AS
 
 exec ÑUFLO.IncorporarAeronavesFueraDeServicio @hoy
 
-select a.id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre Fabricante, ts.tipo_servicio 'Tipo de Servicio', fecha_de_alta 'Fecha de Alta', 
-		COUNT(ba.numero_de_butaca) 'Cantidad Butacas',	capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
-	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f, ÑUFLO.TipoServicio ts, ÑUFLO.ButacaPorAvion ba
+select distinct a.id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre Fabricante, ts.tipo_servicio 'Tipo de Servicio', fecha_de_alta 'Fecha de Alta', 
+		ÑUFLO.CantidadButacasDe(a.id_aeronave) 'Cantidad Butacas',	capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
+	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f, ÑUFLO.TipoServicio ts
 	where a.id_modelo = m.id_modelo
 		and a.id_fabricante = f.id_fabricante
 		and (@modelo is null or @modelo = m.nombre)
@@ -755,11 +755,9 @@ select a.id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nomb
 		and (@tipo_servicio is null or @tipo_servicio = a.id_tipo_servicio)
 		and (@capacidad_encomiendas is null or @capacidad_encomiendas < capacidad_peso_encomiendas)
 		and a.id_tipo_servicio = ts.id_tipo_servicio
-		and ba.id_aeronave = a.id_aeronave
 		and (@cantidad_butacas is null or @cantidad_butacas <= (select COUNT(id_tipo_butaca) 
 																	from ÑUFLO.ButacaPorAvion b
 																	where a.id_aeronave = b.id_aeronave))
-	group by a.id_aeronave, m.nombre, matricula, f.nombre, ts.tipo_servicio, fecha_de_alta, capacidad_peso_encomiendas, baja_vida_utill, baja_por_fuera_de_servicio
 ;
 GO
 
@@ -775,9 +773,9 @@ AS
 
 exec ÑUFLO.IncorporarAeronavesFueraDeServicio @hoy
 
-select a.id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre Fabricante, ts.tipo_servicio 'Tipo de Servicio', fecha_de_alta 'Fecha de Alta', 
-		COUNT(ba.numero_de_butaca) 'Cantidad Butacas',	capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
-	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f, ÑUFLO.TipoServicio ts, ÑUFLO.ButacaPorAvion ba
+select distinct a.id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nombre Fabricante, ts.tipo_servicio 'Tipo de Servicio', fecha_de_alta 'Fecha de Alta', 
+		ÑUFLO.CantidadButacasDe(a.id_aeronave) 'Cantidad Butacas',	capacidad_peso_encomiendas 'Capacidad Encomiendas', baja_vida_utill 'Baja vida util', baja_por_fuera_de_servicio 'Fuera de Servicio'
+	from ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.Fabricante f, ÑUFLO.TipoServicio ts
 	where a.id_modelo = m.id_modelo
 		and a.id_fabricante = f.id_fabricante
 		and (@modelo is null or @modelo = m.nombre)
@@ -788,11 +786,9 @@ select a.id_aeronave 'ID Aeronave', m.nombre Modelo, matricula Matricula, f.nomb
 		and (@tipo_servicio is null or @tipo_servicio = a.id_tipo_servicio)
 		and (@capacidad_encomiendas is null or @capacidad_encomiendas < capacidad_peso_encomiendas)
 		and a.id_tipo_servicio = ts.id_tipo_servicio
-		and ba.id_aeronave = a.id_aeronave
 		and (@cantidad_butacas is null or @cantidad_butacas <= (select COUNT(id_tipo_butaca) 
 																	from ÑUFLO.ButacaPorAvion b
 																	where a.id_aeronave = b.id_aeronave))
-	group by a.id_aeronave, m.nombre, matricula, f.nombre, ts.tipo_servicio, fecha_de_alta, capacidad_peso_encomiendas, baja_vida_utill, baja_por_fuera_de_servicio
 ;
 GO
 
@@ -2093,6 +2089,19 @@ BEGIN
 									and v.id_aeronave = a.id_aeronave)
 	
 	RETURN @peso_disponible
+END
+GO
+
+CREATE FUNCTION ÑUFLO.CantidadButacasDe(@id_aeronave int)
+RETURNS int
+AS
+BEGIN
+DECLARE @cantidad int
+SET @cantidad = (select COUNT(numero_de_butaca)
+					from ÑUFLO.ButacaPorAvion
+					where id_aeronave = @id_aeronave)
+
+return @cantidad
 END
 GO
 

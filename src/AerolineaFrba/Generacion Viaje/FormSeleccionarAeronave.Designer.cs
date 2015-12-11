@@ -63,6 +63,7 @@
             this.dataGridViewAeronave.AllowUserToAddRows = false;
             this.dataGridViewAeronave.AllowUserToDeleteRows = false;
             this.dataGridViewAeronave.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewAeronave.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataGridViewAeronave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAeronave.Location = new System.Drawing.Point(21, 204);
             this.dataGridViewAeronave.MultiSelect = false;

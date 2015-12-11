@@ -79,6 +79,7 @@
     <Compile Include="Abm Rol\FormSeleccionRol.Designer.cs">
       <DependentUpon>FormSeleccionRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Rol\RolException.cs" />
     <Compile Include="Abm Ruta\FormModificacionRuta.cs">
       <SubType>Form</SubType>
     </Compile>
