@@ -153,6 +153,9 @@
     <Compile Include="Abm\TextBoxNumeros.Designer.cs">
       <DependentUpon>TextBoxNumeros.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm\TextBoxPositivo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Abm\TextBoxValidado.cs">
       <SubType>UserControl</SubType>
     </Compile>

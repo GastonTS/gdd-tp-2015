@@ -1204,7 +1204,7 @@ AS
 	IF(@fecha_llegada_estimada < @fecha_salida)
 		THROW 60013, 'La fecha de llegada no puede ser menor a la de salida', 1
 		
-	IF(@fecha_salida <= @hoy)
+	IF(@fecha_salida < @hoy)
 		THROW 60014, 'La fecha de salida debe ser mayor a la fecha de hoy', 1
 		
 	IF ((select id_tipo_servicio from ÑUFLO.ServicioPorRuta where id_ruta = @id_ruta) <> (select id_tipo_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave))
