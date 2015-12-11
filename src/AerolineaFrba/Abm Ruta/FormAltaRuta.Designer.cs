@@ -39,11 +39,11 @@
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.labelDestino = new System.Windows.Forms.Label();
             this.labelOrigen = new System.Windows.Forms.Label();
-            this.textBoxPrecioPeso = new AerolineaFrba.Abm.TextBoxMoneda();
+            this.textBoxPrecioPeso = new AerolineaFrba.Abm.TextBoxDecimal();
             this.comboBoxOrigen = new System.Windows.Forms.ComboBox();
             this.labelPrecioFinalPasaje = new System.Windows.Forms.Label();
             this.comboBoxDestino = new System.Windows.Forms.ComboBox();
-            this.textBoxPrecioPasaje = new AerolineaFrba.Abm.TextBoxMoneda();
+            this.textBoxPrecioPasaje = new AerolineaFrba.Abm.TextBoxDecimal();
             this.labelPrecioFinalPeso = new System.Windows.Forms.Label();
             this.labelValorPrecioFinalPeso = new System.Windows.Forms.Label();
             this.labelTipoServicio = new System.Windows.Forms.Label();
@@ -302,11 +302,11 @@
         private Abm.Guardar guardar1;
         private System.Windows.Forms.Label labelDestino;
         private System.Windows.Forms.Label labelOrigen;
-        private Abm.TextBoxMoneda textBoxPrecioPeso;
+        private Abm.TextBoxDecimal textBoxPrecioPeso;
         private System.Windows.Forms.ComboBox comboBoxOrigen;
         private System.Windows.Forms.Label labelPrecioFinalPasaje;
         private System.Windows.Forms.ComboBox comboBoxDestino;
-        private Abm.TextBoxMoneda textBoxPrecioPasaje;
+        private Abm.TextBoxDecimal textBoxPrecioPasaje;
         private System.Windows.Forms.Label labelPrecioFinalPeso;
         private System.Windows.Forms.Label labelValorPrecioFinalPeso;
         private System.Windows.Forms.Label labelTipoServicio;

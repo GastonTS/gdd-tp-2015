@@ -34,9 +34,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnAgregarPasaje = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -48,9 +46,7 @@
             this.groupBox2.Controls.Add(this.dataGridView1);
             this.groupBox2.Controls.Add(this.btnAgregarPasaje);
             this.groupBox2.Controls.Add(this.richTextBox1);
-            this.groupBox2.Controls.Add(this.dateTimePicker1);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(21, 19);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(889, 345);
@@ -92,7 +88,7 @@
             // 
             // btnAgregarPasaje
             // 
-            this.btnAgregarPasaje.Location = new System.Drawing.Point(183, 80);
+            this.btnAgregarPasaje.Location = new System.Drawing.Point(19, 80);
             this.btnAgregarPasaje.Name = "btnAgregarPasaje";
             this.btnAgregarPasaje.Size = new System.Drawing.Size(175, 23);
             this.btnAgregarPasaje.TabIndex = 8;
@@ -102,37 +98,20 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(442, 49);
+            this.richTextBox1.Location = new System.Drawing.Point(298, 49);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(308, 54);
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(183, 49);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(219, 20);
-            this.dateTimePicker1.TabIndex = 6;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(439, 33);
+            this.label3.Location = new System.Drawing.Point(383, 33);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(115, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Motivo de cancelación";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(106, 52);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Fecha";
             // 
             // FormDevolucion
             // 
@@ -155,8 +134,6 @@
 
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Button btnAgregarPasaje;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button btnAceptar;

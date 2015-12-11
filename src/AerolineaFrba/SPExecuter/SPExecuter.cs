@@ -53,7 +53,6 @@ namespace AerolineaFrba
             Boolean encontroErrorConocido = false;
             if (errorMensaje != null)
             {
-                if (errorMensaje.ElementAt(0).Value == "Ignorar errores") return;
                 for (int i = 0; i < errorMensaje.Count; i++)
                 {
                     if (excepcionAtrapada.Number == errorMensaje.ElementAt(i).Key)

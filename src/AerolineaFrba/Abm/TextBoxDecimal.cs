@@ -40,8 +40,9 @@ namespace AerolineaFrba.Abm
         virtual public Decimal DecimalValue()
         { // HACK
             var currencytextbox = new CurrencyTextBox();
-            if (textBox1.Text == "")
+            if (textBox1.Text.Trim() == "")
                 currencytextbox.Text = "0";
+            else currencytextbox.Text = textBox1.Text;
             return currencytextbox.DecimalValue;
         }
 
