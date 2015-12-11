@@ -848,6 +848,20 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.CantidadButacasVentanillaPasillo
+@id_aeronave int
+AS
+	select COUNT(numero_de_butaca)
+		from ÑUFLO.ButacaPorAvion ba
+		where ba.id_aeronave = @id_aeronave
+			and ba.id_tipo_butaca = 1
+
+	select COUNT(numero_de_butaca)
+		from ÑUFLO.ButacaPorAvion ba
+		where ba.id_aeronave = @id_aeronave
+			and ba.id_tipo_butaca = 2
+;
+
 CREATE PROCEDURE ÑUFLO.ActualizarAeronave
 @id_aeronave int,
 @matricula nvarchar(255),
