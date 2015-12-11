@@ -31,15 +31,18 @@ namespace AerolineaFrba
 
         public void resetearFuncionalidades() 
         {
-            foreach (var funcionalidad in ids_funcionalidades) 
+            foreach (ToolStripMenuItem menuFuncion in menuStrip1.Items) 
             {
-                ToolStripMenuItem menuFuncion = funcionalidad.Value;
+                
                 menuFuncion.Visible = false;
             }
+            loginToolStripMenuItem.Visible = true;
+           
         }
 
         public void activarFuncionalidad(int idFuncion) 
         {
+            if (idFuncion == 8 || idFuncion == 9) millasToolStripMenuItem.Visible = true;
             ids_funcionalidades[idFuncion].Visible = true;
         }
 
