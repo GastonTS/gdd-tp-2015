@@ -170,8 +170,19 @@ namespace AerolineaFrba.Abm_Aeronave
             return
             Convert.ToInt32(textBoxCapacidadEncomiendas.Text) >= Convert.ToInt32(datosAeronaveAReemplazar["capacidad_encomienda"]) &&
             Convert.ToInt32(textBoxButacasPasillo.Text) + Convert.ToInt32(textBoxButacasVentanilla.Text) >= Convert.ToInt32(datosAeronaveAReemplazar["cant_butacas_pasillo"]) +
-            Convert.ToInt32(datosAeronaveAReemplazar["cant_butacas_ventana"]);
+            Convert.ToInt32(datosAeronaveAReemplazar["cant_butacas_ventanilla"]);
 
+        }
+
+        private void registrarAeronave() {
+            var alta = spAltaAeronave();
+            alta.Exec();
+            if (!alta.huboError())
+            {
+                agregarButacas();
+                MessageBox.Show("Aeronave registrada correctamente");
+                limpiar();
+            }
         }
 
         protected override void guardarPosta()
@@ -189,15 +200,23 @@ namespace AerolineaFrba.Abm_Aeronave
                         textBoxButacasVentanilla.Text = datosAeronaveAReemplazar["cant_butacas_ventanilla"].ToString();
                         return;
                     }
+
+                    registrarAeronave();
+
+                    var camposValores = gdDataBase.newParameters();
+                    camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(datosAeronaveAReemplazar["id_aeronave"], SqlDbType.Int));
+                    camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
+
+
+                    var ejecucionReemplazo = new SPPureExec("ÑUFLO.ReemplazarAeronavePara", camposValores, null,
+                        "Pasajes/Encomiendas de la aeronave " + datosAeronaveAReemplazar["matricula"] + " reprogramadas exitosamente");
+
+                    ejecucionReemplazo.Exec();
+                    esReemplazo = false;
+                    this.Close();
+
                 }
-                var alta = spAltaAeronave();
-                alta.Exec();
-                if (!alta.huboError())
-                {
-                    agregarButacas();
-                    MessageBox.Show("Aeronave registrada correctamente");
-                    limpiar();
-                }
+                registrarAeronave();
 
                 if (miPadre != null)
                 {
