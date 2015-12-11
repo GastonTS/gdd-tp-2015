@@ -18,11 +18,6 @@ namespace AerolineaFrba.Abm
         {
             base.OnKeyPress(e);
 
-            NumberFormatInfo numberFormatInfo = System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
-            string decimalSeparator = numberFormatInfo.NumberDecimalSeparator;
-            string groupSeparator = numberFormatInfo.NumberGroupSeparator;
-            string negativeSign = numberFormatInfo.NegativeSign;
-
             string keyInput = e.KeyChar.ToString();
 
             if (Char.IsDigit(e.KeyChar))
