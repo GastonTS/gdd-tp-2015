@@ -102,6 +102,7 @@ namespace AerolineaFrba.Abm_Ruta
             comboBoxTipoServicio.SelectedIndex = 0;
             textBoxPrecioPasaje.Clear();
             textBoxPrecioPeso.Clear();
+            actualizarLabels();
         }
 
         private void groupBoxCamposAltaRuta_Enter(object sender, EventArgs e)
