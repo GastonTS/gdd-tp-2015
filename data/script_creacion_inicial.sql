@@ -1881,7 +1881,7 @@ AS
 				from ÑUFLO.DetalleMillas 
 				where DNI = @dni ) )
 	BEGIN
-		THROW 60018, 'El cliente no tiene ninguna milla acumulada', 1
+		THROW 69018, 'El cliente no tiene ninguna milla acumulada', 1
 	END
 	ELSE
 	BEGIN

@@ -39,8 +39,11 @@ namespace AerolineaFrba.Devolucion
             {
                 var camposValores = gdDataBase.newParameters();
                 camposValores.Add("codigo_compra",new gdDataBase.ValorTipo(textBoxPNR.Text,SqlDbType.Int));
-                var resultadoBusqueda = new gdDataBase().ExecAndGetData("ÑUFLO.PasajesYEncomiendasNoCanceladosDe",camposValores, new Dictionary<int,string>());
-                if (resultadoBusqueda.Rows.Count == 0)
+                var errorMensaje = new Dictionary<int, string>();
+                errorMensaje.Add(64001, "Los pasajes y/o encomiendas para el PNR seleccionado ya fueron realizados.");
+                var executer = new SPExecGetData("ÑUFLO.PasajesYEncomiendasNoCanceladosDe",camposValores, errorMensaje);
+                var resultadoBusqueda = (DataTable)executer.Exec();
+                if (!executer.huboError() && resultadoBusqueda.Rows.Count == 0)
                     MessageBox.Show("No se encontraron resultados que satisfagan la búsqueda");
                 else
                 {

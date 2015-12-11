@@ -107,9 +107,18 @@ namespace AerolineaFrba.Abm_Ruta
                     camposValores.Add("id_ruta",new gdDataBase.ValorTipo(senderGrid.CurrentRow.Cells["id ruta"].Value,SqlDbType.Int));
                     camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
 
-                    errorMensaje.Add(60035, "Algunos vuelos de la Ruta ya fueron realizados, dichos vuelos no seran cancelados");
+                    errorMensaje.Add(0, "Ignorar errores");
 
-                    new gdDataBase().Exec("ÑUFLO.DeleteRutaAerea",camposValores,errorMensaje,"El registro ha sido eliminado correctamente");
+                    var resultadoEjecucion = new gdDataBase().Exec("ÑUFLO.DeleteRutaAerea",camposValores,errorMensaje,"El registro ha sido eliminado correctamente");
+
+                    if (resultadoEjecucion.huboError())
+                    {
+                        if (resultadoEjecucion.codError() == 60035)
+                            MessageBox.Show("Algunos vuelos de la Ruta ya fueron realizados, dichos vuelos no seran cancelados", "Cuidado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        else
+                            resultadoEjecucion.mostrarErrorSqlProducido();
+                    }
+
                     consultarConFiltro();
                 }
 

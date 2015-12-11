@@ -28,7 +28,7 @@ namespace AerolineaFrba.Consulta_Millas
 
                 Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
-                errorMensaje.Add(60018, "El cliente no tiene ninguna milla acumulada. Seleccione un cliente con millas por favor.");
+                errorMensaje.Add(69018, "El cliente no tiene ninguna milla acumulada. Seleccione un cliente con millas por favor.");
 
                 var historialMillas = new SPExecGetData("ÑUFLO.DetalleMillasDe", camposValores, errorMensaje);
                 DataTable dt = (DataTable)historialMillas.Exec();
