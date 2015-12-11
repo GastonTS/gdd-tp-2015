@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace AerolineaFrba.Abm
 {
-    class TextBoxPositivo : TextBoxDecimal
+    class TextBoxPositivo : TextBoxNumeros
     {
         protected override bool criterioValidacion()
         {
             if (base.criterioValidacion())
-                return Double.Parse(textBox1.Text) > 0;
+                return Convert.ToInt32(textBox1.Text) > 0;
             else
                 return false;
         }
