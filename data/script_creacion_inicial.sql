@@ -2046,29 +2046,12 @@ AS
 		order by 2 desc;
 GO
 
-create PROCEDURE ÑUFLO.MigrarMillas
+CREATE PROCEDURE ÑUFLO.MigrarMillas
 AS
-	ALTER TABLE ÑUFLO.Milla NOCHECK CONSTRAINT ALL
-	DECLARE @id_cliente Int, @cantidad Int
-	DECLARE @fecha datetime
-	DECLARE CMillas CURSOR 
-		FOR select c.id_cliente, m.FechaLLegada,CONVERT(int,(m.Pasaje_Precio + m.Paquete_Precio)/10) millas 
-			from gd_esquema.Maestra m join ÑUFLO.Cliente c on c.dni = m.Cli_Dni
-			group by c.id_cliente, m.FechaLLegada,CONVERT(int,(m.Pasaje_Precio + m.Paquete_Precio)/10)
-
-	OPEN CMillas 
-	FETCH CMillas INTO @id_cliente, @fecha, @cantidad
-
-	WHILE (@@FETCH_STATUS = 0)
-	BEGIN	
-		insert into ÑUFLO.Milla (id_cliente,fecha_de_obtencion,cantidad)
-		VALUES (@id_cliente, @fecha, @cantidad)
-		FETCH CMillas INTO @id_cliente, @fecha, @cantidad
-	END
-
-	CLOSE CMillas
-	DEALLOCATE CMillas
-	ALTER TABLE ÑUFLO.Milla CHECK CONSTRAINT ALL
+	insert into ÑUFLO.Milla (id_cliente,fecha_de_obtencion,cantidad)
+	select c.id_cliente, m.FechaLLegada,CONVERT(int,(m.Pasaje_Precio + m.Paquete_Precio)/10) millas 
+	from gd_esquema.Maestra m join ÑUFLO.Cliente c on c.dni = m.Cli_Dni
+	group by c.id_cliente, m.FechaLLegada,CONVERT(int,(m.Pasaje_Precio + m.Paquete_Precio)/10)
 ;
 GO
 
