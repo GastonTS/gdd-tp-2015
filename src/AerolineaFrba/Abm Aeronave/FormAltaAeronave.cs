@@ -46,34 +46,16 @@ namespace AerolineaFrba.Abm_Aeronave
             //para así meterla en la modificación de la aeronave. Esta info no la puedo traer del form de selección
             //ya que no la tengo
         }
-        
-        private void btnElegirTipoButaca_Click(object sender, EventArgs e)
-        {
-            checkedListBoxButacas.Enabled = true;
-            int cantidadButacas;
-            if (textBoxCantidadButacas.Text == "")
-                cantidadButacas = 0;
-            else
-                cantidadButacas = Convert.ToInt32(textBoxCantidadButacas.Text);
-
-            for (int j = checkedListBoxButacas.Items.Count, i = cantidadButacas; i < j; checkedListBoxButacas.Items.RemoveAt(--j)) ;
-
-            for (int j = checkedListBoxButacas.Items.Count, i = cantidadButacas; i > j; checkedListBoxButacas.Items.Add("Butaca N°: " + (++j))) ;
-            
-        }
 
         private void limpiar() 
         {
-            textBoxCantidadButacas.Clear();
-            btnElegirTipoButaca.Enabled = false;
+            textBoxButacasVentanilla.Clear();
+            textBoxButacasPasillo.Clear();
 
             textBoxCapacidadEncomiendas.Clear();
             textBoxFabricante.Clear();
             textBoxMatricula.Clear();
             textBoxModelo.Clear();
-
-            checkedListBoxButacas.Items.Clear();
-            checkedListBoxButacas.Enabled = false;
 
             comboBoxTipoServicio.ResetText();
         }
@@ -81,12 +63,6 @@ namespace AerolineaFrba.Abm_Aeronave
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             this.limpiar();
-        }
-
-        private void textBoxCantidadButacas_TextChanged(object sender, EventArgs e)
-        {
-            btnElegirTipoButaca.Enabled = (textBoxCantidadButacas.Text != "" &&  Convert.ToInt32(textBoxCantidadButacas.Text) > 0);
-            
         }
 
         private SPExecuter spAltaAeronave()
@@ -104,8 +80,6 @@ namespace AerolineaFrba.Abm_Aeronave
             errorMensaje.Add(2627, "Ingresó una matrícula de aeronave ya registrada. Intente nuevamente...");
 
             return new SPPureExec("ÑUFLO.AltaAeronave", camposValores, errorMensaje);
-
-
         }
 
         private SPExecuter spActualizarAeronave()
@@ -128,21 +102,26 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void agregarButacas()
         {
-            int ventanilla = 2; //pasillo
-
-            for (int i = 0; i < checkedListBoxButacas.Items.Count; i++)
+            for (int i = 0; i < Convert.ToInt32(textBoxButacasVentanilla.Text); i++)
             {
                 Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
                 Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
-                if (checkedListBoxButacas.GetItemChecked(i))
-                    ventanilla = 1;
-                else
-                    ventanilla = 2;
+                camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.VarChar));
+                camposValores.Add("numeroButaca", new gdDataBase.ValorTipo((i).ToString(), SqlDbType.Decimal));
+                camposValores.Add("tipoButaca", new gdDataBase.ValorTipo(1.ToString(), SqlDbType.Int));
+
+                new gdDataBase().Exec("ÑUFLO.AgregarButaca", camposValores, errorMensaje, null);
+            }
+
+            for (int i = Convert.ToInt32(textBoxButacasVentanilla.Text); i < Convert.ToInt32(textBoxButacasVentanilla.Text) + Convert.ToInt32(textBoxButacasPasillo.Text); i++)
+            {
+                Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
+                Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
                 camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.VarChar));
                 camposValores.Add("numeroButaca", new gdDataBase.ValorTipo((i).ToString(), SqlDbType.Decimal));
-                camposValores.Add("tipoButaca", new gdDataBase.ValorTipo(ventanilla.ToString(), SqlDbType.Int));
+                camposValores.Add("tipoButaca", new gdDataBase.ValorTipo(2.ToString(), SqlDbType.Int));
 
                 new gdDataBase().Exec("ÑUFLO.AgregarButaca", camposValores, errorMensaje, null);
             }
@@ -170,6 +149,7 @@ namespace AerolineaFrba.Abm_Aeronave
                     MessageBox.Show("Aeronave registrada correctamente");
                     limpiar();
                 }
+
                 if (miPadre != null)
                 {
                     this.Close();
@@ -180,13 +160,13 @@ namespace AerolineaFrba.Abm_Aeronave
             {
                 var actualizar = spActualizarAeronave();
                 actualizar.Exec();
+
                 if (!(actualizar.huboError()))
                     limpiar();
+
                 miPadre.consultarConFiltro();
                 this.Close();
             }
-
-
         }
     }
 }
