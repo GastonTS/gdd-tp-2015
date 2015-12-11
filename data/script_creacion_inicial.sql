@@ -1190,7 +1190,7 @@ AS
 	IF(@fecha_llegada_estimada < @fecha_salida)
 		THROW 60013, 'La fecha de llegada no puede ser menor a la de salida', 1
 		
-	IF(@fecha_salida < @hoy)
+	IF(@fecha_salida <= @hoy)
 		THROW 60014, 'La fecha de salida debe ser mayor a la fecha de hoy', 1
 		
 	IF ((select id_tipo_servicio from ÑUFLO.ServicioPorRuta where id_ruta = @id_ruta) <> (select id_tipo_servicio from ÑUFLO.Aeronave where id_aeronave = @id_aeronave))
@@ -1783,13 +1783,14 @@ AS
 			set cancelado = 1
 		WHERE id_ruta=@id_ruta;
 		
+		EXEC ÑUFLO.CancelarRutaAerea @id_ruta, @hoy
 			
 		UPDATE ÑUFLO.Viaje
 			SET cancelado = 1
 			where id_ruta = @id_ruta;
 		END
 	
-	EXEC ÑUFLO.CancelarRutaAerea @id_ruta, @hoy
+	
 ;  
 GO
 
@@ -1808,8 +1809,15 @@ AS
 		precio_base_por_peso = @precio_base_por_peso, precio_base_por_pasaje = @precio_base_por_pasaje
 	WHERE id_ruta = @id_ruta
 	
-	IF(NOT EXISTS(select id_ruta from ÑUFLO.ServicioPorRuta sr where id_ruta = @id_ruta and @id_tipo_servicio = id_tipo_servicio))
+
+	IF(NOT EXISTS(select id_ruta from ÑUFLO.ServicioPorRuta sr where id_ruta = @id_ruta)
 		INSERT INTO ÑUFLO.ServicioPorRuta values(@id_ruta, @id_tipo_servicio)
+	ELSE
+	BEGIN
+		UPDATE ÑUFLO.ServicioPorRuta
+		SET id_tipo_servicio = @id_tipo_servicio
+		WHERE id_ruta = @id_ruta
+	END
 ;  
 GO
 

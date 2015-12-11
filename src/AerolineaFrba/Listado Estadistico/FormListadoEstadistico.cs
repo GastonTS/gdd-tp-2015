@@ -84,8 +84,8 @@ namespace AerolineaFrba.Listado_Estadistico
         private void button1_Click(object sender, EventArgs e)
         {
             dataGridView1.DataSource = null;
-            var fecha_inicio = fechaInicial().Date.ToString("yyyy-MM-dd hh:mm:ss.000");
-            var fecha_fin = fechaFinal().Date.ToString("yyyy-MM-dd hh:mm:ss.000");
+            var fecha_inicio = fechaInicial().Date.ToString("yyyy-MM-dd HH:mm:ss.000");
+            var fecha_fin = fechaFinal().Date.ToString("yyyy-MM-dd HH:mm:ss.000");
             datosListadoActual["fecha_inicio"] = new gdDataBase.ValorTipo(fecha_inicio, SqlDbType.DateTime);
             datosListadoActual["fecha_fin"] = new gdDataBase.ValorTipo(fecha_fin, SqlDbType.DateTime);
             indiceListadoActual = comboBoxListado.SelectedIndex;

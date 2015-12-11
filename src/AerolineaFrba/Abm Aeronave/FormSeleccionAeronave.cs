@@ -185,11 +185,12 @@ namespace AerolineaFrba.Abm_Aeronave
 
                             if (dialogResultReemplazo == DialogResult.Yes)
                             {
-                                this.Enabled = false;
+
                                 Abm_Aeronave.FormAltaAeronave formularioAltaAeronave = new FormAltaAeronave();
                                 formularioAltaAeronave.setPadre(this);
                                 formularioAltaAeronave.setPadreEsVidaUtil(true);
-                                formularioAltaAeronave.Show();
+                                formularioAltaAeronave.esReemplazoDe((int)filaSeleccionada.Cells[0].Value);
+                                formularioAltaAeronave.ShowDialog();
                             }
                             else if (dialogResultReemplazo == DialogResult.No)
                             {
@@ -261,7 +262,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
             camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
             camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
-            camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
+            camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss.000"), SqlDbType.DateTime));
 
             errorMensaje.Add(60003, "La nave ya se encuentra en mantenimiento");
             errorMensaje.Add(60004, "La nave ya se encuentra fuera de su vida util");
@@ -288,7 +289,7 @@ namespace AerolineaFrba.Abm_Aeronave
                         camposValores.Clear();
                         camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
                         camposValores.Add("fecha_inicio", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
-                        camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+                        camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss.000"), SqlDbType.VarChar));
 
                         errorMensaje.Clear();
                         errorMensaje.Add(60005, "No se pudieron reemplazar todos los viajes");
@@ -305,11 +306,11 @@ namespace AerolineaFrba.Abm_Aeronave
 
                             if (dialogResultReemplazo == DialogResult.Yes)
                             {
-                                this.Enabled = false;
                                 Abm_Aeronave.FormAltaAeronave formularioAltaAeronave = new FormAltaAeronave();
                                 formularioAltaAeronave.setPadre(this);
                                 formularioAltaAeronave.setPadreEsVidaUtil(false);
-                                formularioAltaAeronave.Show();
+                                formularioAltaAeronave.esReemplazoDe((int)filaSeleccionada.Cells[0].Value);
+                                formularioAltaAeronave.ShowDialog();
                             }
                             else if (dialogResultReemplazo == DialogResult.No)
                             {
@@ -335,17 +336,23 @@ namespace AerolineaFrba.Abm_Aeronave
             }
         }
 
-        public void podesDarDeBaja(bool esVidaUtil)
+        public void cancelarPasajes(bool esVidaUtil) 
+        {
+            if (esVidaUtil) cancelarPasajesVidaUtil();
+            else cancelarPasajesFueraServicio();
+        }
+
+        public void daDeBaja(bool esVidaUtil)
         {
             this.Enabled = true;
 
             if (esVidaUtil)
             {
-                MessageBox.Show("Intente dar de baja por vida útil nuevamente");
+                bajaVidaUtil();
             }
             else
             {
-                MessageBox.Show("Intente dar de baja por fuera de servicio nuevamente");
+                bajaFueraDeServicio();
             }
 
             consultarConFiltro();
@@ -383,7 +390,7 @@ namespace AerolineaFrba.Abm_Aeronave
             camposValores.Clear();
             camposValores.Add("id_aeronave", new gdDataBase.ValorTipo(filaSeleccionada.Cells[0].FormattedValue.ToString(), SqlDbType.Int));
             camposValores.Add("fecha_hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
-            camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.VarChar));
+            camposValores.Add("fecha_fin", new gdDataBase.ValorTipo(dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss.000"), SqlDbType.VarChar));
 
             new gdDataBase().Exec("ÑUFLO.CancelarPasajesYEncomiendasDe", camposValores, null, null);
         }
