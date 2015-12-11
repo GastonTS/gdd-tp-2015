@@ -729,6 +729,20 @@ AS
 ;
 GO
 
+CREATE PROC ÑUFLO.VistaAeronaveDadoID
+@id_aeronave INT
+AS
+SELECT m.nombre 'modelo', ts.id_tipo_servicio 'id_tipo_servicio', f.nombre 'fabricante', a.capacidad_peso_encomiendas 'capacidad_encomienda', 
+(SELECT COUNT(*) FROM ÑUFLO.ButacaPorAvion WHERE id_aeronave = @id_aeronave AND id_tipo_butaca = 2) 'cant_butacas_pasillo',
+(SELECT COUNT(*) FROM ÑUFLO.ButacaPorAvion WHERE id_aeronave = @id_aeronave AND id_tipo_butaca = 1) 'cant_butacas_ventanilla'
+FROM ÑUFLO.Aeronave a, ÑUFLO.Modelo m, ÑUFLO.TipoServicio ts, ÑUFLO.Fabricante f
+WHERE id_aeronave = @id_aeronave
+AND m.id_modelo = a.id_modelo
+AND ts.id_tipo_servicio = a.id_tipo_servicio
+AND f.id_fabricante = a.id_fabricante
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.FiltroAeronave
 @modelo nvarchar(255) = null,
 @matricula nvarchar(255) = null,

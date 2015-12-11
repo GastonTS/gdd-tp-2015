@@ -13,7 +13,7 @@ namespace AerolineaFrba.Abm_Aeronave
     public partial class FormAltaAeronave : Abm.Alta, IFormulariosAeronave
     {
         Boolean esReemplazo = false;
-        int idNaveAReemplazar;
+        DataRow datosAeronaveAReemplazar;
         Boolean esModificacion = false;
         String idAeronaveModificada = "";
         DataGridViewRow filaAeronave = null;
@@ -30,7 +30,15 @@ namespace AerolineaFrba.Abm_Aeronave
 
         public void esReemplazoDe(int id_nave) {
             esReemplazo = true;
-            idNaveAReemplazar = id_nave;
+            var camposValores = gdDataBase.newParameters();
+            camposValores.Add("id_aeronave",new gdDataBase.ValorTipo(id_nave,SqlDbType.Int));
+            datosAeronaveAReemplazar = new gdDataBase().ExecAndGetData("ÑUFLO.VistaAeronaveDadoId", camposValores).Rows[0];
+            textBoxFabricante.Text = datosAeronaveAReemplazar["fabricante"].ToString();
+            textBoxFabricante.Enabled = false;
+            textBoxModelo.Text = datosAeronaveAReemplazar["modelo"].ToString();
+            textBoxModelo.Enabled = false;
+            comboBoxTipoServicio.SelectedIndex = (int)datosAeronaveAReemplazar["id_tipo_servicio"] - 1;
+            comboBoxTipoServicio.Enabled = false;
         }
 
 
@@ -156,10 +164,14 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private Boolean esReemplazoValido()
         {
-            var campoValor = gdDataBase.newParameters();
-            campoValor.Add("@aeronave_anterior", new gdDataBase.ValorTipo(idNaveAReemplazar,SqlDbType.Int));
-            campoValor.Add("@datosAeronaveNueva", new gdDataBase.ValorTipo(idNaveAReemplazar,SqlDbType.Int));
-            return new gdDataBase().Exec("ValidarAeronave", campoValor, null).huboError();
+            if (textBoxButacasVentanilla.Text.Trim() == "" ||
+                textBoxButacasPasillo.Text.Trim() == "" ||
+                textBoxCapacidadEncomiendas.Text.Trim() == "") return false;
+            return
+            Convert.ToInt32(textBoxCapacidadEncomiendas.Text) >= Convert.ToInt32(datosAeronaveAReemplazar["capacidad_encomienda"]) &&
+            Convert.ToInt32(textBoxButacasPasillo.Text) + Convert.ToInt32(textBoxButacasVentanilla.Text) >= Convert.ToInt32(datosAeronaveAReemplazar["cant_butacas_pasillo"]) +
+            Convert.ToInt32(datosAeronaveAReemplazar["cant_butacas_ventana"]);
+
         }
 
         protected override void guardarPosta()
@@ -169,7 +181,12 @@ namespace AerolineaFrba.Abm_Aeronave
                 if (miPadre != null)
                 {
                     if (!esReemplazoValido()) {
-                        MessageBox.Show("La aeronave no cumple con los requisitos para suplantar la aeronave anterior");
+                        MessageBox.Show("La aeronave no cumple con los requisitos para suplantar la aeronave anterior, la cantidad de butacas y capacidad de encomiendas debe ser mayor que aquellas de la aeronave a reemplazar","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        MessageBox.Show("Los minimos requeridos son los siguientes:\nCapacidad Encomienda: "+datosAeronaveAReemplazar["capacidad_encomienda"]
+                                          + "\nCantidad butacas: "+(Convert.ToInt32(datosAeronaveAReemplazar["cant_butacas_pasillo"])+Convert.ToInt32(datosAeronaveAReemplazar["cant_butacas_ventanilla"])).ToString(), "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        textBoxCapacidadEncomiendas.Text = datosAeronaveAReemplazar["capacidad_encomienda"].ToString();
+                        textBoxButacasPasillo.Text = datosAeronaveAReemplazar["cant_butacas_pasillo"].ToString();
+                        textBoxButacasVentanilla.Text = datosAeronaveAReemplazar["cant_butacas_ventanilla"].ToString();
                         return;
                     }
                 }
