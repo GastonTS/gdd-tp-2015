@@ -1825,7 +1825,7 @@ GO
 CREATE PROCEDURE ÑUFLO.PasajesYEncomiendasNoCanceladosDe
 @codigo_compra int
 AS
-	IF(EXISTS (select id_viaje 
+	IF(EXISTS (select v.id_viaje 
 				from ÑUFLO.Viaje v, ÑUFLO.Compra c 
 				where c.codigo_de_compra = @codigo_compra
 					and c.id_viaje = v.id_viaje

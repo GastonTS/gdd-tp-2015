@@ -89,10 +89,12 @@
             // dataGridViewDetalleAcumulacion
             // 
             this.dataGridViewDetalleAcumulacion.AllowUserToAddRows = false;
+            this.dataGridViewDetalleAcumulacion.AllowUserToDeleteRows = false;
             this.dataGridViewDetalleAcumulacion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewDetalleAcumulacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDetalleAcumulacion.Location = new System.Drawing.Point(30, 186);
             this.dataGridViewDetalleAcumulacion.Name = "dataGridViewDetalleAcumulacion";
+            this.dataGridViewDetalleAcumulacion.ReadOnly = true;
             this.dataGridViewDetalleAcumulacion.Size = new System.Drawing.Size(404, 174);
             this.dataGridViewDetalleAcumulacion.TabIndex = 12;
             // 
