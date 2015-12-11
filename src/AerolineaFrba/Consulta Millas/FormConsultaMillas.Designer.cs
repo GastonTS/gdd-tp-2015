@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.groupBoxInfoCliente = new System.Windows.Forms.GroupBox();
-            this.textBoxDni = new AerolineaFrba.Abm.TextBoxDNI();
             this.labelDni = new System.Windows.Forms.Label();
             this.labelMillasAcumuladas = new System.Windows.Forms.Label();
             this.textBoxMillasAcumuladas = new System.Windows.Forms.TextBox();
             this.dataGridViewDetalleAcumulacion = new System.Windows.Forms.DataGridView();
             this.btnVer = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.textBoxDni = new AerolineaFrba.Abm.TextBoxDNI();
             this.groupBoxInfoCliente.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleAcumulacion)).BeginInit();
             this.SuspendLayout();
@@ -46,19 +46,10 @@
             this.groupBoxInfoCliente.Controls.Add(this.labelDni);
             this.groupBoxInfoCliente.Location = new System.Drawing.Point(30, 24);
             this.groupBoxInfoCliente.Name = "groupBoxInfoCliente";
-            this.groupBoxInfoCliente.Size = new System.Drawing.Size(404, 62);
+            this.groupBoxInfoCliente.Size = new System.Drawing.Size(504, 62);
             this.groupBoxInfoCliente.TabIndex = 9;
             this.groupBoxInfoCliente.TabStop = false;
             this.groupBoxInfoCliente.Text = "Información de cliente";
-            // 
-            // textBoxDni
-            // 
-            this.textBoxDni.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxDni.ErrorText = "Por favor ingresa un DNI válido";
-            this.textBoxDni.Location = new System.Drawing.Point(57, 29);
-            this.textBoxDni.Name = "textBoxDni";
-            this.textBoxDni.Size = new System.Drawing.Size(211, 22);
-            this.textBoxDni.TabIndex = 3;
             // 
             // labelDni
             // 
@@ -95,12 +86,12 @@
             this.dataGridViewDetalleAcumulacion.Location = new System.Drawing.Point(30, 186);
             this.dataGridViewDetalleAcumulacion.Name = "dataGridViewDetalleAcumulacion";
             this.dataGridViewDetalleAcumulacion.ReadOnly = true;
-            this.dataGridViewDetalleAcumulacion.Size = new System.Drawing.Size(404, 174);
+            this.dataGridViewDetalleAcumulacion.Size = new System.Drawing.Size(504, 174);
             this.dataGridViewDetalleAcumulacion.TabIndex = 12;
             // 
             // btnVer
             // 
-            this.btnVer.Location = new System.Drawing.Point(350, 105);
+            this.btnVer.Location = new System.Drawing.Point(450, 105);
             this.btnVer.Name = "btnVer";
             this.btnVer.Size = new System.Drawing.Size(84, 23);
             this.btnVer.TabIndex = 19;
@@ -118,11 +109,20 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
+            // textBoxDni
+            // 
+            this.textBoxDni.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxDni.ErrorText = "Por favor ingresa un DNI válido";
+            this.textBoxDni.Location = new System.Drawing.Point(57, 29);
+            this.textBoxDni.Name = "textBoxDni";
+            this.textBoxDni.Size = new System.Drawing.Size(211, 22);
+            this.textBoxDni.TabIndex = 3;
+            // 
             // FormConsultaMillas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(468, 380);
+            this.ClientSize = new System.Drawing.Size(564, 380);
             this.Controls.Add(this.btnVer);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.dataGridViewDetalleAcumulacion);

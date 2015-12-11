@@ -189,7 +189,7 @@ namespace AerolineaFrba
 
         private void devoluciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Devolucion.Deprecated formularioDevolucion = new Devolucion.Deprecated();
+            Devolucion.Devolucion formularioDevolucion = new Devolucion.Devolucion();
 
             formularioDevolucion.MdiParent = this;
 
