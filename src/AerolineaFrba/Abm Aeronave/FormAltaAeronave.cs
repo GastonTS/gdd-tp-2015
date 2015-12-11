@@ -212,9 +212,11 @@ namespace AerolineaFrba.Abm_Aeronave
                         "Pasajes/Encomiendas de la aeronave " + datosAeronaveAReemplazar["matricula"] + " reprogramadas exitosamente");
 
                     ejecucionReemplazo.Exec();
+                    miPadre.daDeBaja(esVidaUtil);
+                    miPadre.consultarConFiltro();
                     esReemplazo = false;
                     this.Close();
-
+                    return;
                 }
                 registrarAeronave();
 
