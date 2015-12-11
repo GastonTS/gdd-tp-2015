@@ -1824,7 +1824,7 @@ AS
 	WHERE id_ruta = @id_ruta
 	
 
-	IF(NOT EXISTS(select id_ruta from ÑUFLO.ServicioPorRuta sr where id_ruta = @id_ruta)
+	IF(NOT EXISTS(select id_ruta from ÑUFLO.ServicioPorRuta sr where id_ruta = @id_ruta))
 		INSERT INTO ÑUFLO.ServicioPorRuta values(@id_ruta, @id_tipo_servicio)
 	ELSE
 	BEGIN
