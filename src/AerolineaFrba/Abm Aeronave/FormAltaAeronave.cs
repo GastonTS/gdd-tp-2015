@@ -137,6 +137,16 @@ namespace AerolineaFrba.Abm_Aeronave
             esVidaUtil = queEs;
         }
 
+        public void setButacasVentanilla(int cantidadVentanilla)
+        {
+            textBoxButacasVentanilla.Text = cantidadVentanilla.ToString();
+        }
+
+        public void setButacasPasillo(int cantidadPasillo)
+        {
+            textBoxButacasPasillo.Text = cantidadPasillo.ToString();
+        }
+
         protected override void guardarPosta()
         {
             if (!esModificacion)
@@ -162,8 +172,10 @@ namespace AerolineaFrba.Abm_Aeronave
                 actualizar.Exec();
 
                 if (!(actualizar.huboError()))
+                {
+                    agregarButacas();
                     limpiar();
-
+                }
                 miPadre.consultarConFiltro();
                 this.Close();
             }

@@ -101,7 +101,8 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void btnModificarAeronave_Click(object sender, EventArgs e)
         {
-            //abrir el formulario de alta con todos los datos de la aeronave seleccionada actualmente
+            int cantidadVentanilla, cantidadPasillo;
+
             DataGridViewRow filaSeleccionada = getFilaSeleccionada();
 
             Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
@@ -117,11 +118,21 @@ namespace AerolineaFrba.Abm_Aeronave
             if (!ejecucion.huboError())
             {
                 FormAltaAeronave faa = new FormAltaAeronave();
-                faa.Show();
+
                 faa.setPadre(this);
                 faa.setFilaDeAeronaveSeleccionada(filaSeleccionada);
+
+                var ds = new gdDataBase().ExecAndGetDataSet("ÑUFLO.CantidadButacasVentanillaPasillo", camposValores, null);
+                cantidadVentanilla = Convert.ToInt32(ds.Tables[0].Rows[0].ItemArray[0].ToString());
+                cantidadPasillo = Convert.ToInt32(ds.Tables[1].Rows[0].ItemArray[0].ToString());
+
+                faa.setButacasVentanilla(cantidadVentanilla);
+                faa.setButacasPasillo(cantidadPasillo);
+
+                faa.Show();
             }
         }
+        //cantidadButacasVentanillaPasillo
 
         private void btnBajaVidaUtil_Click(object sender, EventArgs e)
         {
