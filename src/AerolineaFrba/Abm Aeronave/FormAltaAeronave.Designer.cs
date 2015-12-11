@@ -42,6 +42,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
             this.labelTipoServicio = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxButacasPasillo = new AerolineaFrba.Abm.TextBoxNumeros();
             this.textBoxButacasVentanilla = new AerolineaFrba.Abm.TextBoxNumeros();
             this.textBoxCapacidadEncomiendas = new AerolineaFrba.Abm.TextBoxNumeros();
             this.labelCantidadButacasPasillo = new System.Windows.Forms.Label();
@@ -49,7 +50,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
             this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
-            this.textBoxButacasPasillo = new AerolineaFrba.Abm.TextBoxNumeros();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -142,7 +142,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.comboBoxTipoServicio.Location = new System.Drawing.Point(28, 111);
             this.comboBoxTipoServicio.Name = "comboBoxTipoServicio";
             this.comboBoxTipoServicio.Size = new System.Drawing.Size(139, 21);
-            this.comboBoxTipoServicio.TabIndex = 0;
+            this.comboBoxTipoServicio.TabIndex = 3;
             // 
             // labelTipoServicio
             // 
@@ -170,6 +170,15 @@ namespace AerolineaFrba.Abm_Aeronave
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Características de la Aeronave";
             // 
+            // textBoxButacasPasillo
+            // 
+            this.textBoxButacasPasillo.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxButacasPasillo.ErrorText = "Debe ingresar una cantidad de butacas";
+            this.textBoxButacasPasillo.Location = new System.Drawing.Point(357, 86);
+            this.textBoxButacasPasillo.Name = "textBoxButacasPasillo";
+            this.textBoxButacasPasillo.Size = new System.Drawing.Size(124, 22);
+            this.textBoxButacasPasillo.TabIndex = 2;
+            // 
             // textBoxButacasVentanilla
             // 
             this.textBoxButacasVentanilla.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
@@ -177,7 +186,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxButacasVentanilla.Location = new System.Drawing.Point(357, 44);
             this.textBoxButacasVentanilla.Name = "textBoxButacasVentanilla";
             this.textBoxButacasVentanilla.Size = new System.Drawing.Size(124, 22);
-            this.textBoxButacasVentanilla.TabIndex = 2;
+            this.textBoxButacasVentanilla.TabIndex = 1;
             // 
             // textBoxCapacidadEncomiendas
             // 
@@ -186,7 +195,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.textBoxCapacidadEncomiendas.Location = new System.Drawing.Point(105, 44);
             this.textBoxCapacidadEncomiendas.Name = "textBoxCapacidadEncomiendas";
             this.textBoxCapacidadEncomiendas.Size = new System.Drawing.Size(139, 22);
-            this.textBoxCapacidadEncomiendas.TabIndex = 1;
+            this.textBoxCapacidadEncomiendas.TabIndex = 0;
             // 
             // labelCantidadButacasPasillo
             // 
@@ -228,15 +237,6 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             this.gD2C2015DataSet.DataSetName = "GD2C2015DataSet";
             this.gD2C2015DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // textBoxButacasPasillo
-            // 
-            this.textBoxButacasPasillo.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxButacasPasillo.ErrorText = "Debe ingresar una cantidad de butacas";
-            this.textBoxButacasPasillo.Location = new System.Drawing.Point(357, 86);
-            this.textBoxButacasPasillo.Name = "textBoxButacasPasillo";
-            this.textBoxButacasPasillo.Size = new System.Drawing.Size(124, 22);
-            this.textBoxButacasPasillo.TabIndex = 17;
             // 
             // FormAltaAeronave
             // 
