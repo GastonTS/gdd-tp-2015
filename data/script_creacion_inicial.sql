@@ -1182,6 +1182,7 @@ AS
 			and v.id_aeronave = a.id_aeronave
 			and ts.id_tipo_servicio = a.id_tipo_servicio
 			and v.cancelado = 0
+			and v.fecha_llegada is null
 ;
 GO
 
