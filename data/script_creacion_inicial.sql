@@ -995,6 +995,7 @@ AS
 					and c.codigo_de_compra = p.codigo_de_compra
 					and p.cancelado = 0
 					and v.fecha_llegada is null
+			order by c.codigo_de_compra
 					
 	DECLARE @pnr int, @pasaje int, @cod_anterior int
 	SET @cod_anterior = -1
@@ -1044,6 +1045,7 @@ AS
 					and c.codigo_de_compra = e.codigo_de_compra
 					and e.cancelado = 0
 					and v.fecha_llegada is null
+			order by c.codigo_de_compra
 					
 	DECLARE @pnr int, @encomienda int, @cod_anterior int
 	SET @cod_anterior = -1
@@ -1254,11 +1256,13 @@ AS
 				from ÑUFLO.Pasaje p, ÑUFLO.Compra c
 				where @id_viaje = c.id_viaje
 					and p.codigo_de_compra = c.codigo_de_compra
+					and p.cancelado = 0
 			UNION ALL
 			select e.id_cliente, e.id_encomienda, convert(integer, e.precio/10)
 				from ÑUFLO.Encomienda e, ÑUFLO.Compra c
 				where @id_viaje = c.id_viaje
-					and e.codigo_de_compra = c.codigo_de_compra)
+					and e.codigo_de_compra = c.codigo_de_compra
+					and e.cancelado = 0)
 
 	OPEN CClientes
 	FETCH CCLientes INTO @id_cliente, @id_pasaje, @cantidad
@@ -1459,11 +1463,23 @@ AS
 ;
 GO
 
+CREATE PROCEDURE ÑUFLO.CrearCancelacion
+@pnr int,
+@hoy datetime
+AS
+	INSERT INTO ÑUFLO.Cancelacion(codigo_de_compra, fecha_devolucion) 
+ 		values(@pnr, @hoy) 
+		
+	select MAX(id_cancelacion) from ÑUFLO.Cancelacion
+
+;
+GO
+
 CREATE PROCEDURE ÑUFLO.CancelarPasajeOEncomienda
 @id int,
 @tipo nvarchar(64),
 @motivo nvarchar(255),
-@hoy datetime
+@id_cancelacion int
 AS	
 	DECLARE @pnr int, @msg nvarchar(255)
 	
@@ -1482,17 +1498,9 @@ AS
 			SET @msg = 'El vuelo del pasaje ' + convert(nvarchar(255), @id) + ' ya fue realizado, no se pueden cancelar pasajes de vuelos ya realizadas, porfavor vuelva a realizar la seleccion';
 			THROW 60035, @msg, 1
 		END
-		set @pnr =(select p.codigo_de_compra from Pasaje p where p.id_pasaje = @id)
-		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
-		BEGIN
-
-			INSERT INTO ÑUFLO.Cancelacion(codigo_de_compra, fecha_devolucion)
-				values(@pnr, @hoy)
-
-		END
 		
 		INSERT INTO ÑUFLO.PasajePorCancelacion(id_cancelacion, id_pasaje, motivo_cancelacion)
-			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @id, @motivo)
+			values(@id_cancelacion, @id, @motivo)
 			
 		UPDATE ÑUFLO.Pasaje
 			SET cancelado = 1
@@ -1515,17 +1523,8 @@ AS
 			THROW 60035, @msg, 1
 			END
 		
-		set @pnr =(select e.codigo_de_compra from Encomienda e where e.id_encomienda = @id)
-		if(NOT EXISTS(select * from ÑUFLO.Cancelacion can where can.codigo_de_compra = @pnr))
-		BEGIN
-
-				INSERT INTO ÑUFLO.Cancelacion(codigo_de_compra, fecha_devolucion)
-					values(@pnr, @hoy)
-
-		END
-		
 		INSERT INTO ÑUFLO.EncomiendaPorCancelacion(id_cancelacion, id_encomienda, motivo_cancelacion)
-			values((select MAX(id_cancelacion) from ÑUFLO.Cancelacion), @id, @motivo)
+			values(@id_cancelacion, @id, @motivo)
 			
 		UPDATE ÑUFLO.Encomienda
 			SET cancelado = 1
@@ -1749,10 +1748,26 @@ CREATE PROCEDURE ÑUFLO.InsertRutaAerea
 @precio_base_por_pasaje  numeric (18, 0),
 @id_tipo_servicio int
 AS
-	INSERT INTO ÑUFLO.RutaAerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje)
-		VALUES (@codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso, @precio_base_por_pasaje)
+	IF(NOT EXISTS(select r.id_ruta 
+					from ÑUFLO.RutaAerea r, ÑUFLO.ServicioPorRuta sr
+					where r.id_ciudad_origen = @id_ciudad_origen
+						and r.id_ciudad_destino = @id_ciudad_destino
+						and r.id_ruta = sr.id_ruta
+						and sr.id_tipo_servicio = @id_tipo_servicio))
+		BEGIN
+			INSERT INTO ÑUFLO.RutaAerea (codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_por_peso, precio_base_por_pasaje)
+				VALUES (@codigo_ruta, @id_ciudad_origen, @id_ciudad_destino, @precio_base_por_peso, @precio_base_por_pasaje)
 		
-	INSERT INTO ÑUFLO.ServicioPorRuta values((select MAX(id_ruta) from ÑUFLO.RutaAerea), @id_tipo_servicio)
+			INSERT INTO ÑUFLO.ServicioPorRuta values((select MAX(id_ruta) from ÑUFLO.RutaAerea), @id_tipo_servicio)
+		END
+	ELSE
+		BEGIN
+			DECLARE @msg nvarchar(255)
+			SET @msg = 'Ya existe una ruta aerea de ' + (select nombre from ÑUFLO.Ciudad where id_ciudad = @id_ciudad_origen) +
+						' a ' + (select nombre from ÑUFLO.Ciudad where id_ciudad = @id_ciudad_destino) + 'con servicio ' +
+						(select tipo_servicio from ÑUFLO.TipoServicio where id_tipo_servicio = @id_tipo_servicio);
+			THROW 60060, @msg, 1
+		END
 ;  
 GO
 
@@ -1822,7 +1837,6 @@ AS
 ;  
 GO
 
-
 CREATE PROCEDURE ÑUFLO.UpdateRutaAerea
 @id_ruta int,
 @codigo_ruta numeric (18, 0),
@@ -1832,20 +1846,36 @@ CREATE PROCEDURE ÑUFLO.UpdateRutaAerea
 @precio_base_por_pasaje  numeric (18, 0),
 @id_tipo_servicio int
 AS
-	UPDATE ÑUFLO.RutaAerea
-	SET codigo_ruta = @codigo_ruta, id_ciudad_origen = @id_ciudad_origen, id_ciudad_destino = @id_ciudad_destino,
-		precio_base_por_peso = @precio_base_por_peso, precio_base_por_pasaje = @precio_base_por_pasaje
-	WHERE id_ruta = @id_ruta
+	IF(NOT EXISTS(select r.id_ruta 
+					from ÑUFLO.RutaAerea r, ÑUFLO.ServicioPorRuta sr
+					where r.id_ciudad_origen = @id_ciudad_origen
+						and r.id_ciudad_destino = @id_ciudad_destino
+						and r.id_ruta = sr.id_ruta
+						and sr.id_tipo_servicio = @id_tipo_servicio))
+		BEGIN
+			UPDATE ÑUFLO.RutaAerea
+			SET codigo_ruta = @codigo_ruta, id_ciudad_origen = @id_ciudad_origen, id_ciudad_destino = @id_ciudad_destino,
+				precio_base_por_peso = @precio_base_por_peso, precio_base_por_pasaje = @precio_base_por_pasaje
+			WHERE id_ruta = @id_ruta
 	
 
-	IF(NOT EXISTS(select id_ruta from ÑUFLO.ServicioPorRuta sr where id_ruta = @id_ruta))
-		INSERT INTO ÑUFLO.ServicioPorRuta values(@id_ruta, @id_tipo_servicio)
+			IF(NOT EXISTS(select id_ruta from ÑUFLO.ServicioPorRuta sr where id_ruta = @id_ruta))
+				INSERT INTO ÑUFLO.ServicioPorRuta values(@id_ruta, @id_tipo_servicio)
+			ELSE
+			BEGIN
+				UPDATE ÑUFLO.ServicioPorRuta
+				SET id_tipo_servicio = @id_tipo_servicio
+				WHERE id_ruta = @id_ruta
+			END
+		END
 	ELSE
-	BEGIN
-		UPDATE ÑUFLO.ServicioPorRuta
-		SET id_tipo_servicio = @id_tipo_servicio
-		WHERE id_ruta = @id_ruta
-	END
+		BEGIN
+			DECLARE @msg nvarchar(255)
+			SET @msg = 'Ya existe una ruta aerea de ' + (select nombre from ÑUFLO.Ciudad where id_ciudad = @id_ciudad_origen) +
+						' a ' + (select nombre from ÑUFLO.Ciudad where id_ciudad = @id_ciudad_destino) + 'con servicio ' +
+						(select tipo_servicio from ÑUFLO.TipoServicio where id_tipo_servicio = @id_tipo_servicio);
+			THROW 60060, @msg, 1
+		END
 ;  
 GO
 
