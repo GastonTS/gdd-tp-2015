@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxDNI = new AerolineaFrba.Abm.TextBoxDNI();
             this.btnIngresarDatosPasajero = new System.Windows.Forms.Button();
             this.labelDNI = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBoxButacaYEncomienda = new System.Windows.Forms.GroupBox();
-            this.textBoxCantidadAEncomendar = new AerolineaFrba.Abm.TextBoxDecimal();
+            this.textBoxCantidadAEncomendar = new AerolineaFrba.Abm.TextBoxPositivo();
             this.labelVentanilla = new System.Windows.Forms.Label();
             this.labelPasillo = new System.Windows.Forms.Label();
             this.listBoxEleccionButacaVentanilla = new System.Windows.Forms.ListBox();
@@ -42,8 +43,10 @@
             this.labelButaca = new System.Windows.Forms.Label();
             this.listBoxEleccionButacaPasillo = new System.Windows.Forms.ListBox();
             this.btnAceptar = new AerolineaFrba.Abm.Guardar();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBoxButacaYEncomienda.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -116,7 +119,7 @@
             // textBoxCantidadAEncomendar
             // 
             this.textBoxCantidadAEncomendar.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.textBoxCantidadAEncomendar.ErrorText = "Debe indicarse un peso de encomienda";
+            this.textBoxCantidadAEncomendar.ErrorText = "Ingrese un peso encomienda mayor a cero";
             this.textBoxCantidadAEncomendar.Location = new System.Drawing.Point(152, 32);
             this.textBoxCantidadAEncomendar.Name = "textBoxCantidadAEncomendar";
             this.textBoxCantidadAEncomendar.Size = new System.Drawing.Size(142, 22);
@@ -187,6 +190,10 @@
             this.btnAceptar.TextBtn = "Aceptar";
             this.btnAceptar.Load += new System.EventHandler(this.btnAceptar_Load);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // FormDatosPasajeroEncomienda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -204,6 +211,7 @@
             this.groupBox1.PerformLayout();
             this.groupBoxButacaYEncomienda.ResumeLayout(false);
             this.groupBoxButacaYEncomienda.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -223,6 +231,7 @@
         private System.Windows.Forms.Button btnIngresarDatosPasajero;
         private Abm.TextBoxDNI textBoxDNI;
         private Abm.Guardar btnAceptar;
-        private Abm.TextBoxDecimal textBoxCantidadAEncomendar;
+        private Abm.TextBoxPositivo textBoxCantidadAEncomendar;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
