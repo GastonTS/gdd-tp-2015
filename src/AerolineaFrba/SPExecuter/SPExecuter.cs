@@ -53,17 +53,18 @@ namespace AerolineaFrba
             Boolean encontroErrorConocido = false;
             if (errorMensaje != null)
             {
+                if (errorMensaje.ElementAt(0).Value == "Ignorar errores") return;
                 for (int i = 0; i < errorMensaje.Count; i++)
                 {
                     if (excepcionAtrapada.Number == errorMensaje.ElementAt(i).Key)
                     {
                         if (excepcionAtrapada.Number >= 64000)
-                            MessageBox.Show(errorMensaje.ElementAt(i).Value, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show(errorMensaje.ElementAt(i).Value, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         else
                         {
                             MessageBox.Show(errorMensaje.ElementAt(i).Value, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            encontroErrorConocido = true;
                         }
+                        encontroErrorConocido = true;
                     }
                 }
             }
