@@ -77,10 +77,7 @@ namespace AerolineaFrba
 
         public Boolean huboError() 
         {
-            if (excepcionAtrapada != null)
-                return excepcionAtrapada.Number < 64000;
-            else
-                return false;
+            return excepcionAtrapada != null;
         }
 
         public int codError() 
