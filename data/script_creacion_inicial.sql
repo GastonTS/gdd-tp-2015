@@ -1975,11 +1975,11 @@ CREATE PROCEDURE ÑUFLO.TOP5DestinoPasajesComprados
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
-	select top 5 Destino, COUNT(*) Pasajes
+	select top 5 Destino, COUNT(Pasaje) Pasajes
 		from ÑUFLO.DetallePasajes
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
 		group by Destino
-		order by COUNT(*) desc
+		order by COUNT(Pasaje) desc
 ;
 GO
 
