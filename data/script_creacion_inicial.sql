@@ -1254,11 +1254,13 @@ AS
 				from ÑUFLO.Pasaje p, ÑUFLO.Compra c
 				where @id_viaje = c.id_viaje
 					and p.codigo_de_compra = c.codigo_de_compra
+					and p.cancelado = 0
 			UNION ALL
 			select e.id_cliente, e.id_encomienda, convert(integer, e.precio/10)
 				from ÑUFLO.Encomienda e, ÑUFLO.Compra c
 				where @id_viaje = c.id_viaje
-					and e.codigo_de_compra = c.codigo_de_compra)
+					and e.codigo_de_compra = c.codigo_de_compra
+					and e.cancelado = 0)
 
 	OPEN CClientes
 	FETCH CCLientes INTO @id_cliente, @id_pasaje, @cantidad
