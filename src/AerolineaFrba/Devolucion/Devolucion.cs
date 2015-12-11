@@ -10,16 +10,16 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Devolucion
 {
-    public partial class FormBajaPasajeEncomienda : Form
+    public partial class Devolucion : Form
     {
-        FormDevolucion padre;
+        Deprecated padre;
 
-        public void setPadre(FormDevolucion unForm)
+        public void setPadre(Deprecated unForm)
         {
             padre=unForm;
         }
 
-        public FormBajaPasajeEncomienda()
+        public Devolucion()
         {
             InitializeComponent();
             dataGridView1.Columns["Baja"].ReadOnly = false;

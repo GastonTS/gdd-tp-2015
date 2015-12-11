@@ -208,17 +208,17 @@
     <Compile Include="Consulta Millas\FormConsultaMillas.Designer.cs">
       <DependentUpon>FormConsultaMillas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Devolucion\FormBajaPasajeEncomienda.cs">
+    <Compile Include="Devolucion\Devolucion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Devolucion\FormBajaPasajeEncomienda.Designer.cs">
-      <DependentUpon>FormBajaPasajeEncomienda.cs</DependentUpon>
+    <Compile Include="Devolucion\Devolucion.Designer.cs">
+      <DependentUpon>Devolucion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Devolucion\FormDevolucion.cs">
+    <Compile Include="Devolucion\Deprecated.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Devolucion\FormDevolucion.Designer.cs">
-      <DependentUpon>FormDevolucion.cs</DependentUpon>
+    <Compile Include="Devolucion\Deprecated.Designer.cs">
+      <DependentUpon>Deprecated.cs</DependentUpon>
     </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
@@ -349,11 +349,11 @@
     <EmbeddedResource Include="Consulta Millas\FormConsultaMillas.resx">
       <DependentUpon>FormConsultaMillas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Devolucion\FormBajaPasajeEncomienda.resx">
-      <DependentUpon>FormBajaPasajeEncomienda.cs</DependentUpon>
+    <EmbeddedResource Include="Devolucion\Devolucion.resx">
+      <DependentUpon>Devolucion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Devolucion\FormDevolucion.resx">
-      <DependentUpon>FormDevolucion.cs</DependentUpon>
+    <EmbeddedResource Include="Devolucion\Deprecated.resx">
+      <DependentUpon>Deprecated.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>

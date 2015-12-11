@@ -1,6 +1,6 @@
 ﻿namespace AerolineaFrba.Devolucion
 {
-    partial class FormDevolucion
+    partial class Deprecated
     {
         /// <summary>
         /// Required designer variable.

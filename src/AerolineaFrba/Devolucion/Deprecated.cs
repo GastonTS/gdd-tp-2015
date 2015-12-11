@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Devolucion
 {
-    public partial class FormDevolucion : Form
+    public partial class Deprecated : Form
     {
-        public FormDevolucion()
+        public Deprecated()
         {
             InitializeComponent();
             dataGridView1.Columns.Add("Codigo", "Codigo");
@@ -46,7 +46,7 @@ namespace AerolineaFrba.Devolucion
 
         private void btnAgregarPasaje_Click(object sender, EventArgs e)
         {
-            var formBaja = new FormBajaPasajeEncomienda();
+            var formBaja = new Devolucion();
             formBaja.setPadre(this);
             formBaja.Show();
         }
