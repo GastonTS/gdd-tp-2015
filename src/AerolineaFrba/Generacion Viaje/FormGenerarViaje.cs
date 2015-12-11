@@ -57,8 +57,8 @@ namespace AerolineaFrba.Generacion_Viaje
                 Dictionary<String, gdDataBase.ValorTipo> camposValores = new Dictionary<string, gdDataBase.ValorTipo>();
                 Dictionary<int, String> errorMensaje = new Dictionary<int, string>();
 
-                camposValores.Add("fecha_salida", new gdDataBase.ValorTipo(dateTimePickerSalida.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
-                camposValores.Add("fecha_llegada_estimada", new gdDataBase.ValorTipo(dateTimePickerEstimada.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
+                camposValores.Add("fecha_salida", new gdDataBase.ValorTipo(dateTimePickerSalida.Value.ToString("yyyy-MM-dd HH:mm:ss.000"), SqlDbType.DateTime));
+                camposValores.Add("fecha_llegada_estimada", new gdDataBase.ValorTipo(dateTimePickerEstimada.Value.ToString("yyyy-MM-dd HH:mm:ss.000"), SqlDbType.DateTime));
                 camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
                 camposValores.Add("matricula", new gdDataBase.ValorTipo(textBoxMatricula.Text, SqlDbType.VarChar));
                 camposValores.Add("id_ruta", new gdDataBase.ValorTipo(idRuta.ToString(), SqlDbType.VarChar));

@@ -124,7 +124,7 @@ namespace AerolineaFrba.Compra
             camposValores.Add("direccion", new gdDataBase.ValorTipo(textBoxDireccion.Text, SqlDbType.VarChar));
             camposValores.Add("telefono", new gdDataBase.ValorTipo(textBoxTelefono.Text, SqlDbType.Decimal));
             camposValores.Add("mail", new gdDataBase.ValorTipo(textBoxMail.Text, SqlDbType.VarChar));
-            camposValores.Add("fecha_de_nacimiento", new gdDataBase.ValorTipo(dateTimeFechaNacimiento.Value.ToString("yyyy-MM-dd hh:mm:ss.000"), SqlDbType.DateTime));
+            camposValores.Add("fecha_de_nacimiento", new gdDataBase.ValorTipo(dateTimeFechaNacimiento.Value.ToString("yyyy-MM-dd HH:mm:ss.000"), SqlDbType.DateTime));
 
             new gdDataBase().Exec("ÑUFLO.ModificarCliente", camposValores, null, "Datos del cliente actualizados exitosamente");
 
