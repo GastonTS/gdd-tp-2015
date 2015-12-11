@@ -62,7 +62,6 @@ namespace AerolineaFrba.Abm
         {
             get
             {
-                MessageBox.Show(this.Text);
                 return Decimal.Parse(this.Text);
             }
         }
