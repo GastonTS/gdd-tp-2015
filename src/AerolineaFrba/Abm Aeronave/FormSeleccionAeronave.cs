@@ -180,7 +180,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
                         if (ejecucionReemplazo.huboError())
                         {
-                            DialogResult dialogResultReemplazo = MessageBox.Show("Desea generar una nueva aeronave para poder reprogramar o cancela los viajes?",
+                            DialogResult dialogResultReemplazo = MessageBox.Show("Desea generar una nueva aeronave para poder reprogramar los viajes?\n En caso de seleccionar no se cancelaran los mismos",
                         "Agregar nueva aeronave para reprogramar", MessageBoxButtons.YesNo);
 
                             if (dialogResultReemplazo == DialogResult.Yes)
@@ -300,7 +300,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
                         if (ejecucionReemplazo.huboError())
                         {
-                            DialogResult dialogResultReemplazo = MessageBox.Show("Desea generar una nueva aeronave para poder reprogramar o cancela los viajes?",
+                            DialogResult dialogResultReemplazo = MessageBox.Show("Desea generar una nueva aeronave para poder reprogramar los viajes?\n En caso de seleccionar no se cancelaran los mismos",
                         "Agregar nueva aeronave para reprogramar", MessageBoxButtons.YesNo);
 
                             if (dialogResultReemplazo == DialogResult.Yes)

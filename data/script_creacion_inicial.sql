@@ -109,7 +109,8 @@ CREATE TABLE ÑUFLO.Viaje (
 	peso_ocupado numeric(18,0) NOT NULL,
 	fecha_salida datetime NOT NULL,
 	fecha_llegada datetime,
-	fecha_llegada_estimada datetime NOT NULL
+	fecha_llegada_estimada datetime NOT NULL,
+	cancelado bit DEFAULT 0
 	)
 GO
 
@@ -917,6 +918,7 @@ AS
 			and (@fecha_fin is null and fecha_salida > @fecha_hoy
 				 or fecha_salida between @fecha_hoy and @fecha_fin)
 			and fecha_llegada is null
+			and cancelado = 0
 ;
 GO
 
@@ -925,8 +927,9 @@ CREATE PROCEDURE ÑUFLO.ValidarAeronavesSinViajes
 AS
 	IF(EXISTS (select * 
 		 from ÑUFLO.Viaje
-		 where fecha_llegada IS NULL and
-			   id_aeronave = @id_aeronave))
+		 where fecha_llegada IS NULL
+			and cancelado = 0
+			and id_aeronave = @id_aeronave))
 		THROW 60017, 'No se puede modificar una aeronave con viajes pendientes', 1
 ;
 GO
@@ -1064,6 +1067,9 @@ AS
 
 	EXEC ÑUFLO.CancelarPasajesDe @id_aeronave, @fecha_hoy, @fecha_fin
 	EXEC ÑUFLO.CancelarEncomiendasDe @id_aeronave, @fecha_hoy, @fecha_fin
+	UPDATE ÑUFLO.Viaje
+		SET cancelado = 1
+		where id_aeronave = @id_aeronave
 
 ;
 GO
@@ -1087,6 +1093,7 @@ AS
 			where id_aeronave = @id_aeronave
 				and ((@fecha_f is null and fecha_salida > @fecha_i)
 				or fecha_salida between @fecha_i and @fecha_f)
+				and cancelado = 0
 
 	BEGIN TRANSACTION
 	
@@ -1158,6 +1165,7 @@ AS
 			and convert(date, v.fecha_salida) = convert(date, @fecha)
 			and v.id_aeronave = a.id_aeronave
 			and ts.id_tipo_servicio = a.id_tipo_servicio
+			and v.cancelado = 0
 ;
 GO
 
@@ -1268,6 +1276,7 @@ AS
 						and c.nombre = @origen
 						and v.fecha_llegada is null
 						and v.fecha_salida < @fecha_llegada
+						and v.cancelado = 0
 					order by v.fecha_salida)
 
 	IF(@id_viaje is null)
@@ -1346,7 +1355,8 @@ AS
 						or v.fecha_llegada_estimada between @fecha_vuelo and @fecha_estimada)
 						and v.id_viaje = c.id_viaje
 						and c.codigo_de_compra = p.codigo_de_compra
-						and p.id_cliente = cli.id_cliente))
+						and p.id_cliente = cli.id_cliente
+						and p.cancelado = 0))
 		THROW 60034, 'El pasajero se encuentra volando en esas fechas', 1
 ;
 GO
@@ -1750,6 +1760,11 @@ AS
 
 	CLOSE CRutaAerea
 	DEALLOCATE CRutaAerea
+	
+	UPDATE ÑUFLO.Viaje
+		SET cancelado = 1
+		where id_ruta = @id_ruta
+		
 ;
 GO
 
