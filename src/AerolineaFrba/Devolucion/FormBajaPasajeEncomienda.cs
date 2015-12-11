@@ -35,13 +35,19 @@ namespace AerolineaFrba.Devolucion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            buscarPasajesYEncomiendas();
+
+        }
+
+        private void buscarPasajesYEncomiendas()
+        {
             if (ValidateChildren())
             {
                 var camposValores = gdDataBase.newParameters();
-                camposValores.Add("codigo_compra",new gdDataBase.ValorTipo(textBoxPNR.Text,SqlDbType.Int));
+                camposValores.Add("codigo_compra", new gdDataBase.ValorTipo(textBoxPNR.Text, SqlDbType.Int));
                 var errorMensaje = new Dictionary<int, string>();
                 errorMensaje.Add(64001, "Los pasajes y/o encomiendas para el PNR seleccionado ya fueron realizados.");
-                var executer = new SPExecGetData("ÑUFLO.PasajesYEncomiendasNoCanceladosDe",camposValores, errorMensaje);
+                var executer = new SPExecGetData("ÑUFLO.PasajesYEncomiendasNoCanceladosDe", camposValores, errorMensaje);
                 var resultadoBusqueda = (DataTable)executer.Exec();
                 if (!executer.huboError() && resultadoBusqueda.Rows.Count == 0)
                     MessageBox.Show("No se encontraron resultados que satisfagan la búsqueda");
@@ -51,7 +57,6 @@ namespace AerolineaFrba.Devolucion
                     inicializarColumnaCheckBox();
                 }
             }
-
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -99,13 +104,25 @@ namespace AerolineaFrba.Devolucion
 
         private void cancelarPasajes() {
 
-            foreach (DataGridViewRow fila in filasCheckBoxMarcados())
+            if (dataGridView1.Rows.Count == 0)
             {
-                padre.agregarPasaje(fila);
-
-                
+                MessageBox.Show("Debe ingresar al menos un elemento a devolver.");
+                return;
             }
-            Close();
+            if (ValidateChildren())
+            { 
+            foreach (DataGridViewRow fila in filasCheckBoxMarcados())
+            {  
+                        var camposValores = gdDataBase.newParameters();
+                        camposValores.Add("id", new gdDataBase.ValorTipo(fila.Cells["Codigo"].Value, SqlDbType.Int));
+                        camposValores.Add("tipo", new gdDataBase.ValorTipo(fila.Cells["Tipo"].Value, SqlDbType.NVarChar));
+                        camposValores.Add("motivo", new gdDataBase.ValorTipo(richTextBox1.Text, SqlDbType.NVarChar));
+                        camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
+                        var exec = new SPPureExec("ÑUFLO.CancelarPasajeOEncomienda", camposValores, new Dictionary<int, string>(), "Cancelación de " + fila.Cells["Tipo"].Value + " con código " + fila.Cells["Codigo"].Value + " fue exitosa.");
+                        exec.Exec(new gdDataBase());
+                }
+                                
+            }
         }
 
 
@@ -119,12 +136,17 @@ namespace AerolineaFrba.Devolucion
                         "¿Está seguro que quiere dar de baja los elementos seleccionados?", MessageBoxButtons.YesNo);
                 if (resultado.CompareTo(DialogResult.Yes)==0) cancelarPasajes();
             }
-                
+            buscarPasajesYEncomiendas();
+        }
+
+        private void limpiarTabla()
+        {
+            dataGridView1.DataSource = null;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            limpiarTabla();
         }
     }
 }
