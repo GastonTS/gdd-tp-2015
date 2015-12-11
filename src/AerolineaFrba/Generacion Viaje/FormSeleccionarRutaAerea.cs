@@ -73,6 +73,8 @@ namespace AerolineaFrba.Generacion_Viaje
             dataGridView1.Columns["id destino"].Visible = false;
             dataGridView1.Columns["id origen"].Visible = false;
             dataGridView1.Columns["id servicio"].Visible = false;
+            btnAceptar.Enabled = false;
+            dataGridView1.CurrentCell = dataGridView1.Rows[0].Cells["Ciudad origen"];
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -93,9 +95,9 @@ namespace AerolineaFrba.Generacion_Viaje
         private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             btnAceptar.Enabled = true;
+
             var senderGrid = (DataGridView)sender;
             senderGrid.CurrentRow.Selected = true;
-
         }
     }
 }

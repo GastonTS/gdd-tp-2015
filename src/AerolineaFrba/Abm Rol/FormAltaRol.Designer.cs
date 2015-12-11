@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -39,7 +40,9 @@
             this.labelNombre = new System.Windows.Forms.Label();
             this.comboBoxFuncionalidades = new System.Windows.Forms.ComboBox();
             this.guardar1 = new AerolineaFrba.Abm.Guardar();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLimpiar
@@ -118,6 +121,7 @@
             this.listBoxFuncionalidades.Size = new System.Drawing.Size(143, 108);
             this.listBoxFuncionalidades.TabIndex = 5;
             this.listBoxFuncionalidades.SelectedValueChanged += new System.EventHandler(this.listBoxFuncionalidades_SelectedValueChanged);
+            this.listBoxFuncionalidades.Validating += new System.ComponentModel.CancelEventHandler(this.listBoxFuncionalidades_Validating);
             // 
             // labelFuncionalidades
             // 
@@ -154,6 +158,10 @@
             this.guardar1.TabIndex = 4;
             this.guardar1.TextBtn = "Guardar";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // FormAltaRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,6 +179,7 @@
             this.Load += new System.EventHandler(this.FormAltaRol_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -188,5 +197,6 @@
         private System.Windows.Forms.ListBox listBoxFuncionalidades;
         private Abm.TextBoxValidado textBoxNombre;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
