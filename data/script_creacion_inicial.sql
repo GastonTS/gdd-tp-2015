@@ -2087,7 +2087,7 @@ BEGIN
 		select id_viaje viajes
 			from ÑUFLO.Viaje v
 			where @id_aeronave = v.id_aeronave
-				and canclado = 0
+				and cancelado = 0
 				and (v.fecha_salida between @salida and @llegada
 				or v.fecha_llegada_estimada between @salida and @llegada)
 RETURN
