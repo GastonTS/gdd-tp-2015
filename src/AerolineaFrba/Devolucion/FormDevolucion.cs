@@ -67,6 +67,11 @@ namespace AerolineaFrba.Devolucion
         {
             if (ValidateChildren())
             {
+                if (dataGridView1.Rows.Count == 0)
+                {
+                    MessageBox.Show("Debe ingresar al menos un elemento a devolver.");
+                    return;
+                }
                 foreach (DataGridViewRow fila in dataGridView1.Rows)
                 {
                     var camposValores = gdDataBase.newParameters();
