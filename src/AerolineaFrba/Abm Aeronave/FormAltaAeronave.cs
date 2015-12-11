@@ -12,6 +12,8 @@ namespace AerolineaFrba.Abm_Aeronave
 {
     public partial class FormAltaAeronave : Abm.Alta, IFormulariosAeronave
     {
+        Boolean esReemplazo = false;
+        int idNaveAReemplazar;
         Boolean esModificacion = false;
         String idAeronaveModificada = "";
         DataGridViewRow filaAeronave = null;
@@ -24,6 +26,11 @@ namespace AerolineaFrba.Abm_Aeronave
             new gdDataBase().actualizarBindingSourceQuery(bindingSourceTipoServicio, "select * from [Ñuflo].TipoServicio");
             comboBoxTipoServicio.DisplayMember = "tipo_servicio";
             comboBoxTipoServicio.ValueMember = "id_tipo_servicio";
+        }
+
+        public void esReemplazoDe(int id_nave) {
+            esReemplazo = true;
+            idNaveAReemplazar = id_nave;
         }
 
 
@@ -147,10 +154,25 @@ namespace AerolineaFrba.Abm_Aeronave
             textBoxButacasPasillo.Text = cantidadPasillo.ToString();
         }
 
+        private Boolean esReemplazoValido()
+        {
+            var campoValor = gdDataBase.newParameters();
+            campoValor.Add("@aeronave_anterior", new gdDataBase.ValorTipo(idNaveAReemplazar,SqlDbType.Int));
+            campoValor.Add("@datosAeronaveNueva", new gdDataBase.ValorTipo(idNaveAReemplazar,SqlDbType.Int));
+            return new gdDataBase().Exec("ValidarAeronave", campoValor, null).huboError();
+        }
+
         protected override void guardarPosta()
         {
             if (!esModificacion)
             {
+                if (miPadre != null)
+                {
+                    if (!esReemplazoValido()) {
+                        MessageBox.Show("La aeronave no cumple con los requisitos para suplantar la aeronave anterior");
+                        return;
+                    }
+                }
                 var alta = spAltaAeronave();
                 alta.Exec();
                 if (!alta.huboError())
@@ -163,7 +185,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 if (miPadre != null)
                 {
                     this.Close();
-                    miPadre.podesDarDeBaja(esVidaUtil);
+                    miPadre.daDeBaja(esVidaUtil);
                 }
             }
             else
@@ -178,6 +200,17 @@ namespace AerolineaFrba.Abm_Aeronave
                 }
                 miPadre.consultarConFiltro();
                 this.Close();
+            }
+        }
+
+        private void FormAltaAeronave_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (esReemplazo)
+            {
+             
+                var opcion = MessageBox.Show("¿Está seguro que desea cancelar toda la operación?","Baja de aeronave",MessageBoxButtons.YesNo);
+                if (opcion == DialogResult.No)
+                    e.Cancel = true;
             }
         }
     }

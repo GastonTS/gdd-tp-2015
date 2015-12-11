@@ -253,6 +253,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Name = "FormAltaAeronave";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta Aeronave";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormAltaAeronave_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTipoServicio)).EndInit();
