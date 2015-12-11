@@ -189,7 +189,7 @@ namespace AerolineaFrba
 
         private void devoluciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Devolucion.FormDevolucion formularioDevolucion = new Devolucion.FormDevolucion();
+            Devolucion.Deprecated formularioDevolucion = new Devolucion.Deprecated();
 
             formularioDevolucion.MdiParent = this;
 
@@ -198,7 +198,7 @@ namespace AerolineaFrba
 
         private void bajaPasajeEncomiendaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Devolucion.FormBajaPasajeEncomienda formularioBajaPasajeEncomienda = new Devolucion.FormBajaPasajeEncomienda();
+            Devolucion.Devolucion formularioBajaPasajeEncomienda = new Devolucion.Devolucion();
 
             formularioBajaPasajeEncomienda.MdiParent = this;
 
