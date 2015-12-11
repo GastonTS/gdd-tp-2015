@@ -1736,13 +1736,17 @@ AS
 
 	DECLARE CRutaAerea CURSOR 
 		FOR (select p.id_pasaje id, 'Pasaje' as tipo
-				from ÑUFLO.Compra c, ÑUFLO.Pasaje p
-				where c.id_viaje = @id_ruta
+				from ÑUFLO.Compra c, ÑUFLO.Pasaje p, ÑUFLO.Viaje v
+				where v.id_ruta = @id_ruta
+					and c.id_viaje = v.id_viaje
+					and v.fecha_llegada IS NULL--PROBAR
 					and c.codigo_de_compra = p.codigo_de_compra
 			 UNION
 			 select e.id_encomienda id, 'Encomienda' as tipo
-				from ÑUFLO.Compra c, ÑUFLO.Encomienda e
-				where c.id_viaje = @id_ruta
+				from ÑUFLO.Compra c, ÑUFLO.Encomienda e, ÑUFLO.Viaje v
+				where v.id_ruta = @id_ruta
+					and c.id_viaje = v.id_viaje
+					and v.fecha_llegada IS NULL--PROBAR
 					and c.codigo_de_compra = e.codigo_de_compra)
 
 	
@@ -1888,7 +1892,7 @@ AS
 				from ÑUFLO.DetalleMillas 
 				where DNI = @dni ) )
 	BEGIN
-		THROW 60018, 'El cliente no tiene ninguna milla acumulada', 1
+		THROW 69018, 'El cliente no tiene ninguna milla acumulada', 1
 	END
 	ELSE
 	BEGIN
@@ -1982,11 +1986,11 @@ CREATE PROCEDURE ÑUFLO.TOP5DestinoPasajesComprados
 @fecha_inicio datetime,
 @fecha_fin datetime
 AS
-	select top 5 Destino, COUNT(*) Pasajes
+	select top 5 Destino, COUNT(Pasaje) Pasajes
 		from ÑUFLO.DetallePasajes
 		where Fecha_de_Compra between @fecha_inicio and @fecha_fin
 		group by Destino
-		order by COUNT(*) desc
+		order by COUNT(Pasaje) desc
 ;
 GO
 
