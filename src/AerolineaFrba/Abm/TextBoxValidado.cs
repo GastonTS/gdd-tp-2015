@@ -26,11 +26,19 @@ namespace AerolineaFrba.Abm
             textBox1.CausesValidation = this.CausesValidation;
         }
 
+        protected void textBox1_ChequearVacio(object sender, EventArgs e) 
+        {
+            MessageBox.Show("Text changed");
+            if (textBox1.Text.Trim() == "") textBox1.Clear();
+        }
+
         public event EventHandler TextboxTextChanged;
 
 
         protected void textBox1_TextChanged(object sender, EventArgs e)
         {
+         
+            
             if (TextboxTextChanged != null)
             {
                 TextboxTextChanged(this, e);
