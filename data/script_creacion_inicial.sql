@@ -1760,10 +1760,6 @@ AS
 
 	CLOSE CRutaAerea
 	DEALLOCATE CRutaAerea
-	
-	UPDATE ÑUFLO.Viaje
-		SET cancelado = 1
-		where id_ruta = @id_ruta
 		
 ;
 GO
@@ -1778,6 +1774,11 @@ AS
 		UPDATE ÑUFLO.RutaAerea
 			set cancelado = 1
 		WHERE id_ruta=@id_ruta;
+		
+			
+		UPDATE ÑUFLO.Viaje
+			SET cancelado = 1
+			where id_ruta = @id_ruta;
 		END
 	
 	EXEC ÑUFLO.CancelarRutaAerea @id_ruta, @hoy
@@ -2086,6 +2087,7 @@ BEGIN
 		select id_viaje viajes
 			from ÑUFLO.Viaje v
 			where @id_aeronave = v.id_aeronave
+				and canclado = 0
 				and (v.fecha_salida between @salida and @llegada
 				or v.fecha_llegada_estimada between @salida and @llegada)
 RETURN
