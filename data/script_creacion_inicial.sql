@@ -1205,7 +1205,7 @@ AS
 	IF(@id_ruta NOT IN (select id_ruta from ÑUFLO.RutaAerea))
 		THROW 60012, 'La ruta ingresada no existe', 1
 	
-	IF(@fecha_llegada_estimada < @fecha_salida)
+	IF(@fecha_llegada_estimada =< @fecha_salida)
 		THROW 60013, 'La fecha de llegada no puede ser menor a la de salida', 1
 		
 	IF(@fecha_salida < @hoy)
