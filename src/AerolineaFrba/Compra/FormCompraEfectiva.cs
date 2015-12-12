@@ -15,7 +15,7 @@ namespace AerolineaFrba.Compra
         List<FormSeleccionViaje.Pasaje> pasajesAComprar = new List<FormSeleccionViaje.Pasaje>();
         List<FormSeleccionViaje.Encomienda> encomiendasAComprar = new List<FormSeleccionViaje.Encomienda>();
         FormSeleccionViaje.Compra compraARealizar;
-        List<String> mediosDePagoDesarrollo = new List<String> { "Tarjeta de crédito", "Efectivo", "Bitcoins", "Pago en especias", "Cheques de Mumuki", "Fiar"};
+        List<String> mediosDePagoDesarrollo = new List<String> { "Tarjeta de crédito", "Efectivo"};
         List<String> mediosDePagoKiosco = new List<String>{"Tarjeta de crédito"};
         List<String> mediosDePagoAdministrativa = new List<String>{"Tarjeta de crédito", "Efectivo"};
         Dictionary<String, List<String>> mediosDePagoSegunTerminal = new Dictionary<String, List<String>>();
