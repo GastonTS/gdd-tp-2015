@@ -37,10 +37,10 @@
             this.labelMatricula = new System.Windows.Forms.Label();
             this.labelFabricante = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBoxCantidadButacas = new Abm.TextBoxNumeros();
+            this.textBoxCantidadButacas = new AerolineaFrba.Abm.TextBoxNumeros();
             this.labelCantidadButacas = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxCapacidadEncomiendas = new Abm.TextBoxNumeros();
+            this.textBoxCapacidadEncomiendas = new AerolineaFrba.Abm.TextBoxNumeros();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
             this.labelCapacidadEncomiendas = new System.Windows.Forms.Label();
@@ -137,22 +137,24 @@
             this.groupBox2.Controls.Add(this.labelCapacidadEncomiendas);
             this.groupBox2.Location = new System.Drawing.Point(27, 184);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(718, 67);
+            this.groupBox2.Size = new System.Drawing.Size(794, 67);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Características de la Aeronave";
             // 
             // textBoxCantidadButacas
             // 
-            this.textBoxCantidadButacas.Location = new System.Drawing.Point(634, 24);
+            this.textBoxCantidadButacas.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCantidadButacas.ErrorText = null;
+            this.textBoxCantidadButacas.Location = new System.Drawing.Point(674, 24);
             this.textBoxCantidadButacas.Name = "textBoxCantidadButacas";
-            this.textBoxCantidadButacas.Size = new System.Drawing.Size(59, 20);
+            this.textBoxCantidadButacas.Size = new System.Drawing.Size(114, 20);
             this.textBoxCantidadButacas.TabIndex = 2;
             // 
             // labelCantidadButacas
             // 
             this.labelCantidadButacas.AutoSize = true;
-            this.labelCantidadButacas.Location = new System.Drawing.Point(519, 28);
+            this.labelCantidadButacas.Location = new System.Drawing.Point(559, 28);
             this.labelCantidadButacas.Name = "labelCantidadButacas";
             this.labelCantidadButacas.Size = new System.Drawing.Size(109, 13);
             this.labelCantidadButacas.TabIndex = 13;
@@ -169,9 +171,11 @@
             // 
             // textBoxCapacidadEncomiendas
             // 
+            this.textBoxCapacidadEncomiendas.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.textBoxCapacidadEncomiendas.ErrorText = null;
             this.textBoxCapacidadEncomiendas.Location = new System.Drawing.Point(421, 25);
             this.textBoxCapacidadEncomiendas.Name = "textBoxCapacidadEncomiendas";
-            this.textBoxCapacidadEncomiendas.Size = new System.Drawing.Size(59, 20);
+            this.textBoxCapacidadEncomiendas.Size = new System.Drawing.Size(134, 20);
             this.textBoxCapacidadEncomiendas.TabIndex = 1;
             // 
             // comboBoxTipoServicio
@@ -199,7 +203,7 @@
             this.groupBoxEstadoAeronave.Controls.Add(this.checkBoxBajaPorServicio);
             this.groupBoxEstadoAeronave.Location = new System.Drawing.Point(407, 25);
             this.groupBoxEstadoAeronave.Name = "groupBoxEstadoAeronave";
-            this.groupBoxEstadoAeronave.Size = new System.Drawing.Size(338, 138);
+            this.groupBoxEstadoAeronave.Size = new System.Drawing.Size(414, 138);
             this.groupBoxEstadoAeronave.TabIndex = 15;
             this.groupBoxEstadoAeronave.TabStop = false;
             this.groupBoxEstadoAeronave.Text = "Estado actual de la Aeronave";
@@ -238,7 +242,7 @@
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(661, 267);
+            this.btnSeleccionar.Location = new System.Drawing.Point(737, 267);
             this.btnSeleccionar.Name = "btnSeleccionar";
             this.btnSeleccionar.Size = new System.Drawing.Size(84, 23);
             this.btnSeleccionar.TabIndex = 17;
@@ -257,7 +261,7 @@
             this.dataGridViewAeronave.MultiSelect = false;
             this.dataGridViewAeronave.Name = "dataGridViewAeronave";
             this.dataGridViewAeronave.ReadOnly = true;
-            this.dataGridViewAeronave.Size = new System.Drawing.Size(718, 205);
+            this.dataGridViewAeronave.Size = new System.Drawing.Size(794, 205);
             this.dataGridViewAeronave.TabIndex = 18;
             this.dataGridViewAeronave.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAeronave_CellEnter);
             // 
@@ -316,7 +320,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 592);
+            this.ClientSize = new System.Drawing.Size(964, 592);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.btnBajaVidaUtil);

@@ -80,6 +80,7 @@ namespace AerolineaFrba.Abm_Aeronave
             comboBoxTipoServicio.Text = "";
             checkBoxBajaPorServicio.Checked = false;
             checkBoxPorVidaUtil.Checked = false;
+            comboBoxTipoServicio.SelectedIndex = 0;
         }
 
         private void deshabilitarModifBaja()
