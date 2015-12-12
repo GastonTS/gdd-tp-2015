@@ -50,7 +50,7 @@ namespace AerolineaFrba
         {
             var camposValores = gdDataBase.newParameters();
 
-            camposValores.Add("nombre_usuario", new gdDataBase.ValorTipo("Cliente", SqlDbType.NVarChar));
+            camposValores.Add("nombre_rol", new gdDataBase.ValorTipo("Cliente", SqlDbType.NVarChar));
 
             var funciones = new gdDataBase().ExecAndGetData("ÑUFLO.FuncionalidadesDe", camposValores, new Dictionary<int, String>()).Rows;
             resetearFuncionalidades();
