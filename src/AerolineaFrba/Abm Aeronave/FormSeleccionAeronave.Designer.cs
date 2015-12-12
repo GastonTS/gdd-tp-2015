@@ -37,10 +37,10 @@
             this.labelMatricula = new System.Windows.Forms.Label();
             this.labelFabricante = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBoxCantidadButacas = new System.Windows.Forms.TextBox();
+            this.textBoxCantidadButacas = new Abm.TextBoxNumeros();
             this.labelCantidadButacas = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxCapacidadEncomiendas = new System.Windows.Forms.TextBox();
+            this.textBoxCapacidadEncomiendas = new Abm.TextBoxNumeros();
             this.comboBoxTipoServicio = new System.Windows.Forms.ComboBox();
             this.bindingSourceTipoServicio = new System.Windows.Forms.BindingSource(this.components);
             this.labelCapacidadEncomiendas = new System.Windows.Forms.Label();
@@ -353,10 +353,10 @@
         private System.Windows.Forms.Label labelMatricula;
         private System.Windows.Forms.Label labelFabricante;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBoxCantidadButacas;
+        private Abm.TextBoxNumeros textBoxCantidadButacas;
         private System.Windows.Forms.Label labelCantidadButacas;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxCapacidadEncomiendas;
+        private Abm.TextBoxNumeros textBoxCapacidadEncomiendas;
         private System.Windows.Forms.ComboBox comboBoxTipoServicio;
         private System.Windows.Forms.Label labelCapacidadEncomiendas;
         private System.Windows.Forms.GroupBox groupBoxEstadoAeronave;
