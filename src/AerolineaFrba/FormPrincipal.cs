@@ -48,14 +48,26 @@ namespace AerolineaFrba
 
         private void activarFuncionalidadesDeKiosco()
         {
-            foreach (var funcionalidad in ids_funcionalidades)
+            var camposValores = gdDataBase.newParameters();
+
+            camposValores.Add("nombre_usuario", new gdDataBase.ValorTipo("Cliente", SqlDbType.NVarChar));
+
+            var funciones = new gdDataBase().ExecAndGetData("ÑUFLO.FuncionalidadesDe", camposValores, new Dictionary<int, String>()).Rows;
+            resetearFuncionalidades();
+
+            foreach (DataRow funcion in funciones)
+            {
+                activarFuncionalidad((int)funcion["id_funcionalidad"]);
+            }
+
+            /*foreach (var funcionalidad in ids_funcionalidades)
             {
                 if (funcionalidad.Key == 6 || funcionalidad.Key == 8 || funcionalidad.Key == 9)
                 {
                     ToolStripMenuItem menuFuncion = funcionalidad.Value;
                     menuFuncion.Visible = true;
                 }
-            }
+            }*/
         }
 
         public void habilitarFormulario()
