@@ -1603,7 +1603,7 @@ AS
 	DECLARE @id_rol INT
 	SET @id_rol = (select ÑUFLO.idRolDe(@nombre_rol))
 	
-	SELECT descripcion
+	SELECT descripcion, f.id_funcionalidad
 		FROM ÑUFLO.Funcionalidad f 
 			JOIN ÑUFLO.FuncionalidadPorRol fr ON (f.id_funcionalidad = fr.id_funcionalidad)
 			JOIN ÑUFLO.Rol r ON (r.id_rol = fr.id_rol)
