@@ -1851,7 +1851,8 @@ AS
 					where r.id_ciudad_origen = @id_ciudad_origen
 						and r.id_ciudad_destino = @id_ciudad_destino
 						and r.id_ruta = sr.id_ruta
-						and sr.id_tipo_servicio = @id_tipo_servicio))
+						and sr.id_tipo_servicio = @id_tipo_servicio
+						and r.id_ruta <> @id_ruta))
 		BEGIN
 			UPDATE ÑUFLO.RutaAerea
 			SET codigo_ruta = @codigo_ruta, id_ciudad_origen = @id_ciudad_origen, id_ciudad_destino = @id_ciudad_destino,
