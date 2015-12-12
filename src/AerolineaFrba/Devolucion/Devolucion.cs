@@ -110,14 +110,19 @@ namespace AerolineaFrba.Devolucion
                 return;
             }
             if (ValidateChildren())
-            { 
+            {
+                var parametrosCancelarCompra = gdDataBase.newParameters();
+                parametrosCancelarCompra.Add("pnr", new gdDataBase.ValorTipo(int.Parse(textBoxPNR.Text),SqlDbType.Int));
+                parametrosCancelarCompra.Add("hoy", new gdDataBase.ValorTipo(Config.fecha,SqlDbType.DateTime));
+                int codigoCancelacion = (int)new gdDataBase().ExecAndGetData("ÑUFLO.CrearCancelacion", parametrosCancelarCompra).Rows[0][0];
+
             foreach (DataGridViewRow fila in filasCheckBoxMarcados())
             {  
                         var camposValores = gdDataBase.newParameters();
                         camposValores.Add("id", new gdDataBase.ValorTipo(fila.Cells["Codigo"].Value, SqlDbType.Int));
                         camposValores.Add("tipo", new gdDataBase.ValorTipo(fila.Cells["Tipo"].Value, SqlDbType.NVarChar));
                         camposValores.Add("motivo", new gdDataBase.ValorTipo(richTextBox1.Text, SqlDbType.NVarChar));
-                        camposValores.Add("hoy", new gdDataBase.ValorTipo(Config.fecha.ToString(), SqlDbType.DateTime));
+                        camposValores.Add("id_cancelacion", new gdDataBase.ValorTipo(codigoCancelacion, SqlDbType.Int));
                         var exec = new SPPureExec("ÑUFLO.CancelarPasajeOEncomienda", camposValores, new Dictionary<int, string>(), "Cancelación de " + fila.Cells["Tipo"].Value + " con código " + fila.Cells["Codigo"].Value + " fue exitosa.");
                         exec.Exec(new gdDataBase());
                 }
@@ -136,7 +141,7 @@ namespace AerolineaFrba.Devolucion
                         "¿Está seguro que quiere dar de baja los elementos seleccionados?", MessageBoxButtons.YesNo);
                 if (resultado.CompareTo(DialogResult.Yes)==0) cancelarPasajes();
             }
-            buscarPasajesYEncomiendas();
+            limpiarTabla();
         }
 
         private void limpiarTabla()
